@@ -1,77 +1,22 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import type { TeruletTipus, FoglalkozasTervezet, IrodalomTipus } from '@shared/schema';
+import type { TeruletTipus, FoglalkozasTervezet } from '@shared/schema';
 import type { HetiTervTeljes } from '../../../preload/index';
 import { vanAdatvedelmiKockazat } from '../lib/utils';
-import IrodalomAutoComplete from '../components/IrodalomAutoComplete';
 import OtletekModal from './HetiTerv/OtletekModal';
 import DokumentumNezet from './HetiTerv/DokumentumNezet';
 import { SablonValaszto, SablonBanner } from './HetiTerv/SablonValaszto';
 import OsszegzoSzekcio from './HetiTerv/OsszegzoSzekcio';
-import type { TeruletAllapot, SablonMeta, SablonOtletForras } from './HetiTerv/types';
+import TeruletSzekciok from './HetiTerv/TeruletSzekciok';
+import {
+  TERULET_DEFINICIO,
+  type TeruletAllapot,
+  type SablonMeta,
+  type SablonOtletForras,
+} from './HetiTerv/types';
 
-// Mely irodalom-típusok kapcsolódnak az adott területhez (autocomplete-szűréshez).
-const IRODALOM_TIPUSOK_TERULETHEZ: Partial<Record<TeruletTipus, IrodalomTipus[]>> = {
-  verseles_meseles: ['vers', 'mese', 'mondoka', 'nepmese', 'regeny', 'verseskotet', 'altato', 'nepmonda', 'talalos_kerdes'],
-  enek_zene: ['dal', 'zenehallgatas', 'koreplay'],
-};
-
-const TERULET_DEFINICIO: Array<{
-  tipus: TeruletTipus;
-  cim: string;
-  placeholder: string;
-  szint: 'fo' | 'al';
-  szuloTipus?: TeruletTipus;
-}> = [
-  {
-    tipus: 'kulso_vilag',
-    cim: 'Külső világ tevékeny megismerésére nevelés',
-    placeholder: 'Mit fognak megtapasztalni, megismerni a gyerekek a külső világból?',
-    szint: 'fo',
-  },
-  {
-    tipus: 'matematika',
-    cim: 'Matematikai tartalom',
-    placeholder: 'Számlálás, halmazok, formák, sorrendezés…',
-    szint: 'al',
-    szuloTipus: 'kulso_vilag',
-  },
-  {
-    tipus: 'verseles_meseles',
-    cim: 'Verselés, mesélés',
-    placeholder: 'Mesék és mondókák, versek a hétre',
-    szint: 'fo',
-  },
-  {
-    tipus: 'rajzolas_festes',
-    cim: 'Rajzolás, festés, mintázás, építés, képalakítás, kézimunka',
-    placeholder: 'Alkotó tevékenységek',
-    szint: 'fo',
-  },
-  {
-    tipus: 'enek_zene',
-    cim: 'Ének, zene, népi játék, tánc',
-    placeholder: 'Énekek, körjátékok, zenehallgatás',
-    szint: 'fo',
-  },
-  {
-    tipus: 'hallas_ritmus',
-    cim: 'Hallás és ritmusérzék fejlesztés',
-    placeholder: 'Ritmusjáték, visszatapsolás, fogalompárok…',
-    szint: 'al',
-    szuloTipus: 'enek_zene',
-  },
-  {
-    tipus: 'mozgas',
-    cim: 'Mindennapos mozgás',
-    placeholder: 'Tornatermi és udvari mozgásos tevékenységek',
-    szint: 'fo',
-  },
-];
-
-// A 3 interface (TeruletAllapot, SablonMeta, SablonOtletForras) átkerült
-// a HetiTerv/types.ts-be — a renderer-bundle nem nő, mert ezeket csak típusként
-// hivatkozzuk. A TODO-6 Etap A refaktor része.
+// A 3 interface + TERULET_DEFINICIO + IRODALOM_TIPUSOK_TERULETHEZ átkerült
+// a HetiTerv/ mappába (types.ts, TeruletSzekciok.tsx). TODO-6 refaktor.
 
 const URES_TERULETEK: TeruletAllapot[] = TERULET_DEFINICIO.map((d) => ({
   tipus: d.tipus,
@@ -487,8 +432,7 @@ export default function HetiTerv() {
     );
   };
 
-  const getTerulet = (tipus: TeruletTipus) =>
-    teruletAllapotok.find((t) => t.tipus === tipus) ?? { tipus, tartalom: '', iskolaElokeszito: '' };
+  // getTerulet a TeruletSzekciok komponensbe került (TODO-6 Etap C)
 
   const adatvedelmiTalalat =
     !!terv && (
@@ -578,77 +522,13 @@ export default function HetiTerv() {
           />
         )}
 
-        <div className="space-y-4">
-          {TERULET_DEFINICIO.filter((d) => d.szint === 'fo').map((d) => (
-            <section key={d.tipus} className="terulet-szekcio">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="heading-serif text-lg font-medium">{d.cim}</h2>
-                <button
-                  onClick={() => nyitOtletekPanel(d.tipus)}
-                  className="text-xs px-2 py-1 rounded border border-sage-300 text-sage-700 hover:bg-sage-100 transition whitespace-nowrap"
-                  title="Tallózz a kapcsolódó sablonok között, és válassz ötleteket"
-                >
-                  💡 Ötletek (10+)
-                </button>
-              </div>
-              {IRODALOM_TIPUSOK_TERULETHEZ[d.tipus] ? (
-                <IrodalomAutoComplete
-                  value={getTerulet(d.tipus).tartalom}
-                  onChange={(v) => updateTerulet(d.tipus, 'tartalom', v)}
-                  rows={4}
-                  placeholder={d.placeholder}
-                  className="w-full text-sm leading-relaxed bg-transparent outline-none resize-vertical focus:bg-sage-50/40 rounded p-2 transition border border-sage-100"
-                  tipusok={IRODALOM_TIPUSOK_TERULETHEZ[d.tipus]!}
-                  korcsoport={korcsoport}
-                />
-              ) : (
-                <textarea
-                  value={getTerulet(d.tipus).tartalom}
-                  onChange={(e) => updateTerulet(d.tipus, 'tartalom', e.target.value)}
-                  rows={4}
-                  placeholder={d.placeholder}
-                  className="w-full text-sm leading-relaxed bg-transparent outline-none resize-vertical focus:bg-sage-50/40 rounded p-2 transition border border-sage-100"
-                />
-              )}
-
-              {/* Al-szekciók */}
-              {TERULET_DEFINICIO.filter((al) => al.szuloTipus === d.tipus).map((al) => (
-                <div key={al.tipus} className="mt-3 pl-3 border-l-2 border-sage-100">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="field-label">{al.cim}</h3>
-                    <button
-                      onClick={() => nyitOtletekPanel(al.tipus)}
-                      className="text-[10px] px-2 py-0.5 rounded border border-sage-200 text-sage-700 hover:bg-sage-50"
-                    >
-                      💡 Ötletek
-                    </button>
-                  </div>
-                  <textarea
-                    value={getTerulet(al.tipus).tartalom}
-                    onChange={(e) => updateTerulet(al.tipus, 'tartalom', e.target.value)}
-                    rows={2}
-                    placeholder={al.placeholder}
-                    className="w-full text-sm leading-relaxed bg-transparent outline-none resize-vertical focus:bg-sage-50/40 rounded p-2 transition"
-                  />
-                </div>
-              ))}
-
-              <details className="mt-2 group">
-                <summary className="text-xs font-semibold text-sage-700 cursor-pointer hover:underline list-none">
-                  <span className="inline-block group-open:rotate-90 transition-transform">▸</span>{' '}
-                  Iskola előkészítő tevékenység
-                </summary>
-                <textarea
-                  value={getTerulet(d.tipus).iskolaElokeszito}
-                  onChange={(e) => updateTerulet(d.tipus, 'iskolaElokeszito', e.target.value)}
-                  rows={3}
-                  placeholder="A területhez tartozó iskola-előkészítő képességek, soronként egy…"
-                  className="mt-1 w-full text-sm leading-relaxed bg-transparent outline-none resize-vertical focus:bg-sage-50/40 rounded p-2 transition border border-sage-100"
-                />
-              </details>
-            </section>
-          ))}
-        </div>
+        <TeruletSzekciok
+          definicio={TERULET_DEFINICIO}
+          teruletAllapotok={teruletAllapotok}
+          onUpdate={updateTerulet}
+          onNyitOtletekPanel={nyitOtletekPanel}
+          korcsoport={korcsoport}
+        />
 
         <OsszegzoSzekcio terv={terv} onUpdate={update} autoEszkozok={autoEszkozok} />
 
