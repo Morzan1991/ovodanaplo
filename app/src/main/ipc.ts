@@ -237,8 +237,38 @@ export function registerIpcHandlers(): void {
     return db.insert(hetiTervek).values(data).returning().get();
   });
 
+  /**
+   * Heti terv CASCADE-elt törlése.
+   * A FK constraint-ek miatt sorrend kötelező:
+   *  1. reflexiok (heti_terv_id és foglalkozas_id-n keresztül)
+   *  2. foglalkozas_tervezetek
+   *  3. heti_tervek (a teruletek + heti_terv_kepesseg CASCADE-elnek)
+   */
   ipcMain.handle(IpcChannels.hetiTervTorol, (_e, id: number) => {
-    return db.delete(hetiTervek).where(eq(hetiTervek.id, id)).returning().get();
+    if (typeof id !== 'number') throw new Error('[hetiTervTorol] érvénytelen id');
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // Kapcsolódó foglalkozás-tervezetek id-ja (a reflexiók törléséhez)
+      const foglalkozasIds = db
+        .select({ id: foglalkozasTervezetek.id })
+        .from(foglalkozasTervezetek)
+        .where(eq(foglalkozasTervezetek.hetiTervId, id))
+        .all()
+        .map((f) => f.id);
+
+      // 1. Reflexiók: a heti terv KÖZVETLENÜL kapcsolódó + foglalkozás-kapcsoltak
+      db.delete(reflexiok).where(eq(reflexiok.hetiTervId, id)).run();
+      if (foglalkozasIds.length > 0) {
+        db.delete(reflexiok).where(inArray(reflexiok.foglalkozasId, foglalkozasIds)).run();
+      }
+
+      // 2. Foglalkozás-tervezetek
+      db.delete(foglalkozasTervezetek).where(eq(foglalkozasTervezetek.hetiTervId, id)).run();
+
+      // 3. Maga a heti terv (teruletek + heti_terv_kepesseg CASCADE)
+      return db.delete(hetiTervek).where(eq(hetiTervek.id, id)).returning().get();
+    });
+    return tx();
   });
 
   // Heti terv + területek együtt betöltve
