@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { NevelesiEv, HetiTerv, Unnep, Esemeny } from '@shared/schema';
 import { hetTartomany, nevelesiEvCimke } from '../lib/utils';
+import UjNevelesiEvModal from '../components/UjNevelesiEvModal';
 
 const HONAPOK = [
   'Január', 'Február', 'Március', 'Április', 'Május', 'Június',
@@ -17,6 +18,8 @@ export default function Naptar() {
   const [unnepek, setUnnepek] = useState<Unnep[]>([]);
   const [esemenyek, setEsemenyek] = useState<Esemeny[]>([]);
   const [loading, setLoading] = useState(true);
+  // Új nevelési év modal nyitva-e (jövő-éves tervezés vagy aktív év-váltás)
+  const [ujEvModalNyitva, setUjEvModalNyitva] = useState(false);
 
   async function torolHetiTerv(terv: HetiTerv) {
     const cim = terv.tema && terv.tema.trim() ? terv.tema : 'Heti terv';
@@ -106,16 +109,44 @@ export default function Naptar() {
             >
               {evek.map((ev) => (
                 <option key={ev.id} value={ev.id}>
-                  {ev.nev}
+                  {ev.nev}{ev.aktiv ? ' (aktív)' : ''}
                 </option>
               ))}
             </select>
           )}
+          <button
+            onClick={() => setUjEvModalNyitva(true)}
+            className="text-xs text-sage-700 hover:text-sage-800 hover:underline whitespace-nowrap"
+            title="Új nevelési év hozzáadása (pl. új tanév szeptemberben)"
+          >
+            + Új év
+          </button>
           <div className="text-xs text-ink/50 italic">
-            Új heti tervnél választhatsz sablont (Mikulás, Húsvét, Tavasz, stb.) — 21 előre elkészített téma.
+            Új heti tervnél választhatsz sablont (Mikulás, Húsvét, Tavasz, stb.) — 85 előre elkészített téma.
           </div>
         </div>
       </div>
+
+      {ujEvModalNyitva && (
+        <UjNevelesiEvModal
+          meglevoEvek={evek}
+          onBezar={() => setUjEvModalNyitva(false)}
+          onLetrehozva={async (ujEv) => {
+            setUjEvModalNyitva(false);
+            // Friss évek lekérése (az aktivációs flag-ek frissülnek)
+            const frissEvek = await window.api.nevelesiEvLista();
+            setEvek(frissEvek);
+            setNevelesiEv(ujEv);
+            // Az új évhez tartozó (üres) heti tervek + események betöltése
+            const [tervek, esemenyekLista] = await Promise.all([
+              window.api.hetiTervLista(ujEv.id),
+              window.api.esemenyLista(ujEv.id),
+            ]);
+            setHetiTervek(tervek);
+            setEsemenyek(esemenyekLista);
+          }}
+        />
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {NEVELESI_EV_HONAPOK.map((honapIdx) => {
