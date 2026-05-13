@@ -6,6 +6,8 @@ import { vanAdatvedelmiKockazat } from '../lib/utils';
 import IrodalomAutoComplete from '../components/IrodalomAutoComplete';
 import OtletekModal from './HetiTerv/OtletekModal';
 import DokumentumNezet from './HetiTerv/DokumentumNezet';
+import { SablonValaszto, SablonBanner } from './HetiTerv/SablonValaszto';
+import OsszegzoSzekcio from './HetiTerv/OsszegzoSzekcio';
 import type { TeruletAllapot, SablonMeta, SablonOtletForras } from './HetiTerv/types';
 
 // Mely irodalom-típusok kapcsolódnak az adott területhez (autocomplete-szűréshez).
@@ -70,10 +72,6 @@ const TERULET_DEFINICIO: Array<{
 // A 3 interface (TeruletAllapot, SablonMeta, SablonOtletForras) átkerült
 // a HetiTerv/types.ts-be — a renderer-bundle nem nő, mert ezeket csak típusként
 // hivatkozzuk. A TODO-6 Etap A refaktor része.
-
-const HONAPOK = [
-  '', 'Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Szep', 'Okt', 'Nov', 'Dec',
-];
 
 const URES_TERULETEK: TeruletAllapot[] = TERULET_DEFINICIO.map((d) => ({
   tipus: d.tipus,
@@ -551,101 +549,33 @@ export default function HetiTerv() {
           </div>
         </div>
 
-        {/* Sablon-választó:
-            - Új tervnél: csak addig, amíg nem alkalmazott sablont (sablonHasznalva flag).
-            - Meglévő tervnél: MINDIG látszik, hogy bármikor lehessen másik sablonra váltani
-              (konfirmációval, ha van tartalom — lásd `sablonAlkalmazasa`). */}
-        {sablonok.length > 0 && (params.id || !sablonHasznalva) && (
-          <div className="mb-6 p-4 rounded-lg border border-mauve-200 bg-mauve-100/30">
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="text-sm">
-                <div className="font-semibold text-mauve-700">
-                  {params.id ? '🔄 Sablon alkalmazása' : '✨ Sablonból indulnál?'}
-                </div>
-                <div className="text-xs text-ink/70 mt-0.5">
-                  {params.id
-                    ? 'Felülírhatod a meglévő tartalmat egy sablonnal — konfirmációt kérünk.'
-                    : 'Választhatsz egy előre elkészített témából — a saját doksijaid + 15 magyar ünnep alapján.'}
-                </div>
-              </div>
-              <select
-                value={aktualisSablonAzonosito ?? ''}
-                onChange={(e) => sablonAlkalmazasa(e.target.value)}
-                className="ml-auto border border-mauve-300 rounded px-3 py-2 text-sm bg-white min-w-[280px]"
-              >
-                <option value="" disabled>
-                  — Válassz sablont —
-                </option>
-                {/* Iskolai év sorrendben: szept-jún */}
-                {[9, 10, 11, 12, 1, 2, 3, 4, 5, 6].flatMap((h) => {
-                  const csoport = sablonok
-                    .filter((s) => s.javasoltHonap === h)
-                    .sort((a, b) => {
-                      const sa = a.javasoltSorrend ?? 99;
-                      const sb = b.javasoltSorrend ?? 99;
-                      if (sa !== sb) return sa - sb;
-                      const va = a.verzio ?? 0;
-                      const vb = b.verzio ?? 0;
-                      return va - vb;
-                    });
-                  if (csoport.length === 0) return [];
-                  return [
-                    <optgroup key={h} label={HONAPOK[h]}>
-                      {csoport.map((s) => {
-                        const verzioJel = s.verzio === 1 ? ' (V1)' : s.verzio === 2 ? ' (V2)' : '';
-                        return (
-                          <option key={s.azonosito} value={s.azonosito}>
-                            {s.cim}{verzioJel}
-                          </option>
-                        );
-                      })}
-                    </optgroup>,
-                  ];
-                })}
-              </select>
-              {!params.id && (
-                <button
-                  onClick={() => setSablonHasznalva(true)}
-                  className="text-xs text-ink/50 hover:text-ink hover:underline"
-                >
-                  Üres tervezet ⊗
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+        <SablonValaszto
+          sablonok={sablonok}
+          sablonHasznalva={sablonHasznalva}
+          paramsId={params.id}
+          aktualisSablonAzonosito={aktualisSablonAzonosito}
+          onSablonValasztas={sablonAlkalmazasa}
+          onUres={() => setSablonHasznalva(true)}
+        />
 
         {sablonHasznalva && !params.id && (
-          <div className="mb-4 p-3 rounded-lg border border-sage-200 bg-sage-50 text-sm text-sage-700 flex items-center justify-between">
-            <span>
-              {autoSablonCim ? (
-                <>
-                  ✨ <strong>„{autoSablonCim}"</strong> sablon automatikusan betöltve a dátum alapján — szerkeszd, majd Mentés gomb.
-                </>
-              ) : (
-                <>✓ Sablon alkalmazva — szerkeszd kedved szerint, majd nyomd meg a Mentés gombot</>
-              )}
-            </span>
-            <button
-              onClick={() => {
-                setSablonHasznalva(false);
-                setAutoSablonCim(null);
-                setAktualisSablonAzonosito(null);
-                setTerv((prev) => ({
-                  ...prev,
-                  tema: '',
-                  cel: '',
-                  feladat: '',
-                  kepessegfejlesztes: '',
-                  eszkozok: '',
-                }));
-                setTeruletAllapotok(URES_TERULETEK);
-              }}
-              className="text-ink/50 hover:text-ink hover:underline whitespace-nowrap ml-3"
-            >
-              Üres tervezet ⊗
-            </button>
-          </div>
+          <SablonBanner
+            autoSablonCim={autoSablonCim}
+            onUresTervezet={() => {
+              setSablonHasznalva(false);
+              setAutoSablonCim(null);
+              setAktualisSablonAzonosito(null);
+              setTerv((prev) => ({
+                ...prev,
+                tema: '',
+                cel: '',
+                feladat: '',
+                kepessegfejlesztes: '',
+                eszkozok: '',
+              }));
+              setTeruletAllapotok(URES_TERULETEK);
+            }}
+          />
         )}
 
         <div className="space-y-4">
@@ -720,86 +650,7 @@ export default function HetiTerv() {
           ))}
         </div>
 
-        {/* Lezáró rész */}
-        <section className="mt-8 pt-6 border-t border-sage-100">
-          <h2 className="heading-serif text-lg font-medium mb-3">A heti terv összegzése</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div>
-              <label className="field-label block mb-1">Cél</label>
-              <textarea
-                value={terv.cel ?? ''}
-                onChange={(e) => update('cel', e.target.value)}
-                rows={3}
-                className="w-full border border-sage-100 rounded p-2 text-sm focus:border-sage-500 outline-none"
-                placeholder="Mit szeretnél elérni ezen a héten?"
-              />
-            </div>
-            <div>
-              <label className="field-label block mb-1">Feladat</label>
-              <textarea
-                value={terv.feladat ?? ''}
-                onChange={(e) => update('feladat', e.target.value)}
-                rows={3}
-                className="w-full border border-sage-100 rounded p-2 text-sm focus:border-sage-500 outline-none"
-                placeholder="Mi a konkrét feladat?"
-              />
-            </div>
-            <div>
-              <label className="field-label block mb-1">Differenciálás</label>
-              <textarea
-                value={terv.differencialas ?? ''}
-                onChange={(e) => update('differencialas', e.target.value)}
-                rows={2}
-                className="w-full border border-sage-100 rounded p-2 text-xs italic text-ink/70 focus:border-sage-500 outline-none"
-              />
-            </div>
-            <div>
-              <label className="field-label block mb-1">Módszerek</label>
-              <textarea
-                value={terv.modszerek ?? ''}
-                onChange={(e) => update('modszerek', e.target.value)}
-                rows={2}
-                className="w-full border border-sage-100 rounded p-2 text-xs italic text-ink/70 focus:border-sage-500 outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="mt-4">
-            <label className="field-label block mb-1">Képességfejlesztés</label>
-            <textarea
-              value={terv.kepessegfejlesztes ?? ''}
-              onChange={(e) => update('kepessegfejlesztes', e.target.value)}
-              rows={2}
-              className="w-full border border-sage-100 rounded p-2 text-sm focus:border-sage-500 outline-none"
-              placeholder="finommotorika, szókincs, figyelem, emlékezet, …"
-            />
-          </div>
-
-          <div className="mt-4">
-            <label className="field-label block mb-1 flex items-center gap-2">
-              Eszközök
-              {autoEszkozok.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    update('eszkozok', autoEszkozok.join(', '))
-                  }
-                  className="text-xs text-sage-700 font-normal normal-case tracking-normal hover:underline"
-                >
-                  ↺ Auto-kitöltés a szövegekből ({autoEszkozok.length})
-                </button>
-              )}
-            </label>
-            <textarea
-              value={terv.eszkozok ?? ''}
-              onChange={(e) => update('eszkozok', e.target.value)}
-              rows={2}
-              className="w-full border border-sage-100 rounded p-2 text-sm focus:border-sage-500 outline-none"
-              placeholder="papír, színes ceruza, olló, ragasztó, hangszóró…"
-            />
-          </div>
-        </section>
+        <OsszegzoSzekcio terv={terv} onUpdate={update} autoEszkozok={autoEszkozok} />
 
         {/* Action bar */}
         <div className="mt-8 pt-4 border-t border-sage-100 flex items-center gap-2 flex-wrap">
