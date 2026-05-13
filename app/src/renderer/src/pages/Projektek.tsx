@@ -5,6 +5,7 @@ import type { Projekt } from '@shared/schema';
 export default function Projektek() {
   const [projektek, setProjektek] = useState<Projekt[]>([]);
   const [loading, setLoading] = useState(true);
+  const [torles, setTorles] = useState<number | null>(null);
 
   useEffect(() => {
     void window.api.projektLista().then((arr) => {
@@ -12,6 +13,22 @@ export default function Projektek() {
       setLoading(false);
     });
   }, []);
+
+  async function torolProjekt(p: Projekt) {
+    const megerosit = window.confirm(
+      `Biztosan törlöd a(z) "${p.cim}" projektet?\n\nA kapcsolódó reflexiók is törlődnek. A heti tervek megmaradnak (csak a projekt-kapcsolat szűnik meg).`,
+    );
+    if (!megerosit) return;
+    setTorles(p.id);
+    try {
+      await window.api.projektTorol(p.id);
+      setProjektek((prev) => prev.filter((x) => x.id !== p.id));
+    } catch (e) {
+      window.alert(`Hiba a törlés során: ${(e as Error).message}`);
+    } finally {
+      setTorles(null);
+    }
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-6">
@@ -51,12 +68,23 @@ export default function Projektek() {
                     <p className="text-sm text-ink/70 mt-2 line-clamp-2">{p.cel}</p>
                   )}
                 </div>
-                <Link
-                  to={`/projektek/${p.id}/szerkesztes`}
-                  className="text-xs text-sage-700 hover:underline whitespace-nowrap opacity-60 group-hover:opacity-100 transition"
-                >
-                  ✏ Szerkesztés →
-                </Link>
+                <div className="flex items-center gap-3 whitespace-nowrap">
+                  <Link
+                    to={`/projektek/${p.id}/szerkesztes`}
+                    className="text-xs text-sage-700 hover:underline opacity-60 group-hover:opacity-100 transition"
+                  >
+                    ✏ Szerkesztés →
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => void torolProjekt(p)}
+                    disabled={torles === p.id}
+                    className="text-xs text-red-600 hover:underline opacity-60 group-hover:opacity-100 transition disabled:opacity-30 disabled:cursor-wait"
+                    title="Projekt törlése"
+                  >
+                    {torles === p.id ? '⏳ Törlés…' : '🗑 Törlés'}
+                  </button>
+                </div>
               </div>
             </div>
           ))}

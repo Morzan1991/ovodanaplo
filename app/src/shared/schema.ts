@@ -196,9 +196,11 @@ export const reflexiok = sqliteTable(
   {
     id: integer('id').primaryKey({ autoIncrement: true }),
     tipus: text('tipus', { enum: reflexioTipus }).notNull(),
-    foglalkozasId: integer('foglalkozas_id').references(() => foglalkozasTervezetek.id),
-    hetiTervId: integer('heti_terv_id').references(() => hetiTervek.id),
-    projektId: integer('projekt_id').references(() => projektek.id),
+    // Megj.: a CASCADE friss DB-knél lép életbe; régi DB-knél a delete-handlerek
+    // explicit törölnek (lásd projektTorol, foglalkozasTorol, hetiTervTorol, nevelesiEvTorol).
+    foglalkozasId: integer('foglalkozas_id').references(() => foglalkozasTervezetek.id, { onDelete: 'cascade' }),
+    hetiTervId: integer('heti_terv_id').references(() => hetiTervek.id, { onDelete: 'cascade' }),
+    projektId: integer('projekt_id').references(() => projektek.id, { onDelete: 'cascade' }),
     teruletTipus: text('terulet_tipus', { enum: teruletTipus }),
     tartalom: text('tartalom').notNull(),
     forrasok: text('forrasok'),

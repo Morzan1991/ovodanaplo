@@ -130,6 +130,19 @@ export default function HetiTerv() {
     void window.api.foglalkozasLista(terv.id).then(setFoglalkozasok);
   }, [terv?.id]);
 
+  async function torolFoglalkozas(f: FoglalkozasTervezet) {
+    const megerosit = window.confirm(
+      `Biztosan törlöd a(z) "${f.tema || 'téma nélküli'}" foglalkozás-tervezetet?\n\nA kapcsolódó reflexiók is törlődnek.`,
+    );
+    if (!megerosit) return;
+    try {
+      await window.api.foglalkozasTorol(f.id);
+      setFoglalkozasok((prev) => prev.filter((x) => x.id !== f.id));
+    } catch (e) {
+      window.alert(`Hiba a törlés során: ${(e as Error).message}`);
+    }
+  }
+
   useEffect(() => {
     void window.api.sablonokLista().then(setSablonok);
   }, []);
@@ -723,10 +736,10 @@ export default function HetiTerv() {
             {foglalkozasok.length > 0 && (
               <ul className="mb-3 space-y-1">
                 {foglalkozasok.map((f) => (
-                  <li key={f.id}>
+                  <li key={f.id} className="flex items-start gap-1 group/item">
                     <Link
                       to={`/heti-terv/${terv.id}/foglalkozas/${f.id}`}
-                      className="block px-2 py-1.5 rounded text-sm hover:bg-sage-50 group"
+                      className="flex-1 min-w-0 block px-2 py-1.5 rounded text-sm hover:bg-sage-50 group"
                     >
                       <div className="font-medium text-ink/90 group-hover:text-sage-700 truncate">
                         {f.tema || '(téma nélkül)'}
@@ -740,6 +753,14 @@ export default function HetiTerv() {
                         )}
                       </div>
                     </Link>
+                    <button
+                      type="button"
+                      onClick={() => void torolFoglalkozas(f)}
+                      className="px-2 py-1.5 text-red-600 hover:bg-red-50 rounded text-sm opacity-0 group-hover/item:opacity-100 transition"
+                      title="Foglalkozás törlése"
+                    >
+                      🗑
+                    </button>
                   </li>
                 ))}
               </ul>

@@ -163,9 +163,9 @@ function createTables(): void {
     `CREATE TABLE IF NOT EXISTS reflexiok (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       tipus TEXT NOT NULL,
-      foglalkozas_id INTEGER REFERENCES foglalkozas_tervezetek(id),
-      heti_terv_id INTEGER REFERENCES heti_tervek(id),
-      projekt_id INTEGER REFERENCES projektek(id),
+      foglalkozas_id INTEGER REFERENCES foglalkozas_tervezetek(id) ON DELETE CASCADE,
+      heti_terv_id INTEGER REFERENCES heti_tervek(id) ON DELETE CASCADE,
+      projekt_id INTEGER REFERENCES projektek(id) ON DELETE CASCADE,
       terulet_tipus TEXT,
       tartalom TEXT NOT NULL,
       forrasok TEXT,
