@@ -8,6 +8,7 @@ const NAV = [
   { to: '/heti-terv', label: 'Heti terv' },
   { to: '/projektek', label: 'Projektek' },
   { to: '/reflexiok', label: 'Reflexiók' },
+  { to: '/kereses', label: '🔍 Keresés' },
   { to: '/irodalom', label: 'Irodalom' },
 ];
 

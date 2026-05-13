@@ -58,6 +58,8 @@ export const IpcChannels = {
   // Heti terv ↔ képesség M-N kapcsolatok (TODO-11)
   hetiTervKepessegekLista: 'hetiTerv:kepessegekLista',
   hetiTervKepessegekMent: 'hetiTerv:kepessegekMent',
+  // FTS5 keresés (TODO-12)
+  keresesHetiTervekben: 'kereses:hetiTervekben',
 
   // Export
   exportHetiTervDocx: 'export:hetiTerv:docx',

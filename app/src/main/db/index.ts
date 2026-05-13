@@ -225,6 +225,61 @@ function createTables(): void {
     )`,
     `CREATE INDEX IF NOT EXISTS htk_heti_terv_idx ON heti_terv_kepesseg(heti_terv_id)`,
     `CREATE INDEX IF NOT EXISTS htk_kepesseg_idx ON heti_terv_kepesseg(kepesseg_id)`,
+
+    // TODO-12: Full-text keresés a heti tervekre + területekre (FTS5)
+    `CREATE VIRTUAL TABLE IF NOT EXISTS heti_terv_fts USING fts5(
+       heti_terv_id UNINDEXED,
+       tema,
+       cel,
+       feladat,
+       kepessegfejlesztes,
+       eszkozok,
+       teruletek_osszesen,
+       tokenize='unicode61 remove_diacritics 2'
+     )`,
+    // Trigger-ek: heti_tervek INSERT/UPDATE/DELETE → FTS sync
+    `CREATE TRIGGER IF NOT EXISTS heti_terv_ai
+       AFTER INSERT ON heti_tervek BEGIN
+         INSERT INTO heti_terv_fts (heti_terv_id, tema, cel, feladat, kepessegfejlesztes, eszkozok, teruletek_osszesen)
+         VALUES (new.id, COALESCE(new.tema,''), COALESCE(new.cel,''), COALESCE(new.feladat,''),
+                 COALESCE(new.kepessegfejlesztes,''), COALESCE(new.eszkozok,''), '');
+       END`,
+    `CREATE TRIGGER IF NOT EXISTS heti_terv_au
+       AFTER UPDATE ON heti_tervek BEGIN
+         UPDATE heti_terv_fts SET
+           tema = COALESCE(new.tema,''),
+           cel = COALESCE(new.cel,''),
+           feladat = COALESCE(new.feladat,''),
+           kepessegfejlesztes = COALESCE(new.kepessegfejlesztes,''),
+           eszkozok = COALESCE(new.eszkozok,'')
+         WHERE heti_terv_id = new.id;
+       END`,
+    `CREATE TRIGGER IF NOT EXISTS heti_terv_ad
+       AFTER DELETE ON heti_tervek BEGIN
+         DELETE FROM heti_terv_fts WHERE heti_terv_id = old.id;
+       END`,
+    // Trigger-ek a teruletek táblára: területenkénti tartalom → 'teruletek_osszesen' FTS-mező
+    `CREATE TRIGGER IF NOT EXISTS terulet_ai
+       AFTER INSERT ON teruletek BEGIN
+         UPDATE heti_terv_fts SET teruletek_osszesen = (
+           SELECT GROUP_CONCAT(COALESCE(tartalom,'') || ' ' || COALESCE(iskola_elokeszito,''), ' ')
+           FROM teruletek WHERE heti_terv_id = new.heti_terv_id
+         ) WHERE heti_terv_id = new.heti_terv_id;
+       END`,
+    `CREATE TRIGGER IF NOT EXISTS terulet_au
+       AFTER UPDATE ON teruletek BEGIN
+         UPDATE heti_terv_fts SET teruletek_osszesen = (
+           SELECT GROUP_CONCAT(COALESCE(tartalom,'') || ' ' || COALESCE(iskola_elokeszito,''), ' ')
+           FROM teruletek WHERE heti_terv_id = new.heti_terv_id
+         ) WHERE heti_terv_id = new.heti_terv_id;
+       END`,
+    `CREATE TRIGGER IF NOT EXISTS terulet_ad
+       AFTER DELETE ON teruletek BEGIN
+         UPDATE heti_terv_fts SET teruletek_osszesen = (
+           SELECT COALESCE(GROUP_CONCAT(COALESCE(tartalom,'') || ' ' || COALESCE(iskola_elokeszito,''), ' '), '')
+           FROM teruletek WHERE heti_terv_id = old.heti_terv_id
+         ) WHERE heti_terv_id = old.heti_terv_id;
+       END`,
   ];
 
   const tx = sqlite.transaction(() => {
@@ -251,6 +306,30 @@ function createTables(): void {
         console.warn(`[db] Mini-migráció skip ${m.tabla}.${m.oszlop}:`, msg);
       }
     }
+  }
+
+  // TODO-12: FTS5 backfill — ha az fts tábla üres és van heti terv, töltsük fel
+  try {
+    const ftsRow = sqlite.prepare('SELECT COUNT(*) as n FROM heti_terv_fts').get() as { n: number } | undefined;
+    const tervRow = sqlite.prepare('SELECT COUNT(*) as n FROM heti_tervek').get() as { n: number } | undefined;
+    if (ftsRow && tervRow && ftsRow.n === 0 && tervRow.n > 0) {
+      sqlite.exec(`
+        INSERT INTO heti_terv_fts (heti_terv_id, tema, cel, feladat, kepessegfejlesztes, eszkozok, teruletek_osszesen)
+        SELECT
+          t.id,
+          COALESCE(t.tema,''),
+          COALESCE(t.cel,''),
+          COALESCE(t.feladat,''),
+          COALESCE(t.kepessegfejlesztes,''),
+          COALESCE(t.eszkozok,''),
+          COALESCE((SELECT GROUP_CONCAT(COALESCE(tartalom,'') || ' ' || COALESCE(iskola_elokeszito,''), ' ')
+                    FROM teruletek WHERE heti_terv_id = t.id), '')
+        FROM heti_tervek t
+      `);
+      console.log(`[db] FTS5 backfill: ${tervRow.n} heti terv indexelve.`);
+    }
+  } catch (err) {
+    console.warn('[db] FTS5 backfill skipped:', (err as Error).message);
   }
 
   console.log('[db] Táblák létrehozva / ellenőrizve.');

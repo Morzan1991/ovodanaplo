@@ -9,6 +9,7 @@ import ProjektSzerkeszto from './pages/ProjektSzerkeszto';
 import Reflexiok from './pages/Reflexiok';
 import Irodalom from './pages/Irodalom';
 import Beallitasok from './pages/Beallitasok';
+import Kereses from './pages/Kereses';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="projektek/uj" element={<ProjektSzerkeszto />} />
         <Route path="projektek/:id/szerkesztes" element={<ProjektSzerkeszto />} />
         <Route path="reflexiok" element={<Reflexiok />} />
+        <Route path="kereses" element={<Kereses />} />
         <Route path="irodalom" element={<Irodalom />} />
         <Route path="beallitasok" element={<Beallitasok />} />
       </Route>

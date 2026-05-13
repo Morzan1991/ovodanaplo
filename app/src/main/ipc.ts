@@ -475,6 +475,41 @@ export function registerIpcHandlers(): void {
     return tx();
   });
 
+  /**
+   * TODO-12: FTS5 keresés a heti tervek között.
+   * A kereső-szöveg minimum 2 karakter, különben üres tömb.
+   * A találatok a heti_terv_fts virtuális tábla MATCH operátorán át.
+   */
+  ipcMain.handle(IpcChannels.keresesHetiTervekben, (_e, kereses: unknown) => {
+    if (typeof kereses !== 'string' || kereses.trim().length < 2) return [];
+    const sqlite = getSqlite();
+    // FTS5 query — a felhasználói szöveget átalakítjuk biztonságosabb formára:
+    // - dupla idézőjelek escape (FTS5 phrase-query)
+    // - * suffix-szel prefix-match minden szóra
+    const escaped = kereses.trim().replace(/"/g, '""');
+    const ftsQuery = escaped
+      .split(/\s+/)
+      .filter((s) => s.length > 0)
+      .map((s) => `"${s}"*`)
+      .join(' ');
+    try {
+      const rows = sqlite
+        .prepare(
+          `SELECT t.*, snippet(heti_terv_fts, -1, '<mark>', '</mark>', '…', 12) AS snippet
+           FROM heti_terv_fts
+           INNER JOIN heti_tervek t ON heti_terv_fts.heti_terv_id = t.id
+           WHERE heti_terv_fts MATCH ?
+           ORDER BY rank
+           LIMIT 50`,
+        )
+        .all(ftsQuery);
+      return rows;
+    } catch (err) {
+      console.error('[keresesHetiTervekben] FTS hiba:', err);
+      return [];
+    }
+  });
+
   // -------- Backup --------
   ipcMain.handle(IpcChannels.backupKeszit, () => {
     return createBackup();

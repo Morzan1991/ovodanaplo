@@ -176,6 +176,15 @@ const api = {
     kepessegIds: number[];
   }): Promise<{ siker: boolean; count: number }> =>
     ipcRenderer.invoke(IpcChannels.hetiTervKepessegekMent, params),
+  /**
+   * TODO-12: FTS5 keresés a heti tervek tartalmán (téma+cél+feladat+területek).
+   * A `kereses` paraméter egy egyszerű kereső-string. A találatokat a heti tervek
+   * létrehozási sorrendjében (csökkenően) adja vissza, max 50.
+   */
+  keresesHetiTervekben: (
+    kereses: string,
+  ): Promise<Array<HetiTerv & { snippet: string }>> =>
+    ipcRenderer.invoke(IpcChannels.keresesHetiTervekben, kereses),
 
   // Export
   exportHetiTervDocx: (hetiTervId: number): Promise<ExportEredmeny> =>
