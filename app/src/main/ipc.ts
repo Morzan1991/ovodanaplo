@@ -32,6 +32,19 @@ import {
 } from '../shared/schema.js';
 import { getDb, getSqlite, createBackup } from './db/index.js';
 import { hetiTervToDocx, foglalkozasToDocx } from './export-docx.js';
+import { validate } from './ipc-validate.js';
+import {
+  ujBeallitasSchema,
+  ujNevelesiEvSchema,
+  ujHetiTervSchema,
+  hetiTervTeljesSchema,
+  ujFoglalkozasSchema,
+  ujProjektSchema,
+  ujReflexioSchema,
+  ujEsemenySchema,
+  ujIrodalomSchema,
+  irodalomKeresesSchema,
+} from '../shared/schemas/ipc.js';
 import {
   hetekAzEvben,
   sablonHezKivalasztas,
@@ -51,7 +64,8 @@ export function registerIpcHandlers(): void {
     return rows[0] ?? null;
   });
 
-  ipcMain.handle(IpcChannels.beallitasokSave, (_e, data: UjBeallitas) => {
+  ipcMain.handle(IpcChannels.beallitasokSave, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.beallitasokSave, raw, ujBeallitasSchema) as UjBeallitas;
     const existing = db.select().from(beallitasok).limit(1).all();
     if (existing.length > 0) {
       return db
@@ -73,7 +87,8 @@ export function registerIpcHandlers(): void {
     return db.select().from(nevelesiEvek).where(eq(nevelesiEvek.aktiv, 1)).limit(1).all()[0] ?? null;
   });
 
-  ipcMain.handle(IpcChannels.nevelesiEvLetrehoz, (_e, data: UjNevelesiEv) => {
+  ipcMain.handle(IpcChannels.nevelesiEvLetrehoz, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.nevelesiEvLetrehoz, raw, ujNevelesiEvSchema) as UjNevelesiEv;
     // Aktívvá tesszük, többit deaktiváljuk
     if (data.aktiv) {
       db.update(nevelesiEvek).set({ aktiv: 0 }).run();
@@ -98,7 +113,10 @@ export function registerIpcHandlers(): void {
     return db.select().from(hetiTervek).where(eq(hetiTervek.id, id)).limit(1).all()[0] ?? null;
   });
 
-  ipcMain.handle(IpcChannels.hetiTervMent, (_e, data: UjHetiTerv & { id?: number }) => {
+  ipcMain.handle(IpcChannels.hetiTervMent, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.hetiTervMent, raw, ujHetiTervSchema) as UjHetiTerv & {
+      id?: number;
+    };
     if (data.id) {
       const { id, ...updateData } = data;
       return db
@@ -129,48 +147,43 @@ export function registerIpcHandlers(): void {
   });
 
   // Heti terv + területek mentése tranzakcióban
-  ipcMain.handle(
-    IpcChannels.hetiTervTeljesMent,
-    (
-      _e,
-      data: (UjHetiTerv & { id?: number }) & {
-        teruletek: Array<Omit<UjTerulet, 'hetiTervId'> & { id?: number }>;
-      },
-    ) => {
-      const sqlite = getSqlite();
-      const tx = sqlite.transaction(() => {
-        const { id, teruletek: ujTeruletek, ...tervData } = data;
-        let tervRow;
-        if (id) {
-          tervRow = db
-            .update(hetiTervek)
-            .set({ ...tervData, modositva: Math.floor(Date.now() / 1000) })
-            .where(eq(hetiTervek.id, id))
-            .returning()
-            .get();
-        } else {
-          tervRow = db.insert(hetiTervek).values(tervData).returning().get();
-        }
+  ipcMain.handle(IpcChannels.hetiTervTeljesMent, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.hetiTervTeljesMent, raw, hetiTervTeljesSchema) as (UjHetiTerv & {
+      id?: number;
+    }) & { teruletek: Array<Omit<UjTerulet, 'hetiTervId'> & { id?: number }> };
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      const { id, teruletek: ujTeruletek, ...tervData } = data;
+      let tervRow;
+      if (id) {
+        tervRow = db
+          .update(hetiTervek)
+          .set({ ...tervData, modositva: Math.floor(Date.now() / 1000) })
+          .where(eq(hetiTervek.id, id))
+          .returning()
+          .get();
+      } else {
+        tervRow = db.insert(hetiTervek).values(tervData).returning().get();
+      }
 
-        // Régi területek törölve, újak beszúrva (egyszerűbb mint diff-eelni)
-        db.delete(teruletek).where(eq(teruletek.hetiTervId, tervRow.id)).run();
+      // Régi területek törölve, újak beszúrva (egyszerűbb mint diff-eelni)
+      db.delete(teruletek).where(eq(teruletek.hetiTervId, tervRow.id)).run();
 
-        const mentettTeruletek = [];
-        for (const ut of ujTeruletek) {
-          const { id: _id, ...teruletData } = ut;
-          void _id;
-          const teruletRow = db
-            .insert(teruletek)
-            .values({ ...teruletData, hetiTervId: tervRow.id })
-            .returning()
-            .get();
-          mentettTeruletek.push(teruletRow);
-        }
-        return { ...tervRow, teruletek: mentettTeruletek };
-      });
-      return tx();
-    },
-  );
+      const mentettTeruletek = [];
+      for (const ut of ujTeruletek) {
+        const { id: _id, ...teruletData } = ut;
+        void _id;
+        const teruletRow = db
+          .insert(teruletek)
+          .values({ ...teruletData, hetiTervId: tervRow.id })
+          .returning()
+          .get();
+        mentettTeruletek.push(teruletRow);
+      }
+      return { ...tervRow, teruletek: mentettTeruletek };
+    });
+    return tx();
+  });
 
   // -------- Projektek --------
   ipcMain.handle(IpcChannels.projektLista, (_e, nevelesiEvId?: number) => {
@@ -189,7 +202,10 @@ export function registerIpcHandlers(): void {
     return db.select().from(projektek).where(eq(projektek.id, id)).limit(1).all()[0] ?? null;
   });
 
-  ipcMain.handle(IpcChannels.projektMent, (_e, data: UjProjekt & { id?: number }) => {
+  ipcMain.handle(IpcChannels.projektMent, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.projektMent, raw, ujProjektSchema) as UjProjekt & {
+      id?: number;
+    };
     if (data.id) {
       const { id, ...updateData } = data;
       return db
@@ -221,21 +237,21 @@ export function registerIpcHandlers(): void {
     );
   });
 
-  ipcMain.handle(
-    IpcChannels.foglalkozasMent,
-    (_e, data: UjFoglalkozasTervezet & { id?: number }) => {
-      if (data.id) {
-        const { id, ...updateData } = data;
-        return db
-          .update(foglalkozasTervezetek)
-          .set({ ...updateData, modositva: Math.floor(Date.now() / 1000) })
-          .where(eq(foglalkozasTervezetek.id, id))
-          .returning()
-          .get();
-      }
-      return db.insert(foglalkozasTervezetek).values(data).returning().get();
-    },
-  );
+  ipcMain.handle(IpcChannels.foglalkozasMent, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.foglalkozasMent, raw, ujFoglalkozasSchema) as UjFoglalkozasTervezet & {
+      id?: number;
+    };
+    if (data.id) {
+      const { id, ...updateData } = data;
+      return db
+        .update(foglalkozasTervezetek)
+        .set({ ...updateData, modositva: Math.floor(Date.now() / 1000) })
+        .where(eq(foglalkozasTervezetek.id, id))
+        .returning()
+        .get();
+    }
+    return db.insert(foglalkozasTervezetek).values(data).returning().get();
+  });
 
   // -------- Reflexiók --------
   ipcMain.handle(IpcChannels.reflexioLista, (_e, opts?: { hetiTervId?: number; foglalkozasId?: number; projektId?: number }) => {
@@ -251,7 +267,10 @@ export function registerIpcHandlers(): void {
     return db.select().from(reflexiok).orderBy(desc(reflexiok.letrehozva)).all();
   });
 
-  ipcMain.handle(IpcChannels.reflexioMent, (_e, data: UjReflexio & { id?: number }) => {
+  ipcMain.handle(IpcChannels.reflexioMent, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.reflexioMent, raw, ujReflexioSchema) as UjReflexio & {
+      id?: number;
+    };
     if (data.id) {
       const { id, ...updateData } = data;
       return db
@@ -272,7 +291,10 @@ export function registerIpcHandlers(): void {
     return db.select().from(esemenyek).orderBy(esemenyek.datum).all();
   });
 
-  ipcMain.handle(IpcChannels.esemenyMent, (_e, data: UjEsemeny & { id?: number }) => {
+  ipcMain.handle(IpcChannels.esemenyMent, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.esemenyMent, raw, ujEsemenySchema) as UjEsemeny & {
+      id?: number;
+    };
     if (data.id) {
       const { id, ...updateData } = data;
       return db.update(esemenyek).set(updateData).where(eq(esemenyek.id, id)).returning().get();
@@ -281,7 +303,12 @@ export function registerIpcHandlers(): void {
   });
 
   // -------- Irodalom --------
-  ipcMain.handle(IpcChannels.irodalomKereses, (_e, opts: { tipus?: string; szoveg?: string; korcsoport?: string }) => {
+  ipcMain.handle(IpcChannels.irodalomKereses, (_e, raw: unknown) => {
+    const opts = validate(IpcChannels.irodalomKereses, raw, irodalomKeresesSchema) as {
+      tipus?: string;
+      szoveg?: string;
+      korcsoport?: string;
+    };
     const conditions = [];
     if (opts.tipus) conditions.push(eq(irodalom.tipus, opts.tipus as never));
     if (opts.korcsoport) conditions.push(eq(irodalom.korcsoport, opts.korcsoport));
@@ -296,7 +323,8 @@ export function registerIpcHandlers(): void {
     return q.orderBy(irodalom.cim).limit(50).all();
   });
 
-  ipcMain.handle(IpcChannels.irodalomHozzaad, (_e, data: UjIrodalom) => {
+  ipcMain.handle(IpcChannels.irodalomHozzaad, (_e, raw: unknown) => {
+    const data = validate(IpcChannels.irodalomHozzaad, raw, ujIrodalomSchema) as UjIrodalom;
     return db.insert(irodalom).values({ ...data, sajat: 1 }).returning().get();
   });
 
