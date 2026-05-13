@@ -5,6 +5,7 @@ import HetiTerv from './pages/HetiTerv';
 import HetiReflexio from './pages/HetiReflexio';
 import FoglalkozasSzerkeszto from './pages/FoglalkozasSzerkeszto';
 import Projektek from './pages/Projektek';
+import ProjektSzerkeszto from './pages/ProjektSzerkeszto';
 import Reflexiok from './pages/Reflexiok';
 import Irodalom from './pages/Irodalom';
 import Beallitasok from './pages/Beallitasok';
@@ -20,6 +21,8 @@ export default function App() {
         <Route path="heti-terv/:hetiId/foglalkozas/:id" element={<FoglalkozasSzerkeszto />} />
         <Route path="foglalkozas/:id" element={<FoglalkozasSzerkeszto />} />
         <Route path="projektek/:id?" element={<Projektek />} />
+        <Route path="projektek/uj" element={<ProjektSzerkeszto />} />
+        <Route path="projektek/:id/szerkesztes" element={<ProjektSzerkeszto />} />
         <Route path="reflexiok" element={<Reflexiok />} />
         <Route path="irodalom" element={<Irodalom />} />
         <Route path="beallitasok" element={<Beallitasok />} />
