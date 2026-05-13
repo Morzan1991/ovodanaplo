@@ -5,7 +5,7 @@
 
 import { ipcMain, app, shell, dialog, BrowserWindow } from 'electron';
 import { writeFileSync } from 'node:fs';
-import { eq, desc, like, or, and } from 'drizzle-orm';
+import { eq, desc, like, or, and, inArray } from 'drizzle-orm';
 import { IpcChannels } from '../shared/ipc-channels.js';
 import {
   beallitasok,
@@ -95,6 +95,113 @@ export function registerIpcHandlers(): void {
       db.update(nevelesiEvek).set({ aktiv: 0 }).run();
     }
     return db.insert(nevelesiEvek).values(data).returning().get();
+  });
+
+  /**
+   * Egy nevelési év kapcsolódó tartalmainak darabszáma.
+   * Konfirmáció előtt mutatjuk a felhasználónak, hogy lássa mi vész el.
+   */
+  ipcMain.handle(IpcChannels.nevelesiEvStatistika, (_e, id: number) => {
+    if (typeof id !== 'number') return { hetiTervek: 0, projektek: 0, esemenyek: 0, foglalkozasok: 0, reflexiok: 0 };
+    const sqlite = getSqlite();
+    const hetiTervRows = db.select({ id: hetiTervek.id }).from(hetiTervek).where(eq(hetiTervek.nevelesiEvId, id)).all();
+    const projektRows = db.select({ id: projektek.id }).from(projektek).where(eq(projektek.nevelesiEvId, id)).all();
+    const hetiIds = hetiTervRows.map((h) => h.id);
+    const projektIds = projektRows.map((p) => p.id);
+    // foglalkozas-tervezetek a heti-terven keresztül kapcsolódnak
+    const foglalkozasok = hetiIds.length > 0
+      ? db.select({ id: foglalkozasTervezetek.id }).from(foglalkozasTervezetek).where(inArray(foglalkozasTervezetek.hetiTervId, hetiIds)).all().length
+      : 0;
+    // reflexiók: heti, foglalkozás, projekt — összegzés
+    let reflexioCount = 0;
+    if (hetiIds.length > 0) {
+      reflexioCount += (sqlite.prepare(`SELECT COUNT(*) as n FROM reflexiok WHERE heti_terv_id IN (${hetiIds.join(',')})`).get() as { n: number }).n;
+    }
+    if (projektIds.length > 0) {
+      reflexioCount += (sqlite.prepare(`SELECT COUNT(*) as n FROM reflexiok WHERE projekt_id IN (${projektIds.join(',')})`).get() as { n: number }).n;
+    }
+    const esemenyekCount = db.select({ id: esemenyek.id }).from(esemenyek).where(eq(esemenyek.nevelesiEvId, id)).all().length;
+    return {
+      hetiTervek: hetiTervRows.length,
+      projektek: projektRows.length,
+      esemenyek: esemenyekCount,
+      foglalkozasok,
+      reflexiok: reflexioCount,
+    };
+  });
+
+  /**
+   * Nevelési év CASCADE törlése — tranzakcióban.
+   *
+   * Törlési sorrend (FK megsértés elkerülésére):
+   *  1. reflexiok (heti/foglalkozas/projekt-kapcsolatok)
+   *  2. foglalkozas_tervezetek (heti tervhez kapcsolódók)
+   *  3. heti_tervek — CASCADE töröli: teruletek, heti_terv_kepesseg
+   *  4. projektek
+   *  5. esemenyek
+   *  6. nevelesi_evek
+   *
+   * Ha az aktív évet töröltük, automatikusan a legfrissebb másikra váltunk.
+   */
+  ipcMain.handle(IpcChannels.nevelesiEvTorol, (_e, id: number) => {
+    if (typeof id !== 'number') throw new Error('[nevelesiEvTorol] érvénytelen id');
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // 1. Lekérdezzük a kapcsolódó id-kat
+      const hetiIds = db.select({ id: hetiTervek.id }).from(hetiTervek).where(eq(hetiTervek.nevelesiEvId, id)).all().map((h) => h.id);
+      const projektIds = db.select({ id: projektek.id }).from(projektek).where(eq(projektek.nevelesiEvId, id)).all().map((p) => p.id);
+      const foglalkozasIds = hetiIds.length > 0
+        ? db.select({ id: foglalkozasTervezetek.id }).from(foglalkozasTervezetek).where(inArray(foglalkozasTervezetek.hetiTervId, hetiIds)).all().map((f) => f.id)
+        : [];
+
+      // 2. Reflexiók — heti/foglalkozas/projekt szerint
+      if (hetiIds.length > 0) {
+        db.delete(reflexiok).where(inArray(reflexiok.hetiTervId, hetiIds)).run();
+      }
+      if (foglalkozasIds.length > 0) {
+        db.delete(reflexiok).where(inArray(reflexiok.foglalkozasId, foglalkozasIds)).run();
+      }
+      if (projektIds.length > 0) {
+        db.delete(reflexiok).where(inArray(reflexiok.projektId, projektIds)).run();
+      }
+
+      // 3. Foglalkozás-tervezetek
+      if (foglalkozasIds.length > 0) {
+        db.delete(foglalkozasTervezetek).where(inArray(foglalkozasTervezetek.id, foglalkozasIds)).run();
+      }
+
+      // 4. Heti tervek (a teruletek + heti_terv_kepesseg CASCADE-el törlődik)
+      if (hetiIds.length > 0) {
+        db.delete(hetiTervek).where(inArray(hetiTervek.id, hetiIds)).run();
+      }
+
+      // 5. Projektek
+      if (projektIds.length > 0) {
+        db.delete(projektek).where(inArray(projektek.id, projektIds)).run();
+      }
+
+      // 6. Események
+      db.delete(esemenyek).where(eq(esemenyek.nevelesiEvId, id)).run();
+
+      // 7. Maga a nevelési év
+      const torolt = db.delete(nevelesiEvek).where(eq(nevelesiEvek.id, id)).returning().all();
+      if (torolt.length === 0) {
+        throw new Error('Nevelési év nem található');
+      }
+
+      // 8. Ha aktív év volt: a legfrissebb másikat tegyük aktívvá
+      let ujAktivId: number | null = null;
+      const volt_aktiv = torolt[0].aktiv === 1;
+      if (volt_aktiv) {
+        const masikEvek = db.select().from(nevelesiEvek).orderBy(desc(nevelesiEvek.kezdo)).limit(1).all();
+        if (masikEvek.length > 0) {
+          db.update(nevelesiEvek).set({ aktiv: 1 }).where(eq(nevelesiEvek.id, masikEvek[0].id)).run();
+          ujAktivId = masikEvek[0].id;
+        }
+      }
+      return { siker: true, ujAktivId };
+    });
+    return tx();
   });
 
   // -------- Heti tervek --------

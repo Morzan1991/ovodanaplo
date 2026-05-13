@@ -21,6 +21,71 @@ export default function Naptar() {
   // Új nevelési év modal nyitva-e (jövő-éves tervezés vagy aktív év-váltás)
   const [ujEvModalNyitva, setUjEvModalNyitva] = useState(false);
 
+  async function torolNevelesiEv() {
+    if (!nevelesiEv) return;
+    // 1. Statisztika lekérdezése a kapcsolódó tartalmakról
+    const stat = await window.api.nevelesiEvStatistika(nevelesiEv.id);
+    const osszesen = stat.hetiTervek + stat.projektek + stat.esemenyek + stat.foglalkozasok + stat.reflexiok;
+
+    // 2. Első konfirmáció — alapvető
+    const elsoOk = window.confirm(
+      `Biztos törölni akarod a(z) "${nevelesiEv.nev}" nevelési évet?\n\n` +
+        (osszesen === 0
+          ? 'Az év üres, nincs kapcsolódó tartalom.'
+          : `Az évhez kapcsolódik:\n` +
+            (stat.hetiTervek > 0 ? `  • ${stat.hetiTervek} heti terv\n` : '') +
+            (stat.foglalkozasok > 0 ? `  • ${stat.foglalkozasok} foglalkozás-tervezet\n` : '') +
+            (stat.projektek > 0 ? `  • ${stat.projektek} projekt\n` : '') +
+            (stat.esemenyek > 0 ? `  • ${stat.esemenyek} esemény\n` : '') +
+            (stat.reflexiok > 0 ? `  • ${stat.reflexiok} reflexió\n` : '')),
+    );
+    if (!elsoOk) return;
+
+    // 3. Második konfirmáció — csak akkor ha van tartalom, részletes figyelmeztetés
+    if (osszesen > 0) {
+      const masodikOk = window.confirm(
+        `⚠️ MÁSODSZORI MEGERŐSÍTÉS ⚠️\n\n` +
+          `Az "${nevelesiEv.nev}" év TELJES tartalma (${osszesen} elem) TÖRLŐDIK.\n\n` +
+          `Ez a művelet VISSZAVONHATATLAN. A backup-fájlokat kivéve a tartalom nem visszaállítható.\n\n` +
+          `Biztos folytatod a törlést?`,
+      );
+      if (!masodikOk) return;
+    }
+
+    // 4. Törlés
+    try {
+      const eredmeny = await window.api.nevelesiEvTorol(nevelesiEv.id);
+      if (eredmeny.siker) {
+        // Friss évek lekérése
+        const frissEvek = await window.api.nevelesiEvLista();
+        setEvek(frissEvek);
+        if (frissEvek.length === 0) {
+          // Nincs több év — az onboarding UI kerül megjelenítésre
+          setNevelesiEv(null);
+          setHetiTervek([]);
+          setEsemenyek([]);
+        } else {
+          // Új aktív év (vagy az első)
+          const ujAktiv = eredmeny.ujAktivId
+            ? frissEvek.find((e) => e.id === eredmeny.ujAktivId)
+            : frissEvek[0];
+          if (ujAktiv) {
+            setNevelesiEv(ujAktiv);
+            const [tervek, esemenyekLista] = await Promise.all([
+              window.api.hetiTervLista(ujAktiv.id),
+              window.api.esemenyLista(ujAktiv.id),
+            ]);
+            setHetiTervek(tervek);
+            setEsemenyek(esemenyekLista);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Nevelési év törlési hiba:', err);
+      window.alert('Sikertelen volt a törlés. A konzolban a részletek.');
+    }
+  }
+
   async function torolHetiTerv(terv: HetiTerv) {
     const cim = terv.tema && terv.tema.trim() ? terv.tema : 'Heti terv';
     const megerosit = window.confirm(
@@ -120,6 +185,13 @@ export default function Naptar() {
             title="Új nevelési év hozzáadása (pl. új tanév szeptemberben)"
           >
             + Új év
+          </button>
+          <button
+            onClick={torolNevelesiEv}
+            className="text-xs text-red-500 hover:text-red-700 hover:underline whitespace-nowrap"
+            title="Aktuális nevelési év törlése (kétszeres konfirmációval)"
+          >
+            🗑 Év törlése
           </button>
           <div className="text-xs text-ink/50 italic">
             Új heti tervnél választhatsz sablont (Mikulás, Húsvét, Tavasz, stb.) — 85 előre elkészített téma.

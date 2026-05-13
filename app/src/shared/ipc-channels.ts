@@ -12,6 +12,8 @@ export const IpcChannels = {
   nevelesiEvLista: 'nevelesiEv:lista',
   nevelesiEvAktiv: 'nevelesiEv:aktiv',
   nevelesiEvLetrehoz: 'nevelesiEv:letrehoz',
+  nevelesiEvStatistika: 'nevelesiEv:statistika', // kapcsolódó tartalom darabszáma
+  nevelesiEvTorol: 'nevelesiEv:torol', // CASCADE törlés tranzakcióban
 
   // Heti tervek
   hetiTervLista: 'hetiTerv:lista',

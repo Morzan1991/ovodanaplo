@@ -65,6 +65,28 @@ const api = {
   nevelesiEvAktiv: (): Promise<NevelesiEv | null> => ipcRenderer.invoke(IpcChannels.nevelesiEvAktiv),
   nevelesiEvLetrehoz: (data: UjNevelesiEv): Promise<NevelesiEv> =>
     ipcRenderer.invoke(IpcChannels.nevelesiEvLetrehoz, data),
+  /**
+   * Egy nevelési évhez kapcsolódó tartalmak darabszáma.
+   * Confirmáció előtt mutatjuk, hogy a felhasználó lássa mi vész el.
+   */
+  nevelesiEvStatistika: (
+    id: number,
+  ): Promise<{
+    hetiTervek: number;
+    projektek: number;
+    esemenyek: number;
+    foglalkozasok: number;
+    reflexiok: number;
+  }> => ipcRenderer.invoke(IpcChannels.nevelesiEvStatistika, id),
+  /**
+   * Nevelési év CASCADE törlése: minden kapcsolódó adat (heti tervek, projektek,
+   * események, foglalkozás-tervezetek, reflexiók) is törlődik tranzakcióban.
+   * Ha az aktív évet töröljük, automatikusan a legutóbbira vált.
+   */
+  nevelesiEvTorol: (
+    id: number,
+  ): Promise<{ siker: boolean; ujAktivId: number | null }> =>
+    ipcRenderer.invoke(IpcChannels.nevelesiEvTorol, id),
 
   // Heti tervek
   hetiTervLista: (nevelesiEvId?: number): Promise<HetiTerv[]> =>
