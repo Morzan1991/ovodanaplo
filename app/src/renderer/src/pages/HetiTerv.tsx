@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import type { TeruletTipus, FoglalkozasTervezet, Kepesseg } from '@shared/schema';
+import type { TeruletTipus, FoglalkozasTervezet, Kepesseg, HetiTerv as HetiTervRow } from '@shared/schema';
 import type { HetiTervTeljes } from '../../../preload/index';
 import { vanAdatvedelmiKockazat } from '../lib/utils';
 import OtletekModal from './HetiTerv/OtletekModal';
@@ -59,6 +59,9 @@ export default function HetiTerv() {
   // TODO-11: Képesség multi-select
   const [osszesKepesseg, setOsszesKepesseg] = useState<Kepesseg[]>([]);
   const [valasztottKepessegIds, setValasztottKepessegIds] = useState<Set<number>>(new Set());
+  // TODO-15: "Tavaly ilyenkor" emlékeztető — az aktuális kezdoDatum-hoz kapcsolódó
+  // korábbi évek heti tervei (±3 nap tűréshatár, max 5)
+  const [tavalyiTervek, setTavalyiTervek] = useState<HetiTervRow[]>([]);
   const [autoSablonCim, setAutoSablonCim] = useState<string | null>(null);
   const [dokumentumNezet, setDokumentumNezet] = useState(false);
   // Ötletek panel: melyik terület számára nyitottuk meg, és az aktuális hónap sablonjai
@@ -106,6 +109,17 @@ export default function HetiTerv() {
       setValasztottKepessegIds(new Set(arr.map((k) => k.id)));
     });
   }, [terv?.id]);
+
+  // TODO-15: "Tavaly ilyenkor" — a kezdoDatum hónap-napja alapján
+  useEffect(() => {
+    if (!terv?.kezdoDatum) {
+      setTavalyiTervek([]);
+      return;
+    }
+    void window.api
+      .hetiTervekTavalyiEvbol(terv.kezdoDatum)
+      .then((arr) => setTavalyiTervek(arr.filter((t) => t.id !== terv?.id)));
+  }, [terv?.kezdoDatum, terv?.id]);
 
   // Foglalkozás-tervezetek betöltése a heti tervhez (ha már elmentett a terv).
   useEffect(() => {
@@ -411,6 +425,44 @@ export default function HetiTerv() {
     const sablon = await window.api.sablonBetolt(azonosito);
     if (!sablon) return;
 
+    // TODO-20: Téma-duplikáció figyelmeztetés
+    // Ha a sablonnal azonos (vagy hasonló) című heti terv már létezik az aktuális
+    // nevelési évben, jelezzük + alternatív V1/V2 sablon-ajánlást teszünk.
+    try {
+      const duplikacio = await window.api.hetiTervekTemaDuplikacio({
+        cim: sablon.cim,
+        nevelesiEvId: terv?.nevelesiEvId ?? null,
+        kivetelId: terv?.id ?? null,
+      });
+      if (duplikacio.length > 0) {
+        // V1/V2 alternatív sablon-ajánlás:
+        // ha az azonosító "_v1"-re végződik, ajánljuk a "_v2"-t, és fordítva
+        let alternativ: string | null = null;
+        const m = azonosito.match(/^(.+)_v([12])$/);
+        if (m) {
+          const masikVerzio = m[2] === '1' ? '2' : '1';
+          const alternativAzonosito = `${m[1]}_v${masikVerzio}`;
+          const lehet = sablonok.find((s) => s.azonosito === alternativAzonosito);
+          if (lehet) alternativ = `${lehet.cim} (V${masikVerzio})`;
+        }
+
+        const datumok = duplikacio.map((t) => t.kezdoDatum).join(', ');
+        let uzenet =
+          `⚠️ Hasonló témájú heti terv már létezik a nevelési évben:\n\n` +
+          duplikacio.map((t) => `• "${t.tema}" (${t.kezdoDatum} — ${t.zaroDatum})`).join('\n') +
+          `\n\n`;
+        if (alternativ) {
+          uzenet += `💡 Tipp: Próbáld az alternatív sablon-verziót: "${alternativ}".\n\n`;
+        }
+        uzenet += 'Folytatod a kiválasztott sablon alkalmazását?';
+        void datumok;
+        if (!window.confirm(uzenet)) return;
+      }
+    } catch (err) {
+      console.warn('Téma-duplikáció ellenőrzés sikertelen:', err);
+      // Nem kritikus — folytatjuk
+    }
+
     setTerv((prev) => ({
       ...prev,
       tema: sablon.cim,
@@ -698,6 +750,38 @@ export default function HetiTerv() {
             >
               + Új foglalkozás-tervezet
             </Link>
+          </div>
+        )}
+
+        {/* TODO-15: "Tavaly ilyenkor" emlékeztető */}
+        {tavalyiTervek.length > 0 && (
+          <div className="card border-l-4 border-l-mauve-300">
+            <div className="field-label mb-2 flex items-center gap-1">
+              <span>💭 Tavaly ilyenkor</span>
+              <span className="text-[10px] font-normal normal-case tracking-normal text-ink/40">
+                ({tavalyiTervek.length})
+              </span>
+            </div>
+            <div className="text-xs text-ink/60 mb-2 italic leading-snug">
+              Korábbi évek hasonló hetére visszatekintés (±3 nap):
+            </div>
+            <ul className="space-y-1">
+              {tavalyiTervek.map((t) => (
+                <li key={t.id}>
+                  <Link
+                    to={`/heti-terv/${t.id}`}
+                    className="block px-2 py-1.5 rounded text-sm hover:bg-mauve-50 group"
+                  >
+                    <div className="font-medium text-ink/90 group-hover:text-mauve-700 truncate">
+                      {t.tema || '(téma nélkül)'}
+                    </div>
+                    <div className="text-[10px] text-ink/50 mt-0.5">
+                      {t.kezdoDatum} — {t.zaroDatum}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

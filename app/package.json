@@ -15,6 +15,9 @@
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "package:win": "electron-vite build && electron-builder --win --x64",
@@ -33,6 +36,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "@vitest/ui": "^4.1.6",
     "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",
     "drizzle-kit": "^0.28.1",
@@ -48,6 +52,7 @@
     "tailwindcss": "^3.4.15",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
+    "vitest": "^4.1.6",
     "zustand": "^5.0.1"
   },
   "build": {

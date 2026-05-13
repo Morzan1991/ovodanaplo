@@ -45,17 +45,21 @@ export function nevelesiEvCimke(kezdoEv: number): string {
 /**
  * Adatvédelmi figyelmeztető — kvázi-azonosító mintázatokat keres.
  * Csak figyelmeztetés, nem tilt.
+ *
+ * MEGJEGYZÉS: A `\b` JavaScript-regex csak ASCII szóhatárt ismer, az "ú"/"á"/"é"
+ * stb. ékezetes karaktereket NEM. Ezért szótő-prefix mintázatokat használunk:
+ * `kisfi` matchel kisfiúra, kisfiú-ra, kisfiús-ra is.
  */
 const ADATVEDELMI_MINTAK = [
   /\bSNI\b/,
   /\bBTMN\b/,
   /sajátos nevelési igény/i,
-  /beszédprobléma/i,
-  /\begy kisfiú\b/i,
-  /\begy kislány\b/i,
-  /\baz egyik gyermek\b/i,
+  /beszédproblém/i, // szótő — beszédprobléma, beszédproblémája stb.
+  /egy kisfi/i, // egy kisfiú, egy kisfiús stb.
+  /egy kislán/i, // egy kislány, egy kislányos stb.
+  /az egyik gyer/i, // az egyik gyermek, gyermekek stb.
   /diagnoszt/i,
-  /betegsége/i,
+  /betegség/i, // betegsége, betegségben stb.
 ];
 
 export function vanAdatvedelmiKockazat(szoveg: string): boolean {

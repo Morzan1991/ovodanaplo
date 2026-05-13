@@ -60,6 +60,10 @@ export const IpcChannels = {
   hetiTervKepessegekMent: 'hetiTerv:kepessegekMent',
   // FTS5 keresés (TODO-12)
   keresesHetiTervekben: 'kereses:hetiTervekben',
+  // Téma-duplikáció ellenőrzés (TODO-20)
+  hetiTervekTemaDuplikacio: 'hetiTerv:temaDuplikacio',
+  // "Tavaly ilyenkor" emlékeztető (TODO-15)
+  hetiTervekTavalyiEvbol: 'hetiTerv:tavalyiEvbol',
 
   // Export
   exportHetiTervDocx: 'export:hetiTerv:docx',

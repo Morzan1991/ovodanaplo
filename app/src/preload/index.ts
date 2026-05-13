@@ -185,6 +185,24 @@ const api = {
     kereses: string,
   ): Promise<Array<HetiTerv & { snippet: string }>> =>
     ipcRenderer.invoke(IpcChannels.keresesHetiTervekben, kereses),
+  /**
+   * TODO-20: A megadott témához keresett heti tervek a nevelési évben (téma-egyezés).
+   * `cim`-pattern alapján LIKE-mal keres a `tema` mezőben az aktív / megadott nevelési évben.
+   * Visszaadja a már meglévő heti tervek listáját — a felhasználónak figyelmeztetést mutathatunk.
+   */
+  hetiTervekTemaDuplikacio: (params: {
+    cim: string;
+    nevelesiEvId?: number | null;
+    kivetelId?: number | null;
+  }): Promise<HetiTerv[]> =>
+    ipcRenderer.invoke(IpcChannels.hetiTervekTemaDuplikacio, params),
+  /**
+   * TODO-15: "Tavaly ilyenkor" emlékeztető — az adott dátum (YYYY-MM-DD)
+   * hónap-napjához tartozó heti tervek korábbi évekből, az aktuálistól
+   * eltérő nevelési években.
+   */
+  hetiTervekTavalyiEvbol: (datum: string): Promise<HetiTerv[]> =>
+    ipcRenderer.invoke(IpcChannels.hetiTervekTavalyiEvbol, datum),
 
   // Export
   exportHetiTervDocx: (hetiTervId: number): Promise<ExportEredmeny> =>

@@ -476,6 +476,73 @@ export function registerIpcHandlers(): void {
   });
 
   /**
+   * TODO-20: Téma-duplikáció ellenőrzés.
+   * Visszaadja az olyan heti terveket az adott nevelési évben, amelyek témája
+   * részben (LIKE %{normCim}%) tartalmazza a sablon-címet. A `kivetelId` paraméterrel
+   * az aktuális heti tervet ki lehet hagyni (szerkesztéskor).
+   */
+  ipcMain.handle(IpcChannels.hetiTervekTemaDuplikacio, (_e, raw: unknown) => {
+    const params = raw as { cim: string; nevelesiEvId?: number | null; kivetelId?: number | null };
+    if (!params || typeof params.cim !== 'string' || params.cim.trim().length === 0) return [];
+    // A "(másolat) " prefixet kihagyjuk a keresésből, hogy szebben matchelje
+    const tisztaCim = params.cim.replace(/^\(m[áa]solat\)\s*/i, '').trim();
+    if (tisztaCim.length < 3) return [];
+    const term = `%${tisztaCim}%`;
+    const conditions = [like(hetiTervek.tema, term)];
+    if (params.nevelesiEvId) {
+      conditions.push(eq(hetiTervek.nevelesiEvId, params.nevelesiEvId));
+    }
+    let q = db.select().from(hetiTervek).where(and(...conditions)).orderBy(hetiTervek.kezdoDatum).all();
+    if (params.kivetelId) {
+      q = q.filter((t) => t.id !== params.kivetelId);
+    }
+    return q;
+  });
+
+  /**
+   * TODO-15: "Tavaly ilyenkor" emlékeztető — az adott dátum hónap-napjához tartozó
+   * heti tervek korábbi évekből. Pl. ha most október 12. van, kérjük le az előző
+   * 5 év október 10-15. közötti heti terveit.
+   *
+   * Kerekítés: a `kezdoDatum` hónap-napjához ±3 nap tűréshatáron belül.
+   */
+  ipcMain.handle(IpcChannels.hetiTervekTavalyiEvbol, (_e, datum: unknown) => {
+    if (typeof datum !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(datum)) return [];
+    const sqlite = getSqlite();
+    // SQLite-ban a strftime('%m-%d', kezdoDatum) adja a hónap-napot
+    // ±3 nap tűréshatár a hét-csúszás kompenzálására
+    try {
+      const rows = sqlite
+        .prepare(
+          `SELECT * FROM heti_tervek
+           WHERE
+             substr(kezdo_datum, 6, 5) BETWEEN ? AND ?
+             AND substr(kezdo_datum, 1, 4) != ?
+           ORDER BY kezdo_datum DESC
+           LIMIT 5`,
+        )
+        .all(
+          (() => {
+            // -3 nap a hónap-napból
+            const d = new Date(datum);
+            d.setDate(d.getDate() - 3);
+            return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+          })(),
+          (() => {
+            const d = new Date(datum);
+            d.setDate(d.getDate() + 3);
+            return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+          })(),
+          datum.slice(0, 4),
+        );
+      return rows;
+    } catch (err) {
+      console.error('[hetiTervekTavalyiEvbol] hiba:', err);
+      return [];
+    }
+  });
+
+  /**
    * TODO-12: FTS5 keresés a heti tervek között.
    * A kereső-szöveg minimum 2 karakter, különben üres tömb.
    * A találatok a heti_terv_fts virtuális tábla MATCH operátorán át.
