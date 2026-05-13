@@ -83,6 +83,17 @@ const api = {
       teruletek: Array<Omit<UjTerulet, 'hetiTervId'> & { id?: number }>;
     },
   ): Promise<HetiTervTeljes> => ipcRenderer.invoke(IpcChannels.hetiTervTeljesMent, data),
+  /**
+   * Másolja egy meglévő heti terv tartalmát egy új heti tervre (új dátumokkal).
+   * Másolódik: téma "(másolat)" jelöléssel, cél, feladat, eszközök, területek
+   * tartalma + iskolaElokeszito. A reflexiók NEM kerülnek át.
+   */
+  hetiTervMasolas: (params: {
+    forrasHetiTervId: number;
+    ujKezdoDatum: string;
+    ujZaroDatum: string;
+    ujNevelesiEvId?: number | null;
+  }): Promise<HetiTervTeljes> => ipcRenderer.invoke(IpcChannels.hetiTervMasolas, params),
   hetiTervekGeneralasEvre: (
     nevelesiEvId: number,
   ): Promise<

@@ -20,6 +20,7 @@ export const IpcChannels = {
   hetiTervTorol: 'hetiTerv:torol',
   hetiTervTeljesBetolt: 'hetiTerv:teljesBetolt', // heti terv + területek
   hetiTervTeljesMent: 'hetiTerv:teljesMent', // heti terv + területek tranzakcióban
+  hetiTervMasolas: 'hetiTerv:masolas', // egy meglévő heti tervből másolat új dátumokkal (TODO-9)
   hetiTervekGeneralasEvre: 'hetiTerv:generalasEvre', // egész évet sablonokból
   sablonokLista: 'sablon:lista', // sablon-meta lista (cím, azonosító, hónap)
   sablonBetolt: 'sablon:betolt', // egy sablon teljes tartalma

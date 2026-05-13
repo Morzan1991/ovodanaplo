@@ -8,6 +8,7 @@ import DokumentumNezet from './HetiTerv/DokumentumNezet';
 import { SablonValaszto, SablonBanner } from './HetiTerv/SablonValaszto';
 import OsszegzoSzekcio from './HetiTerv/OsszegzoSzekcio';
 import TeruletSzekciok from './HetiTerv/TeruletSzekciok';
+import MasolasModal from './HetiTerv/MasolasModal';
 import {
   TERULET_DEFINICIO,
   type TeruletAllapot,
@@ -51,6 +52,8 @@ export default function HetiTerv() {
   const [exportAllapot, setExportAllapot] = useState<'idle' | 'exportal' | 'kesz' | 'hiba'>('idle');
   const [sablonok, setSablonok] = useState<SablonMeta[]>([]);
   const [sablonHasznalva, setSablonHasznalva] = useState(false);
+  // TODO-9: Másolás-modal (előző hétről másolás)
+  const [masolasModalNyitva, setMasolasModalNyitva] = useState(false);
   const [autoSablonCim, setAutoSablonCim] = useState<string | null>(null);
   const [dokumentumNezet, setDokumentumNezet] = useState(false);
   // Ötletek panel: melyik terület számára nyitottuk meg, és az aktuális hónap sablonjai
@@ -464,6 +467,18 @@ export default function HetiTerv() {
           onHozzaadas={otletekHozzaadasa}
         />
       )}
+      {masolasModalNyitva && (
+        <MasolasModal
+          ujKezdoDatum={terv.kezdoDatum ?? ''}
+          ujZaroDatum={terv.zaroDatum ?? ''}
+          ujNevelesiEvId={terv.nevelesiEvId ?? null}
+          onBezar={() => setMasolasModalNyitva(false)}
+          onMasolva={(ujId) => {
+            setMasolasModalNyitva(false);
+            navigate(`/heti-terv/${ujId}`);
+          }}
+        />
+      )}
     <div className="mx-auto max-w-7xl px-6 py-6 grid grid-cols-12 gap-6">
       <main className="col-span-12 lg:col-span-9">
         <div className="mb-6 flex items-center justify-between">
@@ -501,6 +516,20 @@ export default function HetiTerv() {
           onSablonValasztas={sablonAlkalmazasa}
           onUres={() => setSablonHasznalva(true)}
         />
+
+        {/* TODO-9: Új tervezet módban "Másolás előző hétről" gomb */}
+        {!params.id && !sablonHasznalva && (
+          <div className="mb-4 flex items-center gap-2">
+            <button
+              onClick={() => setMasolasModalNyitva(true)}
+              className="text-xs text-mauve-600 hover:text-mauve-700 hover:underline"
+              type="button"
+              title="Egy korábbi hét teljes tartalmát átveszi az új tervezetbe"
+            >
+              📋 Másolás előző hétről…
+            </button>
+          </div>
+        )}
 
         {sablonHasznalva && !params.id && (
           <SablonBanner

@@ -185,6 +185,85 @@ export function registerIpcHandlers(): void {
     return tx();
   });
 
+  /**
+   * TODO-9: Heti terv másolása egy korábbi hét tartalmából.
+   * Másolódik: téma "(másolat)" prefixszel, cél/feladat/differenciálás/módszerek/
+   * képességfejlesztés/eszközök + a 7 terület tartalma + iskolaElokeszito.
+   * Új modositva/letrehozva timestamp. A reflexiók NEM kerülnek át.
+   */
+  ipcMain.handle(IpcChannels.hetiTervMasolas, (_e, raw: unknown) => {
+    const params = raw as {
+      forrasHetiTervId: number;
+      ujKezdoDatum: string;
+      ujZaroDatum: string;
+      ujNevelesiEvId?: number | null;
+    };
+    if (
+      !params ||
+      typeof params.forrasHetiTervId !== 'number' ||
+      typeof params.ujKezdoDatum !== 'string' ||
+      typeof params.ujZaroDatum !== 'string'
+    ) {
+      throw new Error('[hetiTervMasolas] érvénytelen paraméterek');
+    }
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // 1. Forrás heti terv betöltése
+      const forras = db
+        .select()
+        .from(hetiTervek)
+        .where(eq(hetiTervek.id, params.forrasHetiTervId))
+        .limit(1)
+        .all()[0];
+      if (!forras) throw new Error('[hetiTervMasolas] forrás heti terv nem található');
+
+      // 2. Új heti terv beszúrása (új dátumok, téma "(másolat)" prefixszel)
+      const ujTema = forras.tema ? `(másolat) ${forras.tema}` : '(másolat)';
+      const ujTervAdat = {
+        nevelesiEvId: params.ujNevelesiEvId ?? forras.nevelesiEvId,
+        projektId: forras.projektId,
+        hetSzama: null,
+        kezdoDatum: params.ujKezdoDatum,
+        zaroDatum: params.ujZaroDatum,
+        tema: ujTema,
+        cel: forras.cel,
+        feladat: forras.feladat,
+        differencialas: forras.differencialas,
+        modszerek: forras.modszerek,
+        kepessegfejlesztes: forras.kepessegfejlesztes,
+        eszkozok: forras.eszkozok,
+      };
+      const ujTerv = db.insert(hetiTervek).values(ujTervAdat).returning().get();
+
+      // 3. Területek másolása
+      const forrasTeruletek = db
+        .select()
+        .from(teruletek)
+        .where(eq(teruletek.hetiTervId, params.forrasHetiTervId))
+        .orderBy(teruletek.sorrend)
+        .all();
+
+      const ujTeruletek = [];
+      for (const t of forrasTeruletek) {
+        const ujT = db
+          .insert(teruletek)
+          .values({
+            hetiTervId: ujTerv.id,
+            tipus: t.tipus,
+            tartalom: t.tartalom,
+            iskolaElokeszito: t.iskolaElokeszito,
+            sorrend: t.sorrend,
+          })
+          .returning()
+          .get();
+        ujTeruletek.push(ujT);
+      }
+
+      return { ...ujTerv, teruletek: ujTeruletek };
+    });
+    return tx();
+  });
+
   // -------- Projektek --------
   ipcMain.handle(IpcChannels.projektLista, (_e, nevelesiEvId?: number) => {
     if (nevelesiEvId) {
