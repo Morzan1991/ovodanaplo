@@ -292,8 +292,12 @@ export default function FoglalkozasSzerkeszto() {
           {exportAllapot === 'exportal' ? 'Exportálás…' : exportAllapot === 'kesz' ? '✓ DOCX elmentve' : exportAllapot === 'hiba' ? 'Export-hiba' : 'Letöltés .docx-ként'}
         </button>
         {foglalkozas.id && (
-          <Link to={`/foglalkozas/${foglalkozas.id}/reflexio`} className="btn-secondary">
-            Reflexió írása →
+          <Link
+            to="/reflexiok"
+            className="btn-secondary"
+            title="A reflexiók központi listája — onnan szerkeszthető vagy itt a területenkénti tartalom-mezőkben írhatsz megjegyzést."
+          >
+            Reflexiók megnyitása →
           </Link>
         )}
       </div>
