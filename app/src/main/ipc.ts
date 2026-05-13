@@ -67,16 +67,22 @@ export function registerIpcHandlers(): void {
 
   ipcMain.handle(IpcChannels.beallitasokSave, (_e, raw: unknown) => {
     const data = validate(IpcChannels.beallitasokSave, raw, ujBeallitasSchema) as UjBeallitas;
-    const existing = db.select().from(beallitasok).limit(1).all();
-    if (existing.length > 0) {
-      return db
-        .update(beallitasok)
-        .set(data)
-        .where(eq(beallitasok.id, existing[0].id))
-        .returning()
-        .get();
-    }
-    return db.insert(beallitasok).values(data).returning().get();
+    // K4 fix: get → if-exist update : insert TRANZAKCIÓBAN, hogy két párhuzamos hívás ne hozzon létre duplikátumot.
+    // (Korábban: ha két IPC kérés egyszerre futott, mindkettő üres existing-ot látott → két INSERT.)
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      const existing = db.select().from(beallitasok).limit(1).all();
+      if (existing.length > 0) {
+        return db
+          .update(beallitasok)
+          .set(data)
+          .where(eq(beallitasok.id, existing[0].id))
+          .returning()
+          .get();
+      }
+      return db.insert(beallitasok).values(data).returning().get();
+    });
+    return tx();
   });
 
   // -------- Nevelési év --------
@@ -103,7 +109,6 @@ export function registerIpcHandlers(): void {
    */
   ipcMain.handle(IpcChannels.nevelesiEvStatistika, (_e, id: number) => {
     if (typeof id !== 'number') return { hetiTervek: 0, projektek: 0, esemenyek: 0, foglalkozasok: 0, reflexiok: 0 };
-    const sqlite = getSqlite();
     const hetiTervRows = db.select({ id: hetiTervek.id }).from(hetiTervek).where(eq(hetiTervek.nevelesiEvId, id)).all();
     const projektRows = db.select({ id: projektek.id }).from(projektek).where(eq(projektek.nevelesiEvId, id)).all();
     const hetiIds = hetiTervRows.map((h) => h.id);
@@ -113,12 +118,13 @@ export function registerIpcHandlers(): void {
       ? db.select({ id: foglalkozasTervezetek.id }).from(foglalkozasTervezetek).where(inArray(foglalkozasTervezetek.hetiTervId, hetiIds)).all().length
       : 0;
     // reflexiók: heti, foglalkozás, projekt — összegzés
+    // K1 fix: paraméteres inArray Drizzle-vel raw .join(',') helyett (SQL injection védelem + best practice)
     let reflexioCount = 0;
     if (hetiIds.length > 0) {
-      reflexioCount += (sqlite.prepare(`SELECT COUNT(*) as n FROM reflexiok WHERE heti_terv_id IN (${hetiIds.join(',')})`).get() as { n: number }).n;
+      reflexioCount += db.select({ id: reflexiok.id }).from(reflexiok).where(inArray(reflexiok.hetiTervId, hetiIds)).all().length;
     }
     if (projektIds.length > 0) {
-      reflexioCount += (sqlite.prepare(`SELECT COUNT(*) as n FROM reflexiok WHERE projekt_id IN (${projektIds.join(',')})`).get() as { n: number }).n;
+      reflexioCount += db.select({ id: reflexiok.id }).from(reflexiok).where(inArray(reflexiok.projektId, projektIds)).all().length;
     }
     const esemenyekCount = db.select({ id: esemenyek.id }).from(esemenyek).where(eq(esemenyek.nevelesiEvId, id)).all().length;
     return {
@@ -890,15 +896,20 @@ export function registerIpcHandlers(): void {
     const beallitasArr = db.select().from(beallitasok).limit(1).all();
     const beallitas: Beallitas | null = beallitasArr[0] ?? null;
 
+    // K3 fix: ne hozzunk létre orphan BrowserWindow-t fallback-ben.
+    // Az Electron dialog.showSaveDialog window-paraméter opcionális — ha sender null, hívjuk window nélkül.
     const sender = BrowserWindow.fromWebContents(e.sender);
     const tema = (terv.tema || 'heti-terv').replace(/[<>:"/\\|?*]/g, '-').slice(0, 60);
     const javasoltNev = `${terv.kezdoDatum}_${tema}.docx`;
 
-    const eredmeny = await dialog.showSaveDialog(sender ?? new BrowserWindow(), {
+    const dialogOpts = {
       title: 'Heti terv mentése .docx-ként',
       defaultPath: javasoltNev,
       filters: [{ name: 'Word dokumentum', extensions: ['docx'] }],
-    });
+    };
+    const eredmeny = sender
+      ? await dialog.showSaveDialog(sender, dialogOpts)
+      : await dialog.showSaveDialog(dialogOpts);
     if (eredmeny.canceled || !eredmeny.filePath) {
       return { siker: false, hiba: 'megszakítva' };
     }
@@ -929,15 +940,19 @@ export function registerIpcHandlers(): void {
     const beallitasArr = db.select().from(beallitasok).limit(1).all();
     const beallitas: Beallitas | null = beallitasArr[0] ?? null;
 
+    // K3 fix: orphan window helyett opcionális window-paraméter.
     const sender = BrowserWindow.fromWebContents(e.sender);
     const tema = (foglalkozas.tema || 'foglalkozas').replace(/[<>:"/\\|?*]/g, '-').slice(0, 60);
     const javasoltNev = `foglalkozas_${tema}.docx`;
 
-    const eredmeny = await dialog.showSaveDialog(sender ?? new BrowserWindow(), {
+    const dialogOpts = {
       title: 'Foglalkozás-tervezet mentése .docx-ként',
       defaultPath: javasoltNev,
       filters: [{ name: 'Word dokumentum', extensions: ['docx'] }],
-    });
+    };
+    const eredmeny = sender
+      ? await dialog.showSaveDialog(sender, dialogOpts)
+      : await dialog.showSaveDialog(dialogOpts);
     if (eredmeny.canceled || !eredmeny.filePath) {
       return { siker: false, hiba: 'megszakítva' };
     }
@@ -965,15 +980,19 @@ export function registerIpcHandlers(): void {
     const beallitasArr = db.select().from(beallitasok).limit(1).all();
     const beallitas: Beallitas | null = beallitasArr[0] ?? null;
 
+    // K3 fix: orphan window helyett opcionális window-paraméter.
     const sender = BrowserWindow.fromWebContents(e.sender);
     const cim = (projekt.cim || 'projekt').replace(/[<>:"/\\|?*]/g, '-').slice(0, 60);
     const javasoltNev = `projekt_${cim}.docx`;
 
-    const eredmeny = await dialog.showSaveDialog(sender ?? new BrowserWindow(), {
+    const dialogOpts = {
       title: 'Projektterv mentése .docx-ként',
       defaultPath: javasoltNev,
       filters: [{ name: 'Word dokumentum', extensions: ['docx'] }],
-    });
+    };
+    const eredmeny = sender
+      ? await dialog.showSaveDialog(sender, dialogOpts)
+      : await dialog.showSaveDialog(dialogOpts);
     if (eredmeny.canceled || !eredmeny.filePath) {
       return { siker: false, hiba: 'megszakítva' };
     }

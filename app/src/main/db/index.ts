@@ -346,12 +346,37 @@ function loadSeedData(): void {
     return;
   }
 
+  // K2 fix: minden seed-funkciót izoláltan csapdázunk.
+  // Ha az irodalmi JSON sérült, a többi (ünnepek, képességek) még betölthet.
+  // Korábban egy közös try/catch volt — egy sérült fájl mindent megakasztott.
+  const safeSeed = (nev: string, fn: () => void): void => {
+    try {
+      fn();
+    } catch (err) {
+      console.error(`[db] ${nev} seed hiba (kihagyva, de az app indul):`, err);
+    }
+  };
+
+  safeSeed('Irodalom', () => seedIrodalom(seedDir));
+  safeSeed('Ünnepek', () => seedUnnepek(seedDir));
+  safeSeed('Képességek', () => seedKepessegek(seedDir));
+}
+
+/**
+ * Biztonságos JSON-parse a seed-fájlokhoz.
+ * Hibás vagy sérült JSON esetén explicit Error-t dob a fájl nevével.
+ */
+function parseSeedJson<T>(filePath: string, label: string): T {
+  let raw: string;
   try {
-    seedIrodalom(seedDir);
-    seedUnnepek(seedDir);
-    seedKepessegek(seedDir);
+    raw = readFileSync(filePath, 'utf-8');
   } catch (err) {
-    console.error('[db] Seed hiba:', err);
+    throw new Error(`${label} JSON nem olvasható (${filePath}): ${(err as Error).message}`);
+  }
+  try {
+    return JSON.parse(raw) as T;
+  } catch (err) {
+    throw new Error(`${label} JSON sérült (${filePath}): ${(err as Error).message}`);
   }
 }
 
@@ -408,8 +433,7 @@ interface CapabilitySeed {
 }
 
 function seedIrodalom(seedDir: string): void {
-  const raw = readFileSync(join(seedDir, 'literature.json'), 'utf-8');
-  const data: LiteratureSeed = JSON.parse(raw);
+  const data = parseSeedJson<LiteratureSeed>(join(seedDir, 'literature.json'), 'Irodalom');
 
   // Upsert: csak hiányzó tételeket szúrunk be (cim+szerzo egyedi kulcs)
   // + meglévő tételekhez frissítjük a szöveget, ha még üres és van újabb verzió
@@ -489,8 +513,7 @@ function seedUnnepek(seedDir: string): void {
   const count = sqlite.prepare('SELECT COUNT(*) as n FROM unnepek').get() as { n: number };
   if (count.n > 0) return;
 
-  const raw = readFileSync(join(seedDir, 'hungarian-holidays.json'), 'utf-8');
-  const data: HolidaySeed = JSON.parse(raw);
+  const data = parseSeedJson<HolidaySeed>(join(seedDir, 'hungarian-holidays.json'), 'Ünnepek');
   const insert = sqlite.prepare(
     `INSERT INTO unnepek (nev, honap, nap, tipus, kategoria, leiras, ovodai_sulyozas)
      VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -509,8 +532,7 @@ function seedKepessegek(seedDir: string): void {
   const count = sqlite.prepare('SELECT COUNT(*) as n FROM kepessegek').get() as { n: number };
   if (count.n > 0) return;
 
-  const raw = readFileSync(join(seedDir, 'kepessegek.json'), 'utf-8');
-  const data: CapabilitySeed = JSON.parse(raw);
+  const data = parseSeedJson<CapabilitySeed>(join(seedDir, 'kepessegek.json'), 'Képességek');
   const insert = sqlite.prepare(
     `INSERT INTO kepessegek (nev, kategoria, iskola_elokeszito) VALUES (?, ?, ?)`,
   );
