@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import type { TeruletTipus, FoglalkozasTervezet } from '@shared/schema';
+import type { TeruletTipus, FoglalkozasTervezet, Kepesseg } from '@shared/schema';
 import type { HetiTervTeljes } from '../../../preload/index';
 import { vanAdatvedelmiKockazat } from '../lib/utils';
 import OtletekModal from './HetiTerv/OtletekModal';
@@ -9,6 +9,7 @@ import { SablonValaszto, SablonBanner } from './HetiTerv/SablonValaszto';
 import OsszegzoSzekcio from './HetiTerv/OsszegzoSzekcio';
 import TeruletSzekciok from './HetiTerv/TeruletSzekciok';
 import MasolasModal from './HetiTerv/MasolasModal';
+import KepessegMultiSelect from '../components/KepessegMultiSelect';
 import {
   TERULET_DEFINICIO,
   type TeruletAllapot,
@@ -54,6 +55,9 @@ export default function HetiTerv() {
   const [sablonHasznalva, setSablonHasznalva] = useState(false);
   // TODO-9: Másolás-modal (előző hétről másolás)
   const [masolasModalNyitva, setMasolasModalNyitva] = useState(false);
+  // TODO-11: Képesség multi-select
+  const [osszesKepesseg, setOsszesKepesseg] = useState<Kepesseg[]>([]);
+  const [valasztottKepessegIds, setValasztottKepessegIds] = useState<Set<number>>(new Set());
   const [autoSablonCim, setAutoSablonCim] = useState<string | null>(null);
   const [dokumentumNezet, setDokumentumNezet] = useState(false);
   // Ötletek panel: melyik terület számára nyitottuk meg, és az aktuális hónap sablonjai
@@ -85,6 +89,22 @@ export default function HetiTerv() {
   useEffect(() => {
     void window.api.beallitasokGet().then((b) => setBeallitas(b ?? null));
   }, []);
+
+  // TODO-11: Képességek lekérése (egyszer az app életében cache-elhető)
+  useEffect(() => {
+    void window.api.kepessegekLista().then(setOsszesKepesseg);
+  }, []);
+
+  // TODO-11: Meglévő terv esetén a kapcsolt képességeket betöltjük
+  useEffect(() => {
+    if (!terv?.id) {
+      setValasztottKepessegIds(new Set());
+      return;
+    }
+    void window.api.hetiTervKepessegekLista(terv.id).then((arr) => {
+      setValasztottKepessegIds(new Set(arr.map((k) => k.id)));
+    });
+  }, [terv?.id]);
 
   // Foglalkozás-tervezetek betöltése a heti tervhez (ha már elmentett a terv).
   useEffect(() => {
@@ -196,6 +216,20 @@ export default function HetiTerv() {
         zaroDatum: terv.zaroDatum!,
       });
       setTerv(result);
+
+      // TODO-11: Képesség M-N kapcsolatok mentése (replace-all)
+      if (result.id) {
+        try {
+          await window.api.hetiTervKepessegekMent({
+            hetiTervId: result.id,
+            kepessegIds: Array.from(valasztottKepessegIds),
+          });
+        } catch (err) {
+          console.error('Képesség-kapcsolatok mentése sikertelen:', err);
+          // Nem kritikus — a fő mentés sikerült, csak figyelmeztetünk
+        }
+      }
+
       setMentes('mentve');
       if (!params.id) {
         navigate(`/heti-terv/${result.id}`, { replace: true });
@@ -206,7 +240,7 @@ export default function HetiTerv() {
       setMentes('hiba');
       setTimeout(() => setMentes('idle'), 3000);
     }
-  }, [terv, teruletAllapotok, params.id, navigate]);
+  }, [terv, teruletAllapotok, valasztottKepessegIds, params.id, navigate]);
 
   const torol = useCallback(async () => {
     if (!terv?.id) return;
@@ -560,6 +594,28 @@ export default function HetiTerv() {
         />
 
         <OsszegzoSzekcio terv={terv} onUpdate={update} autoEszkozok={autoEszkozok} />
+
+        {/* TODO-11: Képesség multi-select (collapsible) */}
+        <section className="mt-6">
+          <details className="group">
+            <summary className="cursor-pointer list-none flex items-center gap-2 text-sm font-semibold text-sage-700 hover:text-sage-800">
+              <span className="inline-block group-open:rotate-90 transition-transform">▸</span>
+              <span>🏷 Fejlesztett képességek</span>
+              {valasztottKepessegIds.size > 0 && (
+                <span className="text-xs font-normal text-ink/50">
+                  ({valasztottKepessegIds.size} kiválasztva)
+                </span>
+              )}
+            </summary>
+            <div className="mt-3 p-4 rounded-lg border border-sage-100 bg-sage-50/30">
+              <KepessegMultiSelect
+                osszesKepesseg={osszesKepesseg}
+                valasztottIds={valasztottKepessegIds}
+                onValtozas={setValasztottKepessegIds}
+              />
+            </div>
+          </details>
+        </section>
 
         {/* Action bar */}
         <div className="mt-8 pt-4 border-t border-sage-100 flex items-center gap-2 flex-wrap">

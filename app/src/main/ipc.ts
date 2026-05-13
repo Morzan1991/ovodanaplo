@@ -18,6 +18,7 @@ import {
   irodalom,
   unnepek,
   kepessegek,
+  hetiTervKepesseg,
   teruletek,
   type UjHetiTerv,
   type UjReflexio,
@@ -419,6 +420,59 @@ export function registerIpcHandlers(): void {
   // -------- Képességek --------
   ipcMain.handle(IpcChannels.kepessegekLista, () => {
     return db.select().from(kepessegek).orderBy(kepessegek.kategoria, kepessegek.nev).all();
+  });
+
+  /** TODO-11: Egy heti terv kapcsolt képességei (M-N JOIN). */
+  ipcMain.handle(IpcChannels.hetiTervKepessegekLista, (_e, hetiTervId: number) => {
+    if (typeof hetiTervId !== 'number') {
+      throw new Error('[hetiTervKepessegekLista] érvénytelen hetiTervId');
+    }
+    // JOIN: heti_terv_kepesseg ⋈ kepessegek
+    const rows = db
+      .select({
+        id: kepessegek.id,
+        nev: kepessegek.nev,
+        kategoria: kepessegek.kategoria,
+        iskolaElokeszito: kepessegek.iskolaElokeszito,
+      })
+      .from(hetiTervKepesseg)
+      .innerJoin(kepessegek, eq(hetiTervKepesseg.kepessegId, kepessegek.id))
+      .where(eq(hetiTervKepesseg.hetiTervId, hetiTervId))
+      .orderBy(kepessegek.kategoria, kepessegek.nev)
+      .all();
+    return rows;
+  });
+
+  /**
+   * TODO-11: Heti terv ↔ képesség kapcsolatok REPLACE-ALL mentése.
+   * Törli az adott heti tervhez tartozó összes M-N sort, majd beszúrja az újakat.
+   * Tranzakcióban, hogy ne maradjon inkonzisztens állapot.
+   */
+  ipcMain.handle(IpcChannels.hetiTervKepessegekMent, (_e, raw: unknown) => {
+    const params = raw as { hetiTervId: number; kepessegIds: number[] };
+    if (
+      !params ||
+      typeof params.hetiTervId !== 'number' ||
+      !Array.isArray(params.kepessegIds)
+    ) {
+      throw new Error('[hetiTervKepessegekMent] érvénytelen paraméterek');
+    }
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // Törlés
+      db.delete(hetiTervKepesseg)
+        .where(eq(hetiTervKepesseg.hetiTervId, params.hetiTervId))
+        .run();
+      // Beszúrás (csak ha van mit)
+      const egyediek = Array.from(new Set(params.kepessegIds.filter((k) => typeof k === 'number')));
+      for (const kid of egyediek) {
+        db.insert(hetiTervKepesseg)
+          .values({ hetiTervId: params.hetiTervId, kepessegId: kid })
+          .run();
+      }
+      return { siker: true, count: egyediek.length };
+    });
+    return tx();
   });
 
   // -------- Backup --------

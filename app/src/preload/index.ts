@@ -167,6 +167,15 @@ const api = {
 
   // Képességek
   kepessegekLista: (): Promise<Kepesseg[]> => ipcRenderer.invoke(IpcChannels.kepessegekLista),
+  /** TODO-11: Egy heti terv kapcsolt képességeinek lekérése (M-N) */
+  hetiTervKepessegekLista: (hetiTervId: number): Promise<Kepesseg[]> =>
+    ipcRenderer.invoke(IpcChannels.hetiTervKepessegekLista, hetiTervId),
+  /** TODO-11: Heti terv ↔ képesség kapcsolatok mentése (replace-all) */
+  hetiTervKepessegekMent: (params: {
+    hetiTervId: number;
+    kepessegIds: number[];
+  }): Promise<{ siker: boolean; count: number }> =>
+    ipcRenderer.invoke(IpcChannels.hetiTervKepessegekMent, params),
 
   // Export
   exportHetiTervDocx: (hetiTervId: number): Promise<ExportEredmeny> =>
