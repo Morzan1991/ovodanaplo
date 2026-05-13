@@ -10,6 +10,7 @@ import OsszegzoSzekcio from './HetiTerv/OsszegzoSzekcio';
 import TeruletSzekciok from './HetiTerv/TeruletSzekciok';
 import MasolasModal from './HetiTerv/MasolasModal';
 import KepessegMultiSelect from '../components/KepessegMultiSelect';
+import { lookupEszkozok } from '../lib/eszkoz-kulcsszavak';
 import {
   TERULET_DEFINICIO,
   type TeruletAllapot,
@@ -372,20 +373,13 @@ export default function HetiTerv() {
     setValasztottOtletek(new Set());
   }, [otletekPanelTipus, valasztottOtletek]);
 
-  // Eszközlista auto-aggregálás a terület-szövegekből (egyszerű kulcsszó alapú gyűjtés)
+  // TODO-13: Eszközlista auto-aggregálás — most 100+ kulcsszó 4 kategóriában
+  // (lib/eszkoz-kulcsszavak.ts). A találatok kategória-sorrendben jönnek.
   const autoEszkozok = useMemo(() => {
-    const KULCSSZAVAK = [
-      'olló', 'ragasztó', 'papír', 'színes ceruza', 'színes lap', 'festék', 'ecset', 'gyurma',
-      'karton', 'kartonlap', 'fonal', 'szalag', 'könyv', 'mesekönyv', 'képek', 'fotó', 'színezők',
-      'nyomda', 'lyukasztó', 'lamináló', 'cikk-cakk olló', 'babzsák', 'labda', 'karika', 'zsámoly',
-      'alagút', 'kötél', 'hangszóró', 'laptop', 'csörgő', 'dob', 'triangulum', 'hangszer',
-    ];
     const osszeSzoveg = teruletAllapotok
       .map((t) => `${t.tartalom} ${t.iskolaElokeszito}`)
-      .join(' ')
-      .toLowerCase();
-    const talalat = KULCSSZAVAK.filter((k) => osszeSzoveg.includes(k.toLowerCase()));
-    return talalat;
+      .join(' ');
+    return lookupEszkozok(osszeSzoveg);
   }, [teruletAllapotok]);
 
   const sablonAlkalmazasa = async (azonosito: string) => {
