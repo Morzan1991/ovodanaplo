@@ -506,6 +506,18 @@ export function registerIpcHandlers(): void {
     return db.insert(reflexiok).values(data).returning().get();
   });
 
+  // M6: egyedi reflexió-törlés (eddig csak heti terven keresztül CASCADE volt elérhető)
+  ipcMain.handle(IpcChannels.reflexioTorol, (_e, id: number) => {
+    if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
+      throw new Error('[reflexioTorol] érvénytelen id');
+    }
+    const torolt = db.delete(reflexiok).where(eq(reflexiok.id, id)).returning().get();
+    if (!torolt) {
+      throw new Error(`Reflexió nem található: id=${id}`);
+    }
+    return { id: torolt.id, sikeres: true };
+  });
+
   // -------- Események --------
   ipcMain.handle(IpcChannels.esemenyLista, (_e, nevelesiEvId?: number) => {
     if (nevelesiEvId) {

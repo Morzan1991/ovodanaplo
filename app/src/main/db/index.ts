@@ -6,7 +6,7 @@
  */
 
 import { app } from 'electron';
-import { existsSync, mkdirSync, readFileSync, copyFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, copyFileSync, statSync, renameSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Database from 'better-sqlite3';
@@ -435,42 +435,48 @@ interface CapabilitySeed {
 function seedIrodalom(seedDir: string): void {
   const data = parseSeedJson<LiteratureSeed>(join(seedDir, 'literature.json'), 'Irodalom');
 
-  // Upsert: csak hiányzó tételeket szúrunk be (cim+szerzo egyedi kulcs)
-  // + meglévő tételekhez frissítjük a szöveget, ha még üres és van újabb verzió
-  const meglevoKulcsok = new Set<string>();
-  const meglevoSzovegNelkul = new Map<string, number>(); // kulcs -> id, ha szövege üres
+  // M3 fix: változás-detektálás mezőszintű összehasonlítással.
+  // Ha a JSON-ban módosul egy meglévő mű (forras / korcsoport / temak / szoveg / tipus),
+  // automatikusan frissítjük a DB-ben. Korábban csak az üres szöveget töltöttük be —
+  // a többi mező frissítését elhanyagoltuk → inkonzisztens állapot.
+  type ExistingRow = {
+    id: number;
+    tipus: string;
+    cim: string;
+    szerzo: string | null;
+    forras: string | null;
+    korcsoport: string | null;
+    temak: string | null;
+    szoveg: string | null;
+  };
   const meglevoRows = sqlite
-    .prepare('SELECT id, cim, szerzo, szoveg FROM irodalom WHERE sajat = 0')
-    .all() as Array<{ id: number; cim: string; szerzo: string | null; szoveg: string | null }>;
+    .prepare('SELECT id, tipus, cim, szerzo, forras, korcsoport, temak, szoveg FROM irodalom WHERE sajat = 0')
+    .all() as ExistingRow[];
+  const meglevoMap = new Map<string, ExistingRow>();
   for (const r of meglevoRows) {
-    const kulcs = `${r.cim}|${r.szerzo ?? ''}`;
-    meglevoKulcsok.add(kulcs);
-    if (!r.szoveg) meglevoSzovegNelkul.set(kulcs, r.id);
+    meglevoMap.set(`${r.cim}|${r.szerzo ?? ''}`, r);
   }
 
   const insert = sqlite.prepare(
     `INSERT INTO irodalom (tipus, cim, szerzo, forras, korcsoport, temak, szoveg, sajat)
      VALUES (?, ?, ?, ?, ?, ?, ?, 0)`,
   );
-  const updateSzoveg = sqlite.prepare(`UPDATE irodalom SET szoveg = ? WHERE id = ?`);
+  const updateTeljes = sqlite.prepare(
+    `UPDATE irodalom SET tipus = ?, forras = ?, korcsoport = ?, temak = ?, szoveg = ? WHERE id = ? AND sajat = 0`,
+  );
+  const torles = sqlite.prepare('DELETE FROM irodalom WHERE id = ? AND sajat = 0');
 
-  // Új tételek halmaza (a JSON-ban lévők)
-  const ujKulcsok = new Set<string>();
   type Tetel = LiteratureSeed['tetelek'][number] & { szoveg?: string };
+  const ujKulcsok = new Set<string>();
   for (const tetel of data.tetelek as Tetel[]) {
     ujKulcsok.add(`${tetel.cim}|${tetel.szerzo ?? ''}`);
   }
 
-  // Töröljük azokat a seed-eredetű (sajat=0) tételeket, amelyek már nincsenek a JSON-ban.
-  // Pl. felnőtt versek (Nemzeti dal, A Tisza, Ady-Karácsony) — a felhasználói saját
-  // tételek (sajat=1) érintetlenek maradnak.
-  const torles = sqlite.prepare('DELETE FROM irodalom WHERE id = ? AND sajat = 0');
-
   let ujCount = 0;
-  let frissitettSzoveg = 0;
+  let frissitettCount = 0;
   let toroltCount = 0;
   const tx = sqlite.transaction(() => {
-    // 1. Töröljük a kihagyott tételeket
+    // 1. Töröljük a kihagyott tételeket (sajat=0, már nincs a JSON-ban)
     for (const r of meglevoRows) {
       const kulcs = `${r.cim}|${r.szerzo ?? ''}`;
       if (!ujKulcsok.has(kulcs)) {
@@ -478,23 +484,32 @@ function seedIrodalom(seedDir: string): void {
         toroltCount++;
       }
     }
-    // 2. Új tételek hozzáadása + szöveg-frissítés
+    // 2. Új tételek + meglévők változás-frissítése
     for (const tetel of data.tetelek as Tetel[]) {
       const kulcs = `${tetel.cim}|${tetel.szerzo ?? ''}`;
-      if (!meglevoKulcsok.has(kulcs)) {
-        insert.run(
-          tetel.tipus,
-          tetel.cim,
-          tetel.szerzo,
-          tetel.forras,
-          tetel.korcsoport ?? 'vegyes',
-          JSON.stringify(tetel.temak ?? []),
-          tetel.szoveg ?? null,
-        );
+      const meglevo = meglevoMap.get(kulcs);
+      const ujTemakJson = JSON.stringify(tetel.temak ?? []);
+      const ujKorcsoport = tetel.korcsoport ?? 'vegyes';
+      const ujSzoveg = tetel.szoveg ?? null;
+      const ujForras = tetel.forras ?? null;
+      const ujTipus = tetel.tipus;
+
+      if (!meglevo) {
+        insert.run(ujTipus, tetel.cim, tetel.szerzo, ujForras, ujKorcsoport, ujTemakJson, ujSzoveg);
         ujCount++;
-      } else if (tetel.szoveg && meglevoSzovegNelkul.has(kulcs)) {
-        updateSzoveg.run(tetel.szoveg, meglevoSzovegNelkul.get(kulcs)!);
-        frissitettSzoveg++;
+      } else {
+        // Változás-detektálás: csak akkor UPDATE, ha legalább egy mező eltér.
+        // (A USER által szerkesztett sajat=1 tételek érintetlenek — meglevoRows csak sajat=0-t tartalmaz.)
+        const eltero =
+          meglevo.tipus !== ujTipus ||
+          (meglevo.forras ?? null) !== ujForras ||
+          (meglevo.korcsoport ?? 'vegyes') !== ujKorcsoport ||
+          (meglevo.temak ?? '[]') !== ujTemakJson ||
+          (meglevo.szoveg ?? null) !== ujSzoveg;
+        if (eltero) {
+          updateTeljes.run(ujTipus, ujForras, ujKorcsoport, ujTemakJson, ujSzoveg, meglevo.id);
+          frissitettCount++;
+        }
       }
     }
   });
@@ -502,8 +517,8 @@ function seedIrodalom(seedDir: string): void {
   if (toroltCount > 0) {
     console.log(`[db] Irodalom seed: ${toroltCount} tétel törölve (már nincs a JSON-ban).`);
   }
-  if (ujCount > 0 || frissitettSzoveg > 0) {
-    console.log(`[db] Irodalom seed: ${ujCount} új tétel, ${frissitettSzoveg} szöveg-frissítés. Összes: ${data.tetelek.length}`);
+  if (ujCount > 0 || frissitettCount > 0) {
+    console.log(`[db] Irodalom seed: ${ujCount} új + ${frissitettCount} frissítve. Összes: ${data.tetelek.length}`);
   } else {
     console.log(`[db] Irodalom seed: már naprakész (${data.tetelek.length} tétel).`);
   }
@@ -549,8 +564,13 @@ function seedKepessegek(seedDir: string): void {
 /**
  * Backup egy snapshot fájlba a backups mappába.
  * Csendes hiba esetén csak loggol — nem akasztja az app-ot.
+ *
+ * M5 fix: 1) méret-validáció — ha az aznapi backup üres/csonka (<10KB), újra próbáljuk.
+ *         2) atomic copy — temp-fájlba másol, majd rename. Ha félútban kihal, nincs csonka fájl.
+ *         3) source-méret összehasonlítás — sanity check.
  */
 export function createBackup(): string | null {
+  const MIN_BACKUP_SIZE = 10 * 1024; // 10 KB — kisebb az üres/csonka DB-nél
   try {
     const backupsDir = join(app.getPath('userData'), 'OvodaNaplo', 'backups');
     if (!existsSync(backupsDir)) mkdirSync(backupsDir, { recursive: true });
@@ -558,9 +578,35 @@ export function createBackup(): string | null {
     const ts = new Date().toISOString().split('T')[0];
     const target = join(backupsDir, `ovodanaplo-${ts}.db`);
 
-    if (existsSync(target)) return target; // ma már volt
-    copyFileSync(getDbPath(), target);
-    console.log('[db] Backup elkészült:', target);
+    // Ha aznap már van backup, ellenőrizzük a méretet. Ha túl kicsi, újraírjuk.
+    if (existsSync(target)) {
+      try {
+        const stat = statSync(target);
+        if (stat.size >= MIN_BACKUP_SIZE) return target;
+        console.warn(`[db] Aznapi backup túl kicsi (${stat.size} byte), újraírjuk.`);
+      } catch {
+        // statSync hiba — folytatjuk és újraírjuk
+      }
+    }
+
+    // Atomic copy: tmp fájlba, majd rename. Így félút esetén nincs csonka célfájl.
+    const source = getDbPath();
+    const sourceSize = statSync(source).size;
+    if (sourceSize < MIN_BACKUP_SIZE) {
+      console.warn(`[db] Forrás DB túl kicsi (${sourceSize} byte), backup kihagyva.`);
+      return null;
+    }
+
+    const tmpTarget = `${target}.tmp-${process.pid}-${Date.now()}`;
+    copyFileSync(source, tmpTarget);
+    // Méret-ellenőrzés a temp-fájlon
+    const copiedSize = statSync(tmpTarget).size;
+    if (copiedSize < MIN_BACKUP_SIZE) {
+      try { unlinkSync(tmpTarget); } catch { /* ignore */ }
+      throw new Error(`Backup másolat túl kicsi (${copiedSize} byte) — feltételezhetően csonka.`);
+    }
+    renameSync(tmpTarget, target);
+    console.log(`[db] Backup elkészült: ${target} (${copiedSize} byte)`);
     return target;
   } catch (err) {
     console.error('[db] Backup hiba:', err);

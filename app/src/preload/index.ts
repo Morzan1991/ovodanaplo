@@ -168,6 +168,8 @@ const api = {
   }): Promise<Reflexio[]> => ipcRenderer.invoke(IpcChannels.reflexioLista, opts),
   reflexioMent: (data: UjReflexio & { id?: number }): Promise<Reflexio> =>
     ipcRenderer.invoke(IpcChannels.reflexioMent, data),
+  reflexioTorol: (id: number): Promise<{ id: number; sikeres: boolean }> =>
+    ipcRenderer.invoke(IpcChannels.reflexioTorol, id),
 
   // Események
   esemenyLista: (nevelesiEvId?: number): Promise<Esemeny[]> =>

@@ -43,6 +43,7 @@ export const IpcChannels = {
   // Reflexiók
   reflexioLista: 'reflexio:lista',
   reflexioMent: 'reflexio:ment',
+  reflexioTorol: 'reflexio:torol',
 
   // Események
   esemenyLista: 'esemeny:lista',
