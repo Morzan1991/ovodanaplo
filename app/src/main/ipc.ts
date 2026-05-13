@@ -32,7 +32,7 @@ import {
   type Beallitas,
 } from '../shared/schema.js';
 import { getDb, getSqlite, createBackup } from './db/index.js';
-import { hetiTervToDocx, foglalkozasToDocx } from './export-docx.js';
+import { hetiTervToDocx, foglalkozasToDocx, projektToDocx } from './export-docx.js';
 import { validate } from './ipc-validate.js';
 import {
   ujBeallitasSchema,
@@ -744,6 +744,42 @@ export function registerIpcHandlers(): void {
       return { siker: true, utvonal: eredmeny.filePath };
     } catch (err) {
       console.error('[export] DOCX hiba:', err);
+      return { siker: false, hiba: String(err) };
+    }
+  });
+
+  /** TODO-10 Stage B: Projektterv DOCX-export */
+  ipcMain.handle(IpcChannels.exportProjektDocx, async (e, projektId: number) => {
+    const projekt = db
+      .select()
+      .from(projektek)
+      .where(eq(projektek.id, projektId))
+      .limit(1)
+      .all()[0];
+    if (!projekt) return { siker: false, hiba: 'Projekt nem található' };
+
+    const beallitasArr = db.select().from(beallitasok).limit(1).all();
+    const beallitas: Beallitas | null = beallitasArr[0] ?? null;
+
+    const sender = BrowserWindow.fromWebContents(e.sender);
+    const cim = (projekt.cim || 'projekt').replace(/[<>:"/\\|?*]/g, '-').slice(0, 60);
+    const javasoltNev = `projekt_${cim}.docx`;
+
+    const eredmeny = await dialog.showSaveDialog(sender ?? new BrowserWindow(), {
+      title: 'Projektterv mentése .docx-ként',
+      defaultPath: javasoltNev,
+      filters: [{ name: 'Word dokumentum', extensions: ['docx'] }],
+    });
+    if (eredmeny.canceled || !eredmeny.filePath) {
+      return { siker: false, hiba: 'megszakítva' };
+    }
+
+    try {
+      const buffer = await projektToDocx({ projekt, beallitas });
+      writeFileSync(eredmeny.filePath, buffer);
+      return { siker: true, utvonal: eredmeny.filePath };
+    } catch (err) {
+      console.error('[export] Projekt DOCX hiba:', err);
       return { siker: false, hiba: String(err) };
     }
   });

@@ -64,6 +64,7 @@ export const IpcChannels = {
   // Export
   exportHetiTervDocx: 'export:hetiTerv:docx',
   exportFoglalkozasDocx: 'export:foglalkozas:docx',
+  exportProjektDocx: 'export:projekt:docx', // TODO-10 Stage B
   exportPdf: 'export:pdf',
 
   // Backup

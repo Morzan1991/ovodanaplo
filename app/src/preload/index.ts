@@ -191,6 +191,9 @@ const api = {
     ipcRenderer.invoke(IpcChannels.exportHetiTervDocx, hetiTervId),
   exportFoglalkozasDocx: (foglalkozasId: number): Promise<ExportEredmeny> =>
     ipcRenderer.invoke(IpcChannels.exportFoglalkozasDocx, foglalkozasId),
+  /** TODO-10 Stage B: Projektterv DOCX-export (Könyv projektterv.docx formátum) */
+  exportProjektDocx: (projektId: number): Promise<ExportEredmeny> =>
+    ipcRenderer.invoke(IpcChannels.exportProjektDocx, projektId),
 
   // Backup
   backupKeszit: (): Promise<string | null> => ipcRenderer.invoke(IpcChannels.backupKeszit),

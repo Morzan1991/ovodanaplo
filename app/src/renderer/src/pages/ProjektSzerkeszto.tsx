@@ -22,6 +22,7 @@ export default function ProjektSzerkeszto() {
   const [projekt, setProjekt] = useState<Partial<Projekt> | null>(null);
   const [evek, setEvek] = useState<NevelesiEv[]>([]);
   const [mentes, setMentes] = useState<'idle' | 'mentes' | 'mentve' | 'hiba'>('idle');
+  const [exportAllapot, setExportAllapot] = useState<'idle' | 'exportal' | 'kesz' | 'hiba'>('idle');
 
   useEffect(() => {
     async function load() {
@@ -90,6 +91,31 @@ export default function ProjektSzerkeszto() {
       setTimeout(() => setMentes('idle'), 3000);
     }
   }, [projekt, params.id, navigate]);
+
+  const exportalas = useCallback(async () => {
+    if (!projekt?.id) {
+      // Először mentsünk
+      window.alert('Először mentsd el a projektet, hogy DOCX-be exportálhasd.');
+      return;
+    }
+    setExportAllapot('exportal');
+    try {
+      const eredmeny = await window.api.exportProjektDocx(projekt.id);
+      if (eredmeny.siker) {
+        setExportAllapot('kesz');
+        setTimeout(() => setExportAllapot('idle'), 2500);
+      } else if (eredmeny.hiba === 'megszakítva') {
+        setExportAllapot('idle');
+      } else {
+        setExportAllapot('hiba');
+        setTimeout(() => setExportAllapot('idle'), 3000);
+      }
+    } catch (err) {
+      console.error('Projekt DOCX export hiba:', err);
+      setExportAllapot('hiba');
+      setTimeout(() => setExportAllapot('idle'), 3000);
+    }
+  }, [projekt?.id]);
 
   if (!projekt) return <div className="p-8 text-center text-ink/50">Betöltés…</div>;
 
@@ -294,9 +320,20 @@ export default function ProjektSzerkeszto() {
         <button onClick={ment} className="btn-primary">
           {mentes === 'mentes' ? 'Mentés…' : mentes === 'mentve' ? '✓ Mentve' : mentes === 'hiba' ? 'Mentési hiba' : 'Mentés'}
         </button>
-        <span className="text-xs text-ink/50 italic ml-2">
-          A DOCX-export (Könyv projektterv.docx formátum) későbbi verzióban érkezik.
-        </span>
+        <button
+          onClick={exportalas}
+          className="btn-secondary"
+          disabled={exportAllapot === 'exportal' || !projekt.id}
+          title={!projekt.id ? 'Először mentsd el a projektet' : 'Letöltés .docx-ként (Könyv projektterv formátum)'}
+        >
+          {exportAllapot === 'exportal'
+            ? 'Exportálás…'
+            : exportAllapot === 'kesz'
+              ? '✓ DOCX elmentve'
+              : exportAllapot === 'hiba'
+                ? 'Export-hiba'
+                : '📥 Letöltés .docx-ként'}
+        </button>
       </div>
     </div>
   );

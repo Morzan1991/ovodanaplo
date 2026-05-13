@@ -17,7 +17,7 @@ import {
   AlignmentType,
   PageBreak,
 } from 'docx';
-import type { HetiTerv, Terulet, Beallitas, FoglalkozasTervezet } from '../shared/schema.js';
+import type { HetiTerv, Terulet, Beallitas, FoglalkozasTervezet, Projekt } from '../shared/schema.js';
 
 const FONT = 'Times New Roman';
 const FONT_SIZE = 24; // 12pt
@@ -364,6 +364,141 @@ export async function foglalkozasToDocx(input: FoglalkozasDocxInput): Promise<Bu
   const doc = new Document({
     creator: beallitas?.pedagogusNeve ?? 'OvodaNapló',
     title: `Foglalkozás-tervezet — ${foglalkozas.tema}`,
+    sections: [
+      {
+        properties: {
+          page: { margin: { top: 1134, right: 1134, bottom: 1134, left: 1134 } },
+        },
+        children,
+      },
+    ],
+  });
+
+  return await Packer.toBuffer(doc);
+}
+
+// ============================================================
+// Projektterv DOCX (TODO-10 Stage B)
+// ============================================================
+
+interface ProjektDocxInput {
+  projekt: Projekt;
+  beallitas: Beallitas | null;
+}
+
+/**
+ * Egy projektterv DOCX-be exportálása.
+ * A `Könyv projektterv.docx` formátumot követi: cím, alapadatok kulcs-érték
+ * párokban, majd pedagógiai szekciók blokkokban (cím + bekezdés/lista).
+ *
+ * 5 logikai szekció a UI-tagolásnak megfelelően:
+ *  1. Alapadatok (cím, dátumok, téma, cél)
+ *  2. Pedagógiai feladatok (4 dimenzió)
+ *  3. Tevékenységek és szervezés
+ *  4. Produktumok és eszközök
+ *  5. Iskola előkészítő + szokások-hagyományok
+ */
+export async function projektToDocx(input: ProjektDocxInput): Promise<Buffer> {
+  const { projekt, beallitas } = input;
+
+  const mezo = (cimke: string, ertek: string | null | undefined): Paragraph[] => {
+    if (!ertek) return [];
+    return [
+      new Paragraph({
+        children: [
+          new TextRun({ text: `${cimke}: `, bold: true, font: FONT, size: FONT_SIZE }),
+          new TextRun({ text: ertek, font: FONT, size: FONT_SIZE }),
+        ],
+        spacing: { after: 80 },
+      }),
+    ];
+  };
+
+  const blokk = (cim: string, ertek: string | null | undefined): Paragraph[] => {
+    if (!ertek) return [];
+    const sorok = ertek.split(/\n+/).filter((s) => s.trim());
+    return [
+      new Paragraph({
+        children: [
+          new TextRun({ text: cim, bold: true, font: FONT, size: FONT_SIZE }),
+        ],
+        spacing: { before: 200, after: 80 },
+      }),
+      ...sorok.map(
+        (s) =>
+          new Paragraph({
+            children: [new TextRun({ text: s, font: FONT, size: FONT_SIZE })],
+            spacing: { after: 60 },
+          }),
+      ),
+    ];
+  };
+
+  /** Szekció-fejléc (nagyobb, 14pt félkövér) */
+  const szekcioFejlec = (cim: string): Paragraph =>
+    new Paragraph({
+      children: [new TextRun({ text: cim, bold: true, font: FONT, size: 28 })],
+      spacing: { before: 300, after: 120 },
+    });
+
+  const children: Paragraph[] = [
+    // Címsor: PROJEKTTERV — {cím}
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [new TextRun({ text: 'PROJEKTTERV', bold: true, font: FONT, size: 36 })],
+      spacing: { after: 120 },
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [new TextRun({ text: projekt.cim, bold: true, font: FONT, size: 28 })],
+      spacing: { after: 240 },
+    }),
+
+    // === 1. ALAPADATOK ===
+    szekcioFejlec('1. Alapadatok'),
+    ...mezo('Pedagógus', beallitas?.pedagogusNeve ?? null),
+    ...mezo('Óvoda', beallitas?.ovodaNeve ?? null),
+    ...mezo('Csoport', beallitas?.csoportNeve ?? null),
+    ...mezo('Téma', projekt.tema),
+    ...mezo('Kezdés', projekt.kezdoDatum),
+    ...mezo('Befejezés', projekt.zaroDatum),
+    ...blokk('Cél:', projekt.cel),
+
+    // === 2. PEDAGÓGIAI FELADATOK ===
+    szekcioFejlec('2. Pedagógiai feladatok'),
+    ...blokk('Értelmi feladatok:', projekt.feladatErtelmi),
+    ...blokk('Kommunikációs feladatok:', projekt.feladatKommunikacios),
+    ...blokk('Erkölcsi-szociális feladatok:', projekt.feladatErkolcsi),
+    ...blokk('Testi-egészségvédelmi feladatok:', projekt.feladatTesti),
+
+    // === 3. TEVÉKENYSÉGEK ÉS SZERVEZÉS ===
+    szekcioFejlec('3. Tevékenységek és szervezés'),
+    ...blokk('Bevontak:', projekt.bevontak),
+    ...blokk('Előkészületek:', projekt.elokeszuletek),
+    ...blokk('Alkotó tevékenységek:', projekt.alkotoTevekenysegek),
+    ...blokk('Játékok:', projekt.jatekok),
+    ...blokk('Szabályok:', projekt.szabalyok),
+
+    // === 4. PRODUKTUMOK ÉS ESZKÖZÖK ===
+    szekcioFejlec('4. Produktumok és eszközök'),
+    ...blokk('Gyermeki produktumok:', projekt.produktumokGyermeki),
+    ...blokk('Pedagógusi produktumok:', projekt.produktumokPedagogusi),
+    ...blokk('Munka jellegű tevékenységek:', projekt.munkaJellegu),
+    ...blokk('Óvodapedagógus feladatai:', projekt.ovodapedagogusFeladatai),
+    ...blokk('Eszközök:', projekt.eszkozok),
+
+    // === 5. ISKOLA ELŐKÉSZÍTŐ + SZOKÁSOK ===
+    szekcioFejlec('5. Iskola előkészítő + szokások-hagyományok'),
+    ...blokk(
+      'Iskola előkészítő tevékenységek (összesített):',
+      projekt.iskolaElokeszitoOsszesitett,
+    ),
+    ...blokk('Szokások-hagyományok:', projekt.szokasokHagyomanyok),
+  ];
+
+  const doc = new Document({
+    creator: beallitas?.pedagogusNeve ?? 'OvodaNapló',
+    title: `Projektterv — ${projekt.cim}`,
     sections: [
       {
         properties: {
