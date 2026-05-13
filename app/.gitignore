@@ -1,0 +1,11 @@
+node_modules/
+out/
+dist-installer/
+.DS_Store
+*.log
+.vite/
+local.db
+local.db-journal
+local.db-wal
+local.db-shm
+drizzle/

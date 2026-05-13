@@ -1,0 +1,63 @@
+# OvodaNapló — .gitignore
+# Külön repo a RapidTurn-től, fokozottan ügyelve mire kerül commit-olásra.
+
+# === Build outputs (frissen generálódnak — ne menjenek a repo-ba) ===
+node_modules/
+app/node_modules/
+app/out/
+app/dist/
+app/dist-installer/
+app/app.asar
+app/app.asar.unpacked/
+out/
+dist/
+
+# === Backupok és egyéb mentések ===
+_bak/
+*.bak
+*.bak-*
+*.backup
+app.asar.bak*
+
+# === Python build-szkriptek kimenetei ===
+tools/sablon-outputs/
+__pycache__/
+*.pyc
+*.pyo
+
+# === Logs ===
+*.log
+logs/
+
+# === Helyi környezet és kulcsok ===
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# === Adatbázis (lokális, felhasználói) ===
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# === IDE / OS ===
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Electron build cache ===
+.electron-vite-cache/
+.electron-builder-cache/
+
+# === Egyebek ===
+*.tmp
+*.temp
+.cache/

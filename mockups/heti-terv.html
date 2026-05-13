@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OvodaNapló — Heti terv mockup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['Fraunces', 'Georgia', 'serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              cream: '#FAF7F2',
+              ink: '#2D2A26',
+              sage: {
+                50: '#F1F4F0',
+                100: '#DDE5DA',
+                500: '#8FA88B',
+                600: '#6B8868',
+                700: '#52684F',
+              },
+              mauve: {
+                100: '#F2E4E5',
+                400: '#C9A4A8',
+                600: '#9C7378',
+              },
+              terra: '#C97D5D',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background: #faf7f2;
+        color: #2d2a26;
+      }
+      .heading-serif {
+        font-family: 'Fraunces', Georgia, serif;
+        font-variation-settings: 'opsz' 24;
+      }
+      [contenteditable]:focus {
+        outline: none;
+        background: rgba(143, 168, 139, 0.08);
+      }
+      [contenteditable]:empty::before {
+        content: attr(data-placeholder);
+        color: #9aa19d;
+        font-style: italic;
+      }
+      .terulet-szekcio {
+        border-left: 3px solid #ddedda;
+        transition: border-color 0.2s;
+      }
+      .terulet-szekcio:hover,
+      .terulet-szekcio:focus-within {
+        border-left-color: #8fa88b;
+      }
+    </style>
+  </head>
+  <body class="font-sans">
+    <!-- TOP BAR -->
+    <header class="border-b border-sage-100 bg-cream/95 backdrop-blur sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-sage-500 flex items-center justify-center">
+            <span class="text-cream font-serif text-lg font-medium">Ó</span>
+          </div>
+          <div>
+            <div class="heading-serif text-lg font-medium">OvodaNapló</div>
+            <div class="text-xs text-ink/60">Ajka Városi Óvoda — Mazsola csoport (vegyes)</div>
+          </div>
+        </div>
+        <nav class="flex items-center gap-1 text-sm">
+          <button class="px-3 py-1.5 rounded-md text-ink/60 hover:bg-sage-50">Naptár</button>
+          <button class="px-3 py-1.5 rounded-md bg-sage-100 text-sage-700 font-medium">Heti terv</button>
+          <button class="px-3 py-1.5 rounded-md text-ink/60 hover:bg-sage-50">Projektek</button>
+          <button class="px-3 py-1.5 rounded-md text-ink/60 hover:bg-sage-50">Reflexiók</button>
+          <button class="px-3 py-1.5 rounded-md text-ink/60 hover:bg-sage-50">Irodalom</button>
+          <div class="w-px h-5 bg-sage-100 mx-2"></div>
+          <button class="px-3 py-1.5 rounded-md text-ink/60 hover:bg-sage-50">Beállítások</button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-12 gap-6">
+      <!-- LEFT NAV: hetek -->
+      <aside class="col-span-2">
+        <div class="text-xs font-semibold uppercase tracking-wider text-ink/50 mb-3">
+          2026/2027 — Április
+        </div>
+        <ol class="space-y-1 text-sm">
+          <li>
+            <button class="w-full text-left px-3 py-2 rounded-md hover:bg-sage-50">
+              <div class="text-xs text-ink/50">14. hét</div>
+              <div>Húsvéti hét</div>
+              <div class="text-xs text-ink/40">márc 30 — ápr 3</div>
+            </button>
+          </li>
+          <li>
+            <button class="w-full text-left px-3 py-2 rounded-md hover:bg-sage-50">
+              <div class="text-xs text-ink/50">15. hét</div>
+              <div class="text-ink/50 italic">Tavaszi szünet</div>
+            </button>
+          </li>
+          <li>
+            <button class="w-full text-left px-3 py-2 rounded-md bg-sage-500 text-cream">
+              <div class="text-xs opacity-70">16. hét — aktuális</div>
+              <div class="font-medium">Olvasni jó</div>
+              <div class="text-xs opacity-70">ápr 13 — ápr 17</div>
+            </button>
+          </li>
+          <li>
+            <button class="w-full text-left px-3 py-2 rounded-md hover:bg-sage-50">
+              <div class="text-xs text-ink/50">17. hét</div>
+              <div>Föld napja</div>
+              <div class="text-xs text-ink/40">ápr 20 — ápr 24</div>
+            </button>
+          </li>
+          <li>
+            <button class="w-full text-left px-3 py-2 rounded-md hover:bg-sage-50">
+              <div class="text-xs text-ink/50">18. hét</div>
+              <div>Anyák napja, család</div>
+              <div class="text-xs text-ink/40">ápr 27 — máj 1</div>
+            </button>
+          </li>
+        </ol>
+
+        <div class="mt-6 p-3 rounded-md bg-mauve-100/60 border border-mauve-100">
+          <div class="text-xs font-semibold text-mauve-600 uppercase tracking-wider mb-1">
+            Tavaly ilyenkor
+          </div>
+          <div class="text-sm">
+            <a href="#" class="text-sage-700 hover:underline">Olvasni jó projekt — 2025</a>
+          </div>
+          <button class="mt-2 text-xs text-mauve-600 hover:underline">
+            Másolás új heti tervbe →
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN: heti terv szerkesztő -->
+      <main class="col-span-7">
+        <div class="mb-6">
+          <div class="text-xs font-semibold uppercase tracking-wider text-sage-700 mb-1">
+            Heti terv • 16. hét • április 13 — április 17
+          </div>
+          <h1 class="heading-serif text-3xl font-medium" contenteditable spellcheck="false">
+            Olvasni jó
+          </h1>
+          <div class="text-sm text-ink/60 mt-1">A „Könyv" projekt 1. hete (1 hetes projekt)</div>
+        </div>
+
+        <!-- 6 ONAP-terület -->
+        <div class="space-y-5">
+          <!-- 1. Külső világ -->
+          <section class="terulet-szekcio pl-5">
+            <h2 class="heading-serif text-lg font-medium mb-2">
+              Külső világ tevékeny megismerésére nevelés
+            </h2>
+            <div
+              contenteditable
+              spellcheck="false"
+              class="prose prose-sm text-ink min-h-[80px]"
+              data-placeholder="Mit fognak megtapasztalni, megismerni a gyerekek a külső világból?"
+            >
+              Beszélgetés a könyvekről, olvasási szokásokról. Könyvekkel kapcsolatos fogalmak (borító,
+              gerinc, hátlap, cím, szerző). Megfelelő könyvhasználati szokások.
+            </div>
+
+            <div class="mt-3">
+              <h3 class="text-sm font-semibold text-sage-700 mb-1">Matematikai tartalom</h3>
+              <div
+                contenteditable
+                spellcheck="false"
+                class="prose prose-sm text-ink min-h-[60px]"
+                data-placeholder="Pl. számolás, halmazok, formák, sorrendezés…"
+              >
+                Halmazalkotás könyvekből méret, vastagság, tartalom szerint. Számolás gyakorlása 20-as
+                számkörben. Becslés — hány oldal lehet a könyv.
+              </div>
+            </div>
+
+            <details class="mt-3 group">
+              <summary
+                class="text-xs font-semibold text-sage-700 cursor-pointer hover:underline list-none"
+              >
+                <span class="inline-block group-open:rotate-90 transition-transform">▸</span>
+                Iskola előkészítő tevékenység
+              </summary>
+              <div
+                contenteditable
+                spellcheck="false"
+                class="mt-2 text-sm text-ink/80 prose prose-sm min-h-[40px]"
+              >
+                Mennyiségfogalom gyakorlása, több-kevesebb-ugyanannyi fogalompár, megfigyelőképesség,
+                ok-okozati összefüggések felismerése, szókincsbővítés.
+              </div>
+            </details>
+          </section>
+
+          <!-- 2. Verselés, mesélés -->
+          <section class="terulet-szekcio pl-5">
+            <h2 class="heading-serif text-lg font-medium mb-2">Verselés, mesélés</h2>
+
+            <h3 class="text-sm font-semibold text-sage-700 mb-1">Mesék</h3>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 p-2 rounded bg-sage-50/50">
+                <span class="text-sage-700">📖</span>
+                <span class="font-medium text-sm">Annipanni mesélj nekem!</span>
+                <span class="text-xs text-ink/50">— Marék Veronika</span>
+                <button class="ml-auto text-xs text-ink/40 hover:text-ink">×</button>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded bg-sage-50/50">
+                <span class="text-sage-700">📖</span>
+                <span class="font-medium text-sm">Nagypapa és Ábel</span>
+                <span class="text-xs text-ink/50">— Julie Fortenberry</span>
+                <button class="ml-auto text-xs text-ink/40 hover:text-ink">×</button>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded bg-sage-50/50">
+                <span class="text-sage-700">📖</span>
+                <span class="font-medium text-sm">A só</span>
+                <span class="text-xs text-ink/50">— magyar népmese</span>
+                <button class="ml-auto text-xs text-ink/40 hover:text-ink">×</button>
+              </div>
+              <button class="text-xs text-sage-700 hover:underline pl-2 mt-1">
+                + Mese hozzáadása az adatbázisból
+              </button>
+            </div>
+
+            <h3 class="text-sm font-semibold text-sage-700 mb-1 mt-3">Mondókák és versek</h3>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 p-2 rounded bg-sage-50/50">
+                <span class="text-sage-700">✦</span>
+                <span class="font-medium text-sm">Kinyitom a könyvet</span>
+                <span class="text-xs text-ink/50">— néphagyomány</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 rounded bg-sage-50/50">
+                <span class="text-sage-700">✦</span>
+                <span class="font-medium text-sm">Meseország</span>
+                <span class="text-xs text-ink/50">— Mentovics Éva</span>
+              </div>
+              <button class="text-xs text-sage-700 hover:underline pl-2 mt-1">
+                + Vers / mondóka hozzáadása
+              </button>
+            </div>
+          </section>
+
+          <!-- 3. Rajzolás -->
+          <section class="terulet-szekcio pl-5">
+            <h2 class="heading-serif text-lg font-medium mb-2">
+              Rajzolás, festés, mintázás, építés, képalakítás, kézimunka
+            </h2>
+            <div
+              contenteditable
+              spellcheck="false"
+              class="prose prose-sm text-ink min-h-[80px]"
+            >
+              Kedvenc mese rajzolása — szabadrajz. Könyvborító tervezése közösen, plakát készítés.
+              Könyvjelző készítése. Mesékkel kapcsolatos színezők. Gyurmából mesehősök megformálása.
+            </div>
+          </section>
+
+          <!-- 4. Ének -->
+          <section class="terulet-szekcio pl-5">
+            <h2 class="heading-serif text-lg font-medium mb-2">
+              Ének, zene, népi játék, tánc
+            </h2>
+            <div
+              contenteditable
+              spellcheck="false"
+              class="prose prose-sm text-ink min-h-[80px]"
+            >
+              <strong>Ének:</strong> Bóbita, bóbita… (Weöres Sándor), Egy boszorka van… (népi játék).
+              <br />
+              <strong>Zh.:</strong> Maszkabál — Gryllus Vilmos
+            </div>
+          </section>
+
+          <!-- 5. Mozgás -->
+          <section class="terulet-szekcio pl-5">
+            <h2 class="heading-serif text-lg font-medium mb-2">Mindennapos mozgás</h2>
+            <div
+              contenteditable
+              spellcheck="false"
+              class="prose prose-sm text-ink min-h-[80px]"
+            >
+              <strong>Tornatermi:</strong> Akadálypálya — mesevilággal kapcsolatos. Sárkány fogó.
+              <br />
+              <strong>Csoportban / udvaron:</strong> Gyermekjóga mesés témában. Mesehősös szoborjáték.
+            </div>
+          </section>
+
+          <!-- Lezáró rész -->
+          <section class="mt-8 pt-6 border-t border-sage-100">
+            <h2 class="heading-serif text-lg font-medium mb-3">A heti terv összegzése</h2>
+
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <div class="text-xs font-semibold text-sage-700 uppercase tracking-wider mb-1">
+                  Cél
+                </div>
+                <div
+                  contenteditable
+                  spellcheck="false"
+                  class="text-ink/90 min-h-[40px]"
+                >
+                  Erősödjön a gyermekekben a könyvek iránti érdeklődés, szeretet…
+                </div>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-sage-700 uppercase tracking-wider mb-1">
+                  Feladat
+                </div>
+                <div
+                  contenteditable
+                  spellcheck="false"
+                  class="text-ink/90 min-h-[40px]"
+                >
+                  Megfelelő könyvhasználati szokások kialakítása…
+                </div>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-sage-700 uppercase tracking-wider mb-1">
+                  Differenciálás
+                </div>
+                <div class="text-ink/70 italic text-xs">
+                  tartalomban, módszerekben, segítségadás módjában és mennyiségében, az egyénre
+                  fordított idő mennyiségében
+                </div>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-sage-700 uppercase tracking-wider mb-1">
+                  Módszerek
+                </div>
+                <div class="text-ink/70 italic text-xs">
+                  bemutatás, magyarázat, szemléltetés, cselekedtetés, gyakorlás, ellenőrzés,
+                  értékelés
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="text-xs font-semibold text-sage-700 uppercase tracking-wider mb-1">
+                Képességfejlesztés
+                <span class="text-ink/40 font-normal italic ml-1">(automatikusan a tagek alapján)</span>
+              </div>
+              <div class="flex flex-wrap gap-1 mt-1">
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">finommotorika</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">szókincsbővítés</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">figyelem</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">emlékezet</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">képzelőerő</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">helyes ollóhasználat</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">szem-kéz koordináció</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">téri tájékozódás</span>
+                <span class="text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded">együttműködés</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="text-xs font-semibold text-sage-700 uppercase tracking-wider mb-1">
+                Eszközök
+                <span class="text-ink/40 font-normal italic ml-1">(automatikusan a szövegből)</span>
+              </div>
+              <div class="text-sm text-ink/80">
+                könyvek, papír, színes ceruza, A/5 kartonlap, színes lapok, olló, ragasztó, lamináló,
+                nyomdák, szalag, színezők, hangszóró, padok, babzsákok, karikák, zsámolyok, alagút
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Action bar -->
+        <div class="mt-8 pt-4 border-t border-sage-100 flex items-center gap-2">
+          <button class="px-4 py-2 bg-sage-500 text-cream rounded-md hover:bg-sage-600 text-sm font-medium">
+            Mentés
+          </button>
+          <button class="px-4 py-2 border border-sage-300 text-sage-700 rounded-md hover:bg-sage-50 text-sm">
+            Letöltés .docx-ként (KRÉTA)
+          </button>
+          <button class="px-4 py-2 border border-sage-300 text-sage-700 rounded-md hover:bg-sage-50 text-sm">
+            Letöltés PDF-ként
+          </button>
+          <div class="ml-auto text-xs text-ink/50">
+            Automatikusan mentve · 2026-04-13 09:42
+          </div>
+        </div>
+      </main>
+
+      <!-- RIGHT: kontextus panel -->
+      <aside class="col-span-3">
+        <div class="sticky top-20 space-y-4">
+          <!-- Ünnep és időszak -->
+          <div class="p-4 rounded-lg border border-sage-100 bg-white">
+            <div class="text-xs font-semibold uppercase tracking-wider text-sage-700 mb-2">
+              Időszak körül
+            </div>
+            <div class="text-sm">
+              <div class="flex items-center justify-between py-1">
+                <span>Húsvét hete vége</span>
+                <span class="text-xs text-ink/50">elmúlt</span>
+              </div>
+              <div class="flex items-center justify-between py-1 bg-sage-50/60 -mx-2 px-2 rounded">
+                <span class="font-medium">Olvasni jó projekt</span>
+                <span class="text-xs text-sage-700">aktuális</span>
+              </div>
+              <div class="flex items-center justify-between py-1">
+                <span>Föld Napja (ápr 22)</span>
+                <span class="text-xs text-ink/50">+ 9 nap</span>
+              </div>
+              <div class="flex items-center justify-between py-1">
+                <span>Anyák napja (máj 4)</span>
+                <span class="text-xs text-ink/50">+ 21 nap</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Adatvédelmi figyelmeztető -->
+          <div class="p-3 rounded-lg border border-mauve-100 bg-mauve-100/40">
+            <div class="text-xs font-semibold uppercase tracking-wider text-mauve-600 mb-1">
+              ⚠ Adatvédelmi tipp
+            </div>
+            <div class="text-xs text-ink/80">
+              Konkrét gyermek azonosítása kerülendő. „Egy fiú elmondta…" helyett pl. „Több gyermek
+              tapasztalata szerint…"
+            </div>
+          </div>
+
+          <!-- Foglalkozás-tervezetek a héten -->
+          <div class="p-4 rounded-lg border border-sage-100 bg-white">
+            <div class="text-xs font-semibold uppercase tracking-wider text-sage-700 mb-2">
+              Részletes tervezetek
+            </div>
+            <ul class="space-y-1 text-sm">
+              <li class="flex items-center gap-2">
+                <span class="text-sage-500">○</span>
+                <a href="#" class="hover:underline">Verselés-mesélés (hétfő)</a>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-sage-500">●</span>
+                <a href="#" class="hover:underline font-medium">Külső világ (kedd)</a>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-sage-500">○</span>
+                <a href="#" class="hover:underline">Rajzolás-festés (szerda)</a>
+              </li>
+              <li>
+                <button class="text-xs text-sage-700 hover:underline mt-1">
+                  + Új foglalkozás-tervezet
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Reflexió-link -->
+          <div class="p-4 rounded-lg border border-sage-100 bg-white">
+            <div class="text-xs font-semibold uppercase tracking-wider text-sage-700 mb-2">
+              Heti reflexió
+            </div>
+            <p class="text-xs text-ink/60 mb-2">Még üres. A hét végén kitölthető.</p>
+            <button class="text-xs text-sage-700 hover:underline">
+              Heti értékelés írása →
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

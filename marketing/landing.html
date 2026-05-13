@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OvodaNapló — Óvodapedagógus pedagógiai műhelye</title>
+  <meta name="description" content="Heti tervek, projekt-tervek, foglalkozás-tervezetek és reflexiók — egy helyen, KRÉTA-kompatibilis DOCX exporttal. 85 sablon, 2310 ötlet, 383 magyar gyermekirodalom.">
+
+  <!-- Google Fonts: Fraunces (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       OvodaNapló pasztell rózsaszín design system
+       Tailwind nélkül, tisztán CSS, modern.
+       ============================================================ */
+
+    :root {
+      /* Pasztell rózsaszín paletta — egyezik az app sage palette-jével */
+      --sage-50:  #FDF5F8;
+      --sage-100: #FBE9EE;
+      --sage-200: #F5D2DC;
+      --sage-300: #EEB4C4;
+      --sage-400: #E59FB4;
+      --sage-500: #D87B9C;
+      --sage-600: #BC6182;
+      --sage-700: #9C4D6A;
+      --sage-800: #763A51;
+      --sage-900: #52273A;
+
+      --mauve-100: #F7E6EB;
+      --mauve-200: #EFCCD6;
+      --mauve-300: #E3B0BF;
+      --mauve-500: #C57E92;
+      --mauve-700: #82505F;
+
+      --cream: #FEF8FA;
+      --ink: #3B2A30;
+      --ink-soft: rgba(59, 42, 48, 0.7);
+      --ink-mute: rgba(59, 42, 48, 0.5);
+
+      --shadow-paper: 0 1px 2px rgba(59, 42, 48, 0.06), 0 0 0 1px rgba(59, 42, 48, 0.04);
+      --shadow-lift: 0 4px 16px rgba(216, 123, 156, 0.15), 0 1px 4px rgba(59, 42, 48, 0.04);
+      --shadow-hover: 0 8px 32px rgba(216, 123, 156, 0.25);
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 36;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    a { color: var(--sage-700); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--sage-600); }
+
+    /* Konténer */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       Navigációs sáv
+       ============================================================ */
+    nav.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(254, 248, 250, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sage-100);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage-400), var(--sage-600));
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Fraunces', serif;
+      box-shadow: 0 2px 8px rgba(216, 123, 156, 0.3);
+    }
+
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+    .nav-links a:hover { color: var(--sage-700); }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+    }
+
+    /* ============================================================
+       Hero szekció
+       ============================================================ */
+    .hero {
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--sage-100) 0%, transparent 70%);
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--mauve-100);
+      color: var(--mauve-700);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 .accent {
+      background: linear-gradient(90deg, var(--sage-500), var(--mauve-500));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--ink-soft);
+      max-width: 720px;
+      margin: 0 auto 40px;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 0.6s ease 0.3s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--sage-500);
+      color: var(--cream);
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      transition: all .2s;
+      box-shadow: var(--shadow-lift);
+    }
+    .btn-primary:hover {
+      background: var(--sage-600);
+      color: var(--cream);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--sage-700);
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      border: 1.5px solid var(--sage-300);
+      transition: all .2s;
+    }
+    .btn-secondary:hover {
+      background: var(--sage-100);
+      color: var(--sage-700);
+      border-color: var(--sage-400);
+    }
+
+    /* Hero számok */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 800px;
+      margin: 80px auto 0;
+      animation: fadeInUp 0.6s ease 0.4s both;
+    }
+
+    @media (max-width: 720px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--sage-600);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 8px;
+    }
+
+    /* ============================================================
+       Általános szekciók
+       ============================================================ */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 56px;
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage-600);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 16px;
+    }
+
+    .section-lead {
+      font-size: 18px;
+      color: var(--ink-soft);
+    }
+
+    /* ============================================================
+       Funkciók (cards grid)
+       ============================================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: white;
+      border: 1px solid var(--sage-100);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      transition: all .3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--sage-300);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-sm);
+      background: var(--mauve-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .feature-card .feature-number {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--sage-500);
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    /* ============================================================
+       Target szekció
+       ============================================================ */
+    .target-section {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--sage-50) 100%);
+    }
+
+    .target-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .target-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--sage-100);
+    }
+
+    .target-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--sage-200);
+      color: var(--sage-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .target-item-text {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       Comparison table
+       ============================================================ */
+    .comparison-wrapper {
+      overflow-x: auto;
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-paper);
+      margin-top: 32px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--sage-100);
+    }
+
+    .comparison-table thead th {
+      background: var(--sage-50);
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .comparison-table thead th:first-child {
+      background: var(--mauve-100);
+      color: var(--mauve-700);
+    }
+
+    .comparison-table thead th.our-product {
+      background: var(--sage-500);
+      color: white;
+    }
+
+    .comparison-table tbody td {
+      font-size: 14px;
+    }
+
+    .comparison-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .comparison-table .check { color: var(--sage-600); font-size: 18px; }
+    .comparison-table .x { color: var(--mauve-500); font-size: 18px; opacity: 0.6; }
+
+    .comparison-table tbody tr:hover {
+      background: var(--sage-50);
+    }
+
+    /* ============================================================
+       Workflow timeline
+       ============================================================ */
+    .workflow-section {
+      background: white;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline-step {
+      background: var(--sage-50);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      position: relative;
+      border: 1px solid var(--sage-100);
+      transition: all .3s;
+    }
+
+    .timeline-step:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lift);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -16px;
+      left: 24px;
+      width: 36px;
+      height: 36px;
+      background: var(--sage-500);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow-lift);
+    }
+
+    .timeline-step h4 {
+      font-size: 18px;
+      margin: 12px 0 8px;
+    }
+
+    .timeline-step p {
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    .timeline-step .duration {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 10px;
+      background: var(--mauve-100);
+      color: var(--mauve-700);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .workflow-total {
+      text-align: center;
+      margin-top: 48px;
+      padding: 28px;
+      background: var(--sage-100);
+      border-radius: var(--radius-md);
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .workflow-total .big-number {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 600;
+      color: var(--sage-700);
+      line-height: 1;
+    }
+
+    .workflow-total .label {
+      font-size: 16px;
+      color: var(--ink-soft);
+      margin-top: 8px;
+    }
+
+    /* ============================================================
+       Privacy / security
+       ============================================================ */
+    .privacy-section {
+      background: linear-gradient(180deg, var(--sage-50) 0%, var(--cream) 100%);
+    }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .privacy-card {
+      text-align: center;
+      padding: 32px 24px;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--sage-100);
+    }
+
+    .privacy-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .privacy-card h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .privacy-card p {
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    /* ============================================================
+       Stats / content richness
+       ============================================================ */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .content-stat {
+      text-align: center;
+      padding: 28px 20px;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--sage-100);
+      transition: all .3s;
+    }
+
+    .content-stat:hover {
+      transform: translateY(-3px);
+      border-color: var(--sage-300);
+    }
+
+    .content-stat-number {
+      font-family: 'Fraunces', serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--sage-600);
+      line-height: 1;
+    }
+
+    .content-stat-label {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 10px;
+    }
+
+    .content-stat-sublabel {
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       Témakörök (months grid)
+       ============================================================ */
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .month-card {
+      padding: 20px;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--sage-100);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: all .3s;
+    }
+
+    .month-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--sage-300);
+      box-shadow: var(--shadow-lift);
+    }
+
+    .month-emoji {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .month-content { flex: 1; }
+
+    .month-name {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .month-themes {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       Compliance badges
+       ============================================================ */
+    .compliance-section {
+      background: var(--sage-100);
+    }
+
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 24px;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--sage-200);
+    }
+
+    .badge-emoji {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .badge-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       Quote / hero callout
+       ============================================================ */
+    .quote-section {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .quote-card {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 56px 40px;
+      background: linear-gradient(135deg, var(--sage-50) 0%, var(--mauve-100) 100%);
+      border-radius: var(--radius-lg);
+      position: relative;
+    }
+
+    .quote-mark {
+      font-family: 'Fraunces', serif;
+      font-size: 100px;
+      color: var(--sage-300);
+      line-height: 0.5;
+      margin-bottom: 16px;
+    }
+
+    .quote-text {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    /* ============================================================
+       FAQ accordion
+       ============================================================ */
+    .faq-section {
+      background: white;
+    }
+
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--sage-100);
+    }
+
+    .faq-item details {
+      padding: 24px 0;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--ink);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      color: var(--sage-500);
+      transition: transform .3s;
+      line-height: 1;
+    }
+
+    .faq-item details[open] summary::after {
+      content: '−';
+    }
+
+    .faq-item details[open] summary {
+      color: var(--sage-700);
+    }
+
+    .faq-answer {
+      margin-top: 16px;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       Footer
+       ============================================================ */
+    footer {
+      background: var(--sage-900);
+      color: var(--sage-100);
+      padding: 48px 24px 24px;
+      text-align: center;
+    }
+
+    footer p { color: var(--sage-100); margin: 8px 0; }
+    footer .footer-note {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 24px;
+    }
+
+    footer .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    /* ============================================================
+       Animations
+       ============================================================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       Navigációs sáv
+       ============================================================ -->
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark">Ó</span>
+        OvodaNapló
+      </a>
+      <div class="nav-links">
+        <a href="#features">Funkciók</a>
+        <a href="#workflow">Munkafolyamat</a>
+        <a href="#content">Tartalom</a>
+        <a href="#faq">GYIK</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       Hero
+       ============================================================ -->
+  <section class="hero" id="top">
+    <div class="container">
+      <span class="hero-badge">🌸 Magyar óvodapedagógusoknak</span>
+      <h1>
+        Az óvodapedagógus<br>
+        <span class="accent">pedagógiai műhelye</span>
+      </h1>
+      <p class="hero-subtitle">
+        Heti tervek, projekt-tervek, foglalkozás-tervezetek és reflexiók —
+        egy helyen, néhány kattintással. <strong>KRÉTA-kompatibilis</strong>
+        DOCX exporttal, magyar nyelven, lokálisan.
+      </p>
+      <div class="hero-cta">
+        <a href="#workflow" class="btn-primary">
+          ▶ A munkafolyamat
+        </a>
+        <a href="#features" class="btn-secondary">
+          Funkciók megtekintése
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">85</div>
+          <div class="stat-label">heti sablon</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">2 310</div>
+          <div class="stat-label">tevékenység-ötlet</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">383</div>
+          <div class="stat-label">gyermek-irodalom</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">5-8</div>
+          <div class="stat-label">perc / heti terv</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Funkciók
+       ============================================================ -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Funkciók</span>
+        <h2 class="section-title">Amit kínálunk</h2>
+        <p class="section-lead">
+          Minden, amire egy magyar óvodapedagógusnak szüksége van a dokumentációs munka 8-10x gyorsabbá tételéhez.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3><span class="feature-number">85</span> előre összeállított heti sablon</h3>
+          <p>Szeptembertől júniusig minden hét tematikájához kész sablonunk van. Tanévkezdéstől az évzáróig. 33 téma × 2-3 verzió — bármelyikből kiindulhat.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💡</div>
+          <h3><span class="feature-number">2 310</span> tevékenység-ötlet bullet</h3>
+          <p>A „💡 Ötletek" gombbal minden főterületre 10 témaspecifikus ötlet közül választhat. Bepipálja amit kér, hozzáadódik a tervhez — utána szerkesztheti.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3><span class="feature-number">383</span> ellenőrzött gyermekirodalom</h3>
+          <p>Csak valós, óvodás-szintű művek. Petőfi (Anyám tyúkja), Móra Ferenc, József Attila (Altató), Weöres, Csukás István, Lázár Ervin, Marék Veronika, népi mondókák.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📥</div>
+          <h3>KRÉTA-feltölthető Word-dokumentum</h3>
+          <p>A Hetiterv üres.docx mintaformátum pixel-pontosan. Times New Roman 12pt, bullet pontok, alfejezetek, fejléc nélkül. Egy kattintás → letöltés → oviKRÉTA feltöltés.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>ONAP-konform 7 terület</h3>
+          <p>Külső világ, Matematika, Verselés-mesélés, Rajzolás-festés, Ének-zene, Hallás-ritmus, Mindennapos mozgás — minden tervben kötelező sémában.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3>Iskola előkészítő tevékenység</h3>
+          <p>Minden főterület után automatikus 5-7 éveseknek szóló képesség-lista: megfigyelőképesség, szókincs, finommotorika, ritmusérzék, együttműködés.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Automatikus naponta backup</h3>
+          <p>Reggel induláskor automatikus mentés a Windows AppData mappába. Visszaállítási pontok többszintűen. Soha nem veszít el adatot.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🇭🇺</div>
+          <h3>100% magyar nyelvű</h3>
+          <p>Felület, tartalom, dokumentumok — minden magyarul. Minden ünnep, minden szakmai szókincs az ONAP keretrendszer szerint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Kinek készült
+       ============================================================ -->
+  <section class="target-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Célközönség</span>
+        <h2 class="section-title">Kinek készült</h2>
+        <p class="section-lead">Magyar óvodapedagógusoknak, akik:</p>
+      </div>
+
+      <div class="target-list">
+        <div class="target-item">
+          <div class="target-check">✓</div>
+          <div class="target-item-text">Az <strong>ONAP</strong> (Óvodai Nevelés Országos Alapprogramja) szerint dolgoznak</div>
+        </div>
+        <div class="target-item">
+          <div class="target-check">✓</div>
+          <div class="target-item-text">Heti <strong>5-8 órát</strong> szánnak dokumentációra</div>
+        </div>
+        <div class="target-item">
+          <div class="target-check">✓</div>
+          <div class="target-item-text">Az <strong>oviKRÉTA</strong> csoportnaplóba PDF/DOCX-eket töltenek fel</div>
+        </div>
+        <div class="target-item">
+          <div class="target-check">✓</div>
+          <div class="target-item-text"><strong>Magyar gyermekirodalmat</strong> akarnak használni — nem felnőtt verseket</div>
+        </div>
+        <div class="target-item">
+          <div class="target-check">✓</div>
+          <div class="target-item-text">Kicsi, középső, nagy, vagy <strong>vegyes csoportot</strong> tanítanak</div>
+        </div>
+        <div class="target-item">
+          <div class="target-check">✓</div>
+          <div class="target-item-text">Adataikat <strong>lokálisan, biztonságosan</strong> akarják tárolni</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Összehasonlító táblázat
+       ============================================================ -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Pozícionálás</span>
+        <h2 class="section-title">Miért jobb mint a manuális vagy más eszközök</h2>
+        <p class="section-lead">Egy gyors összehasonlítás a piaci alternatívákkal.</p>
+      </div>
+
+      <div class="comparison-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Funkció</th>
+              <th class="our-product">OvodaNapló</th>
+              <th>Manuális Word</th>
+              <th>OVPED</th>
+              <th>oviKRÉTA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Időigény / heti terv</td>
+              <td><strong>5-8 perc</strong></td>
+              <td>30-45 perc</td>
+              <td>15-20 perc</td>
+              <td>20-30 perc</td>
+            </tr>
+            <tr>
+              <td>Magyar gyermekirodalom-DB</td>
+              <td><span class="check">✓</span> 383 mű</td>
+              <td>—</td>
+              <td>korlátozott</td>
+              <td><span class="x">✕</span></td>
+            </tr>
+            <tr>
+              <td>Sablon-választó</td>
+              <td><span class="check">✓</span> 85 db</td>
+              <td><span class="x">✕</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>10-10 ötlet / terület</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="x">✕</span></td>
+              <td>korlátozott</td>
+              <td><span class="x">✕</span></td>
+            </tr>
+            <tr>
+              <td>ONAP 7 terület séma</td>
+              <td><span class="check">✓</span> kötelező</td>
+              <td>manuális</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>DOCX letöltés</td>
+              <td><span class="check">✓</span> Word-formátum</td>
+              <td>manuális</td>
+              <td>proprietárius</td>
+              <td><span class="x">✕</span></td>
+            </tr>
+            <tr>
+              <td>Felhő-szolgáltatás havidíja</td>
+              <td><strong>ingyenes</strong></td>
+              <td>—</td>
+              <td>2 590-3 890 Ft/hó</td>
+              <td>állami</td>
+            </tr>
+            <tr>
+              <td>Lokális adattárolás</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="x">✕</span></td>
+              <td><span class="x">✕</span></td>
+            </tr>
+            <tr>
+              <td>Internet szükséges</td>
+              <td><span class="x">✕</span></td>
+              <td><span class="x">✕</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Workflow timeline
+       ============================================================ -->
+  <section class="workflow-section" id="workflow">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">A munkafolyamat</span>
+        <h2 class="section-title">7 lépés egy kész heti tervhez</h2>
+        <p class="section-lead">Az új heti terv készítésének teljes folyamata, ahogyan a felhasználó látja.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <h4>Új heti terv</h4>
+          <p>Naptárból kiválasztja a hetet → új tervezetet hoz létre.</p>
+          <span class="duration">⏱ 5 mp</span>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <h4>Sablon kiválasztása</h4>
+          <p>Dropdown: 33 téma között. Pl. Mikulás-várás (V1: Szent Miklós legendája, V2: jótékonyság).</p>
+          <span class="duration">⏱ 15 mp</span>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <h4>Ötlet-böngészés</h4>
+          <p>„💡 Ötletek" gomb minden főterületnél: 10 témaspecifikus javaslat checkboxokkal.</p>
+          <span class="duration">⏱ 1-2 perc</span>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <h4>Manuális finomítás</h4>
+          <p>Textarea-kban szabadon módosíthat, hozzáadhat, törölhet. Saját élmények beírása.</p>
+          <span class="duration">⏱ 2-3 perc</span>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">5</div>
+          <h4>Mentés</h4>
+          <p>Egy kattintás. A heti terv SQLite-ba kerül. Naponta automatikus backup.</p>
+          <span class="duration">⏱ 2 mp</span>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">6</div>
+          <h4>Dokumentum nézet</h4>
+          <p>Word-szerű előnézet exportálás előtt. Ellenőrzés bullet-pontokkal.</p>
+          <span class="duration">⏱ 30 mp</span>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">7</div>
+          <h4>DOCX letöltés</h4>
+          <p>KRÉTA-kompatibilis Word-fájl. Feltölthető az oviKRÉTA csoportnaplóba.</p>
+          <span class="duration">⏱ 3 mp</span>
+        </div>
+      </div>
+
+      <div class="workflow-total">
+        <div class="big-number">5-8 perc</div>
+        <div class="label">összes munka heti tervenként</div>
+        <p style="margin-top: 12px; color: var(--ink-soft); font-size: 14px;">
+          A manuális 30-45 perc helyett. <strong>Évi ~25 óra megtakarítás</strong> egy óvodapedagógusnak.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Privacy
+       ============================================================ -->
+  <section class="privacy-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Adatvédelem</span>
+        <h2 class="section-title">Adatvédelem első</h2>
+        <p class="section-lead">A pedagógus és a gyermekek adatai csak a saját számítógépén tárolódnak.</p>
+      </div>
+
+      <div class="privacy-grid">
+        <div class="privacy-card">
+          <div class="privacy-icon">🔒</div>
+          <h4>100% lokális tárolás</h4>
+          <p>Windows asztalán, semmi felhő, semmi külső szerver.</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-icon">🚫</div>
+          <h4>Nincs telemetria</h4>
+          <p>Nincs tracking, nincs analitika, nincs telefonálás haza.</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-icon">⚠️</div>
+          <h4>SNI-detektor</h4>
+          <p>Figyelmeztet, ha gyermek-azonosító információt írna.</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-icon">💾</div>
+          <h4>Auto-backup naponta</h4>
+          <p>Soha nem veszít el adatot. Többszintű visszaállítási pontok.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Tartalmi gazdagság
+       ============================================================ -->
+  <section id="content">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Tartalom</span>
+        <h2 class="section-title">Tartalmi gazdagság</h2>
+        <p class="section-lead">Több ezer tartalom-egység — minden tanévhez bőven elég anyag.</p>
+      </div>
+
+      <div class="content-grid">
+        <div class="content-stat">
+          <div class="content-stat-number">85</div>
+          <div class="content-stat-label">heti sablon</div>
+          <div class="content-stat-sublabel">33 téma × 2-3 verzió</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">7</div>
+          <div class="content-stat-label">ONAP terület</div>
+          <div class="content-stat-sublabel">minden sablonban</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">10+</div>
+          <div class="content-stat-label">ötlet</div>
+          <div class="content-stat-sublabel">téma × területenként</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">4</div>
+          <div class="content-stat-label">korcsoport</div>
+          <div class="content-stat-sublabel">kicsi / közepes / nagy / vegyes</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">383</div>
+          <div class="content-stat-label">irodalmi mű</div>
+          <div class="content-stat-sublabel">csak óvodás-szintű</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">37</div>
+          <div class="content-stat-label">magyar ünnep</div>
+          <div class="content-stat-sublabel">automatikus hozzárendelés</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">71</div>
+          <div class="content-stat-label">fejlődési képesség</div>
+          <div class="content-stat-sublabel">multi-select</div>
+        </div>
+
+        <div class="content-stat">
+          <div class="content-stat-number">5 000+</div>
+          <div class="content-stat-label">tartalom-egység</div>
+          <div class="content-stat-sublabel">összesen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Témakörök hónaponként
+       ============================================================ -->
+  <section style="background: var(--sage-50);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Témakörök</span>
+        <h2 class="section-title">Szeptembertől júniusig</h2>
+        <p class="section-lead">Minden hónaphoz több téma — az óvodai nevelési év teljes lefedettsége.</p>
+      </div>
+
+      <div class="months-grid">
+        <div class="month-card">
+          <div class="month-emoji">🍂</div>
+          <div class="month-content">
+            <div class="month-name">Szeptember</div>
+            <div class="month-themes">Tanévkezdés, Ősz termények</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🎃</div>
+          <div class="month-content">
+            <div class="month-name">Október</div>
+            <div class="month-themes">Állatok világnapja, Tök-fesztivál, Ősz színei</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🦃</div>
+          <div class="month-content">
+            <div class="month-name">November</div>
+            <div class="month-themes">Márton-napi szokások, Erzsébet-Katalin nap, Adventi készülődés</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🎄</div>
+          <div class="month-content">
+            <div class="month-name">December</div>
+            <div class="month-themes">Mikulás-várás, Luca-nap, Karácsony</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">❄️</div>
+          <div class="month-content">
+            <div class="month-name">Január</div>
+            <div class="month-themes">Téli madáretetés, Téli sportok, Magyar Kultúra Napja</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🥨</div>
+          <div class="month-content">
+            <div class="month-name">Február</div>
+            <div class="month-themes">Egészséges életmód, Farsang, Mátyás-nap</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🌷</div>
+          <div class="month-content">
+            <div class="month-name">Március</div>
+            <div class="month-themes">Március 15., Tavasz, Víz Világnapja, Erdők napja 🌳</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🐰</div>
+          <div class="month-content">
+            <div class="month-name">Április</div>
+            <div class="month-themes">Húsvét, Költészet Napja, Föld Napja, Olvasni jó</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🌸</div>
+          <div class="month-content">
+            <div class="month-name">Május</div>
+            <div class="month-themes">Anyák napja, Madarak és Fák Napja, Méhek napja 🐝, Közlekedés, Foglalkozások, Pünkösd, Gyermeknap</div>
+          </div>
+        </div>
+        <div class="month-card">
+          <div class="month-emoji">🌞</div>
+          <div class="month-content">
+            <div class="month-name">Június</div>
+            <div class="month-themes">Évzáró</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Compliance badges
+       ============================================================ -->
+  <section class="compliance-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Megfelelőség</span>
+        <h2 class="section-title">Hivatalos szakmai megfelelőség</h2>
+        <p class="section-lead">Az alkalmazás minden tartalma és formátuma a magyar óvodai pedagógiai sztenderdeknek megfelel.</p>
+      </div>
+
+      <div class="badges-grid">
+        <div class="badge">
+          <span class="badge-emoji">🎓</span>
+          <span class="badge-text"><strong>ONAP</strong>-szerinti<br>Óvodai Nevelés Országos Alapprogramja</span>
+        </div>
+        <div class="badge">
+          <span class="badge-emoji">📋</span>
+          <span class="badge-text"><strong>oviKRÉTA</strong>-kompatibilis<br>DOCX export</span>
+        </div>
+        <div class="badge">
+          <span class="badge-emoji">🇭🇺</span>
+          <span class="badge-text"><strong>Magyar nyelvű</strong><br>felület és tartalom</span>
+        </div>
+        <div class="badge">
+          <span class="badge-emoji">📚</span>
+          <span class="badge-text"><strong>Életkor-érzékeny</strong><br>3-7 éves, vegyes csoport</span>
+        </div>
+        <div class="badge">
+          <span class="badge-emoji">🎨</span>
+          <span class="badge-text"><strong>7 tevékenységi terület</strong><br>minden tervben</span>
+        </div>
+        <div class="badge">
+          <span class="badge-emoji">✏️</span>
+          <span class="badge-text"><strong>5 iskola-előkészítő szekció</strong><br>minden V1/V2 sablonban</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Quote
+       ============================================================ -->
+  <section class="quote-section">
+    <div class="quote-card">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">
+        Az OvodaNapló az óvodapedagógus dokumentációs munkáját 5 órányi heti rohanásból 30 percre csökkenti —
+        és minden, amit beletesz, <strong>ONAP-konform, magyar és valós</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+       ============================================================ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">GYIK</span>
+        <h2 class="section-title">Gyakran ismételt kérdések</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <details>
+            <summary>Kell internet a használathoz?</summary>
+            <div class="faq-answer">
+              Nem. Minden adat lokálisan tárolódik, a Windows asztalán fut. Az alkalmazás teljesen offline használható.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Kompatibilis az oviKRÉTÁ-val?</summary>
+            <div class="faq-answer">
+              Igen, a generált DOCX-fájlokat a csoportnaplóba egyszerűen feltöltheted csatolmányként. A formátum
+              pixelpontos: Times New Roman 12pt, bullet pontok, alfejezetek, fejléc nélkül.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Mennyibe kerül?</summary>
+            <div class="faq-answer">
+              Az alkalmazás ingyenes. Az ötlet-bank, a 85 sablon, a 383 irodalmi mű — minden a csomag része,
+              havidíj nélkül.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Helyettesíti az oviKRÉTÁ-t?</summary>
+            <div class="faq-answer">
+              Nem. Kiegészítője. Az oviKRÉTA admin/csoportnapló — kötelező az állami óvodákban. Az OvodaNapló a
+              pedagógus <em>gondolkodási és tervezési műhelye</em> — DOCX-eket gyárt, amelyek feltölthetők a KRÉTA-ba.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Mire mentődnek az adataim?</summary>
+            <div class="faq-answer">
+              A Windows AppData mappádba (csak a Te számítógépeden). Naponta auto-backup. Soha nem küldjük el sehova.
+              A pedagógus, óvoda, csoport neve csak Önnél van.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Hogyan frissíthetem?</summary>
+            <div class="faq-answer">
+              Új verziónál az <code>app.asar</code> és a <code>seed/</code> mappa cserélés egy egyszerű manuális
+              folyamat. Jövőbeli verziókban tervezett az automatikus frissítés-ellenőrző (beállítás-függő).
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Mely korcsoportokra használható?</summary>
+            <div class="faq-answer">
+              Kiscsoport (3-4 éves), Középső csoport (4-5 éves), Nagycsoport (5-7 éves), és <strong>Vegyes csoport (3-7 éves)</strong> egyaránt.
+              A korcsoport a nevelési évhez állítható be, és befolyásolja az ötletek-tartalom súlyozását.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Csak valós irodalmi műveket használ?</summary>
+            <div class="faq-answer">
+              Igen. A 383 tételes adatbázis minden eleme valós, ellenőrzött magyar gyermekirodalom. Soha NEM
+              generál AI-val nem létező műveket. A felnőtt irodalmat (Toldi, Nemzeti dal, Ady-Karácsony stb.) kifejezetten
+              kiszűrtük.
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-item">
+          <details>
+            <summary>Mit jelent a "ötlet-bank"?</summary>
+            <div class="faq-answer">
+              Minden téma × terület párra 10 előre összeállított tevékenység-javaslat. A „💡 Ötletek" gombbal egy
+              modális ablakban checkbox-okkal válogathat. A kiválasztott javaslatok hozzáadódnak a tartalom-mezőhöz,
+              majd manuálisan szerkesztheti.
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">🌸 OvodaNapló</div>
+      <p>Az óvodapedagógus pedagógiai műhelye.</p>
+      <p style="font-size: 14px; opacity: 0.7;">Lokális desktop alkalmazás magyar óvodapedagógusoknak.</p>
+      <p class="footer-note">
+        Az OvodaNapló nem helyettesíti az oviKRÉTA csoportnaplót — kiegészítője, amely DOCX-eket gyárt feltöltéshez.<br>
+        Magyar nyelvű, lokális tárolású, ingyenes.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       Animations
+       ============================================================ -->
+  <script>
+    // Fade-in animáció a szekciókra
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.feature-card, .target-item, .timeline-step, .privacy-card, .content-stat, .month-card, .badge, .faq-item').forEach(el => {
+      el.classList.add('fade-in');
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
