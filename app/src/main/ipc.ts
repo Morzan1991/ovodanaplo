@@ -441,6 +441,29 @@ export function registerIpcHandlers(): void {
     return db.insert(projektek).values(data).returning().get();
   });
 
+  // Projekt törlése (kapcsolódó reflexiók törölve, heti tervek projektId-ja NULL-ra)
+  ipcMain.handle(IpcChannels.projektTorol, (_e, id: number) => {
+    if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
+      throw new Error('[projektTorol] érvénytelen id');
+    }
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // 1. Kapcsolódó heti tervek projektId-ja → NULL (heti tervek megmaradnak)
+      db.update(hetiTervek).set({ projektId: null }).where(eq(hetiTervek.projektId, id)).run();
+
+      // 2. Projekthez kötött reflexiók törlése
+      db.delete(reflexiok).where(eq(reflexiok.projektId, id)).run();
+
+      // 3. Maga a projekt
+      const torolt = db.delete(projektek).where(eq(projektek.id, id)).returning().all();
+      if (torolt.length === 0) {
+        throw new Error(`Projekt nem található: id=${id}`);
+      }
+      return { id, sikeres: true };
+    });
+    return tx();
+  });
+
   // -------- Foglalkozás-tervezetek --------
   ipcMain.handle(IpcChannels.foglalkozasLista, (_e, hetiTervId?: number) => {
     if (hetiTervId) {
@@ -474,6 +497,26 @@ export function registerIpcHandlers(): void {
         .get();
     }
     return db.insert(foglalkozasTervezetek).values(data).returning().get();
+  });
+
+  // Foglalkozás-tervezet törlése (kapcsolódó reflexiók is törölve)
+  ipcMain.handle(IpcChannels.foglalkozasTorol, (_e, id: number) => {
+    if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
+      throw new Error('[foglalkozasTorol] érvénytelen id');
+    }
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // 1. Kapcsolódó reflexiók törlése
+      db.delete(reflexiok).where(eq(reflexiok.foglalkozasId, id)).run();
+
+      // 2. Maga a foglalkozás
+      const torolt = db.delete(foglalkozasTervezetek).where(eq(foglalkozasTervezetek.id, id)).returning().all();
+      if (torolt.length === 0) {
+        throw new Error(`Foglalkozás nem található: id=${id}`);
+      }
+      return { id, sikeres: true };
+    });
+    return tx();
   });
 
   // -------- Reflexiók --------

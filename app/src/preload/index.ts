@@ -151,6 +151,8 @@ const api = {
     ipcRenderer.invoke(IpcChannels.projektBetolt, id),
   projektMent: (data: UjProjekt & { id?: number }): Promise<Projekt> =>
     ipcRenderer.invoke(IpcChannels.projektMent, data),
+  projektTorol: (id: number): Promise<{ id: number; sikeres: boolean }> =>
+    ipcRenderer.invoke(IpcChannels.projektTorol, id),
 
   // Foglalkozás-tervezetek
   foglalkozasLista: (hetiTervId?: number): Promise<FoglalkozasTervezet[]> =>
@@ -159,6 +161,8 @@ const api = {
     ipcRenderer.invoke(IpcChannels.foglalkozasBetolt, id),
   foglalkozasMent: (data: UjFoglalkozasTervezet & { id?: number }): Promise<FoglalkozasTervezet> =>
     ipcRenderer.invoke(IpcChannels.foglalkozasMent, data),
+  foglalkozasTorol: (id: number): Promise<{ id: number; sikeres: boolean }> =>
+    ipcRenderer.invoke(IpcChannels.foglalkozasTorol, id),
 
   // Reflexiók
   reflexioLista: (opts?: {

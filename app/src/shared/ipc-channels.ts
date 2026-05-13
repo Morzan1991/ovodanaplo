@@ -34,11 +34,13 @@ export const IpcChannels = {
   projektLista: 'projekt:lista',
   projektBetolt: 'projekt:betolt',
   projektMent: 'projekt:ment',
+  projektTorol: 'projekt:torol',
 
   // Foglalkozás-tervezetek
   foglalkozasLista: 'foglalkozas:lista',
   foglalkozasBetolt: 'foglalkozas:betolt',
   foglalkozasMent: 'foglalkozas:ment',
+  foglalkozasTorol: 'foglalkozas:torol',
 
   // Reflexiók
   reflexioLista: 'reflexio:lista',
