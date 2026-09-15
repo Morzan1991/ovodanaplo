@@ -109,18 +109,30 @@ function seedDarabok(): Array<{ hol: string; szoveg: string }> {
 }
 
 describe('a teljes seed szerzői jogi átvizsgálása', () => {
-  it('sehol nem maradt szó szerinti szöveg a kiadványból', () => {
+  // Bőkezű időkorlát: a teljes seed összevetése a több százezer karakteres kiadványi
+  // szöveggel lassú, és terhelt gépen a vitest 5 másodperces alapkorlátján tartalmi
+  // hiba nélkül is elbukott.
+  it('sehol nem maradt szó szerinti szöveg a kiadványból', { timeout: 30_000 }, () => {
     const forras = kiadvany();
     expect(forras.length).toBeGreaterThan(100000); // a kinyerés megvan-e egyáltalán
 
     const engedett = new Set(ENGEDETT.map(norm));
+    // Ugyanaz a mondat gyakran több korcsoportban is szerepel: a keresés eredményét
+    // szövegenként megjegyezzük. Minden darabot ugyanúgy megvizsgálunk, a találatok
+    // listája nem változik — csak ugyanazt a szöveget nem keressük ki újra.
+    const kiadvanyban = new Map<string, boolean>();
     const talalat = new Map<string, string>();
     for (const { hol, szoveg } of seedDarabok()) {
       const s = szoveg.trim();
       if (s.length <= HOSSZ_KUSZOB) continue;
       const n = norm(s);
       if (engedett.has(n)) continue;
-      if (forras.includes(n)) talalat.set(s, hol);
+      let van = kiadvanyban.get(n);
+      if (van === undefined) {
+        van = forras.includes(n);
+        kiadvanyban.set(n, van);
+      }
+      if (van) talalat.set(s, hol);
     }
 
     const lista = [...talalat].map(([s, hol]) => `${hol}: ${s.slice(0, 80)}…`);
