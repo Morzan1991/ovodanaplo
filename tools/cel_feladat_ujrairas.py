@@ -102,7 +102,6 @@ def main() -> int:
         SEED.write_text(json.dumps(adat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if csere:
             print("  FUTTASD UTÁNA: python tools/celok_beepites.py")
-            print("                 python tools/mobil_tartalom.py")
     else:
         print("  (dry-run — semmi nem íródott ki)")
     return 0

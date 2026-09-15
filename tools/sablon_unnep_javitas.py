@@ -9,17 +9,13 @@ hétre teszi a témát. Két eltérés maradt bent:
 
 1. `advent_v1` / `advent_v2` — nem kapta meg a `kapcsoloUnnep: "Advent kezdete"`
    kötést, és november lett a hónapja december helyett. Emiatt az „Adventi
-   készülődés" november közepére került, két héttel az advent kezdete ELÉ. A
-   mobil appban súlyosabb volt: ott a változatok egy témává olvadnak össze az
-   alapnév alatt, így a hibás változat elnyelte az ünnep-kötést hordozó eredeti
-   `advent` sablont, és az adventi hét egyáltalán nem jött elő.
+   készülődés" november közepére került, két héttel az advent kezdete ELÉ.
 
 2. `tok_fesztival_v2` — ez NEM a Tök-fesztivál másik változata, hanem egy önálló
    téma („Mindenszentek hagyományai óvodás szinten"), csak rossz azonosítót
-   kapott. A mobilon emiatt teljesen eltűnt (beolvadt a Tök-fesztiválba), az
-   asztali programban pedig a két különböző téma egy családnak látszott. Az új
-   azonosítója `mindenszentek`. A Tök-fesztivál pedig megkapja a saját jeles
-   napját, hogy ne a hónap-sorrend szerencséjén múljon, melyik hétre kerül.
+   kapott. Emiatt a két különböző téma egy családnak látszott. Az új azonosítója
+   `mindenszentek`. A Tök-fesztivál pedig megkapja a saját jeles napját, hogy ne
+   a hónap-sorrend szerencséjén múljon, melyik hétre kerül.
 
 A szkript a végén ELLENŐRZI is az összes változat-családot, hogy ilyen eltérés ne
 fordulhasson elő újra észrevétlenül; eltérésnél nem nulla kilépési kóddal áll le.
@@ -132,7 +128,6 @@ def main() -> int:
         json.dumps(adat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(f"\n  {valtozas} mező javítva → {SEED.name}")
-    print("  FUTTASD UTÁNA: python tools/mobil_tartalom.py")
     return 0
 
 

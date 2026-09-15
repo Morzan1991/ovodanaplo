@@ -58,7 +58,6 @@ ovodanaplo/
 │   └── dist-installer/       # build kimenet (gitignore)
 ├── seed/                     # GENERÁLT tartalom — kézzel ne szerkeszd
 ├── tools/                    # Python: a seed előállítása és karbantartása
-├── mobile/                   # Capacitor-alapú mobil ötletelő (külön ág, nem kötelező)
 ├── schema/                   # adatbázis-séma dokumentáció
 ├── marketing/                # landing oldal
 ├── claude-commands/          # fejlesztői segéd-parancsok

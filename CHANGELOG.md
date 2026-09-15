@@ -1,5 +1,20 @@
 # Verziótörténet
 
+## 2026-09-15 — a mobil ág eltávolítása
+
+A `mobile/` mappa (Capacitor-alapú Android ötletelő) és a hozzá tartozó két
+segédszkript (`tools/mobil_tartalom.py`, `tools/mobil_ikon.py`) kikerült a
+projektből — összesen 38 fájl.
+
+Az asztali program nem függött tőle: a kódja, az adatai és a `seed/` tartalom
+változatlan, ezért a verziószám marad **2.11.9**.
+
+Miért került ki: a mobil ág önálló, szinkron nélküli ötletelő volt, amely a
+seedből generált másolatot vitte telefonra. Minden tartalomváltozás után külön
+lépést kívánt (`mobil_tartalom.py`), és ez a lépés könnyen kimaradt — így a
+telefonon észrevétlenül régi tartalom maradhatott. A kód a git előzményében
+megmarad, onnan bármikor visszahozható.
+
 ## v2.8 – v2.11.9 — 2026-09 — tartalom, jogtisztaság, szerkeszthetőség
 
 Összefoglaló; a részletes indoklás a kód kommentjeiben és az `ATTEKINTES.md`-ben van.

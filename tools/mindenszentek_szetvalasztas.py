@@ -103,7 +103,7 @@ def main() -> int:
         if not dry:
             ut.write_text(json.dumps(adat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    print("\n(dry-run)" if dry else "\n  MENTVE — futtasd utána: python tools/mobil_tartalom.py")
+    print("\n(dry-run)" if dry else "\n  MENTVE")
     return 0
 
 

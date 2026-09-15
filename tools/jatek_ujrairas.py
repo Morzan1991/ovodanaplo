@@ -185,8 +185,6 @@ def main() -> int:
     print(f"\n  átírva: {csere} · törölve: {torles} · saját leírás nélkül maradt: {valtozatlan}")
     if dry:
         print("  (dry-run — semmi nem íródott ki)")
-    elif csere or torles:
-        print("  FUTTASD UTÁNA: python tools/mobil_tartalom.py")
     return 0
 
 

@@ -121,8 +121,6 @@ tools/cel_feladat_szovegek.py  korcsoportos cél- és feladatszövegek
 tools/otlet_szovegek.py     ötletbank-sorok
         ↓  a *_beepites.py / *_ujrairas.py szkriptek építik be
 seed/*.json
-        ↓  tools/mobil_tartalom.py
-mobile/src/tartalom/*.json
 ```
 
 A szkriptek **idempotensek**: kétszer lefuttatva a második futás nem változtat
@@ -212,10 +210,10 @@ kérdés. A felhasználó szempontjából az a `seed/`-ben már kész.
 
 ## 9. Ami NINCS a csomagban
 
-- `node_modules/` — `npm install` állítja elő (921 MB az `app` és a `mobile` alatt).
+- `node_modules/` — `npm install` állítja elő (774 MB az `app` alatt).
 - `app/dist-installer/` — a kész telepítő és a kicsomagolt build, 563 MB.
 
-A teljes projektmappa a gépen 1,5 GB; ebből a forráskód és a tartalom 8,9 MB. A
+A teljes projektmappa a gépen 1,4 GB; ebből a forráskód és a tartalom 8,9 MB. A
 különbség mind újraelőállítható.
 - **A felhasználó adatbázisa és annak mentései.** Ezek valódi, gyermekekre
   vonatkozó adatokat tartalmaznak (köztük sajátos nevelési igényre utaló
