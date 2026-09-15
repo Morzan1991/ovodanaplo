@@ -125,11 +125,18 @@ def main() -> int:
         nonlocal csere, torles, valtozatlan
         ki: list[str] = []
         for s in lista:
-            # Az érintett sorokon kívül azokat is átnézzük, amelyeknek NINCS
-            # leírásuk: ha van hozzájuk sajátunk, most kapják meg. Így a
-            # névtöredékből lett sorok is rendbe jönnek.
+            # Az érintett sorokon kívül azokat is átnézzük, amelyek NEVÉHEZ van
+            # saját leírásunk — akkor is, ha a soron már áll valamilyen leírás.
+            #
+            # MIÉRT így: a kiadvány szövegére szűrni nem elég. Több játéknak
+            # ugyanaz a NEVE, de más a helye: a „Folytasd a sort!" a matematika
+            # területen mintasort folytat, anyanyelvi játékként viszont szavakat
+            # gyűjt. A seedben az anyanyelvi soron a matematikai magyarázat állt,
+            # és mivel az nem a kiadványból való, a szűrő átengedte. A kulcs a
+            # műfaji címkét is tartalmazza (`..._anyanyelvi_jatek`), tehát a két
+            # játék elkülönül — csak oda kell adni a sornak a saját szövegét.
             nev = s.split(GONDOLATJEL)[0].strip() if GONDOLATJEL in s else s.strip()
-            potolhato = GONDOLATJEL not in s and (kulcs(nev) in UJ_LEIRAS or nev in JAVITAS)
+            potolhato = kulcs(nev) in UJ_LEIRAS or nev in JAVITAS
             if not erintett(s) and not potolhato:
                 ki.append(s)
                 continue

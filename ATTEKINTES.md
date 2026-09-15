@@ -46,7 +46,7 @@ Négy korcsoport: `kicsi` (3–4 év), `kozepso` (4–5), `nagy` (5–7), `vegye
 cd app
 npm install
 npm run dev          # fejlesztői indítás, élő újratöltéssel
-npm test             # 192 teszt
+npm test             # 200 teszt
 npm run typecheck    # főprocesz + renderer külön tsconfig
 npm run package:win  # NSIS telepítő a dist-installer mappába
 ```
@@ -107,7 +107,7 @@ fehérlistán mennek át, a navigáció le van tiltva.
 ## 5. A tartalom GENERÁLT — ez a legfontosabb tudnivaló
 
 A `seed/` mappa 34 800 sornyi JSON-t tartalmaz: heti terv sablonokat, egy
-1 024 tételes irodalomtárat és négy korcsoportos ötletbankot 15 220 javaslattal.
+1 018 tételes irodalomtárat és négy korcsoportos ötletbankot 15 213 javaslattal.
 
 **Ezt a mappát nem szabad kézzel szerkeszteni.** A `tools/` alatti Python-szkriptek
 állítják elő, és az újragenerálás felülírná a kézi módosítást.
@@ -139,15 +139,15 @@ szöveggel, és elbuknak, ha 45 karakternél hosszabb egyezés kerül vissza. A
 küszöb azért 45, mert az ennél rövidebb egyezések szakkifejezések
 („számfogalom alakítása"), azok nem állnak védelem alatt.
 
-Az irodalomtárban teljes szöveggel csak közkincs szerepel: 102 népköltés,
-valamint Petőfi, Arany, Móra és József Attila művei. A többi 910 tételnél csak a
+Az irodalomtárban teljes szöveggel csak közkincs szerepel: 114 tétel (népköltés,
+valamint Petőfi, Arany, Móra és József Attila művei). A többi 904 tételnél csak a
 cím és a szerző van tárolva.
 
 ---
 
 ## 6. Tesztek
 
-192 teszt, `vitest`. Nincs böngészős vagy végponttól végpontig futó teszt, a
+200 teszt, `vitest`. Nincs böngészős vagy végponttól végpontig futó teszt, a
 felületet kézzel próbáltuk. A tesztek nagy része tiszta függvényekre és a
 generált tartalom helyességére megy:
 

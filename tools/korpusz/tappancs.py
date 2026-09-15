@@ -19,7 +19,7 @@ _t("advent", [
     ("dal", None, "Szálljatok le", "3", ""),
     ("dal", None, "Tüzet viszek", "3", ""),
     ("dal", None, "Ég a gyertya ég", "1", ""),
-    ("mese", "Móra Ferenc", "A didergő király", "2", ""),
+    ("vers", "Móra Ferenc", "A didergő király", "2", ""),
     ("mese", "Tóthárpád Ferenc", "A negyedik gyertyaláng", "3", ""),
     ("mese", "Grimm testvérek", "A suszter manói", "2", ""),
     ("mese", "Mentovics Éva", "Mióta van csillag a karácsonyfák csúcsán?", "3", ""),
@@ -68,7 +68,6 @@ _t("anyak_napja_csalad", [
     ("dal", None, "Ültem ringó", "1", ""),
     ("mese", "Petrolay Margit", "A legszebb vasárnap", "3", ""),
     ("mese", "Fésűs Éva", "Májusi mese", "3", ""),
-    ("mondoka", None, "anyának!", "2", ""),
     ("nepmese", None, "A farkas és a hét kecskegida", "1", ""),
     ("vers", "Mentovics Éva", "A legdrágább anyukának", "3", ""),
     ("vers", "Tordon Ákos", "Anyáknapi mondóka", "1", ""),
@@ -95,7 +94,7 @@ _t("balazs_nap_iskola", [
     ("vers", "Szűcs Imre", "Február", "1", ""),
     ("vers", "Weöres Sándor", "Olvadás", "1", ""),
     ("vers", "Gyurcsó István", "Téli tó", "1", ""),
-    ("vers", None, "Vers: Gyárfás Endre: Írogató", "3", ""),
+    ("vers", "Gyárfás Endre", "Írogató", "3", ""),
     ("vers", "Kányádi Sándor", "Ábécé-sorakozó", "3", ""),
 ])
 
@@ -262,7 +261,7 @@ _t("gyermeknap", [
     ("vers", "Bartos Erika", "Gyümölcskosár", "2", ""),
     ("vers", "Fecske Csaba", "Lepkehívogató", "1", ""),
     ("vers", "Kányádi Sándor", "Somvirág", "2", ""),
-    ("vers", "K. László Szilvia", "nyárköszöntő", "1", ""),
+    ("vers", "K. László Szilvia", "Nyárköszöntő", "1", ""),
 ])
 
 _t("husvet", [
@@ -386,8 +385,6 @@ _t("madarvonulas", [
     ("mese", "Fésűs Éva", "A büszke tölgyfa", "2", ""),
     ("mese", "Gárdonyi Géza", "A mi gólyánk", "3", ""),
     ("mese", "T. Volgina", "Miért szállnak el a fecskék?", "1", ""),
-    ("mondoka", None, "MESÉLÉS", "1", ""),
-    ("mondoka", None, "VERSELÉS", "1", ""),
     ("nepmese", None, "A madarak karácsonya", "2", ""),
     ("vers", "Móra Ferenc", "A cinege cipője", "3", ""),
     ("vers", "Tordon Ákos", "Búcsúzik a gólya", "2", ""),
@@ -411,7 +408,6 @@ _t("marcius_15", [
     ("mondoka", None, "Mondóka március 15-re", "1", ""),
     ("mondoka", None, "Paripám csodaszép pejkó", "2", ""),
     ("nepmese", None, "Hogyan lett a huszárnak lova?", "1", ""),
-    ("nepmese", None, "Március 15", "3", ""),
     ("vers", "Sarkady Sándor", "Fel!", "1", ""),
     ("vers", "Weöres Sándor", "Megy az úton", "2", ""),
     ("vers", "Donászy Magda", "Március 15", "3", ""),
@@ -423,7 +419,7 @@ _t("marcius_15", [
 _t("marton_nap", [
     ("anyanyelvi", None, "Fújások változatosan", "123", "Libatollat fújunk az asztalon úgy, hogy le ne essen róla. Akadálypályát is építhetünk neki."),
     ("anyanyelvi", None, "Fúvógyakorlat tollpihével", "123", "Felakasztott tollpihét fújunk. A nagyobbak versenyezhetnek, ki bírja tovább egy levegővel, vagy ki ér előbb a szakasz végére."),
-    ("anyanyelvi", None, "Hangstaféta", "123", "Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?"),
+    ("anyanyelvi", None, "Hangstaféta", "123", "Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?"),
     ("dal", None, "Egyél libám", "2", ""),
     ("dal", None, "Elesett a lúd", "3", ""),
     ("dal", None, "Hatan vannak", "3", ""),
@@ -431,7 +427,7 @@ _t("marton_nap", [
     ("dal", None, "Réce ruca", "2", ""),
     ("dal", None, "Száz liba", "3", ""),
     ("mese", "Pákolitz István", "Márton lúdja", "3", ""),
-    ("mese", None, "P. Ábrahám Ernő: A libák, a farkas meg a kiskakas", "2", ""),
+    ("mese", "P. Ábrahám Ernő", "A libák, a farkas meg a kiskakas", "2", ""),
     ("mondoka", None, "Márton-nap (népköltés)", "3", ""),
     ("mondoka", None, "Nincs szebb madár, mint a lúd", "1", ""),
     ("nepmese", None, "A libák és a róka", "1", ""),
@@ -633,7 +629,7 @@ _t("tanevkezdes", [
     ("mondoka", None, "Az aranyos tarajos kiskakas", "3", ""),
     ("vers", "Csukás István", "Dalocska", "2", ""),
     ("vers", "Osvát Erzsébet", "Jött őszanyó", "3", ""),
-    ("vers", None, "Vers: Gesztenye Gusztika", "1", ""),
+    ("vers", None, "Gesztenye Gusztika", "1", ""),
 ])
 
 _t("tavasz", [
@@ -671,9 +667,7 @@ _t("tavaszi_viragok", [
     ("mese", "Jékely Zoltán", "A három pillangó", "1", ""),
     ("mese", "Zelk Zoltán", "Kecskére bízta a káposztát", "2", ""),
     ("mondoka", None, "Azt mondják a cinegék", "1", ""),
-    ("mondoka", None, "MESÉLÉS", "1", ""),
-    ("mondoka", None, "VERSELÉS", "1", ""),
-    ("nepmese", None, "lllyés Gyula: A háromágú tölgyfa tündére", "3", ""),
+    ("nepmese", None, "A háromágú tölgyfa tündére", "3", "Illyés Gyula gyűjtéséből"),
     ("vers", "Zelk Zoltán", "Csilingel a gyöngyvirág", "3", ""),
     ("vers", "Osvát Erzsébet", "Gyöngyvirág", "3", ""),
     ("vers", "Páskándi Géza", "Konyhakertben, s a kert körül", "2", ""),
@@ -691,8 +685,6 @@ _t("teli_oltozkodes", [
     ("mese", "Lengyel Balázs", "A csillagos sün", "1", ""),
     ("mese", "Tóth Anna", "A titokzatos hóember", "3", ""),
     ("mese", "Fésűs Éva", "Télkergető hóvirág", "3", ""),
-    ("mondoka", None, "(pingponglabda) fújása", "3", ""),
-    ("mondoka", None, "fújása", "2", ""),
     ("nepmese", None, "Tél apó", "2", ""),
     ("vers", "Várnai Zseni", "Hull a hó", "2", ""),
     ("vers", "Szalai Borbála", "Hóember", "3", ""),
@@ -715,8 +707,6 @@ _t("teli_sportok", [
     ("mese", "Lengyel Balázs", "A csillagos sün", "1", ""),
     ("mese", "Tóth Anna", "A titokzatos hóember", "3", ""),
     ("mese", "Fésűs Éva", "Télkergető hóvirág", "3", ""),
-    ("mondoka", None, "(pingponglabda) fújása", "3", ""),
-    ("mondoka", None, "fújása", "2", ""),
     ("nepmese", None, "Tél apó", "2", ""),
     ("vers", "Várnai Zseni", "Hull a hó", "2", ""),
     ("vers", "Szalai Borbála", "Hóember", "3", ""),
@@ -768,7 +758,7 @@ _t("testunk", [
 ])
 
 _t("ujevi_nepszokasok", [
-    ("anyanyelvi", None, "Hangstaféta", "23", "Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?"),
+    ("anyanyelvi", None, "Hangstaféta", "23", "Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?"),
     ("anyanyelvi", None, "Lufiember", "123", "Légzőgyakorlat: lufiemberré válunk. Orron át felfújjuk magunkat, majd a szánkon lassan kiengedjük a levegőt."),
     ("anyanyelvi", None, "Lufiember játék", "1", ""),
     ("dal", None, "A hajnali harangszónak", "3", ""),

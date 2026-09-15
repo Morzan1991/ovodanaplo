@@ -638,14 +638,14 @@
       ],
       "verseles_meseles": [
         "Gyertyafény, gyertyafény (mondóka) — gyertyagyújtáshoz",
+        "Móra Ferenc: A didergő király (vers)",
         "Kányádi Sándor: Aki fázik (vers)",
         "Pálfalvi Nándor: Karácsony (vers)",
         "Donászy Magda: Karácsonyi köszöntő (vers)",
         "Weöres Sándor: Suttog a fenyves (vers) — adventi csend",
-        "Weöres Sándor: Száncsengő (vers) — várakozás, téli hangulat",
         "Zelk Zoltán: Téli fák (vers)",
-        "Móra Ferenc: A didergő király (mese)",
         "Grimm testvérek: A suszter manói (mese)",
+        "Marék Veronika: Kippkopp karácsonya (mese)",
         "Csendjáték (anyanyelvi játék) — Leülünk vagy lefekszünk a szőnyegre, és egy ideig csak a környező hangokra figyelünk. Az ünnep csendjére hangol."
       ],
       "rajzolas_festes": [
@@ -729,8 +729,7 @@
         "Doboz-méret szerinti rendezés",
         "Párosítás (ajándékozó-ajándékozott)",
         "Matematikai jelek: kevesebb-több (osztozkodás)",
-        "Térbeli viszonyokat gyakorlunk: hol van a kémény?",
-        "Hol siklik a szán?)",
+        "Térbeli viszonyokat gyakorlunk: hol van a kémény, és hol siklik a szán?",
         "Mátrixjáték — Ötször ötös játéktáblát készítünk, és a megadott szabály szerint rakjuk ki a mezőket."
       ],
       "verseles_meseles": [
@@ -1077,12 +1076,12 @@
       ],
       "verseles_meseles": [
         "Hinta, palinta (mondóka) — lendület, egyensúly",
-        "fújása (mondóka)",
         "Weöres Sándor: Haragosi (vers) — mozgásra hívó ritmus",
         "Várnai Zseni: Hull a hó (vers)",
         "Nemes Nagy Ágnes: Hóesésben (vers)",
         "Drégely László: Hógolyózás (vers)",
         "Weöres Sándor: Száncsengő (vers) — szánkózás",
+        "Zelk Zoltán: Téli rege (vers)",
         "Zelk Zoltán: A három nyúl (mese) — havas erdő",
         "Fésűs Éva: A hóember szíve (mese)",
         "Szívószállal hópehely (anyanyelvi játék)"
@@ -1324,7 +1323,7 @@
         "Farsangi mulatságra való készülődés",
         "Játék a bohócos kártyákkal — Bohócos kártyákkal gyakoroljuk a gyors felismerést és a fürge reagálást.",
         "Székfoglaló — A székeket körbe állítjuk, üléssel kifelé. Amíg szól a zene, körbetáncolunk; csendre le kell ülni, és a székek száma egyre fogy.",
-        "Lábujjtorna (ügyességi játék) — Lábujjal emelgetünk fel apró tárgyakat a szőnyegen, zokni nélkül."
+        "Lábujjtorna (ügyességi játék) — Zokni nélkül, a szőnyegen ülve a lábujjunkkal csipegetjük fel a játékokat."
       ],
       "matematika": [
         "Számlálás: hány maszk készült el?",
@@ -2189,9 +2188,9 @@
         "Melyik családtag a kisebb, melyik a nagyobb, és ki ugyanakkora?"
       ],
       "verseles_meseles": [
-        "anyának! (mondóka)",
         "Donászy Magda: Anyák napjára (vers)",
         "Sarkadi Sándor: Anyák napjára (vers)",
+        "Orgoványi Anikó: Az én anyukám (vers)",
         "Weöres Sándor: Buba éneke (vers)",
         "Lukács Angéla: Csak egy van (vers)",
         "Kiss Jenő: Meghajtom magam most (vers)",
@@ -2721,7 +2720,7 @@
         "Kányádi Sándor: Somvirág (vers)",
         "Csukás István: Pom Pom meséi — részlet (mese)",
         "A levendula (népmese)",
-        "Folytasd a sort! (anyanyelvi játék) — Gyümölcsökből kirakott sorozat szabályát felismerve folytatjuk a mintát."
+        "Folytasd a sort! (anyanyelvi játék) — Egy témához tartozó szavakat gyűjtünk sorban, például tél, virágok, szerszámok."
       ],
       "rajzolas_festes": [
         "Léggömb-festés ujjlenyomattal",
@@ -3434,13 +3433,13 @@
       ],
       "verseles_meseles": [
         "Hüvelykujjam almafa (mondóka) — kesztyűhúzás előtt, ujjtorna",
-        "fújása (mondóka)",
         "Móra Ferenc: A cinege cipője (vers) — cipő, öltözék, télre készülés",
         "Várnai Zseni: Hull a hó (vers)",
         "Nemes Nagy Ágnes: Hóesésben (vers)",
         "Drégely László: Hógolyózás (vers)",
         "Nemes Nagy Ágnes: Téli reggel (vers)",
         "Fésűs Éva: Csupafül (mese)",
+        "A kesztyű (népmese) — kesztyű, meleg, befogadás",
         "Tél apó (népmese)",
         "Szívószállal hópehely (anyanyelvi játék)"
       ],
@@ -4297,7 +4296,7 @@
       "verseles_meseles": [
         "Csanádi Imre: Őszi levél (vers)",
         "Mókus Péter kiskertje (népmese)",
-        "Szólánc (anyanyelvi játék) — Sorban egymás után szavakat mondunk, amelyeket a következőnek meg kell jegyeznie és megismételnie. Törekszünk olyan szavakra, amelyekből mondat is összeáll."
+        "Szólánc (anyanyelvi játék) — Sorban ülünk. Az első gyerek mond egy szót, a következő megismétli és hozzátesz egyet, a harmadik már hármat mond. Addig tart, amíg emlékeznek a sorra."
       ],
       "enek_zene": [
         "Beültettem kis kertemet (dal)",
@@ -4406,13 +4405,13 @@
         "Bombázó (labdajáték) — A fogó labdával próbálja megérinteni a többieket.",
         "Baglyos (futójáték) — Sötétedést jelzünk lámpaoltással vagy képpel; ilyenkor a baglyok szabadon repülhetnek.",
         "Tűz, víz, repülő — Lassan futkározunk, jelre megállunk. „Tűz” kiáltásra hasra fekszünk, „víz”-re székre vagy bordásfalra állunk, „repülő”-re oldalsó középtartással futunk tovább.",
-        "Hangstaféta — Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?"
+        "Hangstaféta — Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?"
       ],
       "verseles_meseles": [
         "Adjon Isten füvet, fát (mondóka)",
         "Fecske Csaba: Újévi köszöntő (vers)",
         "A kolbász, a béka és az egér (népmese)",
-        "Hangstaféta (anyanyelvi játék) — Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?",
+        "Hangstaféta (anyanyelvi játék) — Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?",
         "Lufiember (anyanyelvi játék) — Légzőgyakorlat: lufiemberré válunk. Orron át felfújjuk magunkat, majd a szánkon lassan kiengedjük a levegőt."
       ],
       "enek_zene": [

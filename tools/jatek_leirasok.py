@@ -34,7 +34,9 @@ UJ_LEIRAS: dict[str, str] = {
     "befejezetlen_mondat_anyanyelvi_jatek": "Elkezdünk egy mondatot az egészséges életmódról, a gyerekek megismétlik, majd a maguk szavaival befejezik.",
     "csendjatek_anyanyelvi_jatek": "Leülünk vagy lefekszünk a szőnyegre, és egy ideig csak a környező hangokra figyelünk. Az ünnep csendjére hangol.",
     "ha_hallod_a_hangot_tapsolj_anyanyelvi_jatek": "Szavakat sorolunk, a gyerekek pedig tapsolnak, valahányszor meghallják az előre megbeszélt hangot.",
-    "hangstafeta_anyanyelvi_jatek": "Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy szótagot, ameddig bírja, majd érintéssel adja tovább a szomszédjának.",
+    # Ugyanaz a játék, mint a „hangstafeta" kulcs alatt — a két leírásnak
+    # egyeznie kell, különben a program két különböző szöveget mutat rá.
+    "hangstafeta_anyanyelvi_jatek": "Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?",
     "hangutanzos": "A kisebbek állatok és járművek hangját utánozzák. A nagyobbak egymást: megfigyelik, milyen hangerővel és hangsúllyal beszél a társuk, és azt próbálják visszaadni.",
     "jatek_a_szavakkal": "Elkezdünk egy szót, a gyerekek fejezik be. Például: bö…, sa…",
     "manocska_jatek": "A nyelv tornáztatása: a nyelv a manócska, aki körbejárja a házát, vagyis a szájat, és megnézi, rendben van-e minden.",
@@ -43,9 +45,9 @@ UJ_LEIRAS: dict[str, str] = {
     "mondatalkotos_anyanyelvi_jatek": "Két-három tárgyat ábrázoló képet teszünk a gyerekek elé, ők pedig egy mondatba foglalják őket.",
     "mondd_egy_szoval": "Gyűjtőfogalomhoz szavakat sorolunk, vagy fordítva: a gyerek nevezi meg a gyűjtőfogalmat a felsorolt szavakhoz.",
     # Ugyanaz a játék, a kiadványban másik hét alatt, kissé más névvel.
-    "mondd_egy_szoval_anyanyelvi_jatek": "Felsorolt szavakhoz a gyerekek megkeresik a közös gyűjtőfogalmat.",
+    "mondd_egy_szoval_anyanyelvi_jatek": "Gyűjtőfogalomhoz szavakat sorolunk, vagy fordítva: a gyerek nevezi meg a gyűjtőfogalmat a felsorolt szavakhoz.",
     "folytasd_a_sort_anyanyelvi_jatek": "Egy témához tartozó szavakat gyűjtünk sorban, például tél, virágok, szerszámok.",
-    "hangstafeta": "Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?",
+    "hangstafeta": "Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?",
     "robotnyelv_anyanyelvi_jatek": "Szótagolva, robotosan beszélünk. Előbb két szótagú szavakkal és nevekkel, később hosszabbakkal.",
     "szolanc_anyanyelvi_jatek": "Sorban ülünk. Az első gyerek mond egy szót, a következő megismétli és hozzátesz egyet, a harmadik már hármat mond. Addig tart, amíg emlékeznek a sorra.",
     "mire_gondolok": "Egy vásárfia jellemzőit soroljuk, a gyerekek pedig kitalálják, melyikre gondoltunk.",
@@ -162,7 +164,7 @@ UJ_LEIRAS: dict[str, str] = {
     "hernyojaras_ugyessegi_jatek": "Nyolc-tíz gyerek egymás mögé áll terpeszben. A sor végén álló négykézláb átmászik a lábak alatt, majd elöl feláll terpeszbe.",
     "kenguruk_ugyessegi_jatek": "Kenguruként hordunk eszközöket egyik házból a másikba: szökdelve, páros lábon, térd közé szorított babzsákkal.",
     "labujjtorna": "Zokni nélkül, a szőnyegen ülve a lábujjunkkal csipegetjük fel a játékokat.",
-    "labujjtorna_ugyessegi_jatek": "Lábujjal emelgetünk fel apró tárgyakat a szőnyegen, zokni nélkül.",
+    "labujjtorna_ugyessegi_jatek": "Zokni nélkül, a szőnyegen ülve a lábujjunkkal csipegetjük fel a játékokat.",
     "trambulin": "Ugrálás a trambulinon, többféle módon és ritmusban.",
     "rajzolas_ugyessegi_jatek": "Labirintust rajzolunk vagy ragasztunk a teremben, az udvaron. Ki tud végigmenni rajta anélkül, hogy eltévedne?",
     "karikaguritas_padok_kozott_versenyjatek": "Karikát gurítva kerüljük meg a kijelölt tárgyat. A feladat többféleképpen nehezíthető.",

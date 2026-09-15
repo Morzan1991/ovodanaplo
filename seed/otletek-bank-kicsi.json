@@ -43,7 +43,7 @@
         "Kerekecske, dombocska (mondóka) — ölbeli játék a beszoktatáshoz",
         "Sétálunk, sétálunk (mondóka) — körben járva, a névsor helyett is jó",
         "Weöres Sándor: Csiribiri (vers) — ritmusa megnyugtat, könnyen tanul",
-        "Vers: Gesztenye Gusztika (vers)",
+        "Gesztenye Gusztika (vers)",
         "Bartos Erika: Bogyó és Babóca — Az új barát (mese) — ismerkedés az új gyerekekkel",
         "Marék Veronika: Boribon és Annipanni (mese) — elválás, biztonság",
         "Manócska játék (anyanyelvi játék) — A nyelv tornáztatása: a nyelv a manócska, aki körbejárja a házát, vagyis a szájat, és megnézi, rendben van-e minden."
@@ -468,7 +468,7 @@
         "A libák és a róka (népmese)",
         "Fújások változatosan (anyanyelvi játék) — Libatollat fújunk az asztalon úgy, hogy le ne essen róla. Akadálypályát is építhetünk neki.",
         "Fúvógyakorlat tollpihével (anyanyelvi játék) — Felakasztott tollpihét fújunk. A nagyobbak versenyezhetnek, ki bírja tovább egy levegővel, vagy ki ér előbb a szakasz végére.",
-        "Hangstaféta (anyanyelvi játék) — Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?"
+        "Hangstaféta (anyanyelvi játék) — Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?"
       ],
       "rajzolas_festes": [
         "Lámpás készítése színes papírból, áttetsző papírból",
@@ -1294,7 +1294,7 @@
         "Ismerkedés az ünnep lényegével",
         "Játék a bohócos kártyákkal — Bohócos kártyákkal gyakoroljuk a gyors felismerést és a fürge reagálást.",
         "Székfoglaló — A székeket körbe állítjuk, üléssel kifelé. Amíg szól a zene, körbetáncolunk; csendre le kell ülni, és a székek száma egyre fogy.",
-        "Lábujjtorna (ügyességi játék) — Lábujjal emelgetünk fel apró tárgyakat a szőnyegen, zokni nélkül."
+        "Lábujjtorna (ügyességi játék) — Zokni nélkül, a szőnyegen ülve a lábujjunkkal csipegetjük fel a játékokat."
       ],
       "matematika": [
         "Számlálás: hány maszk készült el?",
@@ -2334,7 +2334,7 @@
         "Fésűs Éva: A méhecske és a virág (mese)",
         "Móra Ferenc: A nyughatatlan méhecske (mese)",
         "Bartos Erika: Bogyó és Babóca — a méhecske (mese)",
-        "Szólánc (anyanyelvi játék) — Sorban egymás után szavakat mondunk, amelyeket a következőnek meg kell jegyeznie és megismételnie. Törekszünk olyan szavakra, amelyekből mondat is összeáll.",
+        "Szólánc (anyanyelvi játék) — Sorban ülünk. Az első gyerek mond egy szót, a következő megismétli és hozzátesz egyet, a harmadik már hármat mond. Addig tart, amíg emlékeznek a sorra.",
         "Valami megváltozott! (anyanyelvi játék) — Tavaszhoz, méhekhez kapcsolódó tárgyakat teszünk sorba. Megfigyeljük, majd észrevesszük a változást: cserét, elvételt vagy hozzátételt."
       ],
       "rajzolas_festes": [
@@ -2677,9 +2677,9 @@
         "Zsipp-zsupp, kenderzsupp (mondóka)",
         "Weöres Sándor: Csiribiri (vers)",
         "Fecske Csaba: Lepkehívogató (vers)",
-        "K. László Szilvia: nyárköszöntő (vers)",
+        "K. László Szilvia: Nyárköszöntő (vers)",
         "Benedek Elek: A három kívánság (mese)",
-        "Folytasd a sort! (anyanyelvi játék) — Gyümölcsökből kirakott sorozat szabályát felismerve folytatjuk a mintát.",
+        "Folytasd a sort! (anyanyelvi játék) — Egy témához tartozó szavakat gyűjtünk sorban, például tél, virágok, szerszámok.",
         "Mondatalkotós (anyanyelvi játék) — Két-három tárgyat ábrázoló képet teszünk a gyerekek elé, ők pedig egy mondatba foglalják őket.",
         "Mondd egy szóval! (anyanyelvi játék) — Gyűjtőfogalomhoz szavakat sorolunk, vagy fordítva: a gyerek nevezi meg a gyűjtőfogalmat a felsorolt szavakhoz."
       ],
@@ -3896,11 +3896,11 @@
       "verseles_meseles": [
         "Azt mondják a cinegék (mondóka)",
         "Kis kertet kerítek (mondóka)",
-        "MESÉLÉS (mondóka)",
         "Süss fel, nap (mondóka)",
-        "VERSELÉS (mondóka)",
+        "Én kis kertész legény vagyok (mondóka)",
         "Zelk Zoltán: A tavaszi eső (vers)",
         "Nemes Nagy Ágnes: Hóvirág (vers)",
+        "Gazdag Erzsi: Itt a tavasz (vers)",
         "Jékely Zoltán: A három pillangó (mese)",
         "Fésűs Éva: A hóvirág titka (mese)",
         "Mi van a zsákban? (anyanyelvi játék) — Zöldségeket ismerünk fel tapintással, a kézzel érzékelhető tulajdonságaik alapján."
@@ -4205,7 +4205,7 @@
         "Megfogtam egy magocskát (mondóka)",
         "Takáts Gyula: Rigó rúgta dió (vers)",
         "Kukoricaszemek fújása (anyanyelvi játék)",
-        "Szólánc (anyanyelvi játék) — Sorban egymás után szavakat mondunk, amelyeket a következőnek meg kell jegyeznie és megismételnie. Törekszünk olyan szavakra, amelyekből mondat is összeáll."
+        "Szólánc (anyanyelvi játék) — Sorban ülünk. Az első gyerek mond egy szót, a következő megismétli és hozzátesz egyet, a harmadik már hármat mond. Addig tart, amíg emlékeznek a sorra."
       ],
       "enek_zene": [
         "Beültettem kis kertemet (dal)",
@@ -4259,8 +4259,6 @@
         "Majomfogó (fogójáték) — A tér közepén alacsonyan kötelet feszítünk ki, azon átugorva vagy alatta átbújva lehet közlekedni. A fogó ugyanígy közelít."
       ],
       "verseles_meseles": [
-        "MESÉLÉS (mondóka)",
-        "VERSELÉS (mondóka)",
         "Csukás István: De jó a dió! (vers)",
         "Pósa Lajos: Villás farkú fecskék (vers)",
         "T. Volgina: Miért szállnak el a fecskék? (mese)",
@@ -4291,8 +4289,7 @@
         "Sorszámok: hányadik hónap a január",
         "Halmazalkotás: szerencsehozó jelképek válogatása",
         "Lencseszemek számlálása, becslése",
-        "Kesztyűt, sálat és cipőt válogatunk többféle szempont szerint: melyik az enyém?",
-        "Szín- és ha lehetséges, minta alapján.)"
+        "Kesztyűt, sálat és cipőt válogatunk: melyik az enyém? Rendezzük szín szerint, és ha lehet, minta szerint is."
       ],
       "rajzolas_festes": [
         "Szerencsemalac mintázása gyurmából",
@@ -4316,7 +4313,7 @@
         "Baglyos (futójáték) — Sötétedést jelzünk lámpaoltással vagy képpel; ilyenkor a baglyok szabadon repülhetnek.",
         "Bombázó (labdajáték) — A fogó labdával próbálja megérinteni a többieket.",
         "Tűz, víz, repülő — Lassan futkározunk, jelre megállunk. „Tűz” kiáltásra hasra fekszünk, „víz”-re székre vagy bordásfalra állunk, „repülő”-re oldalsó középtartással futunk tovább.",
-        "Hangstaféta — Két csapat verseng. Az első gyerek addig hangoztat egy hangot, ameddig bírja, majd megérinti a társát, aki folytatja. Melyik csapat bírja tovább?"
+        "Hangstaféta — Félkörben ülünk. Az első gyerek egy levegővel hangoztat egy hangot, ameddig bírja, majd érintéssel adja tovább a szomszédjának. Két csapattal versenyezni is lehet: melyikük jut hosszabb hangokkal a sor végére?"
       ],
       "verseles_meseles": [
         "Adjon Isten füvet, fát (mondóka)",

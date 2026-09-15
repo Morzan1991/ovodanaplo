@@ -1,5 +1,55 @@
 # Verziótörténet
 
+## v2.11.11 — 2026-09-15 — logikai átvizsgálás, tartalmi hibák javítása
+
+Végigvizsgáltuk a tartalmat szerkezeti, logikai és nyelvhelyességi szempontból.
+Amit talált és javított:
+
+**Lapfejlécek műként.** A kiadvány PDF-jéből négy tétel lapfejlécként került be
+mondókaként: „MESÉLÉS" és „VERSELÉS". Ezek eltűntek.
+
+**Csonka címek.** Három olyan tétel volt, amelynek a kinyerés levágta az elejét:
+„anyának!", „fújása", „(pingponglabda) fújása". Visszaállíthatatlanok, ezért
+kikerültek; a fújós játék az anyanyelvi játékok közt megmarad.
+
+**OCR-hiba egy szerzőnévben.** „lllyés Gyula" — három kis L-lel, mert a kinyerés
+a nagy I-t l-nek olvasta. A mű most „A háromágú tölgyfa tündére", a gyűjtő neve
+a megjegyzésben.
+
+**Műfaji tévedés.** Móra Ferenc „A didergő király" című **verse** az egyik
+helyen meseként szerepelt. Volt egy „Március 15" című **népmese** is — ilyen nincs;
+a két azonos című vers megmaradt.
+
+**Szerző a cím mezőben.** Négy tételnél a szerző vagy a műfajcímke beleragadt a
+címbe („Vers: Gyárfás Endre: Írogató"). Most a saját mezőjükben állnak.
+
+**Rossz leírás azonos nevű játékokon.** A „Folytasd a sort!" a matematikában
+mintasort folytat, anyanyelvi játékként viszont szavakat gyűjt — a seedben az
+anyanyelvi soron a matematikai magyarázat állt. Összesen **16 sor** viselt olyan
+leírást, amely egy másik, azonos nevű játékhoz tartozott. A `jatek_ujrairas.py`
+mostantól akkor is odaadja a sornak a saját szövegét, ha már van rajta valamilyen
+leírás — korábban csak az üres és a kiadványból származó sorokat nézte.
+
+**Három játék két leírással.** A „Hangstaféta", a „Lábujjtorna" és a „Mondd egy
+szóval!" két különböző megfogalmazást kapott az átíráskor. Egységesítve.
+
+**Mondattöredékek.** Négy helyen egy zárójeles hozzáfűzés külön sorrá esett szét,
+és a nyitó zárójel elveszett — így egy értelmetlen, „)"-re végződő sor keletkezett
+(„Hol siklik a szán?)"). Visszaillesztve az előző mondatba.
+
+**Nyelvhelyesség.** „A kenyér útja — a magtól **a** asztalig" → „az asztalig".
+
+**Új: `tools/irodalom_takaritas.py`.** Az `irodalom_beepites.py` szándékosan csak
+bővíti az irodalomtárat (230 olyan mű van benne, amely sosem volt a korpuszban —
+Lázár Ervin, Csukás István, Arany János és társaik), ezért a korpuszból kijavított
+tételek régi alakja bent ragadt. Ez a szkript vezeti ki őket, névre szólóan,
+indoklással.
+
+**Új őrzőteszt (`seed-irodalom.test.ts`, 8 eset).** Elbukik, ha visszakerül csupa
+nagybetűs, kisbetűvel vagy zárójellel kezdődő cím, „Vers:"-sel kezdődő cím,
+cím mezőbe ragadt szerző, „lll" kezdetű OCR-hiba, vagy magánhangzó előtt álló
+„a" névelő egy sablon címében. A tesztek száma 192-ről 200-ra nőtt.
+
 ## v2.11.10 — 2026-09-15 — a mobil ág eltávolítása, csonka ötletsor javítása
 
 **A mobil ág kikerült.** A `mobile/` mappa (Capacitor-alapú Android ötletelő) és
