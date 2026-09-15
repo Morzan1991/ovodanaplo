@@ -4,7 +4,7 @@
  */
 
 import { ipcMain, app, shell, dialog, BrowserWindow } from 'electron';
-import { writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { eq, desc, like, or, and, inArray, isNull } from 'drizzle-orm';
 import { IpcChannels } from '../shared/ipc-channels.js';
 import {
@@ -33,6 +33,7 @@ import {
 } from '../shared/schema.js';
 import { getDb, getSqlite, createBackup, getTitkositasAllapot } from './db/index.js';
 import { kulcsFormazott, visszaallitasiFajlTartalma } from './db/kulcs.js';
+import { szabadKulcsfajlUt } from './db/kulcsfajl.js';
 import { hetiTervToDocx, foglalkozasToDocx, projektToDocx } from './export-docx.js';
 import { validate, validateId } from './ipc-validate.js';
 import {
@@ -1207,10 +1208,11 @@ export function registerIpcHandlers(): void {
       return { siker: false, hiba: allapot.hiba ?? 'A titkosítás nem aktív.' };
     }
 
-    const alapNev = 'OvodaNaplo-visszaallitasi-kulcs.txt';
+    // Szabad nevet ajánlunk fel: egy korábbi kulcsfájl egy másik napló egyetlen
+    // visszaállítási útja lehet — ne egy „Felülírja?" kérdésen múljon a sorsa.
     const eredmeny = await dialog.showSaveDialog({
       title: 'Visszaállítási kulcs mentése',
-      defaultPath: join(app.getPath('desktop'), alapNev),
+      defaultPath: szabadKulcsfajlUt(app.getPath('desktop'), existsSync),
       filters: [{ name: 'Szövegfájl', extensions: ['txt'] }],
     });
 

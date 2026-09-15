@@ -7,10 +7,11 @@
 
 import { app, BrowserWindow, shell, dialog } from 'electron';
 import { join } from 'node:path';
-import { writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { initDb, createBackup, closeDb, getTitkositasAllapot } from './db/index.js';
 import { kulcsFormazott, visszaallitasiFajlTartalma } from './db/kulcs.js';
+import { KULCSFAJL_ALAPNEV, szabadKulcsfajlUt } from './db/kulcsfajl.js';
 import { registerIpcHandlers } from './ipc.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -45,10 +46,20 @@ async function titkositasTajekoztato(): Promise<void> {
 
   // Kimentjük az Asztalra, hogy biztosan meglegyen — de figyelmeztetünk, hogy
   // ez a másolat a géppel együtt veszne el.
+  //
+  // Egy már ott lévő kulcsfájlt SOHA nem írunk felül: egy másik, régebbi napló
+  // egyetlen visszaállítási útja lehet (lásd `db/kulcsfajl.ts`).
   let kimentve: string | null = null;
+  let voltKorabbi = false;
   try {
-    kimentve = join(app.getPath('desktop'), 'OvodaNaplo-visszaallitasi-kulcs.txt');
-    writeFileSync(kimentve, visszaallitasiFajlTartalma(allapot.kulcs), 'utf-8');
+    const asztal = app.getPath('desktop');
+    voltKorabbi = existsSync(join(asztal, `${KULCSFAJL_ALAPNEV}.txt`));
+    kimentve = szabadKulcsfajlUt(asztal, existsSync);
+    // 'wx': ha a név közben mégis foglalttá vált, inkább hibázzunk, mint felülírjunk.
+    writeFileSync(kimentve, visszaallitasiFajlTartalma(allapot.kulcs), {
+      encoding: 'utf-8',
+      flag: 'wx',
+    });
   } catch (err) {
     console.error('[titkositas] A visszaállítási fájl kiírása nem sikerült:', err);
     kimentve = null;
@@ -65,7 +76,11 @@ async function titkositasTajekoztato(): Promise<void> {
       'ezzel a kulccsal nyerhetők vissza a tervezeteid.\n\n' +
       (kimentve
         ? `Kimentettük ide: ${kimentve}\nMásold át pendrive-ra vagy nyomtasd ki — ` +
-          'a gépen hagyott másolat a géppel együtt veszne el.'
+          'a gépen hagyott másolat a géppel együtt veszne el.' +
+          (voltKorabbi
+            ? '\n\nAz Asztalon már volt egy korábbi kulcsfájl. Azt nem írtuk felül, ' +
+              'mert egy másik, régebbi naplóhoz tartozhat.'
+            : '')
         : 'Írd le vagy fényképezd le most.'),
     buttons: ['Rendben, elmentettem'],
   });

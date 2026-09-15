@@ -1,5 +1,25 @@
 # Verziótörténet
 
+## v2.11.12 — 2026-09-15 — a visszaállítási kulcsfájl védelme
+
+**Tisztázás: a telepítő nem visz magával adatot.** A telepítőben csak a program
+és a közös tartalom van (irodalom, sablonok, ötletek). A felhasználó adatai a
+Windows-fiók adatmappájában élnek (`%APPDATA%\ovodanaplo\OvodaNaplo`). Ugyanazon
+a gépen, ugyanazzal a fiókkal ezért minden újratelepítés ugyanazt a naplót nyitja
+meg — ez szándékos, így egy frissítés nem töröl semmit. Más gépen vagy más
+Windows-fiókkal a program üres naplóval indul.
+
+**Javítva: az Asztalon lévő visszaállítási kulcsfájl felülírása.** Új titkosítási
+kulcs minden olyan indításkor keletkezik, amikor az adatmappa üres: új gépen, új
+fiókkal, próbatelepítésnél. A program ilyenkor kérdés nélkül az Asztalon lévő
+`OvodaNaplo-visszaallitasi-kulcs.txt`-be írta a kulcsot, felülírva az ott lévőt.
+Ha az egy másik, régebbi napló kulcsa volt, az a napló visszaállíthatatlanná vált
+volna. Mostantól foglalt név esetén időbélyeges fájl készül, és a program jelzi,
+hogy a korábbit nem írta felül. A Beállításokból indított kézi mentés is szabad
+nevet ajánl fel.
+
+Új teszt: `kulcsfajl.test.ts` (3 eset). 200 → 203 teszt.
+
 ## v2.11.11 — 2026-09-15 — logikai átvizsgálás, tartalmi hibák javítása
 
 Végigvizsgáltuk a tartalmat szerkezeti, logikai és nyelvhelyességi szempontból.

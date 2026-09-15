@@ -46,7 +46,7 @@ Négy korcsoport: `kicsi` (3–4 év), `kozepso` (4–5), `nagy` (5–7), `vegye
 cd app
 npm install
 npm run dev          # fejlesztői indítás, élő újratöltéssel
-npm test             # 200 teszt
+npm test             # 203 teszt
 npm run typecheck    # főprocesz + renderer külön tsconfig
 npm run package:win  # NSIS telepítő a dist-installer mappába
 ```
@@ -147,7 +147,7 @@ cím és a szerző van tárolva.
 
 ## 6. Tesztek
 
-200 teszt, `vitest`. Nincs böngészős vagy végponttól végpontig futó teszt, a
+203 teszt, `vitest`. Nincs böngészős vagy végponttól végpontig futó teszt, a
 felületet kézzel próbáltuk. A tesztek nagy része tiszta függvényekre és a
 generált tartalom helyességére megy:
 
