@@ -1,0 +1,14 @@
+{
+  "appId": "hu.lisztmaier.ovodanaplo",
+  "appName": "ÓvodaNapló",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#FEF8FA"
+  },
+  "plugins": {
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#FEF8FA"
+    }
+  }
+}

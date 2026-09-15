@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink;
+    /* A telefon böngészőjének „gumizását" kikapcsoljuk, hogy appnak hasson. */
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Az alsó navigáció a kivágás (notch) alatt is olvasható maradjon. */
+  .biztonsagos-alul {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .biztonsagos-felul {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+@layer components {
+  /* Legalább 44 px magas érintőfelület — ennél kisebbet ujjal nehéz eltalálni. */
+  .erintheto {
+    @apply min-h-[44px] flex items-center;
+  }
+
+  .kartya {
+    @apply rounded-xl border border-rozsa-200 bg-white/70 p-3;
+  }
+
+  .cimke {
+    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium;
+  }
+}
