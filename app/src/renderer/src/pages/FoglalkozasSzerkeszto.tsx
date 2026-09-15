@@ -160,10 +160,10 @@ export default function FoglalkozasSzerkeszto() {
           value={foglalkozas.csoportTipus ?? 'vegyes'}
           onChange={(v) => update('csoportTipus', v)}
           options={[
-            { value: 'vegyes', label: 'Vegyes (3–7)' },
-            { value: 'kicsi', label: 'Kicsi (3–4)' },
-            { value: 'kozepso', label: 'Középső (4–5)' },
-            { value: 'nagy', label: 'Nagy (5–7)' },
+            { value: 'vegyes', label: 'Vegyes csoport (3–7)' },
+            { value: 'kicsi', label: 'Kiscsoport (3–4)' },
+            { value: 'kozepso', label: 'Középső csoport (4–5)' },
+            { value: 'nagy', label: 'Nagycsoport (5–7)' },
           ]}
         />
         <SelectField
@@ -258,11 +258,11 @@ export default function FoglalkozasSzerkeszto() {
         />
       </section>
 
-      {/* Iskola előkészítő tevékenység — ONAP-megfelelőség, kiemelt szekció */}
+      {/* Iskola-előkészítő tevékenység — ONAP-megfelelőség, kiemelt szekció */}
       <section className="mb-6 card border-l-4 border-l-sage-500">
         <div className="mb-2 flex items-baseline justify-between gap-2 flex-wrap">
           <h2 className="heading-serif text-lg font-medium text-sage-800">
-            Iskola előkészítő tevékenység
+            Iskola-előkészítő tevékenység
           </h2>
           <span className="text-xs text-ink/50">
             ONAP — nagycsoportos / iskola-előkészítő foglalkozásnál fontos

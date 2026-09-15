@@ -140,7 +140,7 @@ export default function KepessegMultiSelect({
       <div className="pt-2 border-t border-sage-100 text-xs text-ink/50">
         {valasztottIds.size > 0
           ? `Összesen ${valasztottIds.size} képesség kiválasztva.`
-          : 'Még nincs képesség kiválasztva — kattints a chip-ekre.'}
+          : 'Még nincs képesség kiválasztva — kattints a címkékre.'}
       </div>
     </div>
   );

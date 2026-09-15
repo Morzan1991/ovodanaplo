@@ -10,6 +10,7 @@ import Reflexiok from './pages/Reflexiok';
 import Irodalom from './pages/Irodalom';
 import Beallitasok from './pages/Beallitasok';
 import Kereses from './pages/Kereses';
+import Sugo from './pages/Sugo';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="kereses" element={<Kereses />} />
         <Route path="irodalom" element={<Irodalom />} />
         <Route path="beallitasok" element={<Beallitasok />} />
+        <Route path="sugo" element={<Sugo />} />
       </Route>
     </Routes>
   );

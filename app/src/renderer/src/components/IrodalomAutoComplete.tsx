@@ -1,18 +1,23 @@
 /**
- * IrodalomAutoComplete — textarea wrapper irodalom-autocomplete-tal.
+ * IrodalomAutoComplete — textarea az irodalomtárból ajánlkozó kiegészítéssel.
  *
- * Funkció:
- * - Min 2 karakter gépelése után a kurzor körüli "token" (utolsó vessző/újsor
- *   utáni szöveg) alapján keresést indít a `irodalomKereses` IPC-n.
- * - Max 10 találat egy lebegő dropdown-ban.
- * - Tab/Enter beilleszti a kiválasztott művet "Cím — Szerző" formában.
- * - Fel/Le nyíllal navigálható, Escape bezárja.
- * - Klikk a találaton: szintén beilleszt.
- * - Klikk a komponensen kívül: bezárja a dropdown-t.
+ * A SZERKESZTÉS AZ ELSŐDLEGES. A találati lista korábban a kurzor minden
+ * mozdulatára megnyílt, és elvette az Entert meg a nyilakat — így egy beszúrt
+ * ötletet nem lehetett átfogalmazni: az Enter kicserélte a sort, a fel/le nyíl a
+ * listában lépkedett, a lista pedig eltakarta a javítandó szöveget.
+ *
+ * A mostani viselkedés:
+ *  - a lista CSAK gépelésre jelenik meg (lásd `lib/autocomplete-szabaly.ts`);
+ *    törlésre, kurzormozgásra, kijelölésre soha,
+ *  - az ENTER mindig sort tör — a javaslatot Tab-bal vagy kattintással lehet
+ *    elfogadni,
+ *  - Escape után a lista csak a következő gépelésig marad csukva,
+ *  - ha a kurzor kilép abból a töredékből, amire a keresés indult, a lista becsukódik.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Irodalom, IrodalomTipus } from '@shared/schema';
+import { aktualisToken, keresestInditsunk, nyitvaMaradhat } from '../lib/autocomplete-szabaly';
 
 const TIPUS_CIMKE: Record<IrodalomTipus, string> = {
   vers: 'Vers',
@@ -29,9 +34,8 @@ const TIPUS_CIMKE: Record<IrodalomTipus, string> = {
   nepmonda: 'Népmonda',
 };
 
-const MIN_QUERY_LENGTH = 2;
-const MAX_SUGGESTIONS = 10;
-const DEBOUNCE_MS = 200;
+const MAX_JAVASLAT = 10;
+const KESLELTETES_MS = 200;
 
 interface Props {
   value: string;
@@ -45,36 +49,6 @@ interface Props {
   korcsoport?: string;
 }
 
-/**
- * Megkeresi a kurzor körüli "token"-t a value szövegben.
- * A token vége a kurzor pozíciója, kezdete az utolsó \n / vessző / pontosvessző
- * UTÁN az első nem-whitespace karakter.
- */
-function getCurrentToken(value: string, caret: number): {
-  start: number;
-  end: number;
-  text: string;
-} {
-  const before = value.slice(0, caret);
-  let lastSep = -1;
-  for (let i = before.length - 1; i >= 0; i--) {
-    const ch = before[i];
-    if (ch === '\n' || ch === ',' || ch === ';') {
-      lastSep = i;
-      break;
-    }
-  }
-  let trueStart = lastSep + 1;
-  while (trueStart < before.length && /\s/.test(value[trueStart] ?? '')) {
-    trueStart++;
-  }
-  return {
-    start: trueStart,
-    end: caret,
-    text: value.slice(trueStart, caret).trim(),
-  };
-}
-
 export default function IrodalomAutoComplete({
   value,
   onChange,
@@ -84,123 +58,122 @@ export default function IrodalomAutoComplete({
   tipusok,
   korcsoport,
 }: Props) {
-  const [suggestions, setSuggestions] = useState<Irodalom[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const [tokenStart, setTokenStart] = useState(0);
-  const [tokenEnd, setTokenEnd] = useState(0);
+  const [javaslatok, setJavaslatok] = useState<Irodalom[]>([]);
+  const [nyitva, setNyitva] = useState(false);
+  const [valasztottIdx, setValasztottIdx] = useState(0);
+  const [token, setToken] = useState({ start: 0, end: 0, text: '' });
   const taRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const idozitoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const onTaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const v = e.target.value;
-    onChange(v);
-    triggerSearch(v, e.target.selectionStart);
-  };
+  const bezar = useCallback(() => {
+    if (idozitoRef.current) clearTimeout(idozitoRef.current);
+    setNyitva(false);
+    setJavaslatok([]);
+  }, []);
 
-  const onTaSelect = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
-    // selectionchange-szerű viselkedés: ha a felhasználó nyilakkal vagy klikkel
-    // mozgatja a kurzort, ne maradjon nyitva irreleváns suggestion-listával.
-    const caret = e.currentTarget.selectionStart;
-    triggerSearch(e.currentTarget.value, caret);
-  };
-
-  const triggerSearch = useCallback(
-    (v: string, caret: number) => {
-      const tok = getCurrentToken(v, caret);
-      setTokenStart(tok.start);
-      setTokenEnd(tok.end);
-
-      if (tok.text.length < MIN_QUERY_LENGTH) {
-        setSuggestions([]);
-        setIsOpen(false);
-        return;
-      }
-
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(async () => {
+  const kereses = useCallback(
+    (szoveg: string) => {
+      if (idozitoRef.current) clearTimeout(idozitoRef.current);
+      idozitoRef.current = setTimeout(async () => {
         try {
-          // Több típusra párhuzamos keresés, majd flat + dedup ID szerint
           const eredmenyek = await Promise.all(
             tipusok.map((t) =>
-              window.api.irodalomKereses({
-                tipus: t,
-                szoveg: tok.text,
-                korcsoport,
-              }),
+              window.api.irodalomKereses({ tipus: t, szoveg, korcsoport }),
             ),
           );
-          const seen = new Set<number>();
+          const latott = new Set<number>();
           const dedup: Irodalom[] = [];
           for (const arr of eredmenyek) {
             for (const irod of arr) {
-              if (seen.has(irod.id)) continue;
-              seen.add(irod.id);
+              if (latott.has(irod.id)) continue;
+              latott.add(irod.id);
               dedup.push(irod);
-              if (dedup.length >= MAX_SUGGESTIONS) break;
+              if (dedup.length >= MAX_JAVASLAT) break;
             }
-            if (dedup.length >= MAX_SUGGESTIONS) break;
+            if (dedup.length >= MAX_JAVASLAT) break;
           }
-          setSuggestions(dedup);
-          setIsOpen(dedup.length > 0);
-          setSelectedIdx(0);
+          setJavaslatok(dedup);
+          // Találat nélkül NEM nyitunk buborékot: az csak eltakarná a szöveget.
+          setNyitva(dedup.length > 0);
+          setValasztottIdx(0);
         } catch (err) {
           console.error('[IrodalomAutoComplete] keresési hiba:', err);
         }
-      }, DEBOUNCE_MS);
+      }, KESLELTETES_MS);
     },
     [tipusok, korcsoport],
   );
 
+  const valtozas = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const uj = e.target.value;
+    const kurzor = e.target.selectionStart;
+    onChange(uj);
+
+    if (!keresestInditsunk({ elozo: value, uj, kurzor })) {
+      bezar();
+      return;
+    }
+    const tok = aktualisToken(uj, kurzor);
+    setToken(tok);
+    kereses(tok.text);
+  };
+
+  /**
+   * Kurzormozgás: SOHA nem nyit listát, csak becsukja, ha a kurzor elhagyta azt a
+   * töredéket, amire a keresés indult. Enélkül a mezőbe kattintás is találati
+   * listát dobott fel a szerkesztendő sor tetejére.
+   */
+  const kurzorMozgas = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+    if (!nyitva) return;
+    if (!nyitvaMaradhat(token, e.currentTarget.selectionStart)) bezar();
+  };
+
   const beillesztes = useCallback(
     (irod: Irodalom) => {
       const sor = irod.szerzo ? `${irod.cim} — ${irod.szerzo}` : irod.cim;
-      const before = value.slice(0, tokenStart);
-      const after = value.slice(tokenEnd);
-      const uj = before + sor + after;
+      const uj = value.slice(0, token.start) + sor + value.slice(token.end);
       onChange(uj);
-      setIsOpen(false);
-      setSuggestions([]);
-      // visszahelyezzük a kurzort a beszúrt szöveg utánra
+      bezar();
       requestAnimationFrame(() => {
         const ta = taRef.current;
         if (!ta) return;
-        const pos = tokenStart + sor.length;
+        const pos = token.start + sor.length;
         ta.focus();
         ta.setSelectionRange(pos, pos);
       });
     },
-    [value, tokenStart, tokenEnd, onChange],
+    [value, token, onChange, bezar],
   );
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!isOpen || suggestions.length === 0) return;
+  const billentyu = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!nyitva || javaslatok.length === 0) return;
+    // FIGYELEM: az Enter itt NEM elfogadás. Többsoros mezőben az Enter a sortörés
+    // billentyűje — ha elvennénk, a pedagógus szövege helyére kerülne a javaslat.
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedIdx((i) => (i + 1) % suggestions.length);
+      setValasztottIdx((i) => (i + 1) % javaslatok.length);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setSelectedIdx((i) => (i - 1 + suggestions.length) % suggestions.length);
-    } else if (e.key === 'Enter' || e.key === 'Tab') {
+      setValasztottIdx((i) => (i - 1 + javaslatok.length) % javaslatok.length);
+    } else if (e.key === 'Tab') {
       e.preventDefault();
-      beillesztes(suggestions[selectedIdx]);
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
-      setIsOpen(false);
+      beillesztes(javaslatok[valasztottIdx]);
+    } else if (e.key === 'Escape' || e.key === 'Enter') {
+      // Enterre nem nyelünk el semmit: a sortörés megtörténik, a lista bezárul.
+      if (e.key === 'Escape') e.preventDefault();
+      bezar();
     }
   };
 
-  // Komponensen kívüli klikkre bezárjuk a dropdown-t.
+  // Komponensen kívüli kattintásra bezárjuk a listát.
   useEffect(() => {
-    function onDocClick(e: MouseEvent) {
+    function dokumentumKattintas(e: MouseEvent) {
       if (!containerRef.current) return;
-      if (!containerRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
+      if (!containerRef.current.contains(e.target as Node)) setNyitva(false);
     }
-    document.addEventListener('mousedown', onDocClick);
-    return () => document.removeEventListener('mousedown', onDocClick);
+    document.addEventListener('mousedown', dokumentumKattintas);
+    return () => document.removeEventListener('mousedown', dokumentumKattintas);
   }, []);
 
   return (
@@ -208,31 +181,34 @@ export default function IrodalomAutoComplete({
       <textarea
         ref={taRef}
         value={value}
-        onChange={onTaChange}
-        onSelect={onTaSelect}
-        onKeyDown={onKeyDown}
+        onChange={valtozas}
+        onSelect={kurzorMozgas}
+        onKeyDown={billentyu}
         rows={rows}
         placeholder={placeholder}
         className={className}
       />
-      {isOpen && suggestions.length > 0 && (
+      {nyitva && javaslatok.length > 0 && (
         <ul
           className="absolute z-20 left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-white border border-sage-200 rounded-md shadow-lg"
           role="listbox"
         >
-          {suggestions.map((s, i) => (
+          <li className="px-3 py-1 text-[10px] text-ink/40 border-b border-sage-100">
+            Tab vagy kattintás a beillesztéshez · Esc a bezáráshoz
+          </li>
+          {javaslatok.map((s, i) => (
             <li
               key={s.id}
               role="option"
-              aria-selected={i === selectedIdx}
+              aria-selected={i === valasztottIdx}
               onMouseDown={(e) => {
-                // mousedown — onClick előtt fut, így nem szakítja meg a blur-rel
+                // mousedown — onClick előtt fut, így nem szakítja meg a blur
                 e.preventDefault();
                 beillesztes(s);
               }}
-              onMouseEnter={() => setSelectedIdx(i)}
+              onMouseEnter={() => setValasztottIdx(i)}
               className={`px-3 py-2 text-sm cursor-pointer border-b border-sage-50 last:border-b-0 ${
-                i === selectedIdx ? 'bg-sage-100' : 'hover:bg-sage-50'
+                i === valasztottIdx ? 'bg-sage-100' : 'hover:bg-sage-50'
               }`}
             >
               <div className="font-medium text-ink/90 truncate">{s.cim}</div>
@@ -243,11 +219,6 @@ export default function IrodalomAutoComplete({
             </li>
           ))}
         </ul>
-      )}
-      {isOpen && suggestions.length === 0 && (
-        <div className="absolute z-20 left-0 right-0 mt-1 bg-white border border-sage-200 rounded-md shadow-lg px-3 py-2 text-xs text-ink/50 italic">
-          Nincs találat — Esc-re bezárhatod, vagy gépelj másképp.
-        </div>
       )}
     </div>
   );

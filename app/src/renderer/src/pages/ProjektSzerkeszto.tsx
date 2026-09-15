@@ -6,7 +6,7 @@
  *  2. Pedagógiai feladatok — 4 dimenzió (értelmi, kommunikációs, erkölcsi, testi)
  *  3. Tevékenységek + szervezés — bevontak, előkészületek, alkotó tev., játékok, szabályok
  *  4. Produktumok + eszközök + egyebek — gyermeki+pedagógusi produktumok,
- *     munka jellegű, eszközök, iskola előkészítő összesített, szokások-hagyományok
+ *     munka jellegű, eszközök, iskola-előkészítő összesített, szokások-hagyományok
  *
  * A DOCX-export (TODO-10 Stage B) későbbi session-ben kerül implementálásra.
  */
@@ -296,10 +296,10 @@ export default function ProjektSzerkeszto() {
 
       {/* === 5. EGYEBEK (IE + SZOKÁSOK) === */}
       <section className="card mb-6 border-l-4 border-l-sage-500">
-        <h2 className="heading-serif text-lg font-medium mb-3">5. Iskola előkészítő + szokások</h2>
+        <h2 className="heading-serif text-lg font-medium mb-3">5. Iskola-előkészítő + szokások</h2>
         <div className="space-y-3">
           <Textarea
-            label="Iskola előkészítő tevékenységek (összesített)"
+            label="Iskola-előkészítő tevékenységek (összesített)"
             value={projekt.iskolaElokeszitoOsszesitett ?? ''}
             onChange={(v) => update('iskolaElokeszitoOsszesitett', v)}
             placeholder="A projekt egészére összesített iskola-előkészítő képességek (megfigyelőképesség, szókincs, finommotorika, ritmusérzék…)"

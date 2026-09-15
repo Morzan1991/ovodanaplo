@@ -5,7 +5,7 @@
 
 import { ipcMain, app, shell, dialog, BrowserWindow } from 'electron';
 import { writeFileSync } from 'node:fs';
-import { eq, desc, like, or, and, inArray } from 'drizzle-orm';
+import { eq, desc, like, or, and, inArray, isNull } from 'drizzle-orm';
 import { IpcChannels } from '../shared/ipc-channels.js';
 import {
   beallitasok,
@@ -31,9 +31,10 @@ import {
   type UjTerulet,
   type Beallitas,
 } from '../shared/schema.js';
-import { getDb, getSqlite, createBackup } from './db/index.js';
+import { getDb, getSqlite, createBackup, getTitkositasAllapot } from './db/index.js';
+import { kulcsFormazott, visszaallitasiFajlTartalma } from './db/kulcs.js';
 import { hetiTervToDocx, foglalkozasToDocx, projektToDocx } from './export-docx.js';
-import { validate } from './ipc-validate.js';
+import { validate, validateId } from './ipc-validate.js';
 import {
   ujBeallitasSchema,
   ujNevelesiEvSchema,
@@ -45,19 +46,38 @@ import {
   ujEsemenySchema,
   ujIrodalomSchema,
   irodalomKeresesSchema,
+  irodalomSzovegSchema,
 } from '../shared/schemas/ipc.js';
 import {
   hetekAzEvben,
   sablonHezKivalasztas,
   tervezetEgyHetbol,
   loadSablonok,
+  sablonIllikKorcsoporthoz,
   otletekTemara,
+  korcsoportraSzabott,
   type SablonAdat,
 } from './templates/generator.js';
 import { join } from 'node:path';
 
 export function registerIpcHandlers(): void {
   const db = getDb();
+
+  /**
+   * A csoport aktuális korosztálya a beállításokból.
+   * A csak bizonyos korcsoportnak szóló sablonok (pl. a nagycsoportosok
+   * búcsúztatása) szűréséhez kell — ne kínáljunk fel olyan témát, ami az
+   * adott csoportban értelmezhetetlen.
+   */
+  const aktualisKorcsoport = (): string | null => {
+    const b = db.select().from(beallitasok).limit(1).all()[0];
+    if (b?.csoportTipus) return b.csoportTipus;
+    // Ha a Beállítások sor még nem jött létre, az aktív nevelési évnél megadott
+    // korosztály a mérvadó — így a szűrés akkor sem esik szét, ha valaki csak a
+    // nevelési év létrehozásakor adta meg a csoport típusát.
+    const ev = db.select().from(nevelesiEvek).where(eq(nevelesiEvek.aktiv, 1)).limit(1).all()[0];
+    return ev?.korcsoport ?? null;
+  };
 
   // -------- Beállítások --------
   ipcMain.handle(IpcChannels.beallitasokGet, () => {
@@ -72,15 +92,28 @@ export function registerIpcHandlers(): void {
     const sqlite = getSqlite();
     const tx = sqlite.transaction(() => {
       const existing = db.select().from(beallitasok).limit(1).all();
-      if (existing.length > 0) {
-        return db
-          .update(beallitasok)
-          .set(data)
-          .where(eq(beallitasok.id, existing[0].id))
-          .returning()
-          .get();
+      const eredmeny =
+        existing.length > 0
+          ? db
+              .update(beallitasok)
+              .set(data)
+              .where(eq(beallitasok.id, existing[0].id))
+              .returning()
+              .get()
+          : db.insert(beallitasok).values(data).returning().get();
+
+      // A Beállításokban módosított "Csoport típusa" szinkronban tartása az aktív
+      // nevelési év korcsoportjával — enélkül a Heti terv (iskola-előkészítő
+      // mező, ötletbank-szűrés) a nevelési év létrehozásakori korcsoportot
+      // látná, nem a Beállításokban utólag módosítottat.
+      if (data.csoportTipus) {
+        db.update(nevelesiEvek)
+          .set({ korcsoport: data.csoportTipus })
+          .where(eq(nevelesiEvek.aktiv, 1))
+          .run();
       }
-      return db.insert(beallitasok).values(data).returning().get();
+
+      return eredmeny;
     });
     return tx();
   });
@@ -96,18 +129,41 @@ export function registerIpcHandlers(): void {
 
   ipcMain.handle(IpcChannels.nevelesiEvLetrehoz, (_e, raw: unknown) => {
     const data = validate(IpcChannels.nevelesiEvLetrehoz, raw, ujNevelesiEvSchema) as UjNevelesiEv;
-    // Aktívvá tesszük, többit deaktiváljuk
-    if (data.aktiv) {
-      db.update(nevelesiEvek).set({ aktiv: 0 }).run();
-    }
-    return db.insert(nevelesiEvek).values(data).returning().get();
+    const sqlite = getSqlite();
+    const tx = sqlite.transaction(() => {
+      // Aktívvá tesszük, többit deaktiváljuk
+      if (data.aktiv) {
+        db.update(nevelesiEvek).set({ aktiv: 0 }).run();
+      }
+      const ev = db.insert(nevelesiEvek).values(data).returning().get();
+
+      // A korcsoportot itt is átvezetjük a Beállításokba, hogy ne kelljen
+      // kétszer megadni. A program mindenhol a beállítások `csoportTipus`
+      // mezőjét olvassa (ötletbank-szűrés, iskola-előkészítő, Word-export),
+      // így e nélkül a nevelési év létrehozásakor választott korosztály
+      // sehol nem érvényesült volna.
+      if (data.aktiv && data.korcsoport) {
+        const meglevo = db.select().from(beallitasok).limit(1).all();
+        if (meglevo.length > 0) {
+          db.update(beallitasok)
+            .set({ csoportTipus: data.korcsoport })
+            .where(eq(beallitasok.id, meglevo[0].id))
+            .run();
+        } else {
+          db.insert(beallitasok).values({ csoportTipus: data.korcsoport }).run();
+        }
+      }
+      return ev;
+    });
+    return tx();
   });
 
   /**
    * Egy nevelési év kapcsolódó tartalmainak darabszáma.
    * Konfirmáció előtt mutatjuk a felhasználónak, hogy lássa mi vész el.
    */
-  ipcMain.handle(IpcChannels.nevelesiEvStatistika, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.nevelesiEvStatistika, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.nevelesiEvStatistika, idNyers);
     if (typeof id !== 'number') return { hetiTervek: 0, projektek: 0, esemenyek: 0, foglalkozasok: 0, reflexiok: 0 };
     const hetiTervRows = db.select({ id: hetiTervek.id }).from(hetiTervek).where(eq(hetiTervek.nevelesiEvId, id)).all();
     const projektRows = db.select({ id: projektek.id }).from(projektek).where(eq(projektek.nevelesiEvId, id)).all();
@@ -149,7 +205,8 @@ export function registerIpcHandlers(): void {
    *
    * Ha az aktív évet töröltük, automatikusan a legfrissebb másikra váltunk.
    */
-  ipcMain.handle(IpcChannels.nevelesiEvTorol, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.nevelesiEvTorol, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.nevelesiEvTorol, idNyers);
     if (typeof id !== 'number') throw new Error('[nevelesiEvTorol] érvénytelen id');
     const sqlite = getSqlite();
     const tx = sqlite.transaction(() => {
@@ -223,7 +280,8 @@ export function registerIpcHandlers(): void {
     return db.select().from(hetiTervek).orderBy(desc(hetiTervek.kezdoDatum)).all();
   });
 
-  ipcMain.handle(IpcChannels.hetiTervBetolt, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.hetiTervBetolt, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.hetiTervBetolt, idNyers);
     return db.select().from(hetiTervek).where(eq(hetiTervek.id, id)).limit(1).all()[0] ?? null;
   });
 
@@ -250,7 +308,8 @@ export function registerIpcHandlers(): void {
    *  2. foglalkozas_tervezetek
    *  3. heti_tervek (a teruletek + heti_terv_kepesseg CASCADE-elnek)
    */
-  ipcMain.handle(IpcChannels.hetiTervTorol, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.hetiTervTorol, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.hetiTervTorol, idNyers);
     if (typeof id !== 'number') throw new Error('[hetiTervTorol] érvénytelen id');
     const sqlite = getSqlite();
     const tx = sqlite.transaction(() => {
@@ -278,7 +337,8 @@ export function registerIpcHandlers(): void {
   });
 
   // Heti terv + területek együtt betöltve
-  ipcMain.handle(IpcChannels.hetiTervTeljesBetolt, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.hetiTervTeljesBetolt, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.hetiTervTeljesBetolt, idNyers);
     const terv = db.select().from(hetiTervek).where(eq(hetiTervek.id, id)).limit(1).all()[0];
     if (!terv) return null;
     const teruletekLista = db
@@ -421,7 +481,8 @@ export function registerIpcHandlers(): void {
     return db.select().from(projektek).orderBy(desc(projektek.kezdoDatum)).all();
   });
 
-  ipcMain.handle(IpcChannels.projektBetolt, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.projektBetolt, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.projektBetolt, idNyers);
     return db.select().from(projektek).where(eq(projektek.id, id)).limit(1).all()[0] ?? null;
   });
 
@@ -442,7 +503,8 @@ export function registerIpcHandlers(): void {
   });
 
   // Projekt törlése (kapcsolódó reflexiók törölve, heti tervek projektId-ja NULL-ra)
-  ipcMain.handle(IpcChannels.projektTorol, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.projektTorol, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.projektTorol, idNyers);
     if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
       throw new Error('[projektTorol] érvénytelen id');
     }
@@ -476,7 +538,8 @@ export function registerIpcHandlers(): void {
     return db.select().from(foglalkozasTervezetek).orderBy(desc(foglalkozasTervezetek.idopont)).all();
   });
 
-  ipcMain.handle(IpcChannels.foglalkozasBetolt, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.foglalkozasBetolt, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.foglalkozasBetolt, idNyers);
     return (
       db.select().from(foglalkozasTervezetek).where(eq(foglalkozasTervezetek.id, id)).limit(1).all()[0] ??
       null
@@ -500,7 +563,8 @@ export function registerIpcHandlers(): void {
   });
 
   // Foglalkozás-tervezet törlése (kapcsolódó reflexiók is törölve)
-  ipcMain.handle(IpcChannels.foglalkozasTorol, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.foglalkozasTorol, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.foglalkozasTorol, idNyers);
     if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
       throw new Error('[foglalkozasTorol] érvénytelen id');
     }
@@ -550,7 +614,8 @@ export function registerIpcHandlers(): void {
   });
 
   // M6: egyedi reflexió-törlés (eddig csak heti terven keresztül CASCADE volt elérhető)
-  ipcMain.handle(IpcChannels.reflexioTorol, (_e, id: number) => {
+  ipcMain.handle(IpcChannels.reflexioTorol, (_e, idNyers: unknown) => {
+    const id = validateId(IpcChannels.reflexioTorol, idNyers);
     if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
       throw new Error('[reflexioTorol] érvénytelen id');
     }
@@ -589,7 +654,19 @@ export function registerIpcHandlers(): void {
     };
     const conditions = [];
     if (opts.tipus) conditions.push(eq(irodalom.tipus, opts.tipus as never));
-    if (opts.korcsoport) conditions.push(eq(irodalom.korcsoport, opts.korcsoport));
+    if (opts.korcsoport) {
+      // A "vegyes" jelölésű művek MINDEN korosztálynak valók, a jelöletlenek
+      // pedig nem zárhatók ki. Korábban pontos egyezést vártunk, ezért középső
+      // csoportban a 383 műből csak 54 jelent meg — a használható anyag
+      // kétharmada rejtve maradt.
+      conditions.push(
+        or(
+          eq(irodalom.korcsoport, opts.korcsoport),
+          eq(irodalom.korcsoport, 'vegyes'),
+          isNull(irodalom.korcsoport),
+        ),
+      );
+    }
     if (opts.szoveg) {
       const term = `%${opts.szoveg}%`;
       conditions.push(or(like(irodalom.cim, term), like(irodalom.szerzo, term)));
@@ -621,7 +698,8 @@ export function registerIpcHandlers(): void {
   });
 
   /** TODO-11: Egy heti terv kapcsolt képességei (M-N JOIN). */
-  ipcMain.handle(IpcChannels.hetiTervKepessegekLista, (_e, hetiTervId: number) => {
+  ipcMain.handle(IpcChannels.hetiTervKepessegekLista, (_e, hetiTervIdNyers: unknown) => {
+    const hetiTervId = validateId(IpcChannels.hetiTervKepessegekLista, hetiTervIdNyers);
     if (typeof hetiTervId !== 'number') {
       throw new Error('[hetiTervKepessegekLista] érvénytelen hetiTervId');
     }
@@ -781,7 +859,8 @@ export function registerIpcHandlers(): void {
   });
 
   // -------- Sablon-alapú generálás --------
-  ipcMain.handle(IpcChannels.hetiTervekGeneralasEvre, (_e, nevelesiEvId: number) => {
+  ipcMain.handle(IpcChannels.hetiTervekGeneralasEvre, (_e, nevelesiEvIdNyers: unknown) => {
+    const nevelesiEvId = validateId(IpcChannels.hetiTervekGeneralasEvre, nevelesiEvIdNyers);
     try {
       console.log('[generalas] Start, nevelési év id:', nevelesiEvId);
       const ev = db.select().from(nevelesiEvek).where(eq(nevelesiEvek.id, nevelesiEvId)).limit(1).all()[0];
@@ -816,7 +895,16 @@ export function registerIpcHandlers(): void {
 
           if (meglevoDatumok.has(hetKezdoIso)) continue;
 
-          const sablon = sablonHezKivalasztas(hetKezdo, unnepekLista, hasznaltSablonok);
+          // A nevelési év kezdő éve adja a sablon-változat eltolást: így a
+          // következő tanévben a másik (v2) változat kerül elő ugyanarra a témára.
+          const evKezdoEv = new Date(ev.kezdo).getFullYear();
+          const sablon = sablonHezKivalasztas(
+            hetKezdo,
+            unnepekLista,
+            hasznaltSablonok,
+            evKezdoEv,
+            csoportTipus,
+          );
           if (sablon) hasznaltSablonok.add(sablon.azonosito);
 
           const tervezet = tervezetEgyHetbol(hetKezdo, i + 1, sablon, csoportTipus);
@@ -867,7 +955,8 @@ export function registerIpcHandlers(): void {
   // -------- Sablon-meta + teljes betöltés --------
   ipcMain.handle(IpcChannels.sablonokLista, () => {
     try {
-      const sablonok = loadSablonok();
+      const kc = aktualisKorcsoport();
+      const sablonok = loadSablonok().filter((x) => sablonIllikKorcsoporthoz(x, kc));
       return sablonok.map((s) => ({
         azonosito: s.azonosito,
         cim: s.cim,
@@ -887,7 +976,9 @@ export function registerIpcHandlers(): void {
   ipcMain.handle(IpcChannels.sablonBetolt, (_e, azonosito: string): SablonAdat | null => {
     try {
       const sablonok = loadSablonok();
-      return sablonok.find((s) => s.azonosito === azonosito) ?? null;
+      const talalat = sablonok.find((s) => s.azonosito === azonosito) ?? null;
+      // A cél, a feladat és a fejlesztési területek korosztályonként mások.
+      return talalat ? korcsoportraSzabott(talalat, aktualisKorcsoport()) : null;
     } catch (err) {
       console.error('[sablon] betölt hiba:', err);
       return null;
@@ -898,7 +989,10 @@ export function registerIpcHandlers(): void {
     try {
       const datum = new Date(datumIso);
       const unnepekLista = db.select().from(unnepek).all();
-      return sablonHezKivalasztas(datum, unnepekLista, new Set());
+      // Az ajánló is a csoport korosztályához illő sablonok közül válasszon.
+      const kc = aktualisKorcsoport();
+      const ajanlott = sablonHezKivalasztas(datum, unnepekLista, new Set(), datum.getFullYear(), kc);
+      return ajanlott ? korcsoportraSzabott(ajanlott, kc) : null;
     } catch (err) {
       console.error('[sablon] ajanlo hiba:', err);
       return null;
@@ -912,8 +1006,10 @@ export function registerIpcHandlers(): void {
    */
   ipcMain.handle(IpcChannels.sablonokHonapra, (_e, honap: number): SablonAdat[] => {
     try {
-      const sablonok = loadSablonok();
-      return sablonok.filter((s) => s.javasoltHonap === honap);
+      const kc = aktualisKorcsoport();
+      return loadSablonok().filter(
+        (s) => s.javasoltHonap === honap && sablonIllikKorcsoporthoz(s, kc),
+      );
     } catch (err) {
       console.error('[sablon] honapra hiba:', err);
       return [];
@@ -938,7 +1034,8 @@ export function registerIpcHandlers(): void {
   );
 
   // -------- Export --------
-  ipcMain.handle(IpcChannels.exportHetiTervDocx, async (e, hetiTervId: number) => {
+  ipcMain.handle(IpcChannels.exportHetiTervDocx, async (e, hetiTervIdNyers: unknown) => {
+    const hetiTervId = validateId(IpcChannels.exportHetiTervDocx, hetiTervIdNyers);
     const terv = db.select().from(hetiTervek).where(eq(hetiTervek.id, hetiTervId)).limit(1).all()[0];
     if (!terv) return { siker: false, hiba: 'Heti terv nem található' };
 
@@ -983,7 +1080,8 @@ export function registerIpcHandlers(): void {
     }
   });
 
-  ipcMain.handle(IpcChannels.exportFoglalkozasDocx, async (e, foglalkozasId: number) => {
+  ipcMain.handle(IpcChannels.exportFoglalkozasDocx, async (e, foglalkozasIdNyers: unknown) => {
+    const foglalkozasId = validateId(IpcChannels.exportFoglalkozasDocx, foglalkozasIdNyers);
     const foglalkozas = db
       .select()
       .from(foglalkozasTervezetek)
@@ -1023,7 +1121,8 @@ export function registerIpcHandlers(): void {
   });
 
   /** TODO-10 Stage B: Projektterv DOCX-export */
-  ipcMain.handle(IpcChannels.exportProjektDocx, async (e, projektId: number) => {
+  ipcMain.handle(IpcChannels.exportProjektDocx, async (e, projektIdNyers: unknown) => {
+    const projektId = validateId(IpcChannels.exportProjektDocx, projektIdNyers);
     const projekt = db
       .select()
       .from(projektek)
@@ -1065,6 +1164,62 @@ export function registerIpcHandlers(): void {
   // -------- App --------
   ipcMain.handle(IpcChannels.appVerzio, () => {
     return app.getVersion();
+  });
+
+  /**
+   * Egy meglévő irodalmi tétel szövegének mentése.
+   *
+   * A 383 műből 264-hez nem tartozik szöveg. Egy részük valóban jogvédett, de a
+   * népi mondókák és népdalok közkincsek — azok szövegét a pedagógus egyszer
+   * beírhatja (vagy bemásolhatja), és onnantól a programban marad.
+   */
+  ipcMain.handle(IpcChannels.irodalomSzovegMent, (_e, raw: unknown) => {
+    const adat = validate(
+      IpcChannels.irodalomSzovegMent,
+      raw,
+      irodalomSzovegSchema,
+    ) as { id: number; szoveg: string };
+    return db
+      .update(irodalom)
+      .set({ szoveg: adat.szoveg })
+      .where(eq(irodalom.id, adat.id))
+      .returning()
+      .get();
+  });
+
+  // -------- Titkosítás --------
+  ipcMain.handle(IpcChannels.titkositasAllapot, () => {
+    const a = getTitkositasAllapot();
+    // A kulcsot magát NEM adjuk át a felületnek — csak az állapotot.
+    return { aktiv: a.aktiv, hiba: a.hiba };
+  });
+
+  /**
+   * A visszaállítási kulcs megjelenítése és fájlba mentése — bármikor előhívható.
+   *
+   * Erre azért van szükség, mert a kulcs a Windows-fiókhoz kötött: ha a fiók
+   * elvész, CSAK a leírt kulccsal nyerhető vissza a napló. Ha a felhasználó
+   * elhagyta a papírt, itt újra kikérheti.
+   */
+  ipcMain.handle(IpcChannels.titkositasKulcsMutat, async () => {
+    const allapot = getTitkositasAllapot();
+    if (!allapot.aktiv || !allapot.kulcs) {
+      return { siker: false, hiba: allapot.hiba ?? 'A titkosítás nem aktív.' };
+    }
+
+    const alapNev = 'OvodaNaplo-visszaallitasi-kulcs.txt';
+    const eredmeny = await dialog.showSaveDialog({
+      title: 'Visszaállítási kulcs mentése',
+      defaultPath: join(app.getPath('desktop'), alapNev),
+      filters: [{ name: 'Szövegfájl', extensions: ['txt'] }],
+    });
+
+    if (!eredmeny.canceled && eredmeny.filePath) {
+      writeFileSync(eredmeny.filePath, visszaallitasiFajlTartalma(allapot.kulcs), 'utf-8');
+      return { siker: true, kulcs: kulcsFormazott(allapot.kulcs), utvonal: eredmeny.filePath };
+    }
+    // Mentés nélkül is megmutatjuk, hogy le lehessen írni.
+    return { siker: true, kulcs: kulcsFormazott(allapot.kulcs), utvonal: null };
   });
 
   ipcMain.handle(IpcChannels.appAdattarMegnyit, () => {

@@ -39,6 +39,10 @@ interface SablonValasztoProps {
   onSablonValasztas: (azonosito: string) => void;
   /** "Üres tervezet" gomb — setSablonHasznalva(true) callback */
   onUres: () => void;
+  /** A sablonlista betöltésének állapota — hogy ne néma legyen a hiba. */
+  betoltesAllapot?: 'toltes' | 'kesz' | 'hiba';
+  /** Újratöltés kérése, ha a lista nem jött meg. */
+  onUjraTolt?: () => void;
 }
 
 export function SablonValaszto({
@@ -48,12 +52,36 @@ export function SablonValaszto({
   aktualisSablonAzonosito,
   onSablonValasztas,
   onUres,
+  betoltesAllapot = 'kesz',
+  onUjraTolt,
 }: SablonValasztoProps) {
   // Megjelenítési feltétel:
   // - Új tervnél: csak amíg nem alkalmaztak sablont (sablonHasznalva = false)
   // - Meglévő tervnél: MINDIG látszik (hogy bármikor lehessen másikat választani)
-  if (sablonok.length === 0) return null;
   if (!paramsId && sablonHasznalva) return null;
+
+  // Üres listánál korábban nyom nélkül eltűnt az egész kártya, és csak a program
+  // újraindítása hozta vissza. Most megmondjuk, mi történik, és lehet újrapróbálni.
+  if (sablonok.length === 0) {
+    return (
+      <div className="mb-6 p-4 rounded-lg border border-mauve-200 bg-mauve-100/30 text-sm">
+        {betoltesAllapot === 'toltes' ? (
+          <span className="text-ink/60">Sablonok betöltése…</span>
+        ) : (
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-ink/70">
+              A sablonok most nem érhetők el. Enélkül is tudsz üres tervet írni.
+            </span>
+            {onUjraTolt && (
+              <button onClick={onUjraTolt} className="btn-secondary text-xs">
+                Újratöltés
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="mb-6 p-4 rounded-lg border border-mauve-200 bg-mauve-100/30">
@@ -65,13 +93,13 @@ export function SablonValaszto({
           <div className="text-xs text-ink/70 mt-0.5">
             {paramsId
               ? 'Felülírhatod a meglévő tartalmat egy sablonnal — konfirmációt kérünk.'
-              : 'Választhatsz egy előre elkészített témából — a saját doksijaid + 15 magyar ünnep alapján.'}
+              : `Választhatsz egy előre elkészített témából — ${sablonok.length} kész sablon, a magyar ünnepekhez igazítva.`}
           </div>
         </div>
         <select
           value={aktualisSablonAzonosito ?? ''}
           onChange={(e) => onSablonValasztas(e.target.value)}
-          className="ml-auto border border-mauve-300 rounded px-3 py-2 text-sm bg-white min-w-[280px]"
+          className="ml-auto border border-mauve-300 rounded px-3 py-2 text-sm bg-white min-w-[280px] cursor-pointer"
         >
           <option value="" disabled>
             — Válassz sablont —
@@ -103,6 +131,24 @@ export function SablonValaszto({
               </optgroup>,
             ];
           })}
+          {/* Amelyik sablonhoz nem tartozik hónap (vagy hibás az érték), az se
+              vesszen el a listából — külön csoportban felkínáljuk. */}
+          {(() => {
+            const honapok = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6];
+            const egyeb = sablonok.filter(
+              (s) => typeof s.javasoltHonap !== 'number' || !honapok.includes(s.javasoltHonap),
+            );
+            if (egyeb.length === 0) return null;
+            return (
+              <optgroup label="Egyéb">
+                {egyeb.map((s) => (
+                  <option key={s.azonosito} value={s.azonosito}>
+                    {s.cim}
+                  </option>
+                ))}
+              </optgroup>
+            );
+          })()}
         </select>
         {!paramsId && (
           <button

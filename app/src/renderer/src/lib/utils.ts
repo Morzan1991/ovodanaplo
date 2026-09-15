@@ -65,3 +65,10 @@ const ADATVEDELMI_MINTAK = [
 export function vanAdatvedelmiKockazat(szoveg: string): boolean {
   return ADATVEDELMI_MINTAK.some((minta) => minta.test(szoveg));
 }
+
+// --- Mozgó ünnepek dátumszámítása ---
+// A tényleges számítás a `shared/unnepnaptar.ts`-ben él, hogy a főprocesz
+// (sablon-generálás) is használhassa. Itt csak újraexportáljuk, hogy a meglévő
+// `lib/utils` importok változatlanul működjenek.
+export { husvetVasarnap, mozgoUnnepekEvre } from '@shared/unnepnaptar';
+export type { MozgoUnnepDatum } from '@shared/unnepnaptar';

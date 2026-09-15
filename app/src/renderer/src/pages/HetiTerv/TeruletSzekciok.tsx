@@ -8,7 +8,7 @@
  *   - cím + "💡 Ötletek" gomb
  *   - tartalom textarea VAGY IrodalomAutoComplete (verseles_meseles, enek_zene esetén)
  *   - al-szekciók (ha vannak)
- *   - "Iskola előkészítő tevékenység" collapsible textarea
+ *   - "Iskola-előkészítő tevékenység" collapsible textarea
  */
 
 import type { TeruletTipus, IrodalomTipus } from '@shared/schema';
@@ -113,20 +113,22 @@ export default function TeruletSzekciok({
                 </div>
               ))}
 
-            {/* Iskola előkészítő tevékenység (collapsible) */}
-            <details className="mt-2 group">
-              <summary className="text-xs font-semibold text-sage-700 cursor-pointer hover:underline list-none">
-                <span className="inline-block group-open:rotate-90 transition-transform">▸</span>{' '}
-                Iskola előkészítő tevékenység
-              </summary>
-              <textarea
-                value={getTerulet(d.tipus).iskolaElokeszito}
-                onChange={(e) => onUpdate(d.tipus, 'iskolaElokeszito', e.target.value)}
-                rows={3}
-                placeholder="A területhez tartozó iskola-előkészítő képességek, soronként egy…"
-                className="mt-1 w-full text-sm leading-relaxed bg-transparent outline-none resize-vertical focus:bg-sage-50/40 rounded p-2 transition border border-sage-100"
-              />
-            </details>
+            {/* Iskola-előkészítő tevékenység (collapsible) — csak nagy- és vegyes csoportnál (5-7 évesek) */}
+            {korcsoport !== 'kicsi' && korcsoport !== 'kozepso' && (
+              <details className="mt-2 group">
+                <summary className="text-xs font-semibold text-sage-700 cursor-pointer hover:underline list-none">
+                  <span className="inline-block group-open:rotate-90 transition-transform">▸</span>{' '}
+                  Iskola-előkészítő tevékenység
+                </summary>
+                <textarea
+                  value={getTerulet(d.tipus).iskolaElokeszito}
+                  onChange={(e) => onUpdate(d.tipus, 'iskolaElokeszito', e.target.value)}
+                  rows={3}
+                  placeholder="A területhez tartozó iskola-előkészítő képességek, soronként egy…"
+                  className="mt-1 w-full text-sm leading-relaxed bg-transparent outline-none resize-vertical focus:bg-sage-50/40 rounded p-2 transition border border-sage-100"
+                />
+              </details>
+            )}
           </section>
         ))}
     </div>

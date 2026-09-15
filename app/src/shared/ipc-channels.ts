@@ -81,6 +81,12 @@ export const IpcChannels = {
   backupVisszaallit: 'backup:visszaallit',
   backupLista: 'backup:lista',
 
+  irodalomSzovegMent: 'irodalom:szovegMent',
+
+  // Titkosítás
+  titkositasAllapot: 'titkositas:allapot',
+  titkositasKulcsMutat: 'titkositas:kulcsMutat',
+
   // App
   appVerzio: 'app:verzio',
   appAdattarMegnyit: 'app:adattarMegnyit',

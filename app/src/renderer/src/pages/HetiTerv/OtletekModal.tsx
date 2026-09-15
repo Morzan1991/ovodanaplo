@@ -12,8 +12,12 @@
  * a rokon sablonok kiemelt vagy teljes (egész hónap) megjelenítését.
  */
 
+import { useState } from 'react';
 import type { TeruletTipus } from '@shared/schema';
 import type { SablonOtletForras } from './types';
+// A műfaj-címke a bankban marad (abból tudjuk a szekciót), a pedagógusnak viszont
+// már nem mutatjuk — csak a népmese jelölését.
+import { cimkeNelkul } from '../../lib/irodalmi-beszuras';
 
 interface Props {
   tipus: TeruletTipus;
@@ -27,7 +31,8 @@ interface Props {
   valasztottak: Set<string>;
   setValasztottak: (s: Set<string>) => void;
   onBezar: () => void;
-  onHozzaadas: () => void;
+  onAlkalmaz: (ujak: string[], torlendok: string[]) => void;
+  marHozzaadott: Set<string>;
 }
 
 export default function OtletekModal({
@@ -42,7 +47,8 @@ export default function OtletekModal({
   valasztottak,
   setValasztottak,
   onBezar,
-  onHozzaadas,
+  onAlkalmaz,
+  marHozzaadott,
 }: Props) {
   // Header sorok kiszűrése (ezek nem javaslatok)
   const FEJCIMEK = [
@@ -101,11 +107,29 @@ export default function OtletekModal({
     }
   }
 
+  const [eltavolitandok, setEltavolitandok] = useState<Set<string>>(new Set());
+
+  /** A tervben a sorok már címke nélkül állnak — így vetjük össze őket. */
+  const marBenneVan = (szoveg: string) => marHozzaadott.has(cimkeNelkul(szoveg));
+
   const toggle = (szoveg: string) => {
-    const uj = new Set(valasztottak);
-    if (uj.has(szoveg)) uj.delete(szoveg);
-    else uj.add(szoveg);
-    setValasztottak(uj);
+    if (marBenneVan(szoveg)) {
+      const uj = new Set(eltavolitandok);
+      if (uj.has(szoveg)) uj.delete(szoveg);
+      else uj.add(szoveg);
+      setEltavolitandok(uj);
+    } else {
+      const uj = new Set(valasztottak);
+      if (uj.has(szoveg)) uj.delete(szoveg);
+      else uj.add(szoveg);
+      setValasztottak(uj);
+    }
+  };
+
+  const alkalmaz = () => {
+    const ujak = Array.from(valasztottak);
+    const torlendok = Array.from(eltavolitandok);
+    onAlkalmaz(ujak, torlendok);
   };
 
   // Aktuális téma neve a fejlécbe (ha van)
@@ -196,20 +220,30 @@ export default function OtletekModal({
               <ul className="space-y-1">
                 {korSpecifikusOtletek.map((sz, i) => {
                   const aktiv = valasztottak.has(sz);
+                  const marBenne = marBenneVan(sz);
+                  const torlendo = eltavolitandok.has(sz);
+                  const checked = marBenne ? !torlendo : aktiv;
                   return (
                     <li key={`bank-${i}`}>
                       <label
                         className={`flex items-start gap-2 px-2 py-1.5 rounded cursor-pointer transition ${
-                          aktiv ? 'bg-mauve-100 border border-mauve-300' : 'hover:bg-mauve-50 border border-transparent'
+                          torlendo
+                            ? 'bg-terra-50 border border-terra-200 line-through opacity-60'
+                            : marBenne
+                              ? 'bg-sage-100/60 border border-sage-300/50'
+                              : aktiv ? 'bg-mauve-100 border border-mauve-300' : 'hover:bg-mauve-50 border border-transparent'
                         }`}
                       >
                         <input
                           type="checkbox"
-                          checked={aktiv}
+                          checked={checked}
                           onChange={() => toggle(sz)}
                           className="mt-0.5 accent-mauve-500"
                         />
-                        <span className="flex-1 text-sm leading-snug">{sz}</span>
+                        <span className="flex-1 text-sm leading-snug">{cimkeNelkul(sz)}</span>
+                        {marBenne && !torlendo && (
+                          <span className="text-[10px] text-sage-500 whitespace-nowrap mt-0.5">a tervedben</span>
+                        )}
                       </label>
                     </li>
                   );
@@ -229,24 +263,35 @@ export default function OtletekModal({
               <ul className="space-y-1">
                 {javaslatok.map((j, i) => {
                   const aktiv = valasztottak.has(j.szoveg);
+                  const marBenne = marBenneVan(j.szoveg);
+                  const torlendo = eltavolitandok.has(j.szoveg);
+                  const checked = marBenne ? !torlendo : aktiv;
                   const verzioJel = j.verzio === 1 ? 'V1' : j.verzio === 2 ? 'V2' : null;
                   return (
                     <li key={i}>
                       <label
                         className={`flex items-start gap-2 px-2 py-1.5 rounded cursor-pointer transition ${
-                          aktiv ? 'bg-sage-100 border border-sage-300' : 'hover:bg-sage-50 border border-transparent'
+                          torlendo
+                            ? 'bg-terra-50 border border-terra-200 line-through opacity-60'
+                            : marBenne
+                              ? 'bg-sage-100/60 border border-sage-300/50'
+                              : aktiv ? 'bg-sage-100 border border-sage-300' : 'hover:bg-sage-50 border border-transparent'
                         }`}
                       >
                         <input
                           type="checkbox"
-                          checked={aktiv}
+                          checked={checked}
                           onChange={() => toggle(j.szoveg)}
                           className="mt-0.5 accent-sage-500"
                         />
-                        <span className="flex-1 text-sm leading-snug">{j.szoveg}</span>
-                        <span className="text-[10px] text-ink/40 whitespace-nowrap mt-0.5">
-                          {verzioJel ?? (j.forrasCim.length > 18 ? j.forrasCim.slice(0, 18) + '…' : j.forrasCim)}
-                        </span>
+                        <span className="flex-1 text-sm leading-snug">{cimkeNelkul(j.szoveg)}</span>
+                        {marBenne && !torlendo ? (
+                          <span className="text-[10px] text-sage-500 whitespace-nowrap mt-0.5">a tervedben</span>
+                        ) : !marBenne && (
+                          <span className="text-[10px] text-ink/40 whitespace-nowrap mt-0.5">
+                            {verzioJel ?? (j.forrasCim.length > 18 ? j.forrasCim.slice(0, 18) + '…' : j.forrasCim)}
+                          </span>
+                        )}
                       </label>
                     </li>
                   );
@@ -278,18 +323,21 @@ export default function OtletekModal({
 
         <div className="px-5 py-3 border-t border-sage-200 flex items-center justify-between bg-sage-50/50">
           <div className="text-xs text-ink/60">
-            {valasztottak.size} kiválasztva
+            {valasztottak.size > 0 && <span>+{valasztottak.size} új</span>}
+            {valasztottak.size > 0 && eltavolitandok.size > 0 && <span>, </span>}
+            {eltavolitandok.size > 0 && <span className="text-terra-600">-{eltavolitandok.size} eltávolítás</span>}
+            {valasztottak.size === 0 && eltavolitandok.size === 0 && <span>Pipáld be vagy vedd ki</span>}
           </div>
           <div className="flex gap-2">
             <button onClick={onBezar} className="btn-secondary text-sm">
               Mégse
             </button>
             <button
-              onClick={onHozzaadas}
-              disabled={valasztottak.size === 0}
+              onClick={alkalmaz}
+              disabled={valasztottak.size === 0 && eltavolitandok.size === 0}
               className="btn-primary text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              ✓ Hozzáadás ({valasztottak.size})
+              ✓ Alkalmaz
             </button>
           </div>
         </div>

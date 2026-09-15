@@ -184,6 +184,12 @@ export const ujEsemenySchema = z
   })
   .passthrough();
 
+/** Meglévő irodalmi tétel szövegének mentése (közkincs művekhez). */
+export const irodalomSzovegSchema = z.object({
+  id: idSchema,
+  szoveg: z.string().max(20000),
+});
+
 /** Új irodalmi tétel hozzáadása. */
 export const ujIrodalomSchema = z
   .object({

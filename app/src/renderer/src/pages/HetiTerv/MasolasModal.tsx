@@ -80,7 +80,7 @@ export default function MasolasModal({
               <h3 className="heading-serif text-lg">📋 Melyik tervet másolod?</h3>
               <div className="text-xs text-ink/60 mt-0.5">
                 Az új heti terv ide kerül: <strong>{ujKezdoDatum}</strong> — <strong>{ujZaroDatum}</strong>.
-                A téma elé "(másolat)" jelölés kerül.
+                A téma elé „(másolat)” jelölés kerül.
               </div>
             </div>
             <button onClick={onBezar} className="text-ink/50 hover:text-ink text-2xl leading-none ml-2">

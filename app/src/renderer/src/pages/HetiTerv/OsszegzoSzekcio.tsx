@@ -33,9 +33,9 @@ export default function OsszegzoSzekcio({ terv, onUpdate, autoEszkozok }: Props)
           <textarea
             value={terv.cel ?? ''}
             onChange={(e) => onUpdate('cel', e.target.value)}
-            rows={3}
+            rows={5}
             className="w-full border border-sage-100 rounded p-2 text-sm focus:border-sage-500 outline-none"
-            placeholder="Mit szeretnél elérni ezen a héten?"
+            placeholder="Pl.: A gyermekek ismerjék meg az ősz jellegzetes természeti jelenségeit, az évszakváltás változásait. Fejlődjön megfigyelőképességük, környezettudatos szemléletük. Bővüljön szókincsük az őszi gyümölcsök, termények megnevezésével."
           />
         </div>
         <div>
@@ -43,9 +43,9 @@ export default function OsszegzoSzekcio({ terv, onUpdate, autoEszkozok }: Props)
           <textarea
             value={terv.feladat ?? ''}
             onChange={(e) => onUpdate('feladat', e.target.value)}
-            rows={3}
+            rows={5}
             className="w-full border border-sage-100 rounded p-2 text-sm focus:border-sage-500 outline-none"
-            placeholder="Mi a konkrét feladat?"
+            placeholder="Pl.: Séta a közeli parkba, őszi termények gyűjtése, csoportosítása. Levéllenyomat készítése. Az évszakváltás megfigyelése a természetben. Közös beszélgetés az őszi munkákról, gyümölcsszüretről. Érzékszervi játékok termésekkel."
           />
         </div>
         <div>

@@ -35,6 +35,9 @@ export default function Projektek() {
       <div className="mb-6 flex items-baseline justify-between gap-4">
         <div>
           <h1 className="heading-serif text-3xl font-medium">Projektek</h1>
+      <p className="text-sm text-ink/60 mb-5 max-w-2xl leading-relaxed">
+        Több hétre átívelő, összefüggő témák — a heti tervnél nagyobb egység. Ide azt írod, amit hetekig, több területen keresztül dolgoztok fel.
+      </p>
           <p className="text-sm text-ink/60 mt-1">
             Több hetes átfogó témák (pl. „Olvasni jó", „Húsvét", „Ősz")
           </p>
@@ -50,7 +53,7 @@ export default function Projektek() {
         <div className="card text-center py-12 text-ink/50">
           <div className="text-base mb-1">Még nincs projekt.</div>
           <div className="text-xs">
-            Kattints a "+ Új projekt" gombra a részletes szerkesztő megnyitásához.
+            Kattints a „+ Új projekt” gombra a részletes szerkesztő megnyitásához.
           </div>
         </div>
       ) : (

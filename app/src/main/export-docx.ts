@@ -18,6 +18,7 @@ import {
   PageBreak,
 } from 'docx';
 import type { HetiTerv, Terulet, Beallitas, FoglalkozasTervezet, Projekt } from '../shared/schema.js';
+import { cimkeNelkul } from '../shared/mufaj-cimke.js';
 
 const FONT = 'Times New Roman';
 const FONT_SIZE = 24; // 12pt
@@ -174,6 +175,18 @@ function mozgasBlokk(szoveg: string): Paragraph[] {
   return result;
 }
 
+/**
+ * Kell-e iskola-előkészítő rész a dokumentumba?
+ *
+ * Az iskola-előkészítő az 5-7 éves korosztály (nagy- és vegyes csoport) anyaga.
+ * Kis- és középső csoportban a címsort sem írjuk ki — sem a heti tervbe, sem a
+ * foglalkozás-tervezetbe, sem a projekttervbe.
+ */
+export function iskolaElokeszitoKell(beallitas: Beallitas | null): boolean {
+  const korcsoport = beallitas?.csoportTipus ?? 'vegyes';
+  return korcsoport !== 'kicsi' && korcsoport !== 'kozepso';
+}
+
 export interface HetiTervDocxInput {
   hetiTerv: HetiTerv;
   teruletek: Terulet[];
@@ -186,15 +199,15 @@ export interface HetiTervDocxInput {
  * Pontos formátum (a felhasználó 4 mintadokumentuma alapján):
  *   1. Külső világ tevékeny megismerésére nevelés: + bullet lista
  *   2. Matematikai tartalom: + bullet lista
- *   → Iskola előkészítő tevékenység: + bullet lista (a két előző területhez közös)
+ *   → Iskola-előkészítő tevékenység: + bullet lista (a két előző területhez közös)
  *   3. Verselés, mesélés: → Mesék: + bullet → Mondókák és versek: + bullet
- *   → Iskola előkészítő tevékenység: + bullet lista
+ *   → Iskola-előkészítő tevékenység: + bullet lista
  *   4. Rajzolás, festés, mintázás, építés, képalakítás, kézimunka: + bullet
- *   → Iskola előkészítő tevékenység: + bullet lista
+ *   → Iskola-előkészítő tevékenység: + bullet lista
  *   5. Ének, zene, népi játék, tánc: + bullet → Hallás és ritmusérzék fejlesztés: + bullet
- *   → Iskola előkészítő tevékenység: + bullet lista
+ *   → Iskola-előkészítő tevékenység: + bullet lista
  *   6. Mindennapos mozgás: → Tornatermi: + bullet → Csoportban/udvaron: + bullet
- *   → Iskola előkészítő tevékenység: + bullet lista
+ *   → Iskola-előkészítő tevékenység: + bullet lista
  *   7. Lezáró rész egy-soros: Cél, Feladat, Differenciálás, Módszerek, Képességfejlesztés, Eszközök
  *
  * Visszaadja a generált bináris Buffer-t.
@@ -203,8 +216,15 @@ export async function hetiTervToDocx(input: HetiTervDocxInput): Promise<Buffer> 
   const { hetiTerv, teruletek, beallitas } = input;
 
   const get = (tipus: string) => teruletek.find((t) => t.tipus === tipus);
-  const T = (tipus: string) => get(tipus)?.tartalom ?? '';
+  // A régebbi, még nem újramentett tervekben ott lehet a soronkénti „(vers)",
+  // „(dal)" címke — a nyomtatott dokumentumba az már nem kerül bele.
+  const T = (tipus: string) => cimkeNelkul(get(tipus)?.tartalom ?? '');
   const I = (tipus: string) => get(tipus)?.iskolaElokeszito ?? '';
+
+  const iskolaBlokk = (tipus: string): Paragraph[] =>
+    iskolaElokeszitoKell(beallitas)
+      ? [cimBekezdes('Iskola-előkészítő tevékenység:'), ...bulletekBol(I(tipus))]
+      : [];
 
   const tartalmak: Paragraph[] = [
     // 1. Külső világ + 2. Matematika (közös iskolaElokeszito a végén)
@@ -212,34 +232,29 @@ export async function hetiTervToDocx(input: HetiTervDocxInput): Promise<Buffer> 
     ...bulletekBol(T('kulso_vilag')),
     cimBekezdes('Matematikai tartalom:'),
     ...bulletekBol(T('matematika')),
-    cimBekezdes('Iskola előkészítő tevékenység:'),
-    ...bulletekBol(I('kulso_vilag')),
+    ...iskolaBlokk('kulso_vilag'),
 
     // 3. Verselés, mesélés (Mesék: + Mondókák alfejezet)
     cimBekezdes('Verselés, mesélés:'),
     ...verselesBlokk(T('verseles_meseles')),
-    cimBekezdes('Iskola előkészítő tevékenység:'),
-    ...bulletekBol(I('verseles_meseles')),
+    ...iskolaBlokk('verseles_meseles'),
 
     // 4. Rajzolás, festés
     cimBekezdes('Rajzolás, festés, mintázás, építés, képalakítás, kézimunka:'),
     ...bulletekBol(T('rajzolas_festes')),
-    cimBekezdes('Iskola előkészítő tevékenység:'),
-    ...bulletekBol(I('rajzolas_festes')),
+    ...iskolaBlokk('rajzolas_festes'),
 
     // 5. Ének + Hallás-ritmus
     cimBekezdes('Ének, zene, népi játék, tánc:'),
     ...bulletekBol(T('enek_zene')),
     alcimBekezdes('Hallás és ritmusérzék fejlesztés:'),
     ...bulletekBol(T('hallas_ritmus')),
-    cimBekezdes('Iskola előkészítő tevékenység:'),
-    ...bulletekBol(I('enek_zene')),
+    ...iskolaBlokk('enek_zene'),
 
     // 6. Mindennapos mozgás (Tornatermi + Csoportban/udvaron alfejezet)
     cimBekezdes('Mindennapos mozgás:'),
     ...mozgasBlokk(T('mozgas')),
-    cimBekezdes('Iskola előkészítő tevékenység:'),
-    ...bulletekBol(I('mozgas')),
+    ...iskolaBlokk('mozgas'),
 
     // 7. Lezáró rész (egy-soros cím+szöveg)
     cimSzovegBekezdes('Cél:', hetiTerv.cel),
@@ -254,7 +269,7 @@ export async function hetiTervToDocx(input: HetiTervDocxInput): Promise<Buffer> 
   const datumTartomany = `${hetiTerv.kezdoDatum} — ${hetiTerv.zaroDatum}`;
 
   const doc = new Document({
-    creator: beallitas?.pedagogusNeve ?? 'OvodaNapló',
+    creator: beallitas?.pedagogusNeve ?? 'ÓvodaNapló',
     title: `Heti terv — ${tema}`,
     description: `Heti terv ${datumTartomany}`,
     styles: {
@@ -355,14 +370,17 @@ export async function foglalkozasToDocx(input: FoglalkozasDocxInput): Promise<Bu
     ...blokk('Módszerek:', foglalkozas.modszerek),
     ...blokk('Differenciálás:', foglalkozas.differencialas),
     ...blokk('Képességfejlesztés:', foglalkozas.kepessegfejlesztes),
-    ...blokk('Iskola előkészítő tevékenység:', foglalkozas.iskolaElokeszito),
+    // Csak nagy- és vegyes csoportnál (5-7 évesek).
+    ...(iskolaElokeszitoKell(beallitas)
+      ? blokk('Iskola-előkészítő tevékenység:', foglalkozas.iskolaElokeszito)
+      : []),
   ];
 
   // PageBreak elkerülése — itt nem kell, csak elérhető
   void PageBreak;
 
   const doc = new Document({
-    creator: beallitas?.pedagogusNeve ?? 'OvodaNapló',
+    creator: beallitas?.pedagogusNeve ?? 'ÓvodaNapló',
     title: `Foglalkozás-tervezet — ${foglalkozas.tema}`,
     sections: [
       {
@@ -396,7 +414,7 @@ interface ProjektDocxInput {
  *  2. Pedagógiai feladatok (4 dimenzió)
  *  3. Tevékenységek és szervezés
  *  4. Produktumok és eszközök
- *  5. Iskola előkészítő + szokások-hagyományok
+ *  5. Iskola-előkészítő + szokások-hagyományok
  */
 export async function projektToDocx(input: ProjektDocxInput): Promise<Buffer> {
   const { projekt, beallitas } = input;
@@ -488,16 +506,22 @@ export async function projektToDocx(input: ProjektDocxInput): Promise<Buffer> {
     ...blokk('Eszközök:', projekt.eszkozok),
 
     // === 5. ISKOLA ELŐKÉSZÍTŐ + SZOKÁSOK ===
-    szekcioFejlec('5. Iskola előkészítő + szokások-hagyományok'),
-    ...blokk(
-      'Iskola előkészítő tevékenységek (összesített):',
-      projekt.iskolaElokeszitoOsszesitett,
-    ),
+    // Kis- és középső csoportban az iskola-előkészítő rész kimarad; a szokások-
+    // hagyományok viszont minden korosztálynál kellenek, ezért marad a szekció.
+    ...(iskolaElokeszitoKell(beallitas)
+      ? [
+          szekcioFejlec('5. Iskola-előkészítő + szokások-hagyományok'),
+          ...blokk(
+            'Iskola-előkészítő tevékenységek (összesített):',
+            projekt.iskolaElokeszitoOsszesitett,
+          ),
+        ]
+      : [szekcioFejlec('5. Szokások-hagyományok')]),
     ...blokk('Szokások-hagyományok:', projekt.szokasokHagyomanyok),
   ];
 
   const doc = new Document({
-    creator: beallitas?.pedagogusNeve ?? 'OvodaNapló',
+    creator: beallitas?.pedagogusNeve ?? 'ÓvodaNapló',
     title: `Projektterv — ${projekt.cim}`,
     sections: [
       {

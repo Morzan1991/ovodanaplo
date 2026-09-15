@@ -5,9 +5,14 @@
  * Kimenet: lista heti terv + területek, sablonok alapján.
  *
  * Matcher logika:
- *   1. Ha van magyar ünnep a héten, és valamelyik sablon `kapcsoloUnnep` mezője rá illik → az.
- *   2. Hónap + sorrendi pozíció szerint (pl. szeptember 1. hete = "tanevkezdes")
- *   3. Fallback: üres skeleton sablon csak alap mezőkkel
+ *   1.   Ha van magyar ünnep a héten, és valamelyik sablon `kapcsoloUnnep` mezője rá illik → az.
+ *   1/b. Ha a JÖVŐ héten két jeles nap ütközik, a biztos vesztes ide kerül előre.
+ *   1/c. Ha egy ünnep hetét egy fontosabb vitte el, itt kap pótlást.
+ *   2.   Hónap + sorrendi pozíció szerint (pl. szeptember 1. hete = "tanevkezdes")
+ *   3.   Fallback: a hónap egy sablonja, akkor is ha már volt
+ *
+ * Az 1/b és 1/c nélkül a szűk hónapokban némán kimaradtak ünnepek az évből:
+ * 2029-ben az adventi készülődés, 2027-ben a Víz Világnapja.
  *
  * Csak a meglévő heti tervek MELLETT generál — nem írja felül a meglévőket.
  */
@@ -16,6 +21,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Unnep } from '../../shared/schema.js';
+import { mozgoUnnepekEvre, munkanapraIgazit, napKulcs } from '../../shared/unnepnaptar.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -26,6 +32,12 @@ export interface SablonAdat {
   javasoltHonap?: number;
   javasoltSorrend?: number;
   kapcsoloUnnep?: string;
+  /**
+   * Mely korcsoportoknak való a sablon. Hiányzó/üres = mindegyiknek.
+   * Pl. a nagycsoportosok búcsúztatása csak ott értelmes, ahol iskolába
+   * készülő gyerekek vannak: ['nagy', 'vegyes'].
+   */
+  korcsoport?: string[];
   verzio?: number; // 1 vagy 2 — kettős verziók ugyanazon témán
   tema: string;
   cel: string;
@@ -35,6 +47,38 @@ export interface SablonAdat {
   iskolaElokeszitoTeruletek?: Record<string, string>; // új — minden főterülethez külön
   kepessegfejlesztes: string;
   eszkozok: string;
+  /**
+   * Korcsoportra szabott változatok. A forrásgyűjtemény külön fogalmazza meg a
+   * hét célját, feladatát és a fejlesztési területeket kis-, középső és
+   * nagycsoportra — ha van ilyen, azt használjuk az általános szöveg helyett.
+   */
+  celKorcsoport?: Record<string, string>;
+  feladatKorcsoport?: Record<string, string>;
+  kepessegfejlesztesKorcsoport?: Record<string, string>;
+}
+
+/**
+ * A sablon korcsoportra szabott változata.
+ *
+ * A cél, a feladat és a fejlesztési területek korosztályonként mást kívánnak: a
+ * kiscsoportnál az ismerkedés és az érzékszervi tapasztalás, a nagycsoportnál a
+ * rendszerezés és az összefüggések. Ha a sablonban van korcsoport-specifikus
+ * szöveg, azt adjuk vissza; egyébként az általánosat.
+ */
+export function korcsoportraSzabott(
+  sablon: SablonAdat,
+  korcsoport: string | null | undefined,
+): SablonAdat {
+  // Vegyes csoportban nincs egyetlen „jó" korosztály — maradjon az általános,
+  // amely mindhárom szintet átfogja.
+  if (!korcsoport || korcsoport === 'vegyes') return sablon;
+  return {
+    ...sablon,
+    cel: sablon.celKorcsoport?.[korcsoport] || sablon.cel,
+    feladat: sablon.feladatKorcsoport?.[korcsoport] || sablon.feladat,
+    kepessegfejlesztes:
+      sablon.kepessegfejlesztesKorcsoport?.[korcsoport] || sablon.kepessegfejlesztes,
+  };
 }
 
 interface SablonokFile {
@@ -67,7 +111,12 @@ export function loadOtletekBank(): Record<string, OtletekBank> {
     const utak = [
       join(__dirname, '..', '..', '..', '..', 'seed', `otletek-bank-${kc}.json`),
       join(__dirname, '..', '..', '..', 'seed', `otletek-bank-${kc}.json`),
-      join(process.resourcesPath, 'seed', `otletek-bank-${kc}.json`),
+      // A becsomagolt appban a seed a resources mappában van. A `resourcesPath`
+      // csak Electron alatt létezik — teszteléskor/parancssorból üres, és a
+      // join() ilyenkor hibát dobna, ezért kiszűrjük.
+      ...(process.resourcesPath
+        ? [join(process.resourcesPath, 'seed', `otletek-bank-${kc}.json`)]
+        : []),
     ];
     for (const ut of utak) {
       if (existsSync(ut)) {
@@ -117,10 +166,37 @@ export function otletekTemara(
   const bank = loadOtletekBank();
   const kcBank = bank[korcsoport] ?? bank['vegyes'];
   if (!kcBank) return [];
-  const aliasoltTema = TEMA_ALIAS[tema] ?? tema;
-  const temaPart = kcBank.temak[aliasoltTema];
+  // Az aliast CSAK akkor használjuk, ha a témának nincs saját bejegyzése.
+  // (Korábban feltétel nélkül átirányított, így az „Ősz kezdete” és a „Húsvéti
+  // hét” mindig a rokon téma anyagát kapta a sajátja helyett.)
+  const temaPart = kcBank.temak[tema] ?? kcBank.temak[TEMA_ALIAS[tema] ?? tema];
   if (!temaPart) return [];
   return temaPart[terulet] ?? [];
+}
+
+/**
+ * A hónap, a sorrend és a verzió számként kell hogy viselkedjen.
+ *
+ * A seed-fájlba korábban szövegként („9”) is került érték, a felület pedig
+ * szigorúan hasonlít (`javasoltHonap === 9`) — az ilyen sablonok némán
+ * kimaradtak a választólistából. Betöltéskor egységesítjük a típust, hogy egy
+ * adathiba se tüntethessen el sablonokat.
+ */
+function szamokraAlakit(s: SablonAdat): SablonAdat {
+  const szam = (ertek: unknown): number | undefined => {
+    if (typeof ertek === 'number') return Number.isFinite(ertek) ? ertek : undefined;
+    if (typeof ertek === 'string' && ertek.trim() !== '') {
+      const n = Number(ertek);
+      return Number.isFinite(n) ? n : undefined;
+    }
+    return undefined;
+  };
+  return {
+    ...s,
+    javasoltHonap: szam(s.javasoltHonap),
+    javasoltSorrend: szam(s.javasoltSorrend),
+    verzio: szam(s.verzio),
+  };
 }
 
 let sablonokCache: SablonAdat[] | null = null;
@@ -133,7 +209,9 @@ export function loadSablonok(): SablonAdat[] {
   const utak = [
     join(__dirname, '..', '..', '..', '..', 'seed', 'weekly-templates.json'),
     join(__dirname, '..', '..', '..', 'seed', 'weekly-templates.json'),
-    join(process.resourcesPath, 'seed', 'weekly-templates.json'),
+    ...(process.resourcesPath
+      ? [join(process.resourcesPath, 'seed', 'weekly-templates.json')]
+      : []),
   ];
 
   for (const ut of utak) {
@@ -142,7 +220,7 @@ export function loadSablonok(): SablonAdat[] {
         const raw = readFileSync(ut, 'utf-8');
         const data: SablonokFile = JSON.parse(raw);
         if (data.sablonok && data.sablonok.length > 0) {
-          sablonokCache = data.sablonok;
+          sablonokCache = data.sablonok.map(szamokraAlakit);
           console.log(`[sablon] ${data.sablonok.length} sablon betöltve: ${ut}`);
           return sablonokCache;
         }
@@ -158,44 +236,198 @@ export function loadSablonok(): SablonAdat[] {
 }
 
 /**
- * Adott dátumtartományban szereplő fix-dátumú ünnepek kiválogatása.
+ * Illik-e a sablon az adott korcsoporthoz?
+ * A korcsoport nélküli sablonok mindenkinek valók. Ha nem ismerjük a csoport
+ * típusát, inkább mutatunk mindent, mint hogy elrejtsünk valamit.
  */
-function unnepekAHeten(
-  hetKezdo: Date,
-  hetVeg: Date,
-  unnepek: Unnep[],
-): Unnep[] {
-  return unnepek.filter((u) => {
-    if (u.tipus !== 'fix' || !u.honap || !u.nap) return false;
-    // Megpróbáljuk a héten lévő évhez kapcsolni
-    const ev = hetKezdo.getFullYear();
-    const unnepDatum = new Date(ev, u.honap - 1, u.nap);
-    return unnepDatum >= hetKezdo && unnepDatum <= hetVeg;
-  });
+export function sablonIllikKorcsoporthoz(
+  sablon: SablonAdat,
+  korcsoport: string | null | undefined,
+): boolean {
+  if (!sablon.korcsoport || sablon.korcsoport.length === 0) return true;
+  if (!korcsoport) return true;
+  return sablon.korcsoport.includes(korcsoport);
+}
+
+/**
+ * Kategória-rangsor azonos súlyú ünnepek ütközésekor.
+ * Az óvoda saját ünnepei és a hagyományok előbbre valók, mint a világnapok.
+ */
+const KATEGORIA_RANG: Record<string, number> = {
+  ovodai: 3,
+  egyhazi: 2,
+  nephagyomany: 2,
+  nemzeti: 1,
+  vilagunnep: 0,
+};
+
+/**
+ * Az adott munkahéten (hétfő-péntek) megünnepelt ünnepek, fontosság szerint.
+ *
+ * Három korábbi hiba javítva itt:
+ *  1. A hét kezdete ISO-szövegből készül (UTC szerint értelmezve), az ünnep
+ *     viszont helyi éjfélkor — így a PONT hétfőre eső ünnep két órával lemaradt,
+ *     és kimaradt (pl. 2027. március 15., Víz Világnapja). Most nap-alapon,
+ *     óra nélkül hasonlítunk.
+ *  2. A hétvégi ünnepeket egyáltalán nem vette figyelembe, pedig az óvodában a
+ *     szomszédos munkanapon ünneplik (2026-ban a Mikulás és a Luca-nap is
+ *     vasárnapra esik — emiatt maradt üresen a december).
+ *  3. Csak a 'fix' típust nézte, ezért a Farsang, Húsvét, Advent, Anyák napja,
+ *     Pünkösd, Gyermeknap és az Évzáró sablonja SOSEM került elő. A mozgó
+ *     ünnepeket most évre kiszámítjuk (lásd shared/unnepnaptar.ts).
+ *  4. Húsvét és pünkösd az ünnep ELŐTTI héten kerül a tervbe — az óvodában a
+ *     készülődés a nagyhéten van, a vasárnap utáni hétfő pedig munkaszüneti nap.
+ */
+interface UnnepJelolt {
+  nev: string;
+  /** Az a MUNKANAP, amelyen az óvoda ténylegesen megünnepli. */
+  munkanap: number;
+  suly: number;
+  rang: number;
+}
+
+/**
+ * Az év összes ünnepe azzal a munkanappal, amelyen az óvoda megtartja, fontossági
+ * sorrendben. Erre épül a heti besorolás és az ünnepi sablonok mentése is.
+ */
+function unnepJeloltek(ev: number, unnepek: Unnep[]): UnnepJelolt[] {
+  const jeloltek: Array<{ nev: string; datum: Date; suly: number; rang: number }> = [];
+
+  for (const u of unnepek) {
+    // A 'mozgo' típusúak dátuma a seedben egy konkrét évhez tartozik, ezért
+    // azokat nem innen, hanem számítva vesszük.
+    if (u.tipus === 'mozgo' || !u.honap || !u.nap) continue;
+    jeloltek.push({
+      nev: u.nev,
+      datum: new Date(ev, u.honap - 1, u.nap),
+      suly: u.ovodaiSulyozas ?? 3,
+      rang: KATEGORIA_RANG[u.kategoria ?? ''] ?? 0,
+    });
+  }
+  for (const m of mozgoUnnepekEvre(ev)) {
+    // Húsvét és pünkösd ELŐTT ünnepel az óvoda (lásd unneplesEltolas): a vasárnapi
+    // dátum a következő hétfőre tolódna, és a húsvéti hét az ünnep UTÁN jönne ki.
+    const datum = new Date(ev, m.honap - 1, m.nap + (m.unneplesEltolas ?? 0));
+    jeloltek.push({
+      nev: m.nev,
+      datum,
+      suly: m.ovodaiSulyozas,
+      rang: KATEGORIA_RANG[m.kategoria] ?? 0,
+    });
+  }
+
+  return (
+    jeloltek
+      .map(({ nev, datum, suly, rang }) => ({
+        nev,
+        munkanap: napKulcs(munkanapraIgazit(datum)),
+        suly,
+        rang,
+      }))
+      // Ha egy hétre több ünnep esik: előbb az óvodai súlyozás dönt, azonos
+      // súlynál pedig a kategória. Enélkül pl. 2028-ban a húsvét hete a Föld
+      // Napja sablonját kapta volna (mindkettő 5★, egy hétre esnek).
+      .sort((a, b) => b.suly - a.suly || b.rang - a.rang)
+  );
+}
+
+/** Az adott munkahéten megünnepelt ünnepek nevei, fontosság szerint. */
+function unnepekAHeten(hetKezdo: Date, hetVeg: Date, unnepek: Unnep[]): string[] {
+  const kezd = napKulcs(hetKezdo);
+  const veg = napKulcs(hetVeg);
+  return unnepJeloltek(hetKezdo.getFullYear(), unnepek)
+    .filter((x) => x.munkanap >= kezd && x.munkanap <= veg)
+    .map(({ nev }) => nev);
 }
 
 /**
  * Adott héthez sablon kiválasztása.
- * Prioritás: ünnep > hónap+sorrend > hónap > null
+ * Prioritás: ünnep > jövő heti vesztes ünnep > elmaradt ünnep > hónap+sorrend >
+ * lecsúszott ünnepi > hónap > null
  */
 export function sablonHezKivalasztas(
   hetKezdo: Date,
   unnepek: Unnep[],
   hasznaltSablonAzonositok: Set<string>,
+  /**
+   * Változat-eltolás: a nevelési év kezdő éve. Minden témához két sablon-változat
+   * (v1/v2) létezik, korábban viszont MINDIG az első került elő — a második évben
+   * a pedagógus szó szerint ugyanazt kapta volna. Az évszám szerinti eltolással
+   * jövőre a másik változat jön.
+   */
+  valtozatEltolas = 0,
+  /** A csoport korosztálya — a csak bizonyos korcsoportnak szóló sablonokhoz. */
+  korcsoport?: string | null,
 ): SablonAdat | null {
-  const sablonok = loadSablonok();
+  const sablonok = loadSablonok().filter((x) => sablonIllikKorcsoporthoz(x, korcsoport));
   const hetVeg = new Date(hetKezdo);
   hetVeg.setDate(hetVeg.getDate() + 4);
 
-  // 1. Ünnep-alapú
-  const aktualisUnnepek = unnepekAHeten(hetKezdo, hetVeg, unnepek);
-  for (const u of aktualisUnnepek) {
-    const talalat = sablonok.find((s) => s.kapcsoloUnnep === u.nev);
+  /** Változatok közül választ: előbb a még nem használtak közül, év szerint váltva. */
+  const valassz = (jeloltek: SablonAdat[]): SablonAdat | null => {
+    if (jeloltek.length === 0) return null;
+    const szabad = jeloltek.filter((x) => !hasznaltSablonAzonositok.has(x.azonosito));
+    const lista = szabad.length > 0 ? szabad : jeloltek;
+    return lista[Math.abs(valtozatEltolas) % lista.length];
+  };
+
+  // 1. Ünnep-alapú — a hét legfontosabb ünnepe nyer
+  for (const unnepNev of unnepekAHeten(hetKezdo, hetVeg, unnepek)) {
+    const talalat = valassz(sablonok.filter((x) => x.kapcsoloUnnep === unnepNev));
+    if (talalat) return talalat;
+  }
+
+  const honap = hetKezdo.getMonth() + 1;
+  const jeloltek = unnepJeloltek(hetKezdo.getFullYear(), unnepek);
+  /**
+   * Ünnepi sablon MENTÉSRE — csak akkor, ha az ünnep még egyáltalán nem került elő.
+   *
+   * Egy ünnephez több sablon-változat tartozik (húsvét: 4 db). Ha csak azt néznénk,
+   * hogy van-e még fel nem használt változat, a mentő lépések ugyanazt az ünnepet
+   * tennék egymás utáni hetekre — 2028 júniusa három egymást követő „Évzáró" hetet
+   * kapott. A mentés ezért ünnep-szinten néz: ha az ünnepnek már van hete, kész.
+   */
+  const szabadUnnepi = (nev: string) => {
+    const csalad = sablonok.filter((x) => x.kapcsoloUnnep === nev);
+    if (csalad.some((x) => hasznaltSablonAzonositok.has(x.azonosito))) return null;
+    return valassz(csalad);
+  };
+
+  // 1/b. ELŐREHOZÁS: a jövő héten vesztésre álló ünnep.
+  //
+  // Egy hétre több jeles nap is eshet, de a hét csak egy témát kap. 2029-ben pl.
+  // advent kezdete és a Mikulás ugyanabba a hétbe esik, és a december többi hetét
+  // a Luca-nap meg a karácsony viszi — az adventi készülődés így kimaradt volna az
+  // évből. Ha a jövő heti ünnepek közül valamelyik biztosan alulmarad (nem ő a
+  // legfontosabb), és ez a hét szabad, akkor ő ide kerül. Az adventi koszorú
+  // készítése az első gyertyagyújtás előtti héten amúgy is természetes.
+  const jovoKezd = napKulcs(hetVeg) + 3 * 86_400_000;
+  const jovoVeg = jovoKezd + 4 * 86_400_000;
+  const jovoHeti = jeloltek.filter((x) => x.munkanap >= jovoKezd && x.munkanap <= jovoVeg);
+  for (const vesztes of jovoHeti.slice(1)) {
+    const talalat = szabadUnnepi(vesztes.nev);
+    if (talalat) return talalat;
+  }
+
+  // 1/c. PÓTLÁS: olyan ünnepi sablon, amelynek a hete már elment mellette.
+  //
+  // Ha az ünnep hetét egy fontosabb jeles nap vitte el (2027-ben a húsvéti
+  // készülődés a Víz Világnapjáét), a sablon korábban NYOMTALANUL kimaradt az
+  // évből, mert a hónap-alapú lépés az ünnepi sablonokat kizárja. Inkább egy
+  // héttel odébb, mint sehol.
+  const kezd = napKulcs(hetKezdo);
+  for (const elmult of jeloltek.filter(
+    (x) =>
+      x.munkanap < kezd &&
+      // Ugyanabban a hónapban, vagy legfeljebb két héttel korábban — hónapfordulón
+      // is legyen esélye (a Víz Világnapja hete márciusban, a pótlás áprilisban).
+      (new Date(x.munkanap).getMonth() + 1 === honap || kezd - x.munkanap <= 14 * 86_400_000),
+  )) {
+    const talalat = szabadUnnepi(elmult.nev);
     if (talalat) return talalat;
   }
 
   // 2. Hónap + sorrend (csak még nem használt sablonok)
-  const honap = hetKezdo.getMonth() + 1;
   const honapSablonok = sablonok
     .filter((s) => s.javasoltHonap === honap && !s.kapcsoloUnnep)
     .filter((s) => !hasznaltSablonAzonositok.has(s.azonosito))
@@ -335,9 +567,16 @@ export function tervezetEgyHetbol(
     };
   }
 
+  // Az iskola-előkészítő tartalom az 5-7 éveseké. Kis- és középső csoportnál nem
+  // töltjük ki a sablonból — korábban oda is bekerült, és utólag "beragadt" adatként
+  // felbukkant a dokumentum-nézetben és a DOCX-ben.
+  const iskolaElokeszitoKell = csoportTipus !== 'kicsi' && csoportTipus !== 'kozepso';
+
   const teruletek = ONAP_TERULETEK.map((tipus, i) => {
     let iskolaElokeszito = '';
-    if (sablon.iskolaElokeszitoTeruletek?.[tipus]) {
+    if (!iskolaElokeszitoKell) {
+      iskolaElokeszito = '';
+    } else if (sablon.iskolaElokeszitoTeruletek?.[tipus]) {
       // Új formátum — minden főterülethez külön
       iskolaElokeszito = sablon.iskolaElokeszitoTeruletek[tipus];
     } else if (tipus === 'kulso_vilag') {

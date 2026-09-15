@@ -2,15 +2,19 @@
 <html lang="hu">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self';" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OvodaNapló</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+    <!--
+      Szigorú CSP: a program semmit NEM tölt le a hálózatról — a betűtípusok is
+      helyben vannak (lásd src/assets/betutipusok.css). Ezért a korábbi
+      korábbi külső betűtípus-szolgáltatói engedélyek megszűntek.
+      A connect-src 'self' csak a saját origint engedi (fejlesztéskor a Vite
+      élő újratöltése) — külső címre így nem szivároghat ki adat.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none';"
     />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ÓvodaNapló</title>
   </head>
   <body>
     <div id="root"></div>

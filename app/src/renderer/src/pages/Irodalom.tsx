@@ -17,10 +17,23 @@ const TIPUS_CIMKE: Record<IrodalomTipus, string> = {
   nepmonda: 'Népmonda',
 };
 
+/**
+ * Közkincs-e a mű? A népi gyűjtések (mondóka, népdal, népi játék, népmese)
+ * nem állnak szerzői jogvédelem alatt — ezek szövege szabadon beírható.
+ */
+function kozkincs(m: { forras?: string | null; szerzo?: string | null }): boolean {
+  const f = (m.forras ?? '').toLowerCase();
+  const nepi = f.includes('nep') || f.includes('nép');
+  return nepi && !(m.szerzo ?? '').trim();
+}
+
 export default function Irodalom() {
   const [tetelek, setTetelek] = useState<IrodalomType[]>([]);
   const [tipus, setTipus] = useState<IrodalomTipus | 'mind'>('mind');
   const [szoveg, setSzoveg] = useState('');
+  // A kiválasztott (közkincs) műhöz beírt szöveg, amíg nincs elmentve.
+  const [ujSzoveg, setUjSzoveg] = useState('');
+  const [szovegMentes, setSzovegMentes] = useState(false);
   const [kivalasztott, setKivalasztott] = useState<IrodalomType | null>(null);
   const [masolva, setMasolva] = useState(false);
 
@@ -49,8 +62,11 @@ export default function Irodalom() {
     <div className="mx-auto max-w-5xl px-6 py-6">
       <div className="mb-6">
         <h1 className="heading-serif text-3xl font-medium">Irodalmi adatbázis</h1>
+      <p className="text-sm text-ink/60 mb-5 max-w-2xl leading-relaxed">
+        Óvodás korú gyerekeknek való mesék, versek, mondókák és dalok gyűjteménye. Típusra és korosztályra szűrhető, a talált mű egy kattintással a heti tervbe másolható.
+      </p>
         <p className="text-sm text-ink/60 mt-1">
-          Versek, mesék, dalok — kizárólag valós szerzőktől, forrás-megjelöléssel. Klikk a sorra a
+          Versek, mesék, dalok — kizárólag valós szerzőktől, forrás-megjelöléssel. Kattints a sorra a
           teljes szöveg megnézéséhez (ha közkincs).
         </p>
       </div>
@@ -196,6 +212,52 @@ export default function Irodalom() {
                   <pre className="whitespace-pre-wrap font-sans text-base leading-relaxed text-ink">
                     {kivalasztott.szoveg}
                   </pre>
+                </div>
+              ) : kozkincs(kivalasztott) ? (
+                /*
+                 * Népi mondóka, népdal, népmese — ezek KÖZKINCSEK, nem jogvédettek.
+                 * Korábban ezekre is azt írta a program, hogy szerzői jogvédelem
+                 * alatt állnak, ami félrevezető volt. Itt most be lehet írni a
+                 * szöveget egyszer, és onnantól a programban marad.
+                 */
+                <div className="bg-sage-50 border border-sage-200 rounded p-4 mb-4">
+                  <p className="text-sm text-ink/80 mb-2">
+                    🌿 Ez <strong>népi gyűjtés</strong> — nem áll szerzői jogvédelem alatt, csak
+                    a szövege nincs még beírva. Ha beírod egyszer, később már itt lesz.
+                  </p>
+                  <textarea
+                    value={ujSzoveg}
+                    onChange={(e) => setUjSzoveg(e.target.value)}
+                    rows={5}
+                    placeholder="Írd vagy másold ide a mondóka / dal szövegét…"
+                    className="w-full border border-sage-200 rounded px-3 py-2 text-sm font-sans"
+                  />
+                  <div className="mt-2 flex items-center gap-2">
+                    <button
+                      onClick={async () => {
+                        if (!ujSzoveg.trim()) return;
+                        setSzovegMentes(true);
+                        try {
+                          const frissitett = await window.api.irodalomSzovegMent({
+                            id: kivalasztott.id,
+                            szoveg: ujSzoveg.trim(),
+                          });
+                          setKivalasztott(frissitett);
+                          setUjSzoveg('');
+                          // a listában is frissüljön, ne csak a megnyitott műben
+                          setTetelek((elozo) =>
+                            elozo.map((x) => (x.id === frissitett.id ? frissitett : x)),
+                          );
+                        } finally {
+                          setSzovegMentes(false);
+                        }
+                      }}
+                      disabled={szovegMentes || !ujSzoveg.trim()}
+                      className="btn-primary"
+                    >
+                      {szovegMentes ? 'Mentés…' : 'Szöveg mentése'}
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="bg-mauve-100/40 border border-mauve-200 rounded p-4 mb-4 text-sm text-ink/80">

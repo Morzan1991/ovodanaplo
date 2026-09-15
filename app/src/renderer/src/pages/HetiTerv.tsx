@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
 import type { TeruletTipus, FoglalkozasTervezet, Kepesseg, HetiTerv as HetiTervRow } from '@shared/schema';
 import type { HetiTervTeljes } from '../../../preload/index';
 import { vanAdatvedelmiKockazat } from '../lib/utils';
+import { cimkeNelkul, irodalmatBeszur } from '../lib/irodalmi-beszuras';
 import OtletekModal from './HetiTerv/OtletekModal';
 import DokumentumNezet from './HetiTerv/DokumentumNezet';
 import { SablonValaszto, SablonBanner } from './HetiTerv/SablonValaszto';
@@ -11,6 +12,7 @@ import TeruletSzekciok from './HetiTerv/TeruletSzekciok';
 import MasolasModal from './HetiTerv/MasolasModal';
 import KepessegMultiSelect from '../components/KepessegMultiSelect';
 import { lookupEszkozok } from '../lib/eszkoz-kulcsszavak';
+import { kepessegSzovegFrissites, szovegbenSzereploNevek } from '../lib/kepesseg-szoveg';
 import {
   TERULET_DEFINICIO,
   type TeruletAllapot,
@@ -51,6 +53,9 @@ export default function HetiTerv() {
   const [terv, setTerv] = useState<Partial<HetiTervTeljes> | null>(null);
   const [teruletAllapotok, setTeruletAllapotok] = useState<TeruletAllapot[]>(URES_TERULETEK);
   const [mentes, setMentes] = useState<'idle' | 'mentes' | 'mentve' | 'hiba'>('idle');
+  // Van-e mentetlen módosítás. Ez vezérli az automentést és a kilépés-figyelmeztetést.
+  // Csak a felhasználói szerkesztés állítja be — a betöltés NEM.
+  const [piszkos, setPiszkos] = useState(false);
   const [exportAllapot, setExportAllapot] = useState<'idle' | 'exportal' | 'kesz' | 'hiba'>('idle');
   const [sablonok, setSablonok] = useState<SablonMeta[]>([]);
   const [sablonHasznalva, setSablonHasznalva] = useState(false);
@@ -77,7 +82,10 @@ export default function HetiTerv() {
   const [aktualisSablonAzonosito, setAktualisSablonAzonosito] = useState<string | null>(null);
   // Téma-szűrés toggle: ha be van pipálva, csak az aktuális téma sablonjaiból gyűjt;
   // ha kikapcsolva, a hónap minden sablonjából (alapérték, így mindig van legalább 30-50 ötlet).
-  const [csakAktualisTema, setCsakAktualisTema] = useState<boolean>(false);
+  // Alapból CSAK az aktuális hét témájának ötleteit mutatjuk. Korábban az egész
+  // hónap sablonjaiból gyűjtött — így az őszi gyümölcsök hetébe a „Három kismalac"
+  // is bekerült az otthon-témából. A „Minden téma a hónapból" gomb továbbra is ott van.
+  const [csakAktualisTema, setCsakAktualisTema] = useState<boolean>(true);
   // Aktuális nevelési év korcsoportja (kiscsoport / középső / nagy / vegyes)
   // — ezt jelenítjük meg az ötlet-böngésző fejlécében.
   const [korcsoport, setKorcsoport] = useState<string>('vegyes');
@@ -99,16 +107,50 @@ export default function HetiTerv() {
     void window.api.kepessegekLista().then(setOsszesKepesseg);
   }, []);
 
-  // TODO-11: Meglévő terv esetén a kapcsolt képességeket betöltjük
+  // Melyik tervhez futott már le a képesség-betöltés — enélkül a lenti effekt
+  // minden szövegváltozásnál újra beleírna a mezőbe.
+  const kepessegBetoltve = useRef<number | null>(null);
+
+  // TODO-11: Meglévő terv esetén a kapcsolt képességeket betöltjük.
+  //
+  // A chipek korábban CSAK a kapcsolótáblából jöttek, a dokumentum nézet és a
+  // Word-export viszont a `kepessegfejlesztes` szövegmezőt mutatja — a kipipált
+  // képességek így sehol nem látszottak a kész tervben. Betöltéskor ezért a
+  // régebbi tervek hiányzó képességeit bepótoljuk a mezőbe (csak hozzáfűzünk,
+  // törölni semmit nem törlünk), a chipek pedig a kézzel beírt neveket is felveszik.
   useEffect(() => {
     if (!terv?.id) {
       setValasztottKepessegIds(new Set());
+      kepessegBetoltve.current = null;
       return;
     }
-    void window.api.hetiTervKepessegekLista(terv.id).then((arr) => {
-      setValasztottKepessegIds(new Set(arr.map((k) => k.id)));
+    if (kepessegBetoltve.current === terv.id || osszesKepesseg.length === 0) return;
+    const tervId = terv.id;
+    kepessegBetoltve.current = tervId;
+
+    void window.api.hetiTervKepessegekLista(tervId).then((kapcsolt) => {
+      setTerv((elozo) => {
+        if (!elozo) return elozo;
+        const szoveg = elozo.kepessegfejlesztes ?? '';
+        const kezzelIrt = szovegbenSzereploNevek(
+          szoveg,
+          osszesKepesseg.map((k) => k.nev),
+        );
+        setValasztottKepessegIds(
+          new Set([
+            ...kapcsolt.map((k) => k.id),
+            ...osszesKepesseg.filter((k) => kezzelIrt.has(k.nev)).map((k) => k.id),
+          ]),
+        );
+        const potlando = kapcsolt.map((k) => k.nev).filter((n) => !kezzelIrt.has(n));
+        if (potlando.length === 0) return elozo;
+        return {
+          ...elozo,
+          kepessegfejlesztes: kepessegSzovegFrissites(szoveg, potlando, []),
+        };
+      });
     });
-  }, [terv?.id]);
+  }, [terv?.id, osszesKepesseg]);
 
   // TODO-15: "Tavaly ilyenkor" — a kezdoDatum hónap-napja alapján
   useEffect(() => {
@@ -143,9 +185,50 @@ export default function HetiTerv() {
     }
   }
 
+  // A sablonlista betöltésének állapota — a választó ez alapján tud szólni,
+  // ha épp tölt vagy ha nem sikerült, ahelyett hogy némán eltűnne.
+  const [sablonBetoltes, setSablonBetoltes] = useState<'toltes' | 'kesz' | 'hiba'>('toltes');
+  const [sablonUjraKerve, setSablonUjraKerve] = useState(0);
+
   useEffect(() => {
-    void window.api.sablonokLista().then(setSablonok);
-  }, []);
+    let ervenyes = true;
+    let ido: ReturnType<typeof setTimeout> | undefined;
+
+    // A seed-fájl olvasása közvetlenül indítás után még elakadhat; ilyenkor üres
+    // listát kapnánk, és a sablonválasztó nyom nélkül eltűnne egészen a program
+    // újraindításáig. Ezért néhányszor újrapróbáljuk.
+    async function betolt(probalkozas: number): Promise<void> {
+      try {
+        const lista = await window.api.sablonokLista();
+        if (!ervenyes) return;
+        if (lista.length > 0) {
+          setSablonok(lista);
+          setSablonBetoltes('kesz');
+          return;
+        }
+        if (probalkozas < 3) {
+          ido = setTimeout(() => void betolt(probalkozas + 1), 600 * (probalkozas + 1));
+          return;
+        }
+        setSablonBetoltes('hiba');
+      } catch (err) {
+        console.error('[HetiTerv] a sablonlista betöltése nem sikerült:', err);
+        if (!ervenyes) return;
+        if (probalkozas < 3) {
+          ido = setTimeout(() => void betolt(probalkozas + 1), 600 * (probalkozas + 1));
+          return;
+        }
+        setSablonBetoltes('hiba');
+      }
+    }
+
+    setSablonBetoltes('toltes');
+    void betolt(0);
+    return () => {
+      ervenyes = false;
+      if (ido) clearTimeout(ido);
+    };
+  }, [sablonUjraKerve]);
 
   useEffect(() => {
     async function load() {
@@ -186,7 +269,11 @@ export default function HetiTerv() {
               let iskolaElokeszito = m?.iskolaElokeszito ?? '';
               // FALLBACK: ha a mentett iskolaElokeszito üres, megpróbáljuk a sablonból feltölteni
               // (akkor lépünk be ide, ha pl. korábbi sablon-verzióval generált tervet nézünk meg)
-              if (!iskolaElokeszito.trim() && sablonObj) {
+              // Kis- és középső csoportnál viszont NEM töltjük fel — ott nincs iskola-előkészítő.
+              // A friss `aktiv` értéket használjuk, mert a korcsoport state még nem frissült.
+              const kcs = aktiv?.korcsoport ?? 'vegyes';
+              const ieKell = kcs !== 'kicsi' && kcs !== 'kozepso';
+              if (ieKell && !iskolaElokeszito.trim() && sablonObj) {
                 const fromSablon = sablonObj.iskolaElokeszitoTeruletek?.[d.tipus];
                 if (fromSablon) iskolaElokeszito = fromSablon;
                 else if (d.tipus === 'kulso_vilag' && sablonObj.iskolaElokeszito) {
@@ -195,7 +282,11 @@ export default function HetiTerv() {
               }
               return {
                 tipus: d.tipus,
-                tartalom: m?.tartalom ?? '',
+                // A korábban készült tervekben még ott a soronkénti „(vers)",
+                // „(dal)" címke. Betöltéskor levesszük — a szekció fejléce úgyis
+                // megmondja a műfajt, a népmese jelölése pedig marad. A mentett
+                // szöveget nem írjuk felül azonnal: a következő mentéskor kerül be.
+                tartalom: cimkeNelkul(m?.tartalom ?? ''),
                 iskolaElokeszito,
               };
             }),
@@ -259,6 +350,7 @@ export default function HetiTerv() {
       }
 
       setMentes('mentve');
+      setPiszkos(false);
       if (!params.id) {
         navigate(`/heti-terv/${result.id}`, { replace: true });
       }
@@ -269,6 +361,56 @@ export default function HetiTerv() {
       setTimeout(() => setMentes('idle'), 3000);
     }
   }, [terv, teruletAllapotok, valasztottKepessegIds, params.id, navigate]);
+
+  /**
+   * AUTOMENTÉS — 2,5 másodperccel az utolsó gépelés után.
+   *
+   * Korábban semmilyen automatikus mentés nem volt: ha a pedagógus félkész heti terv
+   * közben elnavigált vagy bezárta az appot, az egész munka elveszett.
+   *
+   * Csak akkor ment, ha van értelmes tartalom (téma vagy legalább egy terület),
+   * hogy pusztán megnyitott, üres tervekből ne keletkezzen szemét-rekord.
+   */
+  useEffect(() => {
+    if (!piszkos || !terv) return;
+    const vanTartalom =
+      (terv.tema?.trim().length ?? 0) > 0 ||
+      teruletAllapotok.some((t) => t.tartalom.trim() || t.iskolaElokeszito.trim());
+    if (!vanTartalom) return;
+
+    const idozito = setTimeout(() => {
+      void ment();
+    }, 2500);
+    return () => clearTimeout(idozito);
+  }, [piszkos, terv, teruletAllapotok, ment]);
+
+  // A legfrissebb mentő-függvény és piszkos-állapot ref-ben, hogy a kilépéskori
+  // mentés ne elavult állapotot írjon ki.
+  const mentRef = useRef(ment);
+  const piszkosRef = useRef(piszkos);
+  useEffect(() => {
+    mentRef.current = ment;
+    piszkosRef.current = piszkos;
+  }, [ment, piszkos]);
+
+  /**
+   * Utolsó mentés elnavigáláskor és ablakbezáráskor — az automentés 2,5 mp-es
+   * ablakában történő kilépés így sem visz el semmit.
+   *
+   * FONTOS: itt NEM hívunk preventDefault-ot. Electronban a `beforeunload`
+   * megszakítása nem kérdez rá semmire, hanem némán megakadályozná az ablak
+   * bezárását — a felhasználó számára "lefagyott" appot eredményezne.
+   */
+  useEffect(() => {
+    const azonnaliMentes = () => {
+      if (piszkosRef.current) void mentRef.current();
+    };
+    window.addEventListener('beforeunload', azonnaliMentes);
+    return () => {
+      window.removeEventListener('beforeunload', azonnaliMentes);
+      azonnaliMentes(); // a szerkesztőből való elnavigálás is ide fut be
+    };
+  }, []);
 
   const torol = useCallback(async () => {
     if (!terv?.id) return;
@@ -376,14 +518,17 @@ export default function HetiTerv() {
   );
 
   /**
-   * A kiválasztott ötleteket hozzáadja a megfelelő mezőhöz (tartalom vagy iskolaElokeszito).
+   * Az ötletválasztó modal "Alkalmaz" akciója: hozzáadás ÉS eltávolítás.
    */
-  const otletekHozzaadasa = useCallback(() => {
-    if (!otletekPanelTipus || valasztottOtletek.size === 0) {
+  const otletekAlkalmaz = useCallback((ujak: string[], torlendok: string[]) => {
+    if (!otletekPanelTipus || (ujak.length === 0 && torlendok.length === 0)) {
       setOtletekPanelTipus(null);
       return;
     }
-    const bekerulendok = Array.from(valasztottOtletek);
+    // Az ötletbank sorai a végükön hordozzák a műfajt, a tervbe viszont már
+    // címke nélkül kerülnek be — az összevetés ezért a címke nélküli alakon megy,
+    // különben a már betett javaslat „újnak" látszana, és duplán kerülne be.
+    const torlendoSet = new Set(torlendok.map(cimkeNelkul));
     setTeruletAllapotok((prev) =>
       prev.map((t) => {
         if (t.tipus !== otletekPanelTipus) return t;
@@ -391,14 +536,21 @@ export default function HetiTerv() {
           .split(/\n+/)
           .map((s) => s.trim())
           .filter(Boolean);
-        const ujak = bekerulendok.filter((b) => !meglevoSorok.includes(b));
-        const osszes = [...meglevoSorok, ...ujak];
+        const szurt = meglevoSorok.filter((s) => !torlendoSet.has(cimkeNelkul(s)));
+        const tenylegUjak = ujak.filter((b) => !szurt.includes(cimkeNelkul(b)));
+        // A Verselés, mesélés területen a műfaj dönti el, hova kerül a sor:
+        // a bepipált mese a „Mesék:" szekcióba, nem a versek után a végére.
+        // (Az `irodalmatBeszur` maga veszi le a címkét a beszúrt sorról.)
+        const osszes =
+          t.tipus === 'verseles_meseles'
+            ? irodalmatBeszur(szurt, tenylegUjak)
+            : [...szurt, ...tenylegUjak.map(cimkeNelkul)];
         return { ...t, tartalom: osszes.join('\n') };
       }),
     );
     setOtletekPanelTipus(null);
     setValasztottOtletek(new Set());
-  }, [otletekPanelTipus, valasztottOtletek]);
+  }, [otletekPanelTipus]);
 
   // TODO-13: Eszközlista auto-aggregálás — most 100+ kulcsszó 4 kategóriában
   // (lib/eszkoz-kulcsszavak.ts). A találatok kategória-sorrendben jönnek.
@@ -485,6 +637,9 @@ export default function HetiTerv() {
       eszkozok: sablon.eszkozok,
     }));
 
+    // Kis- és középső csoportnál a sablon iskola-előkészítő része nem kerül be.
+    const ieKellSablonhoz = korcsoport !== 'kicsi' && korcsoport !== 'kozepso';
+
     setTeruletAllapotok((prev) =>
       prev.map((t) => {
         // Új formátum: per-terület iskolaElokeszito
@@ -494,19 +649,29 @@ export default function HetiTerv() {
         return {
           tipus: t.tipus,
           tartalom: sablon.teruletek[t.tipus] ?? '',
-          iskolaElokeszito: perAreaIE ?? legacyIE,
+          iskolaElokeszito: ieKellSablonhoz ? (perAreaIE ?? legacyIE) : '',
         };
       }),
     );
 
     setSablonHasznalva(true);
     setAktualisSablonAzonosito(azonosito);
+    setPiszkos(true);
   };
 
-  if (!terv) return <div className="p-8 text-center text-ink/50">Betöltés...</div>;
+  if (!terv) return <div className="p-8 text-center text-ink/50">Betöltés…</div>;
 
-  const update = (field: keyof typeof terv, value: string) =>
+  const update = (field: keyof typeof terv, value: string) => {
+    setPiszkos(true);
     setTerv((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const updateTerulet = (tipus: TeruletTipus, mezo: 'tartalom' | 'iskolaElokeszito', ertek: string) => {
+    setPiszkos(true);
+    setTeruletAllapotok((prev) =>
+      prev.map((t) => (t.tipus === tipus ? { ...t, [mezo]: ertek } : t)),
+    );
+  };
 
   // Dokumentum nézet — teljes, formázott, Word-szerű layout
   if (dokumentumNezet) {
@@ -518,15 +683,12 @@ export default function HetiTerv() {
         onBack={() => setDokumentumNezet(false)}
         onExport={exportalas}
         exportAllapot={exportAllapot}
+        onTeruletUpdate={updateTerulet}
+        onTervUpdate={update}
+        korcsoport={korcsoport}
       />
     );
   }
-
-  const updateTerulet = (tipus: TeruletTipus, mezo: 'tartalom' | 'iskolaElokeszito', ertek: string) => {
-    setTeruletAllapotok((prev) =>
-      prev.map((t) => (t.tipus === tipus ? { ...t, [mezo]: ertek } : t)),
-    );
-  };
 
   // getTerulet a TeruletSzekciok komponensbe került (TODO-6 Etap C)
 
@@ -557,7 +719,13 @@ export default function HetiTerv() {
           valasztottak={valasztottOtletek}
           setValasztottak={setValasztottOtletek}
           onBezar={() => setOtletekPanelTipus(null)}
-          onHozzaadas={otletekHozzaadasa}
+          onAlkalmaz={otletekAlkalmaz}
+          marHozzaadott={new Set(
+            (teruletAllapotok.find((t) => t.tipus === otletekPanelTipus)?.tartalom ?? '')
+              .split(/\n+/)
+              .map((s) => s.trim())
+              .filter(Boolean)
+          )}
         />
       )}
       {masolasModalNyitva && (
@@ -603,6 +771,8 @@ export default function HetiTerv() {
 
         <SablonValaszto
           sablonok={sablonok}
+          betoltesAllapot={sablonBetoltes}
+          onUjraTolt={() => setSablonUjraKerve((n) => n + 1)}
           sablonHasznalva={sablonHasznalva}
           paramsId={params.id}
           aktualisSablonAzonosito={aktualisSablonAzonosito}
@@ -670,7 +840,24 @@ export default function HetiTerv() {
               <KepessegMultiSelect
                 osszesKepesseg={osszesKepesseg}
                 valasztottIds={valasztottKepessegIds}
-                onValtozas={setValasztottKepessegIds}
+                onValtozas={(ids) => {
+                  // A chip a szövegmezőt is írja, különben a választás sehol nem
+                  // jelenne meg a dokumentum nézetben és a Word-exportban.
+                  const nev = (id: number) => osszesKepesseg.find((k) => k.id === id)?.nev;
+                  const hozzaad = [...ids]
+                    .filter((id) => !valasztottKepessegIds.has(id))
+                    .map(nev)
+                    .filter((n): n is string => Boolean(n));
+                  const elvesz = [...valasztottKepessegIds]
+                    .filter((id) => !ids.has(id))
+                    .map(nev)
+                    .filter((n): n is string => Boolean(n));
+                  update(
+                    'kepessegfejlesztes',
+                    kepessegSzovegFrissites(terv.kepessegfejlesztes ?? '', hozzaad, elvesz),
+                  );
+                  setValasztottKepessegIds(ids);
+                }}
               />
             </div>
           </details>
@@ -687,6 +874,14 @@ export default function HetiTerv() {
                   ? 'Mentési hiba'
                   : 'Mentés'}
           </button>
+          {/* Automentés-visszajelzés — hogy látszódjon: a munka nem veszhet el. */}
+          <span className="text-xs text-ink/50" aria-live="polite">
+            {mentes === 'hiba'
+              ? '⚠ A mentés nem sikerült — próbáld a Mentés gombbal.'
+              : piszkos
+                ? 'Mentetlen változás — automatikusan mentjük…'
+                : 'Minden változás elmentve'}
+          </span>
           <button onClick={exportalas} className="btn-secondary" disabled={exportAllapot === 'exportal'}>
             {exportAllapot === 'exportal'
               ? 'Exportálás…'

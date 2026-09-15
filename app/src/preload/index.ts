@@ -189,6 +189,9 @@ const api = {
   }): Promise<Irodalom[]> => ipcRenderer.invoke(IpcChannels.irodalomKereses, opts),
   irodalomHozzaad: (data: UjIrodalom): Promise<Irodalom> =>
     ipcRenderer.invoke(IpcChannels.irodalomHozzaad, data),
+  /** Meglévő mű szövegének mentése — a közkincs mondókák/népdalok pótlásához. */
+  irodalomSzovegMent: (params: { id: number; szoveg: string }): Promise<Irodalom> =>
+    ipcRenderer.invoke(IpcChannels.irodalomSzovegMent, params),
 
   // Ünnepek
   unnepekListaEvre: (): Promise<Unnep[]> => ipcRenderer.invoke(IpcChannels.unnepekListaEvre),
@@ -243,6 +246,16 @@ const api = {
 
   // Backup
   backupKeszit: (): Promise<string | null> => ipcRenderer.invoke(IpcChannels.backupKeszit),
+
+  // Titkosítás
+  /** Aktív-e az adatbázis-titkosítás (a kulcsot magát nem adjuk ki a felületnek). */
+  titkositasAllapot: (): Promise<{ aktiv: boolean; hiba: string | null }> =>
+    ipcRenderer.invoke(IpcChannels.titkositasAllapot),
+  /** Visszaállítási kulcs megjelenítése + mentése fájlba (fájlválasztóval). */
+  titkositasKulcsMutat: (): Promise<
+    | { siker: true; kulcs: string; utvonal: string | null }
+    | { siker: false; hiba: string }
+  > => ipcRenderer.invoke(IpcChannels.titkositasKulcsMutat),
 
   // App
   appVerzio: (): Promise<string> => ipcRenderer.invoke(IpcChannels.appVerzio),

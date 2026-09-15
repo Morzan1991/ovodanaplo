@@ -66,8 +66,11 @@ export default function Reflexiok() {
     <div className="mx-auto max-w-5xl px-6 py-6">
       <div className="mb-6">
         <h1 className="heading-serif text-3xl font-medium">Reflexiók</h1>
+      <p className="text-sm text-ink/60 mb-5 max-w-2xl leading-relaxed">
+        Rövid feljegyzések arról, hogyan sikerült egy-egy hét vagy foglalkozás. Ezekre támaszkodva könnyebb jövőre tervezni, és a szakmai ellenőrzésnél is jól jönnek.
+      </p>
         <p className="text-sm text-ink/60 mt-1">
-          Foglalkozás-, heti- és projekt-szintű elemzések. Klikk a "Szerkesztés"-re a tartalom módosításához.
+          Foglalkozás-, heti- és projekt-szintű elemzések. Kattints a „Szerkesztés”-re a tartalom módosításához.
         </p>
       </div>
 

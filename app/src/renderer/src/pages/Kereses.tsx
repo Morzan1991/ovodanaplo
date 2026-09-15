@@ -15,6 +15,33 @@ import type { HetiTerv } from '@shared/schema';
 
 type Talalat = HetiTerv & { snippet: string };
 
+/**
+ * A találat-részlet biztonságos megjelenítése.
+ *
+ * Az FTS5 `snippet()` a talált szót `<mark>…</mark>` közé teszi, a részlet többi
+ * része viszont a felhasználó SAJÁT, tetszőleges szövege — ami tartalmazhat HTML-t
+ * is (pl. ha weboldalról másolt be valamit a heti tervbe). Ezért a szöveget nem
+ * szabad HTML-ként értelmezni: React szövegcsomópontként rendereljük, amit a React
+ * automatikusan escape-el, és csak a `<mark>` határolókat alakítjuk elemmé.
+ */
+function KiemeltReszlet({ snippet }: { snippet: string }) {
+  const darabok = snippet.split(/(<mark>[\s\S]*?<\/mark>)/g);
+  return (
+    <>
+      {darabok.map((darab, i) => {
+        const talalat = /^<mark>([\s\S]*)<\/mark>$/.exec(darab);
+        return talalat ? (
+          <mark key={i} className="bg-mauve-200 text-mauve-800 px-0.5 rounded">
+            {talalat[1]}
+          </mark>
+        ) : (
+          <span key={i}>{darab}</span>
+        );
+      })}
+    </>
+  );
+}
+
 export default function Kereses() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [keresoSzoveg, setKeresoSzoveg] = useState(searchParams.get('q') ?? '');
@@ -52,10 +79,9 @@ export default function Kereses() {
     <div className="mx-auto max-w-5xl px-6 py-6">
       <div className="mb-6">
         <h1 className="heading-serif text-3xl font-medium">🔍 Keresés</h1>
-        <p className="text-sm text-ink/60 mt-1">
-          Keresés a heti tervek tartalmán — téma, cél, feladat, területek és iskola-előkészítő.
-          Évek között is működik (full-text index, SQLite FTS5).
-        </p>
+        <p className="text-sm text-ink/60 mt-1 max-w-2xl leading-relaxed">
+        Kereső a korábbi heti terveid teljes szövegében — évekre visszamenőleg. Ha egy témát már kidolgoztál, itt megtalálod, és nem kell újra kitalálni.
+      </p>
       </div>
 
       <form onSubmit={indit} className="mb-6 flex gap-2">
@@ -117,15 +143,9 @@ export default function Kereses() {
                     {t.kezdoDatum} — {t.zaroDatum}
                   </div>
                 </div>
-                <p
-                  className="text-sm text-ink/70 leading-snug"
-                  dangerouslySetInnerHTML={{
-                    __html: t.snippet.replace(
-                      /<mark>(.*?)<\/mark>/g,
-                      '<mark class="bg-mauve-200 text-mauve-800 px-0.5 rounded">$1</mark>',
-                    ),
-                  }}
-                />
+                <p className="text-sm text-ink/70 leading-snug">
+                  <KiemeltReszlet snippet={t.snippet} />
+                </p>
               </Link>
             ))}
           </div>

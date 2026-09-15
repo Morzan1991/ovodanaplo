@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { NevelesiEv, HetiTerv, Unnep, Esemeny } from '@shared/schema';
-import { hetTartomany, nevelesiEvCimke } from '../lib/utils';
+import { hetTartomany, nevelesiEvCimke, mozgoUnnepekEvre } from '../lib/utils';
 import UjNevelesiEvModal from '../components/UjNevelesiEvModal';
+import EsemenyModal from '../components/EsemenyModal';
+import KellekLista from '../components/KellekLista';
 
 const HONAPOK = [
   'Január', 'Február', 'Március', 'Április', 'Május', 'Június',
@@ -17,6 +19,8 @@ export default function Naptar() {
   const [hetiTervek, setHetiTervek] = useState<HetiTerv[]>([]);
   const [unnepek, setUnnepek] = useState<Unnep[]>([]);
   const [esemenyek, setEsemenyek] = useState<Esemeny[]>([]);
+  // Melyik dátumra nyitottuk meg a saját esemény felvitelét (null = zárva).
+  const [esemenyModalDatum, setEsemenyModalDatum] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   // Új nevelési év modal nyitva-e (jövő-éves tervezés vagy aktív év-váltás)
   const [ujEvModalNyitva, setUjEvModalNyitva] = useState(false);
@@ -132,7 +136,7 @@ export default function Naptar() {
   }, []);
 
   if (loading) {
-    return <div className="p-8 text-center text-ink/50">Betöltés...</div>;
+    return <div className="p-8 text-center text-ink/50">Betöltés…</div>;
   }
 
   if (!nevelesiEv) {
@@ -194,7 +198,7 @@ export default function Naptar() {
             🗑 Év törlése
           </button>
           <div className="text-xs text-ink/50 italic">
-            Új heti tervnél választhatsz sablont (Mikulás, Húsvét, Tavasz, stb.) — 85 előre elkészített téma.
+            Új heti tervnél választhatsz sablont (Mikulás, Húsvét, Tavasz, stb.) — 105 előre elkészített téma.
           </div>
         </div>
       </div>
@@ -220,6 +224,23 @@ export default function Naptar() {
         />
       )}
 
+      {esemenyModalDatum && (
+        <EsemenyModal
+          alapDatum={esemenyModalDatum}
+          onBezar={() => setEsemenyModalDatum(null)}
+          onMentes={async (adat) => {
+            await window.api.esemenyMent({
+              ...adat,
+              nevelesiEvId: nevelesiEv.id,
+            });
+            // Frissítjük a listát, hogy az új esemény azonnal látszódjon.
+            setEsemenyek(await window.api.esemenyLista(nevelesiEv.id));
+          }}
+        />
+      )}
+
+      <KellekLista hetiTervek={hetiTervek} />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {NEVELESI_EV_HONAPOK.map((honapIdx) => {
           // szept-dec az évKezdoEv-ben, jan-jún a következő évben
@@ -227,15 +248,46 @@ export default function Naptar() {
           const honapNev = HONAPOK[honapIdx];
           const hetekEbbenAHonapban = hetekHonapra(ev, honapIdx);
 
-          const unnepekEbben = unnepek
-            .filter((u) => u.tipus === 'fix' && u.honap === honapIdx + 1)
+          // Fix + időszak ünnepek az adatbázisból
+          const fixUnnepek = unnepek
+            .filter((u) => u.tipus !== 'mozgo' && u.honap === honapIdx + 1);
+
+          // Mozgó ünnepek dinamikus dátummal az adott évre
+          const mozgoEbben = mozgoUnnepekEvre(ev)
+            .filter((m) => m.honap === honapIdx + 1)
+            .map((m) => ({
+              id: -m.nap * 100 - m.honap,
+              nev: m.nev,
+              honap: m.honap,
+              nap: m.nap,
+              tipus: 'mozgo' as const,
+              kategoria: m.kategoria,
+              ovodaiSulyozas: m.ovodaiSulyozas,
+              leiras: m.leiras,
+            }));
+
+          const unnepekEbben = [...fixUnnepek, ...mozgoEbben]
             .sort((a, b) => (a.nap ?? 0) - (b.nap ?? 0));
 
           return (
             <div key={`${ev}-${honapIdx}`} className="card">
               <div className="flex items-baseline justify-between mb-3">
                 <h2 className="heading-serif text-xl font-medium">{honapNev}</h2>
-                <span className="text-xs text-ink/40">{ev}</span>
+                <div className="flex items-baseline gap-3">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setEsemenyModalDatum(
+                        `${ev}-${String(honapIdx + 1).padStart(2, '0')}-01`,
+                      )
+                    }
+                    className="text-xs text-sage-700 hover:underline"
+                    title="Saját óvodai esemény felvétele erre a hónapra"
+                  >
+                    + esemény
+                  </button>
+                  <span className="text-xs text-ink/40">{ev}</span>
+                </div>
               </div>
 
               {unnepekEbben.length > 0 && (
@@ -247,14 +299,40 @@ export default function Naptar() {
                         (u.ovodaiSulyozas ?? 5) >= 5
                           ? 'bg-terra-400/30 text-terra-600'
                           : 'bg-mauve-100 text-mauve-600'
-                      }`}
+                      }${u.tipus === 'mozgo' ? ' italic' : ''}`}
                       title={u.leiras ?? ''}
                     >
-                      {u.nap}. {u.nev}
+                      {u.tipus === 'mozgo' ? '~' : ''}{u.nap}. {u.nev}
                     </span>
                   ))}
                 </div>
               )}
+
+              {(() => {
+                // A hónap saját eseményei — eddig betöltöttük őket, de sehol nem
+                // jelentek meg (az `esemenyekByDatum` használatlan volt).
+                const honapEsemenyei = [...esemenyekByDatum.entries()]
+                  .filter(([datum]) => {
+                    const d = new Date(datum);
+                    return d.getFullYear() === ev && d.getMonth() === honapIdx;
+                  })
+                  .flatMap(([datum, lista]) => lista.map((e) => ({ ...e, datum })))
+                  .sort((a, b) => a.datum.localeCompare(b.datum));
+                if (honapEsemenyei.length === 0) return null;
+                return (
+                  <div className="mb-3 flex flex-wrap gap-1">
+                    {honapEsemenyei.map((e) => (
+                      <span
+                        key={e.id}
+                        className="text-xs px-2 py-0.5 rounded bg-sage-100 text-sage-700"
+                        title={e.leiras ?? ''}
+                      >
+                        ★ {Number(e.datum.slice(8, 10))}. {e.cim}
+                      </span>
+                    ))}
+                  </div>
+                );
+              })()}
 
               <ol className="space-y-1 text-sm">
                 {hetekEbbenAHonapban.map((hetKezdo) => {
@@ -357,7 +435,7 @@ function NevelesiEvLetrehozas({ onCreated }: { onCreated: (ev: NevelesiEv) => vo
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16 text-center">
-      <h1 className="heading-serif text-3xl font-medium mb-2">Üdv az OvodaNaplóban!</h1>
+      <h1 className="heading-serif text-3xl font-medium mb-2">Üdv az ÓvodaNaplóban!</h1>
       <p className="text-ink/60 mb-8">Először hozz létre egy nevelési évet.</p>
 
       <div className="card text-left max-w-md mx-auto space-y-4">
@@ -389,8 +467,9 @@ function NevelesiEvLetrehozas({ onCreated }: { onCreated: (ev: NevelesiEv) => vo
             <option value="nagy">Nagycsoport (5–7 éves)</option>
           </select>
           <span className="text-xs text-ink/60 block mt-1 leading-snug">
-            Ez alapján szűri a heti tervek ötletbörzéje, hogy a korosztályhoz illő
-            tevékenységeket javasolja. Évközben módosítható a Beállításokban.
+            Elég itt megadni — a program a Beállításokba is beírja. Ez alapján
+            javasol a korosztályhoz illő verseket, meséket, dalokat és
+            tevékenységeket. Évközben bármikor módosítható a Beállításokban.
           </span>
         </label>
 

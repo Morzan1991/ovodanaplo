@@ -1,15 +1,19 @@
 /**
- * DokumentumNezet — Word-szerű, formázott olvasható nézet a heti tervről.
+ * DokumentumNezet — Word-szerű, formázott nézet a heti tervről.
  *
  * Times New Roman font, 12pt, KRÉTA-DOCX formátum-megfelelő.
- * Tartalmaz: 7 terület + iskola előkészítő szekciók + lezáró rész (cél/feladat/...).
+ * Tartalmaz: 7 terület + iskola-előkészítő szekciók + lezáró rész (cél/feladat/...).
  *
- * A komponens NEM szerkeszthető — csak megjelenítésre + nyomtatásra/PDF-re/DOCX-export-ra.
+ * A komponens SZERKESZTHETŐ — textarea mezőkkel, amik document stílusúak.
  */
 
+import { useRef, useEffect, useCallback, useState } from 'react';
 import type { TeruletTipus } from '@shared/schema';
 import type { HetiTervTeljes } from '../../../../preload/index';
 import type { TeruletAllapot } from './types';
+import { bulletFormat, bulletParse } from '../../lib/bullet-szoveg';
+
+type TervMezo = 'cel' | 'feladat' | 'differencialas' | 'modszerek' | 'kepessegfejlesztes' | 'eszkozok';
 
 interface Props {
   terv: Partial<HetiTervTeljes>;
@@ -18,6 +22,87 @@ interface Props {
   onBack: () => void;
   onExport: () => void;
   exportAllapot: 'idle' | 'exportal' | 'kesz' | 'hiba';
+  onTeruletUpdate: (tipus: TeruletTipus, mezo: 'tartalom' | 'iskolaElokeszito', ertek: string) => void;
+  onTervUpdate: (mezo: TervMezo, value: string) => void;
+  /** Az aktív nevelési év korcsoportja — az iskola-előkészítő rész ettől függ. */
+  korcsoport: string;
+}
+
+/** Auto-resize textarea — magassága a tartalomhoz igazodik. */
+function AutoTextarea({
+  value,
+  onChange,
+  placeholder,
+  className,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  placeholder?: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.height = '0';
+      ref.current.style.height = ref.current.scrollHeight + 'px';
+    }
+  }, [value]);
+
+  return (
+    <textarea
+      ref={ref}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      rows={1}
+      className={`w-full resize-none overflow-hidden bg-transparent border-0 outline-none focus:bg-sage-50/30 rounded p-0 ${className ?? ''}`}
+      style={{
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
+        lineHeight: 'inherit',
+      }}
+    />
+  );
+}
+
+/**
+ * Szerkeszthető bullet-lista.
+ *
+ * MI VOLT A BAJ: a komponens a szülő függvénytörzsében készült, ezért minden
+ * billentyűleütés után ÚJ komponens-típus lett belőle — React szemszögéből másik
+ * elem —, így a textarea lecserélődött és elvesztette a fókuszt. Egy karakternél
+ * többet nem lehetett beírni, és a beszúrt ötletet nem lehetett átfogalmazni.
+ * Ezért van modul-szinten, és ezért tartja a gépelt szöveget saját állapotban:
+ * a „• " előtag újrarakása gépelés közben elugrasztotta volna a kurzort.
+ */
+function BulletArea({ szoveg, onSave }: { szoveg: string; onSave: (v: string) => void }) {
+  const [helyi, setHelyi] = useState(() => bulletFormat(szoveg));
+
+  // Kívülről érkező változás (pl. ötlet-panel, sablon betöltés) — csak ilyenkor
+  // formázunk újra, a saját gépelést nem írjuk felül.
+  useEffect(() => {
+    if (bulletParse(helyi) !== szoveg) setHelyi(bulletFormat(szoveg));
+    // szándékosan csak a külső értékre figyelünk
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [szoveg]);
+
+  return (
+    <AutoTextarea
+      value={helyi}
+      onChange={(v) => {
+        setHelyi(v);
+        onSave(bulletParse(v));
+      }}
+      placeholder="• kattints ide az íráshoz…"
+      className="pl-4"
+    />
+  );
+}
+
+/** Szerkeszthető inline szöveg — szintén modul-szinten, a fókusz megtartásáért. */
+function InlineArea({ value, onSave }: { value: string; onSave: (v: string) => void }) {
+  return <AutoTextarea value={value} onChange={onSave} placeholder="kattints ide…" />;
 }
 
 export default function DokumentumNezet({
@@ -26,128 +111,51 @@ export default function DokumentumNezet({
   onBack,
   onExport,
   exportAllapot,
+  onTeruletUpdate,
+  onTervUpdate,
+  korcsoport,
 }: Props) {
   const getTartalom = (tipus: TeruletTipus) =>
     teruletAllapotok.find((t) => t.tipus === tipus)?.tartalom ?? '';
   const getIskolaElokeszito = (tipus: TeruletTipus) =>
     teruletAllapotok.find((t) => t.tipus === tipus)?.iskolaElokeszito ?? '';
 
-  // Bullet lista: \n-nel szétdarabol → minden sorból egy <li>
-  const Bullets = ({ szoveg }: { szoveg: string }) => {
-    const sorok = szoveg.split(/\n+/).map((s) => s.trim()).filter((s) => s.length > 0);
-    if (sorok.length === 0) return null;
-    return (
-      <ul className="list-disc pl-6 mt-1 space-y-0.5">
-        {sorok.map((s, i) => (
-          <li key={i}>{s}</li>
-        ))}
-      </ul>
-    );
-  };
+  const saveTartalom = useCallback(
+    (tipus: TeruletTipus) => (val: string) => onTeruletUpdate(tipus, 'tartalom', val),
+    [onTeruletUpdate],
+  );
+  const saveIskola = useCallback(
+    (tipus: TeruletTipus) => (val: string) => onTeruletUpdate(tipus, 'iskolaElokeszito', val),
+    [onTeruletUpdate],
+  );
 
-  // Verselés blokk — kibontja "Mesék:" és "Mondókák és versek:" alszekciókra
-  const VerselesBlokk = ({ szoveg }: { szoveg: string }) => {
-    const trimmed = (szoveg ?? '').trim();
-    if (!trimmed) return null;
-    const mesekMatch = trimmed.match(/Mes[éeè]k\s*:\s*\n?/i);
-    const mondokakMatch = trimmed.match(/Mond[óo]k[áa]k\s+[ée]s\s+versek\s*:\s*\n?/i);
+  // Az iskola-előkészítő az 5-7 éves korosztály (nagy- és vegyes csoport) anyaga.
+  // Kis- és középső csoportnál akkor sem jelenítjük meg, ha korábbi sablonból
+  // maradt benne tartalom — így a nézet és a DOCX-export egyezik.
+  const iskolaElokeszitoKell = korcsoport !== 'kicsi' && korcsoport !== 'kozepso';
 
-    if (!mesekMatch && !mondokakMatch) {
-      return <Bullets szoveg={trimmed} />;
-    }
-    let mesekResz = '', mondokakResz = '', elotteResz = '';
-    if (mesekMatch && mondokakMatch) {
-      const ms = mesekMatch.index! + mesekMatch[0].length;
-      const moStart = mondokakMatch.index!;
-      elotteResz = trimmed.substring(0, mesekMatch.index!).trim();
-      mesekResz = trimmed.substring(ms, moStart).trim();
-      mondokakResz = trimmed.substring(moStart + mondokakMatch[0].length).trim();
-    } else if (mesekMatch) {
-      elotteResz = trimmed.substring(0, mesekMatch.index!).trim();
-      mesekResz = trimmed.substring(mesekMatch.index! + mesekMatch[0].length).trim();
-    } else if (mondokakMatch) {
-      elotteResz = trimmed.substring(0, mondokakMatch.index!).trim();
-      mondokakResz = trimmed.substring(mondokakMatch.index! + mondokakMatch[0].length).trim();
-    }
-    return (
-      <>
-        {elotteResz && <Bullets szoveg={elotteResz} />}
-        {mesekResz && (
-          <>
-            <p className="font-bold mt-2">Mesék:</p>
-            <Bullets szoveg={mesekResz} />
-          </>
-        )}
-        {mondokakResz && (
-          <>
-            <p className="font-bold mt-2">Mondókák és versek:</p>
-            <Bullets szoveg={mondokakResz} />
-          </>
-        )}
-      </>
-    );
-  };
-
-  // Mozgás blokk — kibontja "Tornatermi:" és "Csoportban/udvaron:" alszekciókra
-  const MozgasBlokk = ({ szoveg }: { szoveg: string }) => {
-    const trimmed = (szoveg ?? '').trim();
-    if (!trimmed) return null;
-    const tornaMatch = trimmed.match(/Tornatermi\s+tev[ée]kenys[ée]gek\s*:\s*\n?/i);
-    const udvarMatch = trimmed.match(/Csoportban\/?udvar(?:on)?\s+v[ée]gzett.*?mozg[áa]s\s*:\s*\n?/i);
-
-    if (!tornaMatch && !udvarMatch) {
-      return <Bullets szoveg={trimmed} />;
-    }
-    let tornaResz = '', udvarResz = '', elotteResz = '';
-    if (tornaMatch && udvarMatch) {
-      const ts = tornaMatch.index! + tornaMatch[0].length;
-      const uStart = udvarMatch.index!;
-      elotteResz = trimmed.substring(0, tornaMatch.index!).trim();
-      tornaResz = trimmed.substring(ts, uStart).trim();
-      udvarResz = trimmed.substring(uStart + udvarMatch[0].length).trim();
-    } else if (tornaMatch) {
-      elotteResz = trimmed.substring(0, tornaMatch.index!).trim();
-      tornaResz = trimmed.substring(tornaMatch.index! + tornaMatch[0].length).trim();
-    } else if (udvarMatch) {
-      elotteResz = trimmed.substring(0, udvarMatch.index!).trim();
-      udvarResz = trimmed.substring(udvarMatch.index! + udvarMatch[0].length).trim();
-    }
-    return (
-      <>
-        {elotteResz && <Bullets szoveg={elotteResz} />}
-        {tornaResz && (
-          <>
-            <p className="mt-2">Tornatermi tevékenységek:</p>
-            <Bullets szoveg={tornaResz} />
-          </>
-        )}
-        {udvarResz && (
-          <>
-            <p className="mt-2">Csoportban/udvaron végzett mindennapos mozgás:</p>
-            <Bullets szoveg={udvarResz} />
-          </>
-        )}
-      </>
-    );
-  };
-
-  // Iskola előkészítő szekció — félkövér fejléc + bullet lista
-  // Ha üres a szöveg, NEM jelenik meg a fejléc (kerüljük a üres bekezdést)
-  const IskolaElokeszito = ({ szoveg }: { szoveg: string }) => {
-    const sorok = szoveg.split(/\n+/).map((s) => s.trim()).filter((s) => s.length > 0);
+  // Iskola-előkészítő szekció — csak ha van tartalma
+  const iskolaEloSzoveg = (tipus: TeruletTipus) => {
+    if (!iskolaElokeszitoKell) return null;
+    const szoveg = getIskolaElokeszito(tipus);
+    const sorok = szoveg.split(/\n+/).map((s) => s.trim()).filter(Boolean);
     if (sorok.length === 0) return null;
     return (
       <div className="mt-3">
-        <p className="font-bold">Iskola előkészítő tevékenység:</p>
-        <Bullets szoveg={szoveg} />
+        <p className="font-bold">Iskola-előkészítő tevékenység:</p>
+        <BulletArea szoveg={szoveg} onSave={saveIskola(tipus)} />
       </div>
     );
   };
 
   return (
     <div className="min-h-full bg-ink/5">
-      {/* Felső műveletsor (csak képernyőre, nyomtatáskor rejtett) */}
-      <div className="sticky top-[57px] z-10 border-b border-sage-200 bg-cream/95 backdrop-blur print:hidden">
+      {/* Felső műveletsor (csak képernyőre, nyomtatáskor rejtett).
+          A görgetést a Layout `main` eleme végzi, a fejléc azon kívül van —
+          ezért a sáv `top-0`-ra tapad. (Korábbi `top-[57px]` a fejléc
+          magasságával eltolta: alatta üres, átlátszó sávban gördült át a
+          dokumentum szövege.) */}
+      <div className="sticky top-0 z-20 border-b border-sage-200 bg-cream print:hidden">
         <div className="mx-auto max-w-4xl px-6 py-2 flex items-center gap-2 flex-wrap">
           <button onClick={onBack} className="btn-secondary text-sm">
             ← Szerkesztő nézet
@@ -163,12 +171,12 @@ export default function DokumentumNezet({
             🖨 Nyomtatás / PDF
           </button>
           <span className="ml-auto text-xs text-ink/50 italic">
-            Olvasható dokumentum-előnézet — szerkesztéshez kapcsolj vissza.
+            Szerkeszthető dokumentum-előnézet — kattints a szövegre.
           </span>
         </div>
       </div>
 
-      {/* A papír — fejléc nélkül, ahogy a Hetiterv üres.docx-en */}
+      {/* A papír */}
       <div className="mx-auto max-w-4xl px-6 py-10 print:py-0">
         <div className="bg-white shadow-paper rounded p-12 print:shadow-none print:p-0">
           <article
@@ -179,73 +187,74 @@ export default function DokumentumNezet({
               lineHeight: '1.4',
             }}
           >
-            {/* 1. Külső világ + 2. Matematika (közös iskolaElokeszito) */}
+            {/* 1. Külső világ */}
             <p className="font-bold">Külső világ tevékeny megismerésére nevelés:</p>
-            <Bullets szoveg={getTartalom('kulso_vilag')} />
+            <BulletArea szoveg={getTartalom('kulso_vilag')} onSave={saveTartalom('kulso_vilag')} />
 
+            {/* 2. Matematika */}
             <p className="font-bold mt-3">Matematikai tartalom:</p>
-            <Bullets szoveg={getTartalom('matematika')} />
+            <BulletArea szoveg={getTartalom('matematika')} onSave={saveTartalom('matematika')} />
 
-            <IskolaElokeszito szoveg={getIskolaElokeszito('kulso_vilag')} />
+            {iskolaEloSzoveg('kulso_vilag')}
 
-            {/* 3. Verselés, mesélés (Mesék: + Mondókák alfejezet) */}
+            {/* 3. Verselés, mesélés */}
             <p className="font-bold mt-4">Verselés, mesélés:</p>
-            <VerselesBlokk szoveg={getTartalom('verseles_meseles')} />
+            <BulletArea szoveg={getTartalom('verseles_meseles')} onSave={saveTartalom('verseles_meseles')} />
 
-            <IskolaElokeszito szoveg={getIskolaElokeszito('verseles_meseles')} />
+            {iskolaEloSzoveg('verseles_meseles')}
 
             {/* 4. Rajzolás, festés */}
             <p className="font-bold mt-4">
               Rajzolás, festés, mintázás, építés, képalakítás, kézimunka:
             </p>
-            <Bullets szoveg={getTartalom('rajzolas_festes')} />
+            <BulletArea szoveg={getTartalom('rajzolas_festes')} onSave={saveTartalom('rajzolas_festes')} />
 
-            <IskolaElokeszito szoveg={getIskolaElokeszito('rajzolas_festes')} />
+            {iskolaEloSzoveg('rajzolas_festes')}
 
             {/* 5. Ének + Hallás-ritmus */}
             <p className="font-bold mt-4">Ének, zene, népi játék, tánc:</p>
-            <Bullets szoveg={getTartalom('enek_zene')} />
+            <BulletArea szoveg={getTartalom('enek_zene')} onSave={saveTartalom('enek_zene')} />
 
             <p className="mt-2">Hallás és ritmusérzék fejlesztés:</p>
-            <Bullets szoveg={getTartalom('hallas_ritmus')} />
+            <BulletArea szoveg={getTartalom('hallas_ritmus')} onSave={saveTartalom('hallas_ritmus')} />
 
-            <IskolaElokeszito szoveg={getIskolaElokeszito('enek_zene')} />
+            {iskolaEloSzoveg('enek_zene')}
 
-            {/* 6. Mindennapos mozgás (Tornatermi + Csoportban/udvaron) */}
+            {/* 6. Mozgás */}
             <p className="font-bold mt-4">Mindennapos mozgás:</p>
-            <MozgasBlokk szoveg={getTartalom('mozgas')} />
+            <BulletArea szoveg={getTartalom('mozgas')} onSave={saveTartalom('mozgas')} />
 
-            <IskolaElokeszito szoveg={getIskolaElokeszito('mozgas')} />
+            {iskolaEloSzoveg('mozgas')}
 
-            {/* Lezáró rész — Cél / Feladat / Differenciálás / Módszerek / Képességfejlesztés / Eszközök */}
+            {/* Lezáró rész */}
             <p className="mt-4">
               <span className="font-bold">Cél: </span>
-              <span>{terv.cel}</span>
+              <InlineArea value={terv.cel ?? ''} onSave={(v) => onTervUpdate('cel', v)} />
             </p>
 
             <p className="mt-2">
               <span className="font-bold">Feladat: </span>
-              <span>{terv.feladat}</span>
+              <InlineArea value={terv.feladat ?? ''} onSave={(v) => onTervUpdate('feladat', v)} />
             </p>
 
             <p className="mt-2">
               <span className="font-bold">Differenciálás: </span>
-              <span>{terv.differencialas}</span>
+              <InlineArea value={terv.differencialas ?? ''} onSave={(v) => onTervUpdate('differencialas', v)} />
             </p>
 
             <p className="mt-2">
               <span className="font-bold">Módszerek: </span>
-              <span>{terv.modszerek}</span>
+              <InlineArea value={terv.modszerek ?? ''} onSave={(v) => onTervUpdate('modszerek', v)} />
             </p>
 
             <p className="mt-2">
               <span className="font-bold">Képességfejlesztés: </span>
-              <span>{terv.kepessegfejlesztes}</span>
+              <InlineArea value={terv.kepessegfejlesztes ?? ''} onSave={(v) => onTervUpdate('kepessegfejlesztes', v)} />
             </p>
 
             <p className="mt-2">
               <span className="font-bold">Eszközök: </span>
-              <span>{terv.eszkozok}</span>
+              <InlineArea value={terv.eszkozok ?? ''} onSave={(v) => onTervUpdate('eszkozok', v)} />
             </p>
           </article>
         </div>

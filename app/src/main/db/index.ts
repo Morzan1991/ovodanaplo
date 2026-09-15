@@ -6,13 +6,22 @@
  */
 
 import { app } from 'electron';
-import { existsSync, mkdirSync, readFileSync, copyFileSync, statSync, renameSync, unlinkSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, copyFileSync, statSync, renameSync, unlinkSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// FIGYELEM: a `better-sqlite3` név a package.json-ban a `better-sqlite3-multiple-ciphers`
+// csomagra van irányítva (npm alias). Így a titkosítás (SQLCipher) elérhető, és a
+// drizzle-orm belső `better-sqlite3` importja is ugyanezt a példányt kapja — enélkül
+// két külön SQLite kerülne a programba, és a drizzle nem indulna el.
+//
+// A csomag Node-API alapú, ezért ABI-stabil: Electron-frissítéskor NEM kell
+// újrafordítani — ami ezen a gépen amúgy sem menne (nincs Visual Studio, és
+// szóköz van az elérési útban).
 import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { sql } from 'drizzle-orm';
 import * as schema from '../../shared/schema.js';
+import { kulcsBetoltVagyLetrehoz, type KulcsAllapot } from './kulcs.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -38,17 +47,214 @@ export function getDbPath(): string {
   return join(ovodaDir, 'ovodanaplo.db');
 }
 
+/** SQL-sztringbe ágyazás: az aposztrófot duplázni kell. */
+function sqlIdezet(ertek: string): string {
+  return ertek.replace(/'/g, "''");
+}
+
+/**
+ * Titkosítatlan-e a meglévő adatbázisfájl? (Kulcs nélkül olvasható-e.)
+ * Új telepítésnél a fájl még nem létezik — ilyenkor nincs mit migrálni.
+ */
+function titkositatlanE(dbPath: string): boolean {
+  if (!existsSync(dbPath)) return false;
+  try {
+    const proba = new Database(dbPath, { readonly: true });
+    proba.prepare('SELECT count(*) FROM sqlite_master').get();
+    proba.close();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * A titkosítatlan adatbázis félretétele, hogy a helyére új, titkosított jöhessen.
+ *
+ * Az eredetit NEM töröljük: `...-titkositatlan-EREDETI.db` néven megmarad, amíg a
+ * felhasználó meg nem győződött róla, hogy minden átjött. (Ezt a fájlt neki kell
+ * letörölnie — amíg ott van, az adat titkosítatlanul is olvasható.)
+ */
+function eredetiFelretetel(dbPath: string): string {
+  const forras = new Database(dbPath);
+  try {
+    // A WAL-ban álló tranzakciók is kerüljenek a fő fájlba a mozgatás előtt.
+    forras.pragma('wal_checkpoint(TRUNCATE)');
+  } finally {
+    forras.close();
+  }
+
+  // Ütközésmentes név: sosem írunk felül egy korábbi félretett adatbázist.
+  let eredetiMentes = dbPath.replace(/\.db$/, '-titkositatlan-EREDETI.db');
+  if (existsSync(eredetiMentes)) {
+    eredetiMentes = dbPath.replace(
+      /\.db$/,
+      `-titkositatlan-EREDETI-${Date.now()}.db`,
+    );
+  }
+  renameSync(dbPath, eredetiMentes);
+
+  for (const mellek of ['-wal', '-shm']) {
+    const f = `${dbPath}${mellek}`;
+    if (existsSync(f)) unlinkSync(f);
+  }
+
+  // Ha az átnevezés után MÉGIS maradt fájl a helyén, azt is félretesszük.
+  // Enélkül a program egy ottfelejtett, titkosítatlan adatbázisra próbálná
+  // ráhúzni a titkosítást — ilyenkor "file is not a database" hibával elszáll.
+  // Nem törlünk semmit: minden félretett fájl megmarad, amíg a felhasználó dönt.
+  if (existsSync(dbPath)) {
+    const felesleges = dbPath.replace(/\.db$/, `-tovabbi-masolat-${Date.now()}.db`);
+    renameSync(dbPath, felesleges);
+    console.warn(`[db] További fájl volt az adatbázis helyén, félretéve: ${felesleges}`);
+  }
+
+  console.log(`[db] Titkosítatlan adatbázis félretéve: ${eredetiMentes}`);
+  return eredetiMentes;
+}
+
+/** Egy tábla oszlopnevei az adott sémában. */
+function oszlopNevek(sema: string, tabla: string): string[] {
+  const sorok = sqlite.prepare(`PRAGMA ${sema}.table_info("${tabla}")`).all() as Array<{
+    name: string;
+  }>;
+  return sorok.map((s) => s.name);
+}
+
+/**
+ * Adatok átemelése a félretett, titkosítatlan adatbázisból az újba.
+ *
+ * A sémát már a `createTables()` létrehozta, itt csak a SOROK jönnek át. A régi
+ * fájlt üres kulccsal csatoljuk (így olvasható titkosítatlanként), és csak a két
+ * oldalon EGYARÁNT meglévő oszlopokat másoljuk — így egy időközbeni séma-bővítés
+ * sem akasztja meg a költözést.
+ */
+function adatokAtmasolasa(eredetiUt: string): void {
+  sqlite.exec(`ATTACH DATABASE '${sqlIdezet(eredetiUt)}' AS regi KEY ''`);
+  try {
+    const tablak = (
+      sqlite
+        .prepare(
+          `SELECT name FROM regi.sqlite_master
+           WHERE type='table'
+             AND name NOT LIKE 'sqlite_%'
+             AND name NOT LIKE '%_fts%'`,
+        )
+        .all() as Array<{ name: string }>
+    ).map((t) => t.name);
+
+    let osszesSor = 0;
+    const masolas = sqlite.transaction(() => {
+      for (const tabla of tablak) {
+        const ujOszlopok = oszlopNevek('main', tabla);
+        if (ujOszlopok.length === 0) continue; // ilyen tábla már nincs a sémában
+        const regiOszlopok = new Set(oszlopNevek('regi', tabla));
+        const kozos = ujOszlopok.filter((o) => regiOszlopok.has(o));
+        if (kozos.length === 0) continue;
+
+        const lista = kozos.map((o) => `"${o}"`).join(', ');
+        const eredmeny = sqlite
+          .prepare(
+            `INSERT INTO main."${tabla}" (${lista}) SELECT ${lista} FROM regi."${tabla}"`,
+          )
+          .run();
+        osszesSor += eredmeny.changes;
+        console.log(`[db]   ${tabla}: ${eredmeny.changes} sor`);
+      }
+    });
+    masolas();
+    console.log(`[db] Átköltöztetve összesen ${osszesSor} sor.`);
+  } finally {
+    sqlite.exec('DETACH DATABASE regi');
+  }
+
+  // A kereső-index újraépítése a friss adatokból (a másolás sorrendjétől függetlenül).
+  try {
+    sqlite.exec('DELETE FROM heti_terv_fts');
+    sqlite.exec(`
+      INSERT INTO heti_terv_fts (heti_terv_id, tema, cel, feladat, kepessegfejlesztes, eszkozok, teruletek_osszesen)
+      SELECT t.id, COALESCE(t.tema,''), COALESCE(t.cel,''), COALESCE(t.feladat,''),
+             COALESCE(t.kepessegfejlesztes,''), COALESCE(t.eszkozok,''),
+             COALESCE((SELECT GROUP_CONCAT(COALESCE(tartalom,'') || ' ' || COALESCE(iskola_elokeszito,''), ' ')
+                       FROM teruletek WHERE heti_terv_id = t.id), '')
+      FROM heti_tervek t
+    `);
+  } catch (err) {
+    console.warn('[db] A kereső-index újraépítése kimaradt:', (err as Error).message);
+  }
+}
+
+/** Az indításkor kiderült kulcs-állapot — a főprocesz ez alapján tájékoztat. */
+export interface TitkositasAllapot {
+  aktiv: boolean;
+  ujKulcs: boolean;
+  kulcs: string | null;
+  hiba: string | null;
+}
+let titkositasAllapot: TitkositasAllapot = {
+  aktiv: false,
+  ujKulcs: false,
+  kulcs: null,
+  hiba: null,
+};
+
+export function getTitkositasAllapot(): TitkositasAllapot {
+  return titkositasAllapot;
+}
+
 export function initDb(): void {
   const dbPath = getDbPath();
   console.log('[db] Adatbázis útvonal:', dbPath);
 
-  sqlite = new Database(dbPath);
+  // 1) Kulcs betöltése/létrehozása. Ha a Windows-védelem nem érhető el, inkább
+  //    titkosítás nélkül indulunk, mint hogy a pedagógus ne férjen a munkájához.
+  let kulcsAllapot: KulcsAllapot | null = null;
+  try {
+    kulcsAllapot = kulcsBetoltVagyLetrehoz();
+  } catch (err) {
+    titkositasAllapot = {
+      aktiv: false,
+      ujKulcs: false,
+      kulcs: null,
+      hiba: (err as Error).message,
+    };
+    console.error('[db] Titkosítás nem aktiválható:', err);
+  }
+
+  // 2) Ha van meglévő, titkosítatlan adatbázis, félretesszük — a helyére új,
+  //    titkosított jön, és utána átemeljük belőle az adatokat.
+  let atkoltoztetendo: string | null = null;
+
+  if (kulcsAllapot) {
+    if (titkositatlanE(dbPath)) {
+      atkoltoztetendo = eredetiFelretetel(dbPath);
+    }
+    sqlite = new Database(dbPath);
+    sqlite.pragma("cipher='sqlcipher'");
+    sqlite.pragma(`key='${sqlIdezet(kulcsAllapot.kulcs)}'`);
+    titkositasAllapot = {
+      aktiv: true,
+      ujKulcs: kulcsAllapot.ujonnanLetrehozva,
+      kulcs: kulcsAllapot.kulcs,
+      hiba: null,
+    };
+  } else {
+    sqlite = new Database(dbPath);
+  }
+
   sqlite.pragma('journal_mode = WAL');
   sqlite.pragma('foreign_keys = ON');
 
   db = drizzle(sqlite, { schema });
 
   createTables();
+
+  // Az adatok átemelése a séma létrehozása UTÁN, de a seed-elés ELŐTT kell
+  // történjen: így a seed-lépés már látja a meglévő sorokat, és nem duplikál.
+  if (atkoltoztetendo) {
+    adatokAtmasolasa(atkoltoztetendo);
+  }
+
   loadSeedData();
 }
 
@@ -360,6 +566,35 @@ function loadSeedData(): void {
   safeSeed('Irodalom', () => seedIrodalom(seedDir));
   safeSeed('Ünnepek', () => seedUnnepek(seedDir));
   safeSeed('Képességek', () => seedKepessegek(seedDir));
+  safeSeed('Beállítások', () => beallitasSorBiztositas());
+}
+
+/**
+ * Gondoskodik róla, hogy pontosan egy beállítás-sor létezzen.
+ *
+ * A program egyfelhasználós: mindig van „a" beállítás. Korábban a sor csak akkor
+ * jött létre, amikor a felhasználó először RÁMENTETT a Beállítások oldalra —
+ * addig a fejléc „Beállítások hiányoznak" feliratot mutatott, és a korosztály-
+ * szűrés is támpont nélkül maradt. Ha a sor bármiért hiányzik (új telepítés, vagy
+ * egy költöztetésnél elveszett), itt pótoljuk.
+ *
+ * A korosztályt az aktív nevelési évtől vesszük át, ha van — így a Naptárban
+ * megadott csoporttípus akkor is érvényesül, ha a Beállításokat még nem nyitotta meg.
+ */
+function beallitasSorBiztositas(): void {
+  const van = sqlite.prepare('SELECT count(*) AS db FROM beallitasok').get() as { db: number };
+  if (van.db > 0) return;
+
+  const ev = sqlite
+    .prepare('SELECT korcsoport FROM nevelesi_evek WHERE aktiv = 1 LIMIT 1')
+    .get() as { korcsoport: string | null } | undefined;
+
+  sqlite
+    .prepare('INSERT INTO beallitasok (csoport_tipus, theme_accent) VALUES (?, ?)')
+    .run(ev?.korcsoport ?? 'vegyes', 'osz');
+  console.log(
+    `[db] Beállítás-sor létrehozva (korcsoport: ${ev?.korcsoport ?? 'vegyes'}).`,
+  );
 }
 
 /**
@@ -490,12 +725,16 @@ function seedIrodalom(seedDir: string): void {
       const meglevo = meglevoMap.get(kulcs);
       const ujTemakJson = JSON.stringify(tetel.temak ?? []);
       const ujKorcsoport = tetel.korcsoport ?? 'vegyes';
-      const ujSzoveg = tetel.szoveg ?? null;
+      // A szöveget a JSON csak akkor írja felül, ha ténylegesen VAN benne szöveg.
+      // Az óvónő az Irodalom oldalon beírhatja a mese/vers szövegét egy seed-műnél
+      // is (`irodalomSzovegMent`); ha a JSON üres szövegét is „változásnak” vennénk,
+      // a következő indításkor a seed csendben kitörölné, amit begépelt.
+      const jsonSzoveg = tetel.szoveg && tetel.szoveg.trim() ? tetel.szoveg : null;
       const ujForras = tetel.forras ?? null;
       const ujTipus = tetel.tipus;
 
       if (!meglevo) {
-        insert.run(ujTipus, tetel.cim, tetel.szerzo, ujForras, ujKorcsoport, ujTemakJson, ujSzoveg);
+        insert.run(ujTipus, tetel.cim, tetel.szerzo, ujForras, ujKorcsoport, ujTemakJson, jsonSzoveg);
         ujCount++;
       } else {
         // Változás-detektálás: csak akkor UPDATE, ha legalább egy mező eltér.
@@ -505,9 +744,11 @@ function seedIrodalom(seedDir: string): void {
           (meglevo.forras ?? null) !== ujForras ||
           (meglevo.korcsoport ?? 'vegyes') !== ujKorcsoport ||
           (meglevo.temak ?? '[]') !== ujTemakJson ||
-          (meglevo.szoveg ?? null) !== ujSzoveg;
+          (jsonSzoveg !== null && (meglevo.szoveg ?? null) !== jsonSzoveg);
         if (eltero) {
-          updateTeljes.run(ujTipus, ujForras, ujKorcsoport, ujTemakJson, ujSzoveg, meglevo.id);
+          // Ha a JSON-ban nincs szöveg, a DB-ben meglévőt MEGTARTJUK.
+          const megtartottSzoveg = jsonSzoveg ?? meglevo.szoveg ?? null;
+          updateTeljes.run(ujTipus, ujForras, ujKorcsoport, ujTemakJson, megtartottSzoveg, meglevo.id);
           frissitettCount++;
         }
       }
@@ -525,22 +766,36 @@ function seedIrodalom(seedDir: string): void {
 }
 
 function seedUnnepek(seedDir: string): void {
-  const count = sqlite.prepare('SELECT COUNT(*) as n FROM unnepek').get() as { n: number };
-  if (count.n > 0) return;
-
   const data = parseSeedJson<HolidaySeed>(join(seedDir, 'hungarian-holidays.json'), 'Ünnepek');
+
+  // Korábban csak ÜRES táblát töltöttünk fel, ezért a később hozzáadott ünnepek
+  // (pl. Erdők Nemzetközi Napja, Méhek Világnapja — amikre sablonok hivatkoztak,
+  // de a naptárban nem szerepeltek) sosem jutottak el a már használatban lévő
+  // adatbázisokba. Most a hiányzókat név szerint pótoljuk, a meglévőket pedig
+  // érintetlenül hagyjuk (a felhasználó módosításai megmaradnak).
+  const meglevoNevek = new Set(
+    (sqlite.prepare('SELECT nev FROM unnepek').all() as Array<{ nev: string }>).map(
+      (x) => x.nev,
+    ),
+  );
+  const ujak = data.unnepek.filter((u) => !meglevoNevek.has(u.nev));
+  if (ujak.length === 0) return;
+
   const insert = sqlite.prepare(
     `INSERT INTO unnepek (nev, honap, nap, tipus, kategoria, leiras, ovodai_sulyozas)
      VALUES (?, ?, ?, ?, ?, ?, ?)`,
   );
-
   const tx = sqlite.transaction(() => {
-    for (const u of data.unnepek) {
+    for (const u of ujak) {
       insert.run(u.nev, u.honap, u.nap, u.tipus, u.kategoria ?? null, u.leiras ?? null, u.ovodaiSulyozas ?? 5);
     }
   });
   tx();
-  console.log(`[db] Ünnepek seed: ${data.unnepek.length} tétel betöltve.`);
+  console.log(
+    meglevoNevek.size === 0
+      ? `[db] Ünnepek seed: ${ujak.length} tétel betöltve.`
+      : `[db] Ünnepek: ${ujak.length} új ünnep pótolva (${ujak.map((u) => u.nev).join(', ')}).`,
+  );
 }
 
 function seedKepessegek(seedDir: string): void {
@@ -569,24 +824,80 @@ function seedKepessegek(seedDir: string): void {
  *         2) atomic copy — temp-fájlba másol, majd rename. Ha félútban kihal, nincs csonka fájl.
  *         3) source-méret összehasonlítás — sanity check.
  */
+/** Hány napi mentést tartunk meg. A régebbieket töröljük. */
+const MEGTARTOTT_BACKUPOK = 30;
+
+/**
+ * Régi mentések törlése — a legfrissebb `MEGTARTOTT_BACKUPOK` darab marad.
+ * Enélkül a mentés-mappa évekig korlátlanul nő (napi ~1-2 MB).
+ * Csendes hiba: a takarítás sosem akaszthatja meg a mentést.
+ */
+function forgatasiTakaritas(backupsDir: string): void {
+  try {
+    const fajlok = readdirSync(backupsDir)
+      .filter((f) => /^ovodanaplo-\d{4}-\d{2}-\d{2}\.db$/.test(f))
+      .sort() // a névben ISO-dátum van, így a névsor = időrend
+      .reverse();
+    for (const regi of fajlok.slice(MEGTARTOTT_BACKUPOK)) {
+      unlinkSync(join(backupsDir, regi));
+      console.log(`[db] Régi backup törölve: ${regi}`);
+    }
+  } catch (err) {
+    console.warn('[db] Backup-forgatás hiba (nem kritikus):', err);
+  }
+}
+
 export function createBackup(): string | null {
   const MIN_BACKUP_SIZE = 10 * 1024; // 10 KB — kisebb az üres/csonka DB-nél
   try {
     const backupsDir = join(app.getPath('userData'), 'OvodaNaplo', 'backups');
     if (!existsSync(backupsDir)) mkdirSync(backupsDir, { recursive: true });
 
-    const ts = new Date().toISOString().split('T')[0];
+    // HELYI dátum, nem UTC. A `toISOString()` UTC szerint ad dátumot, ezért
+    // éjfél és hajnali 2 óra között (magyar téli/nyári időzóna) az ELŐZŐ napra
+    // íródott volna a mentés — felülírva az akkori pillanatképet.
+    const most = new Date();
+    const ts = [
+      most.getFullYear(),
+      String(most.getMonth() + 1).padStart(2, '0'),
+      String(most.getDate()).padStart(2, '0'),
+    ].join('-');
     const target = join(backupsDir, `ovodanaplo-${ts}.db`);
 
-    // Ha aznap már van backup, ellenőrizzük a méretet. Ha túl kicsi, újraírjuk.
+    // Ha aznap már van backup, akkor is csak FRISS és elég nagy fájlt fogadunk el.
+    //
+    // A puszta "létezik és >10KB" ellenőrzés csendes adatvesztéshez vezetett: ha a
+    // mappában ott maradt egy aznapi NEVŰ, de régi TARTALMÚ fájl (pl. gépköltözéskor
+    // átmásolt snapshot), a függvény visszatért vele, és az aznapi valódi munkáról
+    // soha nem készült mentés. Ezért az adatbázis módosítási idejéhez hasonlítunk:
+    // ha a mentés régebbi, mint az adatbázis, újraírjuk.
     if (existsSync(target)) {
       try {
         const stat = statSync(target);
-        if (stat.size >= MIN_BACKUP_SIZE) return target;
-        console.warn(`[db] Aznapi backup túl kicsi (${stat.size} byte), újraírjuk.`);
+        const forrasStat = statSync(getDbPath());
+        if (stat.size >= MIN_BACKUP_SIZE && stat.mtimeMs >= forrasStat.mtimeMs) {
+          return target;
+        }
+        console.warn(
+          `[db] Aznapi backup elavult vagy csonka (${stat.size} byte, ` +
+            `${new Date(stat.mtimeMs).toISOString()}), újraírjuk.`,
+        );
       } catch {
         // statSync hiba — folytatjuk és újraírjuk
       }
+    }
+
+    // WAL-checkpoint a másolás ELŐTT.
+    // WAL-módban a legfrissebb tranzakciók a `-wal` fájlban ülnek, nem a `.db`-ben.
+    // Enélkül a backup a mai munkát NEM tartalmazza — csak a legutóbbi checkpoint-ig
+    // tartó állapotot. A TRUNCATE mód beolvasztja a WAL-t a főfájlba és kiüríti.
+    try {
+      sqlite.pragma('wal_checkpoint(TRUNCATE)');
+    } catch (err) {
+      // Ha nem sikerül (pl. másik olvasó fogja), a másolat hiányos lehet — inkább
+      // kihagyjuk a backupot, mint hogy hamis biztonságérzetet adjunk.
+      console.error('[db] WAL-checkpoint sikertelen, backup kihagyva:', err);
+      return null;
     }
 
     // Atomic copy: tmp fájlba, majd rename. Így félút esetén nincs csonka célfájl.
@@ -607,6 +918,7 @@ export function createBackup(): string | null {
     }
     renameSync(tmpTarget, target);
     console.log(`[db] Backup elkészült: ${target} (${copiedSize} byte)`);
+    forgatasiTakaritas(backupsDir);
     return target;
   } catch (err) {
     console.error('[db] Backup hiba:', err);
