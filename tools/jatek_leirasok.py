@@ -255,7 +255,11 @@ JAVITAS: dict[str, str | None] = {
     "Szalaggyakorlat Lufidobálás (egyensúly játék)": "Lufidobálás (egyensúlyjáték)",
     "Body-roll gyakorlatok Pincérverseny (akadályverseny)": "Pincérverseny (akadályverseny)",
     "Buzogánygyakorlatok Csipeszes fogó (fogójáték)": "Csipeszes fogó (fogójáték)",
-    "Találós kérdések az (anyanyelvi játék)": "Találós kérdések az állatokról (anyanyelvi játék)",
+    # A kinyerés itt az „az" után vágott. A csonk egyetlen helyen fordul elő, a
+    # „testünk" témában, ahol a középső csoport listája „Találós kérdések az
+    # ÉRZÉKSZERVEKRŐL" — az egészíti ki, nem az „állatokról". Az állatos változat
+    # az `erdo_allatai` témában áll, és ott ép, nem szorul javításra.
+    "Találós kérdések az (anyanyelvi játék)": "Találós kérdések az érzékszervekről (anyanyelvi játék)",
 }
 
 # A kiadvány ugyanazt a játékot hol a műfaj-megjelöléssel, hol anélkül nevezi meg.

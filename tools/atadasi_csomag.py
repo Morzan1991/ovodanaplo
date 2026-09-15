@@ -36,6 +36,12 @@ KIZART_MAPPA = {
     "__pycache__",
     "_biztonsagi-mentes-2026-09-05",  # SZEMÉLYES ADAT
     "claude-memory", ".claude",       # a fejlesztőasszisztens jegyzetei
+    # A verzióelőzmény azért marad ki, mert a fenti két kizárás enélkül nem ér
+    # semmit: a `.git` visszaadná a `claude-memory` jegyzeteit (bennük névvel,
+    # e-mail címmel és egy gyermek egészségi állapotára utaló idézettel), és a
+    # törölt mobil ágat is. Aki az előzményt is látni akarja, a GitHub-repóban
+    # megkapja — oda meghívással lehet hozzáférést adni.
+    ".git",
 }
 
 # Kiterjesztések, amelyek sosem kerülnek a csomagba.

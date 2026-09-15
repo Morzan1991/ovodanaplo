@@ -212,6 +212,10 @@ kérdés. A felhasználó szempontjából az a `seed/`-ben már kész.
 
 - `node_modules/` — `npm install` állítja elő (774 MB az `app` alatt).
 - `app/dist-installer/` — a kész telepítő és a kicsomagolt build, 563 MB.
+- `.git/` — a verzióelőzmény. A csomag így egy tiszta forrás-pillanatkép; a
+  teljes előzményhez a GitHub-repóba kell meghívás. (Azért marad ki, mert a
+  fejlesztői jegyzetek kihagyása enélkül nem érne semmit: a `.git` visszaadná
+  őket.)
 
 A teljes projektmappa a gépen 1,4 GB; ebből a forráskód és a tartalom 8,9 MB. A
 különbség mind újraelőállítható.
