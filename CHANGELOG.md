@@ -1,19 +1,29 @@
 # Verziótörténet
 
-## 2026-09-15 — a mobil ág eltávolítása
+## v2.11.10 — 2026-09-15 — a mobil ág eltávolítása, csonka ötletsor javítása
 
-A `mobile/` mappa (Capacitor-alapú Android ötletelő) és a hozzá tartozó két
-segédszkript (`tools/mobil_tartalom.py`, `tools/mobil_ikon.py`) kikerült a
-projektből — összesen 38 fájl.
-
-Az asztali program nem függött tőle: a kódja, az adatai és a `seed/` tartalom
-változatlan, ezért a verziószám marad **2.11.9**.
-
-Miért került ki: a mobil ág önálló, szinkron nélküli ötletelő volt, amely a
-seedből generált másolatot vitte telefonra. Minden tartalomváltozás után külön
-lépést kívánt (`mobil_tartalom.py`), és ez a lépés könnyen kimaradt — így a
+**A mobil ág kikerült.** A `mobile/` mappa (Capacitor-alapú Android ötletelő) és
+a hozzá tartozó két segédszkript (`tools/mobil_tartalom.py`,
+`tools/mobil_ikon.py`) törlődött — összesen 38 fájl. Önálló, szinkron nélküli
+ötletelő volt, amely a seedből generált másolatot vitte telefonra: minden
+tartalomváltozás után külön lépést kívánt, és ez a lépés könnyen kimaradt, így a
 telefonon észrevétlenül régi tartalom maradhatott. A kód a git előzményében
 megmarad, onnan bármikor visszahozható.
+
+**Egy csonka ötletsor javítva.** A „testünk" téma verselés-mesélés listájában a
+nagycsoportnál „Találós kérdések az (anyanyelvi játék)" állt — a PDF-kinyerés
+levágta a szót. A javító-tábla „az állatokról"-ra egészítette volna ki, ami ide
+téves: az állatos változat az `erdo_allatai` témában áll, épen. A helyes alak —
+amit ugyanennek a témának a középső csoportos listája is mutat — „Találós
+kérdések az **érzékszervekről**". A seed és a tábla is erre javítva.
+
+**Az átadási csomagból kimarad a `.git`.** A csomagoló eddig kihagyta a
+fejlesztői jegyzeteket, de a verzióelőzményt belecsomagolta — abból viszont
+visszanyerhetők voltak. A csomag így 477 fájl helyett 178, és tiszta
+forrás-pillanatkép.
+
+A program viselkedése egyébként változatlan; ez a kiadás a fenti tartalmi
+javítást viszi be.
 
 ## v2.8 – v2.11.9 — 2026-09 — tartalom, jogtisztaság, szerkeszthetőség
 

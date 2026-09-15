@@ -3,7 +3,7 @@
 > Lokális desktop alkalmazás óvodapedagógusoknak — heti tervek, projektek, reflexiók.
 > Magyar UI, ONAP-megfelelőség, KRÉTA-kompatibilis DOCX-export, **zéro cloud**.
 
-[![Verzió](https://img.shields.io/badge/verzi%C3%B3-2.11.9-FDD0DC)](./CHANGELOG.md)
+[![Verzió](https://img.shields.io/badge/verzi%C3%B3-2.11.10-FDD0DC)](./CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](#telep%C3%ADt%C3%A9s)
 [![Lokál](https://img.shields.io/badge/cloud-NINCS-success)](#adatv%C3%A9delem)
 
@@ -68,7 +68,7 @@ ovodanaplo/
 
 ## Verzió
 
-**2.11.9** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
+**2.11.10** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
 
 ## Adatvédelem
 
@@ -86,7 +86,7 @@ UNLICENSED — privát használat. A repo Morzan1991 GitHub-fiókján privát.
 
 - Az óvodapedagógus-tanácsadó (a felesége, Mazsola csoport) — minden szakmai követelmény
 - ONAP (Óvodai Nevelés Országos Alapprogramja) — pedagógiai struktúra
-- Magyar irodalom (Móra, Weöres, Csukás, József Attila, Marék Veronika, Bartos Erika, Lázár Ervin, Berg Judit) — 383 mű
+- Magyar irodalom (Móra, Weöres, Csukás, József Attila, Marék Veronika, Bartos Erika, Lázár Ervin, Berg Judit) — 1 024 mű
 - Anthropic Claude Opus 4.7 — fejlesztési párprogramozás
 
 ---
