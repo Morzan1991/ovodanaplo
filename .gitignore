@@ -61,3 +61,9 @@ desktop.ini
 *.tmp
 *.temp
 .cache/
+
+# TypeScript build-gyorsítótár — nem forrás
+*.tsbuildinfo
+
+# Claude Code helyi beállítások
+.claude/

@@ -1,67 +1,81 @@
-# OvodaNapló
+# ÓvodaNapló
 
 > Lokális desktop alkalmazás óvodapedagógusoknak — heti tervek, projektek, reflexiók.
 > Magyar UI, ONAP-megfelelőség, KRÉTA-kompatibilis DOCX-export, **zéro cloud**.
 
-[![Verzió](https://img.shields.io/badge/verzi%C3%B3-2.7.0-FDD0DC)](./CHANGELOG.md)
+[![Verzió](https://img.shields.io/badge/verzi%C3%B3-2.11.9-FDD0DC)](./CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](#telep%C3%ADt%C3%A9s)
 [![Lokál](https://img.shields.io/badge/cloud-NINCS-success)](#adatv%C3%A9delem)
 
 ## Mit tud?
 
-- **85 heti sablon** (33 téma, V1+V2 verziók) — 21 magyar ünnep + szezonális témák
-- **2310 ötlet** korcsoport-szerinti szűréssel (kicsi / közepes / nagy / vegyes)
-- **383 valós irodalmi mű** — autocomplete a területenkénti tartalomban
+- **114 heti sablon** (65 téma, V1+V2 változatok) — 39 magyar jeles nap + szezonális témák
+- **15 220 tevékenység-ötlet** korcsoport szerint szűrve (kicsi / középső / nagy / vegyes)
+- **1 024 valós irodalmi mű** — kiegészítés gépelés közben a területek tartalmában
 - **Heti terv-szerkesztő** 7 ONAP-területtel + iskola-előkészítő szekciókkal
 - **Foglalkozás-tervezet** 19 mezővel — KRÉTA-DOCX export
 - **Projektterv** 5 szekciós űrlap — KRÉTA-DOCX export
 - **Évek közötti full-text keresés** (SQLite FTS5)
-- **71 képesség-tag** 6 kategóriában — heti tervhez kapcsolható chip-rendszer
+- **71 képesség** 6 kategóriában — a heti tervhez kapcsolható, és a szövegbe is bekerül
 - **"Tavaly ilyenkor"** emlékeztető — korábbi évek hasonló hetére visszatekintés
 - **Reflexiók** heti / foglalkozás / projekt szinten
 
+## Kódellenőrzéshez
+
+Ha a programot át kell néznie valakinek, az [**ATTEKINTES.md**](./ATTEKINTES.md)
+a belépési pont: felépítés, indítás, a generált tartalom láncolata, ismert hibák
+és javasolt olvasási sorrend.
+
 ## Telepítés
 
-### Felhasználói (alapfutó)
+### Felhasználói
 
-A telepítő nem-szignáció miatt a Windows Defender szóhasználatos. **Egyetlen biztonságos út**:
+A `npm run package:win` egy NSIS-telepítőt készít a `app/dist-installer/` mappába
+(`ÓvodaNapló Setup x.y.z.exe`). Ezt kell futtatni. A telepítő nincs aláírva, ezért
+a Windows SmartScreen figyelmeztet; a „További információ" alatt lehet továbblépni.
 
-1. Másold át a `_ovodanaplo/app/dist-installer/win-unpacked/` mappa **TELJES** tartalmát egy célmappába (pl. `C:\Program Files\OvodaNapló\`)
-2. Az `OvodaNapló.exe`-re jobb klikk → "Asztali parancsikon létrehozása"
-3. Indítsd a parancsikonról
-
-Az adatbázis automatikusan létrejön: `%APPDATA%\ovodanaplo\OvodaNaplo\ovodanaplo.db`
+Az adatbázis első indításkor jön létre:
+`%APPDATA%\ovodanaplo\OvodaNaplo\ovodanaplo.db`
 
 ### Fejlesztői
 
-Lásd: [**HANDOVER.md**](./HANDOVER.md) — teljes átadási dokumentum (Node, npm, Claude Code, GitHub setup egy új gépen).
+```bash
+cd app && npm install && npm run dev
+```
+
+Részletek: [**ATTEKINTES.md**](./ATTEKINTES.md), új gép beállítása:
+[HANDOVER.md](./HANDOVER.md).
 
 ## Mappa-struktúra
 
 ```
-_ovodanaplo/
+ovodanaplo/
 ├── app/                      # Electron alkalmazás (TypeScript + React + Drizzle ORM)
-│   ├── src/main/             # Electron main process (IPC, DB, DOCX-export)
-│   ├── src/preload/          # contextBridge API
-│   ├── src/renderer/         # React renderer (UI)
-│   ├── src/shared/           # Közös típusok + Zod schemák
-│   └── dist-installer/       # Build output (gitignore)
-├── seed/                     # JSON-adatok (templates, otletek-bank, literature)
-├── tools/                    # Python szkriptek (build, verify, e2e tests)
-├── marketing/                # Landing oldal
-├── claude-commands/          # Claude Code slash-skill-ek (7 db)
-├── claude-memory/            # Claude Code memory-fájlok (8 db)
-├── HANDOVER.md               # Átadási dokumentum másik gép setup-hoz
-└── CHANGELOG.md              # Verzió-történet
+│   ├── src/main/             # főprocesz (IPC, adatbázis, titkosítás, DOCX-export)
+│   ├── src/preload/          # contextBridge — ez a teljes window.api
+│   ├── src/renderer/         # React felület
+│   ├── src/shared/           # main és renderer közt osztott kód (séma, zod, ünnepnaptár)
+│   └── dist-installer/       # build kimenet (gitignore)
+├── seed/                     # GENERÁLT tartalom — kézzel ne szerkeszd
+├── tools/                    # Python: a seed előállítása és karbantartása
+├── mobile/                   # Capacitor-alapú mobil ötletelő (külön ág, nem kötelező)
+├── schema/                   # adatbázis-séma dokumentáció
+├── marketing/                # landing oldal
+├── claude-commands/          # fejlesztői segéd-parancsok
+├── ATTEKINTES.md             # ← kódellenőrzéshez ez a belépési pont
+├── HANDOVER.md               # új gép beállítása
+└── CHANGELOG.md              # verziótörténet
 ```
 
 ## Verzió
 
-**2.7.0** — 2026-05-13 — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
+**2.11.9** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
 
 ## Adatvédelem
 
-- **Minden adat LOKÁLISAN** tárolódik (SQLite + JSON fájlok)
+- **Minden adat a gépen marad** (SQLite + JSON fájlok)
+- **Az adatbázis titkosított** (SQLCipher). A kulcs a Windows saját védelmével (DPAPI) tárolódik, így másik gépre másolva az adatbázis nem olvasható
+- **Napi biztonsági mentés**, 30 példány megtartásával
 - **NINCS cloud, NINCS telemetria, NINCS tracking**
 - Adatvédelmi detektor figyelmeztet, ha a szöveg gyermek-azonosítót tartalmazna (SNI, BTMN, "egy kisfiú/kislány", stb.)
 

@@ -1,3 +1,30 @@
+# Verziótörténet
+
+## v2.8 – v2.11.9 — 2026-09 — tartalom, jogtisztaság, szerkeszthetőség
+
+Összefoglaló; a részletes indoklás a kód kommentjeiben és az `ATTEKINTES.md`-ben van.
+
+**Tartalom.** A sablonok 85-ről 114-re, a témák 33-ról 65-re, az irodalomtár
+383-ról 1 024 tételre, az ötletbank 2 310-ről 15 220 javaslatra nőtt. Az irodalmi
+anyag gondozott korpuszból generálódik (`tools/korpusz/`), műfaj, korosztály és
+téma szerint — ezzel megszűnt, hogy dal kerüljön a versek közé, vagy hogy mind a
+négy korcsoport szó szerint ugyanazt kapja.
+
+**Jogtisztaság.** A forráskiadványból szó szerint átvett szövegeket saját
+megfogalmazásra cseréltük: 214 játékleírás, 210 korcsoportos cél- és
+feladatszöveg, 351 ötletbank-sor. Három teszt őrzi, hogy ne kerülhessen vissza.
+
+**Szerkeszthetőség.** Javítva a dokumentum nézet, ahol minden leütés után
+elveszett a fókusz, és ahol az üres sor azonnal eltűnt. Az irodalmi
+kiegészítő már csak gépeléskor ajánlkozik, és nem veszi el az Entert.
+
+**Heti terv ütemezés.** Húsvét és pünkösd az ünnep ELŐTTI hétre kerül. Két mentő
+lépés került a sablonválasztásba, hogy egy hétre eső két jeles nap közül a
+vesztes ne maradjon ki az évből.
+
+**Titkosítás.** SQLCipher, a kulcs a Windows DPAPI-védelmével tárolva,
+visszaállítási kulccsal.
+
 # Verzió-történet
 
 Az OvodaNapló verziók és változtatások részletes naplója.
