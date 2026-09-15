@@ -68,12 +68,13 @@ ovodanaplo/
 
 ## Verzió
 
-**2.11.12** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
+**2.11.13** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
 
 ## Adatvédelem
 
 - **Minden adat a gépen marad** (SQLite + JSON fájlok)
 - **Az adatbázis titkosított** (SQLCipher). A kulcs a Windows saját védelmével (DPAPI) tárolódik, így másik gépre másolva az adatbázis nem olvasható
+- **Visszaállítási kulcs**: Windows-újratelepítés vagy profilsérülés után visszamásolt naplónál a program induláskor bekéri, és csak azt a kulcsot fogadja el, amely valóban nyitja a naplót
 - **Napi biztonsági mentés**, 30 példány megtartásával
 - **NINCS cloud, NINCS telemetria, NINCS tracking**
 - Adatvédelmi detektor figyelmeztet, ha a szöveg gyermek-azonosítót tartalmazna (SNI, BTMN, "egy kisfiú/kislány", stb.)

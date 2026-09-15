@@ -67,10 +67,13 @@ main/        főprocesz — 4 768 sor
   index.ts        ablak, biztonsági szabályok, életciklus
   ipc.ts          51 IPC-csatorna, ez a tényleges API-felület
   db/index.ts     séma, migrációk, seed-betöltés, mentés
-  db/kulcs.ts     titkosítási kulcs kezelése
+  db/kulcs.ts     titkosítási kulcs tárolása (safeStorage)
+  db/kulcsdontes.ts  induláskor: tárolt, új vagy bekért kulcs (tiszta függvény)
+  kulcsbekeres.ts a visszaállítási kulcs bekérő ablaka
   export-docx.ts  Word-export (KRÉTA-formátum)
   templates/      heti terv generálás sablonokból
 preload/     276 sor — contextBridge, ez a teljes `window.api`
+             (+ `kulcsbekeres.ts`: a kulcsbekérő ablak egyetlen hívása)
 renderer/    React felület — 6 983 sor
   pages/          képernyők (HetiTerv, Naptar, Projektek, Reflexiok…)
   components/     közös elemek
@@ -94,7 +97,11 @@ A renderernek nincs közvetlen fájl- vagy adatbázis-elérése.
   Electron `safeStorage`-ével (Windowson DPAPI) titkosítva, külön fájlban ül.
   Másik gépre másolva az adatbázis nem olvasható.
 - **Visszaállítási kulcs.** A felhasználó kimentheti szövegfájlba, ez az egyetlen
-  módja a helyreállításnak, ha a Windows-profil elvész.
+  módja a helyreállításnak, ha a Windows-profil elvész. Ha induláskor a napló
+  titkosított, de a tárolt kulcs hiányzik, nem fejthető vissza vagy nem nyitja,
+  a program bekéri, és csak sikeres próba-megnyitás után tárolja el
+  (`db/kulcsdontes.ts`, `main/kulcsbekeres.ts`). Meglévő, titkosított naplóhoz
+  új kulcs soha nem készül, és kulcs nélkül sem nyílik meg.
 - **Napi biztonsági mentés** indításkor, WAL-checkpoint után, méret-ellenőrzéssel,
   30 példány megtartásával.
 
@@ -147,10 +154,12 @@ cím és a szerző van tárolva.
 
 ## 6. Tesztek
 
-203 teszt, `vitest`. Nincs böngészős vagy végponttól végpontig futó teszt, a
+236 teszt, `vitest`. Nincs böngészős vagy végponttól végpontig futó teszt, a
 felületet kézzel próbáltuk. A tesztek nagy része tiszta függvényekre és a
 generált tartalom helyességére megy:
 
+- a titkosítás induláskori kulcsdöntése, és a visszaállítási kulcs próbája
+  valódi, titkosított adatbázisfájlon;
 - ünnepnaptár, mozgó ünnepek dátuma hat évre előre;
 - a heti terv generálás: minden fő ünnep kap sablont, nincs üres hét;
 - irodalmi besorolás: dal nem kerül a versek közé;
@@ -167,7 +176,8 @@ Ezeket egy 2026. szeptemberi átvizsgálás találta, egyik sem javított:
    késleltetett; a `beforeunload` elindítja a mentést, de az IPC aszinkron, és a
    főprocesz `before-quit`-ben azonnal zárja az adatbázist. Verseny van a kettő
    közt. Elnavigálásnál nincs gond, csak az ablak bezárásánál.
-   Érintett: `renderer/src/pages/HetiTerv.tsx` (~400. sor), `main/index.ts:189`.
+   Érintett: `renderer/src/pages/HetiTerv.tsx` (~400. sor), `main/index.ts` (a
+   `before-quit` kezelő).
 
 2. **13 IPC-handler nem ellenőrzi a bemenetét**, 26 igen. Kihasználható rés nem
    látszik (a hívó a saját renderer, minden lekérdezés paraméteres), de
@@ -196,7 +206,8 @@ Javasolt sorrend, ha az a kérdés, hogy megbízható-e a program:
    legtöbb kockázat, mert ez ír a felhasználó adataira. Külön figyelmet érdemel a
    `seedIrodalom`: korábban felülírta a kézzel beírt szövegeket, most `sajat = 0`
    szűréssel és `jsonSzoveg ?? meglevo.szoveg` logikával védi őket.
-2. `app/src/main/db/kulcs.ts` — kulcskezelés, rövid fájl.
+2. `app/src/main/db/kulcsdontes.ts` és `db/kulcs.ts` — melyik kulccsal nyílik a
+   napló, és hol tárolódik a kulcs; rövid fájlok.
 3. `app/src/main/index.ts` — ablakbeállítások, külső link, navigáció.
 4. `app/src/main/ipc.ts` — a teljes API-felület, 51 csatorna.
 5. `app/src/renderer/src/pages/HetiTerv.tsx` — a legösszetettebb képernyő, itt

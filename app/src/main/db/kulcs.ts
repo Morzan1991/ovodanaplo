@@ -12,12 +12,19 @@
  * Ha a Windows-fiók elvész (újratelepítés, profilsérülés), enélkül az adat
  * véglegesen olvashatatlan lenne. A felhasználónak ezt ki kell mentenie a gépen
  * kívülre (papír, pendrive) — a profilon belül tárolt másolat vele együtt vész el.
+ *
+ * Hogy induláskor melyik kulcs kell (tárolt, új vagy bekért), azt nem ez a modul
+ * dönti el, hanem a `kulcsdontes.ts`.
  */
 
 import { app, safeStorage } from 'electron';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { randomBytes } from 'node:crypto';
+import type { TaroltKulcs } from './kulcsdontes.js';
+import { kulcsErvenyes, kulcsFormazott } from './kulcsszoveg.js';
+
+export { kulcsFormazott, kulcsNormalizal, kulcsErvenyes } from './kulcsszoveg.js';
 
 /** A titkosított kulcsot tartalmazó fájl az adatmappában. */
 function kulcsFajlUtvonal(): string {
@@ -26,61 +33,49 @@ function kulcsFajlUtvonal(): string {
   return join(dir, 'kulcs.dat');
 }
 
-export interface KulcsAllapot {
-  /** A nyers kulcs hex formában — ezzel nyitjuk az adatbázist. */
-  kulcs: string;
-  /** Most jött létre először? Ekkor meg kell mutatni a visszaállítási kulcsot. */
-  ujonnanLetrehozva: boolean;
+/** Elérhető-e a Windows jelszóvédelme. Nélküle a kulcs nem tárolható biztonságosan. */
+export function vedelemElerheto(): boolean {
+  return safeStorage.isEncryptionAvailable();
 }
 
 /**
- * Ember által olvasható forma: 8 karakteres csoportok kötőjellel.
- * Pl. `A1B2C3D4-E5F6...` — így le lehet írni papírra elgépelés nélkül.
+ * A tárolt kulcs beolvasása. Új kulcsot SOHA nem hoz létre, és semmit nem ír:
+ * hogy kell-e új kulcs, azt a `nyitasiDontes` dönti el, a meglévő adatbázis
+ * ismeretében.
  */
-export function kulcsFormazott(kulcs: string): string {
-  return (kulcs.toUpperCase().match(/.{1,8}/g) ?? []).join('-');
-}
-
-/** A formázott (kötőjeles, nagybetűs) alakból visszaállítja a nyers kulcsot. */
-export function kulcsNormalizal(bevitel: string): string {
-  return bevitel.replace(/[^0-9a-fA-F]/g, '').toLowerCase();
-}
-
-/** Érvényes-e egy visszaállítási kulcs (256 bit = 64 hex karakter). */
-export function kulcsErvenyes(kulcs: string): boolean {
-  return /^[0-9a-f]{64}$/.test(kulcsNormalizal(kulcs));
-}
-
-/**
- * Betölti a meglévő kulcsot, vagy elsőre generál egy újat.
- *
- * @throws ha a Windows-védelem nem érhető el — ilyenkor a hívó dönt arról,
- *         hogy titkosítás nélkül folytat-e (inkább működjön a program, mint hogy
- *         a pedagógus kizárja magát a saját munkájából).
- */
-export function kulcsBetoltVagyLetrehoz(): KulcsAllapot {
-  if (!safeStorage.isEncryptionAvailable()) {
-    throw new Error(
-      'A Windows jelszóvédelme (safeStorage) nem érhető el, ezért a titkosítási ' +
-        'kulcs nem tárolható biztonságosan.',
-    );
-  }
-
+export function taroltKulcsOlvas(): TaroltKulcs {
   const fajl = kulcsFajlUtvonal();
-
-  if (existsSync(fajl)) {
-    const titkositott = readFileSync(fajl);
-    const kulcs = safeStorage.decryptString(titkositott);
-    if (!kulcsErvenyes(kulcs)) {
-      throw new Error('A tárolt titkosítási kulcs sérült vagy érvénytelen.');
-    }
-    return { kulcs, ujonnanLetrehozva: false };
+  if (!existsSync(fajl)) return { allapot: 'nincs' };
+  if (!vedelemElerheto()) {
+    return {
+      allapot: 'olvashatatlan',
+      ok: 'A Windows jelszóvédelme (safeStorage) nem érhető el.',
+    };
   }
+  try {
+    // Egy másik Windows-fiókban (újratelepítés, profilsérülés után) ez kivételt dob.
+    const kulcs = safeStorage.decryptString(readFileSync(fajl));
+    if (!kulcsErvenyes(kulcs)) {
+      return { allapot: 'olvashatatlan', ok: 'A tárolt titkosítási kulcs sérült vagy érvénytelen.' };
+    }
+    return { allapot: 'van', kulcs };
+  } catch (err) {
+    return { allapot: 'olvashatatlan', ok: (err as Error).message };
+  }
+}
 
-  // Új kulcs: 256 bit véletlen.
+/**
+ * Új, 256 bites véletlen kulcs, azonnal eltárolva.
+ *
+ * Csak az `uj-kulcs` döntés után hívható: meglévő, titkosított adatbázis mellé
+ * új kulcs soha nem készülhet.
+ *
+ * @throws ha a kulcs nem tárolható (nincs Windows-védelem, írási hiba)
+ */
+export function ujKulcsLetrehoz(): string {
   const kulcs = randomBytes(32).toString('hex');
   kulcsKiir(kulcs);
-  return { kulcs, ujonnanLetrehozva: true };
+  return kulcs;
 }
 
 /** A kulcs (újra)mentése a Windows-védelemmel titkosítva. */

@@ -1,6 +1,6 @@
 /**
  * Electron főprocesz.
- * - Egyetlen BrowserWindow
+ * - Egyetlen főablak (előtte, ha kell, a visszaállítási kulcs bekérő ablaka)
  * - Bezáráskor lezárja a DB-t
  * - Heti backup futtatás indításkor
  */
@@ -9,10 +9,19 @@ import { app, BrowserWindow, shell, dialog } from 'electron';
 import { join } from 'node:path';
 import { existsSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { initDb, createBackup, closeDb, getTitkositasAllapot } from './db/index.js';
-import { kulcsFormazott, visszaallitasiFajlTartalma } from './db/kulcs.js';
+import {
+  initDb,
+  createBackup,
+  closeDb,
+  getDbPath,
+  getTitkositasAllapot,
+  nyitasiHelyzet,
+} from './db/index.js';
+import { kulcsFormazott, ujKulcsLetrehoz, visszaallitasiFajlTartalma } from './db/kulcs.js';
+import { nyitasiDontes } from './db/kulcsdontes.js';
 import { KULCSFAJL_ALAPNEV, szabadKulcsfajlUt } from './db/kulcsfajl.js';
 import { registerIpcHandlers } from './ipc.js';
+import { kulcsBekeres, type BekertKulcs } from './kulcsbekeres.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -158,6 +167,73 @@ function createMainWindow(): BrowserWindow {
   return win;
 }
 
+/**
+ * Az adatbázis megnyitása a megfelelő kulccsal (lásd `db/kulcsdontes.ts`).
+ *
+ * Ha a napló titkosított, de a gépen nincs hozzá használható kulcs, bekéri a
+ * visszaállítási kulcsot. Meglévő, titkosított naplóhoz új kulcs itt soha nem
+ * készül, és kulcs nélkül sem nyílik meg.
+ *
+ * @returns a bekért kulcs (ha be kellett kérni), `null`, ha nem kellett — vagy
+ *          `false`, ha a felhasználó a kulcs bekérésénél kilépett.
+ */
+async function adatbazisMegnyitas(): Promise<BekertKulcs | null | false> {
+  const dontes = nyitasiDontes(nyitasiHelyzet());
+  console.log('[db] Kulcsdöntés:', dontes.tipus); // a kulcsot magát soha nem naplózzuk
+
+  switch (dontes.tipus) {
+    case 'tarolt-kulcs':
+      initDb({ kulcs: dontes.kulcs, ujKulcs: false });
+      return null;
+
+    case 'uj-kulcs': {
+      let kulcs: string;
+      try {
+        kulcs = ujKulcsLetrehoz();
+      } catch (err) {
+        // Inkább működjön a program titkosítás nélkül, mint hogy a pedagógus ne
+        // férjen a munkájához. Ide csak akkor jutunk, ha nincs titkosított napló.
+        initDb({ kulcs: null, hiba: `A titkosítási kulcs nem tárolható: ${(err as Error).message}` });
+        return null;
+      }
+      initDb({ kulcs, ujKulcs: true });
+      return null;
+    }
+
+    case 'titkositas-nelkul':
+      initDb({
+        kulcs: null,
+        hiba:
+          'A Windows jelszóvédelme (safeStorage) nem érhető el, ezért a titkosítási ' +
+          'kulcs nem tárolható biztonságosan.',
+      });
+      return null;
+
+    case 'kulcs-bekeres': {
+      console.warn(
+        `[db] Titkosított napló használható kulcs nélkül (${dontes.ok}) — a visszaállítási kulcsot kérjük be.`,
+      );
+      const bekert = await kulcsBekeres(getDbPath(), dontes.ok, dontes.mentheto);
+      if (!bekert) return false;
+      initDb({ kulcs: bekert.kulcs, ujKulcs: false });
+      return bekert;
+    }
+  }
+}
+
+/** Jelzés, ha a visszaállítási kulccsal megnyílt napló kulcsát nem sikerült eltárolni. */
+async function kulcsTarolasiFigyelmeztetes(ok: string): Promise<void> {
+  await dialog.showMessageBox({
+    type: 'warning',
+    title: 'A kulcs nincs eltárolva',
+    message: 'A napló megnyílt, de a kulcsát nem sikerült eltárolni ezen a gépen.',
+    detail:
+      `${ok}\n\nA program a következő indításkor újra kérni fogja a visszaállítási ` +
+      'kulcsot — tartsd kéznél.',
+    buttons: ['Rendben'],
+  });
+}
+
 // Egyetlen példány futhat. Két párhuzamos példány UGYANAZT az SQLite-fájlt írná,
 // ami adatvesztéshez/sérüléshez vezethet. Ha már fut egy, azt hozzuk előtérbe.
 const egyPeldanyZar = app.requestSingleInstanceLock();
@@ -182,13 +258,37 @@ if (!egyPeldanyZar) {
     console.error('[app] Kezeletlen promise-hiba:', ok);
   });
 
-  app.whenReady().then(() => {
+  app.whenReady().then(async () => {
     console.log('[app] Indulás. Verzió:', app.getVersion());
-    initDb();
+
+    let bekert: BekertKulcs | null | false;
+    try {
+      bekert = await adatbazisMegnyitas();
+    } catch (err) {
+      // Enélkül a program ablak nélkül futna tovább, és az egypéldányos zár miatt
+      // újraindítani sem lehetne.
+      console.error('[app] Az adatbázis megnyitása nem sikerült:', err);
+      dialog.showErrorBox(
+        'Az ÓvodaNapló nem tud elindulni',
+        `Az adatbázist nem sikerült megnyitni:\n\n${(err as Error).message}`,
+      );
+      app.quit();
+      return;
+    }
+    if (bekert === false) {
+      app.quit();
+      return;
+    }
+
     registerIpcHandlers();
     createBackup(); // csendes napi snapshot
 
-    createMainWindow();
+    const foablak = createMainWindow();
+    if (bekert) {
+      // A bekérő ablak csak akkor tűnik el, amikor a főablak már látszik.
+      foablak.once('ready-to-show', bekert.ablakBezar);
+      if (bekert.mentesiHiba) void kulcsTarolasiFigyelmeztetes(bekert.mentesiHiba);
+    }
     void titkositasTajekoztato();
 
     app.on('activate', () => {

@@ -1,5 +1,37 @@
 # Verziótörténet
 
+## v2.11.13 — 2026-09-15 — visszaállítás a visszaállítási kulccsal
+
+**Javítva: a visszaállítási kulcsot a program sehol nem kérte be.** A kulcs arra
+készült, hogy Windows-újratelepítés vagy profilsérülés után vissza lehessen nyitni
+vele a naplót. Ha a felhasználó ilyenkor visszamásolta a
+`%APPDATA%\ovodanaplo\OvodaNaplo\ovodanaplo.db` fájlt, a program pont ekkor
+rontotta el a dolgot:
+
+- ha a `kulcs.dat` nem volt mellette, kérdés nélkül **új kulcsot** generált és
+  tárolt el — a meglévő napló ezzel nem nyílt meg, a program nem indult, és a
+  `kulcs.dat`-ban onnantól a rossz kulcs állt;
+- ha a `kulcs.dat` is átkerült, de az új Windows-fiók nem tudta visszafejteni, a
+  titkosított naplót **kulcs nélkül** próbálta megnyitni — így sem indult.
+
+Mindkét esetben ablak nélkül futott tovább a háttérben, ezért újraindítani sem
+lehetett.
+
+Mostantól meglévő, titkosított naplóhoz a program soha nem készít új kulcsot, és
+kulcs nélkül sem nyitja meg. Ha a tárolt kulcs hiányzik, nem fejthető vissza, vagy
+nem ehhez a naplóhoz tartozik, induláskor egy kis ablakban **bekéri a
+visszaállítási kulcsot**. A kulcsot csak olvasva próbálja ki az adatbázison: rossz
+kulcsnál semmit nem ír, a naplót nem módosítja. A helyes kulcsot a Windows
+védelmével eltárolja, a következő indítás már kérdés nélkül megy. Így gyógyul az
+is, akinek a régi verzió már rossz kulcsot írt a `kulcs.dat`-ba: a program jelzi,
+hogy a tárolt kulcs egy másik naplóé, és a visszaállítási kulccsal megnyílik.
+
+Ha az adatbázis más okból nem nyitható meg (zárolt vagy sérült fájl), a program
+hibaüzenetet ad és kilép — nem fut tovább ablak nélkül.
+
+Új tesztek: `kulcsdontes.test.ts` (20 eset), `kulcsproba.test.ts` (7, valódi
+titkosított fájlokon), `kulcsszoveg.test.ts` (6). 203 → 236 teszt.
+
 ## v2.11.12 — 2026-09-15 — a visszaállítási kulcsfájl védelme
 
 **Tisztázás: a telepítő nem visz magával adatot.** A telepítőben csak a program

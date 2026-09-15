@@ -19,6 +19,16 @@ export default defineConfig({
   },
   preload: {
     plugins: [externalizeDepsPlugin()],
+    build: {
+      rollupOptions: {
+        // Két preload: a főablaké, és az induláskori kulcsbekérő ablaké
+        // (lásd src/main/kulcsbekeres.ts).
+        input: {
+          index: resolve(__dirname, 'src/preload/index.ts'),
+          kulcsbekeres: resolve(__dirname, 'src/preload/kulcsbekeres.ts'),
+        },
+      },
+    },
   },
   renderer: {
     resolve: {

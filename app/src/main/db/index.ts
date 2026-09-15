@@ -21,7 +21,9 @@ import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { sql } from 'drizzle-orm';
 import * as schema from '../../shared/schema.js';
-import { kulcsBetoltVagyLetrehoz, type KulcsAllapot } from './kulcs.js';
+import { taroltKulcsOlvas, vedelemElerheto } from './kulcs.js';
+import type { NyitasiHelyzet } from './kulcsdontes.js';
+import { adatbazisNyithato, kulcsRaad, sqlIdezet } from './kulcsproba.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -47,25 +49,16 @@ export function getDbPath(): string {
   return join(ovodaDir, 'ovodanaplo.db');
 }
 
-/** SQL-sztringbe ágyazás: az aposztrófot duplázni kell. */
-function sqlIdezet(ertek: string): string {
-  return ertek.replace(/'/g, "''");
-}
-
 /**
  * Titkosítatlan-e a meglévő adatbázisfájl? (Kulcs nélkül olvasható-e.)
  * Új telepítésnél a fájl még nem létezik — ilyenkor nincs mit migrálni.
+ *
+ * Korábban minden hibára „nem titkosítatlan" volt a válasz; most csak arra, ha a
+ * fájl kulcs nélkül nem adatbázis. Egy zárolt vagy sérült fájl kivételt dob, és
+ * nem sodorja a programot a kulcsos megnyitás felé.
  */
 function titkositatlanE(dbPath: string): boolean {
-  if (!existsSync(dbPath)) return false;
-  try {
-    const proba = new Database(dbPath, { readonly: true });
-    proba.prepare('SELECT count(*) FROM sqlite_master').get();
-    proba.close();
-    return true;
-  } catch {
-    return false;
-  }
+  return existsSync(dbPath) && adatbazisNyithato(dbPath, null);
 }
 
 /**
@@ -202,44 +195,62 @@ export function getTitkositasAllapot(): TitkositasAllapot {
   return titkositasAllapot;
 }
 
-export function initDb(): void {
+/**
+ * Az induláskori kulcsdöntés tényei (lásd `kulcsdontes.ts`).
+ *
+ * Semmit nem ír: a `kulcs.dat`-ot csak olvassa, az adatbázist csak olvasásra
+ * nyitja. Nem kulcs okozta hibánál (zárolt, sérült fájl) kivételt dob.
+ */
+export function nyitasiHelyzet(): NyitasiHelyzet {
+  const dbPath = getDbPath();
+  const dbLetezik = existsSync(dbPath);
+  const taroltKulcs = taroltKulcsOlvas();
+  return {
+    dbLetezik,
+    dbTitkositatlan: titkositatlanE(dbPath),
+    vedelemElerheto: vedelemElerheto(),
+    taroltKulcs,
+    taroltKulcsNyitja:
+      dbLetezik && taroltKulcs.allapot === 'van' && adatbazisNyithato(dbPath, taroltKulcs.kulcs),
+  };
+}
+
+/** Mivel nyíljon az adatbázis — a főprocesz a kulcsdöntés alapján adja meg. */
+export type AdatbazisKulcs =
+  | { kulcs: string; ujKulcs: boolean }
+  /** Titkosítás nélkül, `hiba`: miért. Csak akkor, ha nincs titkosított adatbázis. */
+  | { kulcs: null; hiba: string };
+
+export function initDb(nyitas: AdatbazisKulcs): void {
   const dbPath = getDbPath();
   console.log('[db] Adatbázis útvonal:', dbPath);
 
-  // 1) Kulcs betöltése/létrehozása. Ha a Windows-védelem nem érhető el, inkább
-  //    titkosítás nélkül indulunk, mint hogy a pedagógus ne férjen a munkájához.
-  let kulcsAllapot: KulcsAllapot | null = null;
-  try {
-    kulcsAllapot = kulcsBetoltVagyLetrehoz();
-  } catch (err) {
-    titkositasAllapot = {
-      aktiv: false,
-      ujKulcs: false,
-      kulcs: null,
-      hiba: (err as Error).message,
-    };
-    console.error('[db] Titkosítás nem aktiválható:', err);
-  }
-
-  // 2) Ha van meglévő, titkosítatlan adatbázis, félretesszük — a helyére új,
-  //    titkosított jön, és utána átemeljük belőle az adatokat.
+  // Ha van meglévő, titkosítatlan adatbázis, félretesszük — a helyére új,
+  // titkosított jön, és utána átemeljük belőle az adatokat.
   let atkoltoztetendo: string | null = null;
 
-  if (kulcsAllapot) {
+  if (nyitas.kulcs !== null) {
     if (titkositatlanE(dbPath)) {
       atkoltoztetendo = eredetiFelretetel(dbPath);
     }
     sqlite = new Database(dbPath);
-    sqlite.pragma("cipher='sqlcipher'");
-    sqlite.pragma(`key='${sqlIdezet(kulcsAllapot.kulcs)}'`);
+    kulcsRaad(sqlite, nyitas.kulcs);
     titkositasAllapot = {
       aktiv: true,
-      ujKulcs: kulcsAllapot.ujonnanLetrehozva,
-      kulcs: kulcsAllapot.kulcs,
+      ujKulcs: nyitas.ujKulcs,
+      kulcs: nyitas.kulcs,
       hiba: null,
     };
   } else {
+    // Utolsó védvonal: titkosított naplót kulcs nélkül nem nyitunk meg. A
+    // kulcsdöntés ide amúgy sem enged — korábban viszont épp ez az ág nyitotta
+    // meg kulcs nélkül a naplót, ha a tárolt kulcs nem volt visszafejthető.
+    if (existsSync(dbPath) && !titkositatlanE(dbPath)) {
+      throw new Error('A titkosított adatbázis kulcs nélkül nem nyitható meg.');
+    }
+    console.error('[db] Titkosítás nélkül indulunk:', nyitas.hiba);
     sqlite = new Database(dbPath);
+    titkositasAllapot = { aktiv: false, ujKulcs: false, kulcs: null, hiba: nyitas.hiba };
   }
 
   sqlite.pragma('journal_mode = WAL');
