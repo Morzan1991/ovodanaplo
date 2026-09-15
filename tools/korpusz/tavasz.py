@@ -1,0 +1,328 @@
+# -*- coding: utf-8 -*-
+"""Tavaszi és nyári témák irodalmi anyaga — március–június. Lásd `base.py`."""
+
+from .base import _t
+
+_t("marcius_15", [
+    ("mondoka", None, "Aki nem lép egyszerre", "12", "menetelős, kokárdakészítés után"),
+    ("mondoka", None, "Höc, höc, katona", "1", "lovagoltató, a huszárokhoz"),
+    ("vers", "Petőfi Sándor", "Nemzeti dal (első versszak)", "3", "csak az első versszak"),
+    ("vers", "Donászy Magda", "Március 15.", "12", ""),
+    ("vers", "Gazdag Erzsi", "Kokárda", "12", ""),
+    ("vers", "Petőfi Sándor", "Anyám tyúkja", "23", "Petőfi legismertebb gyerekverse"),
+    ("mese", None, "A kis huszár — elbeszélés a szabadságharcról", "23", ""),
+    ("nepmese", None, "A csodálatos furulya", "23", ""),
+    ("dal", None, "Aki nem lép egyszerre", "123", "a huszáros menetelés dala"),
+    ("dal", None, "Kossuth Lajos azt üzente", "23", ""),
+    ("dal", None, "Esik eső, karikára", "3", "katonadal"),
+    ("korjatek", None, "Adj, király, katonát", "3", ""),
+    ("zenehallgatas", None, "Rákóczi-induló", "23", "zászlós, kokárdás vonuláshoz"),
+])
+
+_t("viz_vilagnapja", [
+    ("mondoka", None, "Csipp, csepp, egy csepp", "1", ""),
+    ("mondoka", None, "Ess, eső, ess", "12", ""),
+    ("mondoka", None, "Megy a hajó a Dunán", "12", ""),
+    ("vers", "Nemes Nagy Ágnes", "Mit beszél a tó?", "23", "a tó és a víz világa"),
+    ("vers", "Weöres Sándor", "Olvadás", "123", ""),
+    ("vers", "Zelk Zoltán", "A tavaszi eső", "12", ""),
+    ("mese", "Fésűs Éva", "A vízcsepp vándorútja", "23", "a körforgás mesében"),
+    ("nepmese", None, "A kiskakas gyémánt félkrajcárja", "123", "a kút motívuma"),
+    ("dal", None, "Esik az eső", "12", ""),
+    ("dal", None, "Kis kacsa fürdik", "1", ""),
+    ("dal", None, "A part alatt", "23", ""),
+    ("dal", None, "Tavaszi szél vizet áraszt", "23", ""),
+    ("zenehallgatas", "Bedřich Smetana", "Moldva (részlet)", "23", "a folyó zenében"),
+])
+
+_t("tavasz", [
+    ("mondoka", None, "Jer, jer, kikelet", "123", "tavaszhívogató"),
+    ("mondoka", None, "Süss fel, nap", "12", ""),
+    ("mondoka", None, "Gólya, gólya, gilice", "12", "a megérkező vándormadarakhoz"),
+    ("vers", "Gazdag Erzsi", "Itt a tavasz", "12", ""),
+    ("vers", "Weöres Sándor", "Olvadás", "123", ""),
+    ("vers", "Lukács Ottó", "Tavaszváró", "123", ""),
+    ("vers", "Sarkadi Sándor", "Télkergetők", "123", "télbúcsúztató, tavaszköszöntő"),
+    ("vers", "Nemes Nagy Ágnes", "Lila fecske", "12", ""),
+    ("vers", "Petőfi Sándor", "Tavasz", "23", ""),
+    ("mese", "Fésűs Éva", "A tavaszi szél meséje", "12", ""),
+    ("nepmese", None, "A répa", "12", "vetés, növekedés"),
+    ("dal", None, "Süss fel, nap", "12", ""),
+    ("dal", None, "Tavaszi szél vizet áraszt", "23", ""),
+    ("dal", None, "Ispiláng, ispiláng", "123", ""),
+    ("korjatek", None, "Bújj, bújj, zöld ág", "123", "a tavaszi kapus játék"),
+    ("zenehallgatas", "Antonio Vivaldi", "A négy évszak — Tavasz (részlet)", "23", ""),
+])
+
+_t("tavaszi_viragok", [
+    ("mondoka", None, "Kis kertet kerítek", "12", ""),
+    ("mondoka", None, "Én kis kertész legény vagyok", "123", ""),
+    ("mondoka", None, "Süss fel, nap", "12", ""),
+    ("vers", "Gazdag Erzsi", "Itt a tavasz", "12", ""),
+    ("vers", "Nemes Nagy Ágnes", "Hóvirág", "12", ""),
+    ("vers", "Zelk Zoltán", "A tavaszi eső", "12", ""),
+    ("vers", "Csanádi Imre", "Naptár — Április", "3", ""),
+    ("mese", "Fésűs Éva", "A hóvirág titka", "12", ""),
+    ("mese", "Szutyejev", "A vidám kiskacsa", "12", ""),
+    ("dal", None, "Beültettem kis kertemet", "123", ""),
+    ("dal", None, "Orgona ága", "123", ""),
+    ("dal", None, "Nyílik a rózsa", "23", ""),
+    ("korjatek", None, "Fehér liliomszál", "123", "virágos körtánc"),
+    ("zenehallgatas", "Gryllus Vilmos", "Virágcsokor", "123", ""),
+])
+
+_t("husvet", [
+    ("mondoka", None, "Nyuszi fülét hegyezi", "12", ""),
+    ("mondoka", None, "Én kis kertész legény vagyok", "123", "locsolóvers"),
+    ("mondoka", None, "Hímes tojás", "1", ""),
+    ("mondoka", None, "Zöld erdőben jártam", "12", "locsolóvers"),
+    ("vers", "Donászy Magda", "Húsvéti nyuszi", "123", ""),
+    ("vers", "Devecseri Gábor", "Bárány Boldizsár (részlet)", "23", ""),
+    ("vers", "Gazdag Erzsi", "Húsvét", "12", ""),
+    ("mese", "Fésűs Éva", "A húsvéti nyuszi ajándéka", "12", ""),
+    ("nepmese", None, "A nyulacska harangocskája", "12", ""),
+    ("dal", None, "Nyuszi ül a fűben", "12", "a húsvéti körjáték"),
+    ("dal", None, "Beültettem kis kertemet", "123", ""),
+    ("korjatek", None, "Bújj, bújj, zöld ág", "123", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Locsolkodó", "123", ""),
+])
+
+_t("husveti_het", [
+    ("mondoka", None, "Nyuszi fülét hegyezi", "12", ""),
+    ("mondoka", None, "Én kis kertész legény vagyok", "123", "a legismertebb locsolóvers"),
+    ("mondoka", None, "Hímes tojás", "1", ""),
+    ("mondoka", None, "Zöld erdőben jártam", "12", ""),
+    ("vers", "Donászy Magda", "Húsvéti nyuszi", "123", ""),
+    ("vers", "Devecseri Gábor", "Bárány Boldizsár (részlet)", "23", ""),
+    ("vers", "Weöres Sándor", "A tündér", "12", ""),
+    ("mese", "Fésűs Éva", "A húsvéti nyuszi ajándéka", "12", ""),
+    ("nepmese", None, "A nyulacska harangocskája", "12", ""),
+    ("nepmese", None, "A kiskakas gyémánt félkrajcárja", "123", ""),
+    ("dal", None, "Nyuszi ül a fűben", "12", ""),
+    ("dal", None, "Bárány, bárány, hat bárány", "12", ""),
+    ("dal", None, "Ispiláng, ispiláng", "123", ""),
+    ("korjatek", None, "Bújj, bújj, zöld ág", "123", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Locsolkodó", "123", ""),
+])
+
+_t("kolteszet_napja", [
+    ("mondoka", None, "Egyedem-begyedem, tengertánc", "123", "a ritmus öröme"),
+    ("mondoka", None, "Ecc, pecc, kimehetsz", "123", ""),
+    ("vers", "József Attila", "Altató", "23", "a nap névadójának verse"),
+    ("vers", "József Attila", "Tedd a kezed", "3", ""),
+    ("vers", "Weöres Sándor", "Bóbita", "12", ""),
+    ("vers", "Weöres Sándor", "Csiribiri", "123", ""),
+    ("vers", "Weöres Sándor", "Galagonya", "123", ""),
+    ("vers", "Tamkó Sirató Károly", "Tengereczki Pál", "23", ""),
+    ("vers", "Nemes Nagy Ágnes", "Lila fecske", "12", ""),
+    ("mese", "Gazdag Erzsi", "Mesebolt", "123", ""),
+    ("dal", "Weöres Sándor", "Bóbita, bóbita táncol", "123", "megzenésített vers"),
+    ("dal", None, "Ispiláng, ispiláng", "123", ""),
+    ("zenehallgatas", "Halász Judit", "Bóbita", "12", ""),
+    ("zenehallgatas", "Kaláka", "Weöres-versek megzenésítve", "123", ""),
+])
+
+_t("fold_napja", [
+    ("mondoka", None, "Kis kertet kerítek", "12", ""),
+    ("mondoka", None, "Csiga-biga, gyere ki", "12", ""),
+    ("vers", "Nemes Nagy Ágnes", "Mit beszél a tó?", "23", ""),
+    ("vers", "Kányádi Sándor", "Fenyőfa-mondóka", "12", ""),
+    ("vers", "Zelk Zoltán", "A tavaszi eső", "12", ""),
+    ("mese", "Fésűs Éva", "A csodálatos nyárfa", "23", "fa-tisztelet, természetvédelem"),
+    ("mese", "Fésűs Éva", "A vízcsepp vándorútja", "23", ""),
+    ("nepmese", None, "A kóró és a kismadár", "23", ""),
+    ("dal", None, "Beültettem kis kertemet", "123", ""),
+    ("dal", None, "Erdő mellett nem jó lakni", "23", ""),
+    ("korjatek", None, "Bújj, bújj, zöld ág", "123", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Erdei dalok", "12", ""),
+])
+
+_t("kerti_munkak", [
+    ("mondoka", None, "Én kis kertész legény vagyok", "123", ""),
+    ("mondoka", None, "Kis kertet kerítek", "12", ""),
+    ("mondoka", None, "Ess, eső, ess", "12", "öntözéshez"),
+    ("vers", "Gazdag Erzsi", "Itt a tavasz", "12", ""),
+    ("vers", "Csanádi Imre", "Naptár — Április", "3", ""),
+    ("vers", "Zelk Zoltán", "A tavaszi eső", "12", ""),
+    ("nepmese", None, "A répa", "12", "vetés, növekedés, közös munka"),
+    ("mese", "Szutyejev", "Az alma", "12", ""),
+    ("mese", "Fésűs Éva", "A hóvirág titka", "12", ""),
+    ("dal", None, "Beültettem kis kertemet", "123", ""),
+    ("dal", None, "Süss fel, nap", "12", ""),
+    ("korjatek", None, "Hej, Vargáné káposztát főz", "123", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Virágcsokor", "123", ""),
+])
+
+_t("madarak_fak_napja", [
+    ("mondoka", None, "Gólya, gólya, gilice", "12", ""),
+    ("mondoka", None, "Csip-csip csóka", "1", ""),
+    ("vers", "Móra Ferenc", "Mit ír a fecske?", "123", "a nap klasszikus verse"),
+    ("vers", "Tamkó Sirató Károly", "Csivitelő", "12", ""),
+    ("vers", "Nemes Nagy Ágnes", "Lila fecske", "12", ""),
+    ("vers", "Kányádi Sándor", "Fenyőfa-mondóka", "12", ""),
+    ("vers", "Szabó Lőrinc", "Falusi hangverseny", "3", "madárhangok"),
+    ("mese", "Fésűs Éva", "A csodálatos nyárfa", "23", ""),
+    ("nepmese", None, "A vadgalamb és a szarka", "23", "fészeképítés, gondos munka"),
+    ("nepmese", None, "A kóró és a kismadár", "23", ""),
+    ("dal", None, "Hess, páva, hess, páva", "23", ""),
+    ("dal", None, "Erdő mellett nem jó lakni", "23", ""),
+    ("dal", None, "Csip-csip csóka", "1", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Madárdalok", "12", ""),
+])
+
+_t("anyak_napja_csalad", [
+    ("mondoka", None, "Ez elment vadászni", "1", "mondóka a családtagokról, ujjakon számolva"),
+    ("mondoka", None, "Kerekecske, dombocska", "1", ""),
+    ("vers", "Donászy Magda", "Anyák napjára", "12", ""),
+    ("vers", "Sarkadi Sándor", "Anyák napjára", "12", ""),
+    ("vers", "Orgoványi Anikó", "Az én anyukám", "123", ""),
+    ("vers", "Orgoványi Anikó", "Az én nagymamám", "123", ""),
+    ("vers", "Donászy Magda", "Nagyanyónak", "123", ""),
+    ("vers", "Mentovics Éva", "Elmesélem, hogy szeretlek", "123", ""),
+    ("vers", "József Attila", "Mama", "3", ""),
+    ("vers", "Weöres Sándor", "Buba éneke", "12", ""),
+    ("mese", "Marék Veronika", "Boribon és Annipanni", "12", ""),
+    ("nepmese", None, "A farkas és a hét kecskegida", "12", ""),
+    ("dal", None, "Orgona ága", "123", "az anyák napi köszöntő dala"),
+    ("dal", None, "Már megjöttünk ez helyre", "123", ""),
+    ("dal", None, "Nyílik a rózsa", "23", ""),
+    ("zenehallgatas", "Halász Judit", "Anyák napján", "123", ""),
+])
+
+_t("mehek_napja", [
+    ("mondoka", None, "Katalinka, szállj el", "12", "rovaros mondóka"),
+    ("mondoka", None, "Csiga-biga, gyere ki", "12", ""),
+    ("vers", "Nemes Nagy Ágnes", "Hóvirág", "12", "virág és beporzás"),
+    ("vers", "Gazdag Erzsi", "A méhecske", "12", ""),
+    ("vers", "Tamkó Sirató Károly", "Pinty és ponty", "12", ""),
+    ("mese", "Fésűs Éva", "A méhecske és a virág", "12", ""),
+    ("mese", "Bartos Erika", "Bogyó és Babóca — a méhecske", "12", ""),
+    ("nepmese", None, "A tücsök és a hangya", "23", "munka és előrelátás"),
+    ("dal", None, "Beültettem kis kertemet", "123", ""),
+    ("dal", None, "Nyílik a rózsa", "23", ""),
+    ("korjatek", None, "Fehér liliomszál", "123", ""),
+    ("zenehallgatas", "Nyikolaj Rimszkij-Korszakov", "A dongó", "23", "a zümmögés a zenében"),
+])
+
+_t("kert_kis_lakoi", [
+    ("mondoka", None, "Katalinka, szállj el", "12", ""),
+    ("mondoka", None, "Csiga-biga, gyere ki", "12", ""),
+    ("mondoka", None, "Pók, pók, hány óra", "12", ""),
+    ("vers", "Tamkó Sirató Károly", "Pinty és ponty", "12", ""),
+    ("vers", "Gazdag Erzsi", "A méhecske", "12", ""),
+    ("vers", "Weöres Sándor", "Bóbita", "12", "szitakötő, tündér"),
+    ("mese", "Bartos Erika", "Bogyó és Babóca — a méhecske", "12", ""),
+    ("mese", "Fésűs Éva", "A méhecske és a virág", "12", ""),
+    ("nepmese", None, "A tücsök és a hangya", "23", ""),
+    ("dal", None, "Katalinka, szállj el", "12", "népi dallammal"),
+    ("dal", None, "Csiga-biga, gyere ki", "12", ""),
+    ("korjatek", None, "Csömödöri legelőn", "23", ""),
+    ("zenehallgatas", "Nyikolaj Rimszkij-Korszakov", "A dongó", "23", ""),
+])
+
+_t("punkosd", [
+    ("mondoka", None, "Én kis kertész legény vagyok", "123", ""),
+    ("mondoka", None, "Jer, jer, kikelet", "123", ""),
+    ("vers", "Gazdag Erzsi", "Pünkösdi rózsa", "23", ""),
+    ("vers", "Nemes Nagy Ágnes", "Hóvirág", "12", ""),
+    ("mese", None, "A pünkösdi királyválasztás", "23", "a hét népszokása mesélve"),
+    ("nepmese", None, "A csodálatos furulya", "23", ""),
+    ("nepmese", None, "Az okos lány", "3", ""),
+    ("dal", None, "A pünkösdi rózsa", "23", "a pünkösdi köszöntő dala"),
+    ("dal", None, "Nyílik a rózsa", "23", ""),
+    ("korjatek", None, "Gyertek, lányok, ligetre", "3", "pünkösdölő"),
+    ("korjatek", None, "Fehér liliomszál", "123", ""),
+    ("zenehallgatas", None, "Pünkösdölő népdalok", "23", ""),
+])
+
+_t("gyermeknap", [
+    ("mondoka", None, "Hinta, palinta", "12", ""),
+    ("mondoka", None, "Zsipp-zsupp, kenderzsupp", "12", ""),
+    ("mondoka", None, "Ecc, pecc, kimehetsz", "123", ""),
+    ("vers", "Weöres Sándor", "Haragosi", "23", ""),
+    ("vers", "Petőfi Sándor", "Arany Lacinak (részlet)", "23", ""),
+    ("vers", "Weöres Sándor", "Csiribiri", "123", ""),
+    ("vers", "Lackfi János", "Volt egy bácsi, nagyon furcsa", "23", "humoros, jókedvű"),
+    ("mese", "Lázár Ervin", "A Négyszögletű Kerek Erdő — részlet", "3", ""),
+    ("mese", "Csukás István", "Pom Pom meséi — részlet", "23", ""),
+    ("dal", None, "Hopp, Juliska", "12", ""),
+    ("dal", None, "Egy boszorka van", "123", ""),
+    ("korjatek", None, "Tüzet viszek", "123", ""),
+    ("korjatek", None, "Elvesztettem zsebkendőmet", "123", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Maszkabál", "123", ""),
+])
+
+_t("nagycsoportos_bucsu", [
+    ("mondoka", None, "Sétálunk, sétálunk", "12", "a kicsik búcsúztatója"),
+    ("vers", "Sarkadi Sándor", "Iskolába indulok", "3", "a búcsúzás verse"),
+    ("vers", "Móra Ferenc", "Zengő ABC", "3", ""),
+    ("vers", "Mentovics Éva", "Búcsú az óvodától", "3", ""),
+    ("vers", "Weöres Sándor", "Csiribiri", "123", "közös, mindenki tudja"),
+    ("mese", "Lázár Ervin", "A Négyszögletű Kerek Erdő — részlet", "3", ""),
+    ("mese", "Marék Veronika", "Kippkopp és Tipptopp", "23", "elválás, barátság"),
+    ("nepmese", None, "Az égig érő paszuly", "3", "útnak indulás"),
+    ("dal", None, "Már megjöttünk ez helyre", "123", "köszöntő-búcsúztató"),
+    ("dal", None, "Tavaszi szél vizet áraszt", "23", ""),
+    ("korjatek", None, "Lánc, lánc, eszterlánc", "23", "az utolsó közös körtánc"),
+    ("zenehallgatas", "Halász Judit", "Micimackó", "12", ""),
+])
+
+_t("evzaro", [
+    ("mondoka", None, "Ecc, pecc, kimehetsz", "123", ""),
+    ("mondoka", None, "Hinta, palinta", "12", ""),
+    ("vers", "Weöres Sándor", "Csiribiri", "123", ""),
+    ("vers", "Gazdag Erzsi", "Mesebolt", "123", "az év meséinek felidézése"),
+    ("vers", "Sarkadi Sándor", "Iskolába indulok", "3", ""),
+    ("mese", "Csukás István", "Pom Pom meséi — részlet", "23", ""),
+    ("nepmese", None, "A kiskakas gyémánt félkrajcárja", "123", "az év legjobban ismert meséje"),
+    ("dal", None, "Már megjöttünk ez helyre", "123", ""),
+    ("dal", None, "Hopp, Juliska", "12", ""),
+    ("korjatek", None, "Lánc, lánc, eszterlánc", "23", ""),
+    ("korjatek", None, "Elvesztettem zsebkendőmet", "123", ""),
+    ("zenehallgatas", None, "Az év kedvenc dalai — közös válogatás", "123", ""),
+])
+
+_t("nyari_gyumolcsok", [
+    ("mondoka", None, "Egy, megérett a meggy", "12", "a nyári gyümölcsök számoló mondókája"),
+    ("mondoka", None, "Csipp, csepp, egy csepp", "1", "gyümölcsmosáshoz"),
+    ("mondoka", None, "Töröm, töröm a mákot", "12", ""),
+    ("vers", "Osvát Erzsébet", "Répa, retek, mogyoró", "12", ""),
+    ("vers", "Nemes Nagy Ágnes", "Nyári rajz", "23", ""),
+    ("vers", "Csanádi Imre", "Naptár — Június", "3", ""),
+    ("mese", "Szutyejev", "Az alma", "12", "osztozkodás gyümölcsön"),
+    ("nepmese", None, "A répa", "12", ""),
+    ("dal", None, "Hull a szilva a fáról", "123", ""),
+    ("dal", None, "Süss fel, nap", "12", ""),
+    ("korjatek", None, "Hej, Vargáné káposztát főz", "123", ""),
+    ("zenehallgatas", "Gryllus Vilmos", "Vitaminok", "12", ""),
+])
+
+_t("nyari_idojaras", [
+    ("mondoka", None, "Süss fel, nap", "12", ""),
+    ("mondoka", None, "Ess, eső, ess", "12", "nyári zápor"),
+    ("mondoka", None, "Csipp, csepp, egy csepp", "1", ""),
+    ("vers", "Nemes Nagy Ágnes", "Nyári rajz", "23", "a nyár klasszikus verse"),
+    ("vers", "Zelk Zoltán", "A tavaszi eső", "12", "záporhoz is jó"),
+    ("vers", "Csanádi Imre", "Naptár — Június", "3", ""),
+    ("mese", "Fésűs Éva", "A szivárvány meséje", "12", "zápor után"),
+    ("mese", "Fésűs Éva", "A vízcsepp vándorútja", "23", ""),
+    ("dal", None, "Süss fel, nap", "12", ""),
+    ("dal", None, "Esik az eső", "12", ""),
+    ("dal", None, "Kis kacsa fürdik", "1", ""),
+    ("zenehallgatas", "Antonio Vivaldi", "A négy évszak — Nyár (részlet)", "23", "a vihar tétele"),
+])
+
+_t("napvedelem", [
+    ("mondoka", None, "Süss fel, nap", "12", ""),
+    ("mondoka", None, "Csipp, csepp, egy csepp", "1", "vízivásra emlékeztető"),
+    ("vers", "Nemes Nagy Ágnes", "Nyári rajz", "23", ""),
+    ("vers", "Gazdag Erzsi", "Napocska", "12", ""),
+    ("vers", "Tamkó Sirató Károly", "Tengereczki Pál", "23", "kalandozás, utazás"),
+    ("mese", "Fésűs Éva", "A szivárvány meséje", "12", ""),
+    ("mese", "Bartos Erika", "Bogyó és Babóca — a nyári nap", "12", ""),
+    ("nepmese", None, "A répa", "12", ""),
+    ("dal", None, "Süt a nap, süt a nap", "1", ""),
+    ("dal", None, "Kis kacsa fürdik", "1", "fürdés, hűsölés"),
+    ("dal", None, "Süss fel, nap", "12", ""),
+    ("korjatek", None, "Bújj, bújj, zöld ág", "123", "árnyékos helyen is játszható"),
+])

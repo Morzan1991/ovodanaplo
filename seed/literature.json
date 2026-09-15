@@ -1,7 +1,7 @@
 {
   "_megjegyzes": "Irodalmi adatbazis 2.6 — felnotti/iskolas muvek kiszedve (Kosztolanyi, Babits, Ady, Vorosmarty, Toth Arpad, hosszu Arany-eposzok, Petofi szerelmes versek, \"Toldi\" nepmonda iskolai). CSAK ovodas-szintu mara talalhato itt. Mind a 4 Ady-vers (Karacsony, Karacsonyi enek, Orizem a szemed, Fel-faldobott ko) is eltavolitva.",
-  "_verzio": "2.6",
-  "_utolso_frissites": "2026-05-12",
+  "_verzio": "1.2",
+  "_utolso_frissites": "irodalmi audit — gondozott korpusz beépítve",
   "tetelek": [
     {
       "tipus": "mese",
@@ -546,20 +546,6 @@
       "szoveg": "Nyuszi ül a fűben,\nÜldögélve.\nNyuszi talán beteg vagy,\nHogy már nem is ugorhatsz?\nNyuszi hopp, nyuszi hopp,\nMáris egyet elkapott."
     },
     {
-      "tipus": "dal",
-      "cim": "Bújj, bújj zöld ág",
-      "szerzo": null,
-      "forras": "nepi_jatek",
-      "korcsoport": "vegyes",
-      "temak": [
-        "husvet",
-        "tavasz",
-        "koreplay",
-        "kapuvar"
-      ],
-      "szoveg": "Bújj, bújj zöld ág,\nZöld levelecske.\nNyitva van az aranykapu,\nCsak bújjatok rajta!"
-    },
-    {
       "tipus": "zenehallgatas",
       "cim": "Anyák napján",
       "szerzo": "Halász Judit",
@@ -637,18 +623,7 @@
       ]
     },
     {
-      "tipus": "vers",
-      "cim": "Boci, boci, tarka",
-      "szerzo": null,
-      "forras": "nepdal_es_mondoka",
-      "korcsoport": "kicsi",
-      "temak": [
-        "allatok"
-      ],
-      "szoveg": "Boci, boci, tarka,\nSe füle, se farka.\nOda megyünk lakni,\nAhol tejet kapni."
-    },
-    {
-      "tipus": "vers",
+      "tipus": "dal",
       "cim": "Esik az eső",
       "szerzo": null,
       "forras": "nephagyomany",
@@ -660,28 +635,17 @@
       "szoveg": "Esik az eső, esik,\nA medve is ázik.\nKeresi a barlangját,\nDe nem találja."
     },
     {
-      "tipus": "vers",
+      "tipus": "dal",
       "cim": "Süss fel nap",
       "szerzo": null,
       "forras": "nephagyomany",
       "korcsoport": "kicsi",
       "temak": [
         "idojaras",
-        "nap"
+        "nap",
+        "tavasz"
       ],
       "szoveg": "Süss fel nap,\nFényes nap!\nKertek alatt\nA ludaim megfagynak."
-    },
-    {
-      "tipus": "vers",
-      "cim": "Hull a pelyhes",
-      "szerzo": null,
-      "forras": "Karácsonyi dal",
-      "korcsoport": "vegyes",
-      "temak": [
-        "karacsony",
-        "tel"
-      ],
-      "szoveg": "Hull a pelyhes fehér hó,\nJöjj el kedves Télapó.\nMinden gyermek várva vár,\nVidám ének hangja száll."
     },
     {
       "tipus": "vers",
@@ -971,18 +935,6 @@
         "eso"
       ],
       "szoveg": "Csiga-biga, gyere ki,\nÉg a házad ideki!\nKap a békafiacskád,\nVízbe dobja kis fiát."
-    },
-    {
-      "tipus": "mondoka",
-      "cim": "Hinta-palinta",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "jatek",
-        "hinta"
-      ],
-      "szoveg": "Hinta-palinta,\nRégi dunna, kiskatona,\nÁsó, kapa, nagyharang,\nSzólj kis pajtás, kit kívánsz?"
     },
     {
       "tipus": "mondoka",
@@ -1320,7 +1272,7 @@
       "szoveg": "Áll a baba, áll,\nMint a gyertyaszál.\nFelnő, mint a hegy,\nNagyra nőjjön, nagy legyen!"
     },
     {
-      "tipus": "vers",
+      "tipus": "nepmonda",
       "cim": "Mátyás király és az igazmondó juhász",
       "szerzo": null,
       "forras": "Magyar népmondák",
@@ -1493,19 +1445,6 @@
       ]
     },
     {
-      "tipus": "mondoka",
-      "cim": "Süss fel, nap",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "tavasz",
-        "idojaras",
-        "nap"
-      ],
-      "szoveg": "Süss fel, nap,\nfényes nap!\nKertek alatt\na ludaim\nmegfagynak."
-    },
-    {
       "tipus": "dal",
       "cim": "Boci, boci tarka",
       "szerzo": null,
@@ -1539,6 +1478,7 @@
       "korcsoport": "kicsi",
       "temak": [
         "hintazas",
+        "jatek",
         "mozgas"
       ],
       "szoveg": "Hinta, palinta,\nrégi dunna, kiskatona,\nugorj a Dunába!"
@@ -1633,7 +1573,7 @@
       "szoveg": "Egy kis malac röf-röf-röf,\nbeleesett a tóba."
     },
     {
-      "tipus": "dal",
+      "tipus": "mondoka",
       "cim": "Csip-csip csóka",
       "szerzo": null,
       "forras": "nephagyomany",
@@ -3309,18 +3249,6 @@
     },
     {
       "tipus": "regeny",
-      "cim": "Süsü a sárkány",
-      "szerzo": "Csukás István",
-      "forras": "Móra Kiadó",
-      "korcsoport": "kozepso",
-      "temak": [
-        "sarkany",
-        "baratsag",
-        "elfogadas"
-      ]
-    },
-    {
-      "tipus": "regeny",
       "cim": "Mirr-Murr a kandúr",
       "szerzo": "Csukás István",
       "forras": "Móra Kiadó",
@@ -4684,6 +4612,5764 @@
         "erdo",
         "allatok"
       ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A Luca-szék meséje",
+      "korcsoport": "nagy",
+      "temak": [
+        "luca_nap"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A Mikulás csizmája",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A Négyszögletű Kerek Erdő — részlet",
+      "korcsoport": "nagy",
+      "temak": [
+        "baratsag",
+        "gyermeknap",
+        "nagycsoportos_bucsu",
+        "olvasni_jo"
+      ],
+      "szerzo": "Lázár Ervin"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A betlehemi történet — egyszerű elbeszélésben",
+      "korcsoport": "vegyes",
+      "temak": [
+        "fenyofa_diszek",
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A brémai muzsikusok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "allatok_vilagnapja",
+        "baratsag"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A busójárás története",
+      "korcsoport": "vegyes",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A csodálatos furulya",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marcius_15",
+        "punkosd"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A csodálatos nyárfa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdok_napja",
+        "fold_napja",
+        "madarak_fak_napja",
+        "mehek_napja"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A didergő király",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes"
+      ],
+      "szerzo": "Móra Ferenc"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "A dongó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kert_kis_lakoi",
+        "mehek_napja"
+      ],
+      "szerzo": "Nyikolaj Rimszkij-Korszakov"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A hiszékeny farkas",
+      "korcsoport": "vegyes",
+      "temak": [
+        "ho_es_jeg",
+        "kodos_oszi_ido",
+        "marton_nap",
+        "teli_oltozkodes"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A hóember szíve",
+      "korcsoport": "vegyes",
+      "temak": [
+        "ho_es_jeg",
+        "teli_sportok"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A hókirálynő — részlet",
+      "korcsoport": "nagy",
+      "temak": [
+        "ho_es_jeg"
+      ],
+      "szerzo": "Hans Christian Andersen"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A hóvirág titka",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kerti_munkak",
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A húsvéti nyuszi ajándéka",
+      "korcsoport": "vegyes",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A karácsonyi kismadár",
+      "korcsoport": "vegyes",
+      "temak": [
+        "karacsony",
+        "teli_madaretetes"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kenyér meséje",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kenyer_utja"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kis fenyő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kis fenyőfa",
+      "korcsoport": "nagy",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Hans Christian Andersen"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kis huszár — elbeszélés a szabadságharcról",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kis liba vándorútja",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A kiskakas gyémánt félkrajcárja",
+      "korcsoport": "vegyes",
+      "temak": [
+        "allatok_vilagnapja",
+        "evzaro",
+        "foglalkozasok",
+        "haziallatok_kicsinyei",
+        "husveti_het",
+        "kenyer_utja",
+        "magyar_kultura",
+        "olvasni_jo",
+        "testunk",
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A ködmanó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A kőműves",
+      "korcsoport": "vegyes",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A méhecske",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kert_kis_lakoi",
+        "mehek_napja"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A méhecske és a virág",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kert_kis_lakoi",
+        "mehek_napja"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A mézeskalács kisfiú",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mezeskalacs"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A nyulacska harangocskája",
+      "korcsoport": "vegyes",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A négy gyertya",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "luca_nap"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "A négy évszak — Nyár (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "nyari_idojaras"
+      ],
+      "szerzo": "Antonio Vivaldi"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "A négy évszak — Tavasz (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Antonio Vivaldi"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "A négy évszak — Tél (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "ho_es_jeg",
+        "teli_oltozkodes"
+      ],
+      "szerzo": "Antonio Vivaldi"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "A négy évszak — Ősz (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_kezdete",
+        "osz_szinek"
+      ],
+      "szerzo": "Antonio Vivaldi"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A pünkösdi királyválasztás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "punkosd"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A rátóti csikótojás",
+      "korcsoport": "nagy",
+      "temak": [
+        "matyas_nap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A répa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "kerti_munkak",
+        "napvedelem",
+        "nyari_gyumolcsok",
+        "tavasz",
+        "tavaszi_viragok",
+        "tok_fesztival"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A szivárvány meséje",
+      "korcsoport": "vegyes",
+      "temak": [
+        "napvedelem",
+        "nyari_idojaras",
+        "szinek_formak"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A tavaszi eső",
+      "korcsoport": "vegyes",
+      "temak": [
+        "fold_napja",
+        "kerti_munkak",
+        "nyari_idojaras",
+        "tavaszi_viragok",
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A tavaszi szél meséje",
+      "korcsoport": "vegyes",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A tréfás manó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "farsang",
+        "matyas_nap"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A tökkelütött manó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "matyas_nap",
+        "tok_fesztival"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A tücsök és a hangya",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kert_kis_lakoi",
+        "mehek_napja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A vidám kiskacsa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "szinek_formak",
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Szutyejev"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A vízcsepp vándorútja",
+      "korcsoport": "vegyes",
+      "temak": [
+        "fold_napja",
+        "nyari_idojaras",
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Adventi énekek — csendes válogatás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Aki Márton napján libát nem eszik",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Aki fázik",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "karacsony",
+        "luca_nap"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Anyák napjára",
+      "korcsoport": "vegyes",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Anyák napjára",
+      "korcsoport": "vegyes",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Sarkadi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Arany Lacinak (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "baratsag",
+        "gyermeknap"
+      ],
+      "szerzo": "Petőfi Sándor"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Aratódal-csokor",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kenyer_utja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Az alma",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "kerti_munkak",
+        "nyari_gyumolcsok",
+        "osz_termenyek"
+      ],
+      "szerzo": "Szutyejev"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Az elveszett követ",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_szinek"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Az ezüst hegedű",
+      "korcsoport": "vegyes",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Az állatok farsangja (részletek)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "allatok_vilagnapja",
+        "erdo_allatai"
+      ],
+      "szerzo": "Camille Saint-Saëns"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Az év kedvenc dalai — közös válogatás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "evzaro"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Az őszi falevél",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_kezdete",
+        "osz_szinek"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Bogyó és Babóca — Az új barát",
+      "korcsoport": "vegyes",
+      "temak": [
+        "baratsag",
+        "tanevkezdes"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Bogyó és Babóca — a beteg katica",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "testunk"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Bogyó és Babóca — a méhecske",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kert_kis_lakoi",
+        "mehek_napja"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Bogyó és Babóca — a nyári nap",
+      "korcsoport": "vegyes",
+      "temak": [
+        "napvedelem"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Bors néni",
+      "korcsoport": "vegyes",
+      "temak": [
+        "allatok_vilagnapja",
+        "baratsag",
+        "haziallatok_kicsinyei"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Bárány Boldizsár (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ],
+      "szerzo": "Devecseri Gábor"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Bóbita",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kolteszet_napja",
+        "olvasni_jo"
+      ],
+      "szerzo": "Halász Judit"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Búcsú az óvodától",
+      "korcsoport": "nagy",
+      "temak": [
+        "nagycsoportos_bucsu"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Cica, cica, cifra",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja",
+        "szinek_formak"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Cifra palota",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdok_napja",
+        "kodos_oszi_ido",
+        "nyari_gyumolcsok",
+        "otthonunk",
+        "szinek_formak",
+        "teli_madaretetes",
+        "tok_fesztival"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Családi kör (részlet)",
+      "korcsoport": "nagy",
+      "temak": [
+        "csalad",
+        "otthonunk"
+      ],
+      "szerzo": "Arany János"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Csendes éj — hangszeres feldolgozás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Csipp, csepp, egy csepp",
+      "korcsoport": "kicsi",
+      "temak": [
+        "egeszseges_eletmod",
+        "ho_es_jeg",
+        "napvedelem",
+        "nyari_gyumolcsok",
+        "nyari_idojaras",
+        "osz_termenyek",
+        "testunk",
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Csupafül",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdo_allatai",
+        "teli_oltozkodes"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Csön, csön, gyűrű",
+      "korcsoport": "vegyes",
+      "temak": [
+        "baratsag",
+        "otthonunk",
+        "szinek_formak",
+        "tanevkezdes",
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Diótörő — Virágkeringő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Pjotr Iljics Csajkovszkij"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Egyedem-begyedem, tengertánc",
+      "korcsoport": "vegyes",
+      "temak": [
+        "farsang",
+        "kolteszet_napja",
+        "magyar_kultura",
+        "olvasni_jo",
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Erdei dalok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdok_napja",
+        "fold_napja"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Esik a hó, fúj a szél",
+      "korcsoport": "vegyes",
+      "temak": [
+        "ho_es_jeg",
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Esik eső, karikára",
+      "korcsoport": "nagy",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Esőcseppek",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Ettem szőlőt, most érik",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kenyer_utja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Ez elment vadászni",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad",
+        "csalad",
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Falusi hangverseny",
+      "korcsoport": "nagy",
+      "temak": [
+        "erdok_napja",
+        "kert_kis_lakoi",
+        "madarak_fak_napja",
+        "osz_szinek"
+      ],
+      "szerzo": "Szabó Lőrinc"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Fenyőfa-mondóka",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdok_napja",
+        "fold_napja",
+        "madarak_fak_napja"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Gesztenyefalevél",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "erdok_napja"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Gyermekeknek — részletek",
+      "korcsoport": "vegyes",
+      "temak": [
+        "magyar_kultura"
+      ],
+      "szerzo": "Bartók Béla"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Gyertyafény, gyertyafény",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Ha én felnőtt volnék — részlet",
+      "korcsoport": "nagy",
+      "temak": [
+        "csalad"
+      ],
+      "szerzo": "Janikovszky Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hess, páva, hess, páva",
+      "korcsoport": "vegyes",
+      "temak": [
+        "allatok_vilagnapja",
+        "haziallatok_kicsinyei",
+        "madarak_fak_napja",
+        "marton_nap",
+        "teli_madaretetes"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hull a hó, hull a hó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "advent",
+        "ho_es_jeg",
+        "karacsony",
+        "mikulas",
+        "teli_madaretetes",
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hull a szilva a fáról",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kodos_oszi_ido",
+        "nyari_gyumolcsok",
+        "osz_kezdete",
+        "osz_szinek",
+        "tok_fesztival"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Háry János — Intermezzo",
+      "korcsoport": "vegyes",
+      "temak": [
+        "magyar_kultura",
+        "matyas_nap"
+      ],
+      "szerzo": "Kodály Zoltán"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hóvirág",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mehek_napja",
+        "punkosd",
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Húsvét",
+      "korcsoport": "vegyes",
+      "temak": [
+        "husvet"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hüvelykujjam",
+      "korcsoport": "vegyes",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Itt a farsang, áll a bál",
+      "korcsoport": "vegyes",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Itt van az ősz",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_kezdete",
+        "osz_szinek",
+        "osz_termenyek"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Jancsi és Juliska",
+      "korcsoport": "nagy",
+      "temak": [
+        "mezeskalacs"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Karácsonyi dalok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mezeskalacs"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kenyérsütés",
+      "korcsoport": "vegyes",
+      "temak": [
+        "foglalkozasok",
+        "kenyer_utja",
+        "mezeskalacs"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ki ette meg a nyarat?",
+      "korcsoport": "vegyes",
+      "temak": [
+        "otthonunk"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Kinn a bárány, benn a farkas",
+      "korcsoport": "vegyes",
+      "temak": [
+        "allatok_vilagnapja",
+        "erdo_allatai",
+        "teli_madaretetes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Kippkopp karácsonya",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "fenyofa_diszek",
+        "karacsony"
+      ],
+      "szerzo": "Marék Veronika"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Kippkopp és Tipptopp",
+      "korcsoport": "vegyes",
+      "temak": [
+        "baratsag",
+        "nagycsoportos_bucsu",
+        "otthonunk",
+        "tanevkezdes"
+      ],
+      "szerzo": "Marék Veronika"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kis karácsony, nagy karácsony",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "fenyofa_diszek",
+        "karacsony",
+        "mezeskalacs",
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kis kece lányom",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdo_allatai",
+        "luca_nap",
+        "magyar_kultura",
+        "matyas_nap",
+        "olvasni_jo",
+        "osz_kezdete"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kis kertet kerítek",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erzsebet_katalin",
+        "fold_napja",
+        "kerti_munkak",
+        "luca_nap",
+        "otthonunk",
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kokárda",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kossuth Lajos azt üzente",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Luca napja",
+      "korcsoport": "vegyes",
+      "temak": [
+        "luca_nap"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Luca, Luca, kity-koty",
+      "korcsoport": "vegyes",
+      "temak": [
+        "luca_nap"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Luca-napi kotyolók",
+      "korcsoport": "vegyes",
+      "temak": [
+        "luca_nap"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Lámpásos vonulódal-csokor",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mackó-mese",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Madárdalok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "madarak_fak_napja",
+        "teli_madaretetes"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Maszkabál — válogatás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "tanevkezdes"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mazsola és Tádé — részlet",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Bálint Ágnes"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Mennyből az angyal",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "karacsony",
+        "mezeskalacs"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Micimackó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "csalad",
+        "nagycsoportos_bucsu"
+      ],
+      "szerzo": "Halász Judit"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Mikulás-dalok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Moldva (részlet)",
+      "korcsoport": "vegyes",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Bedřich Smetana"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Mosakodás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Most viszik, most viszik Danikáné lányát",
+      "korcsoport": "vegyes",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Március 15.",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Márton napja",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mátyás anyja (részlet)",
+      "korcsoport": "nagy",
+      "temak": [
+        "matyas_nap"
+      ],
+      "szerzo": "Arany János"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Mátyás király és az okos lány",
+      "korcsoport": "nagy",
+      "temak": [
+        "matyas_nap"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Mátyás, Mátyás, jégtörő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "matyas_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Napocska",
+      "korcsoport": "vegyes",
+      "temak": [
+        "napvedelem"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Naptár — Augusztus",
+      "korcsoport": "nagy",
+      "temak": [
+        "kenyer_utja"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Naptár — Június",
+      "korcsoport": "nagy",
+      "temak": [
+        "napvedelem",
+        "nyari_gyumolcsok",
+        "nyari_idojaras"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Naptár — Szeptember",
+      "korcsoport": "nagy",
+      "temak": [
+        "egeszseges_eletmod",
+        "osz_termenyek"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Naptár — Április",
+      "korcsoport": "nagy",
+      "temak": [
+        "kerti_munkak",
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Nemzeti dal (első versszak)",
+      "korcsoport": "nagy",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Petőfi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Novemberi szél",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erzsebet_katalin",
+        "kodos_oszi_ido",
+        "marton_nap"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Nyári rajz",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kodos_oszi_ido",
+        "napvedelem",
+        "nyari_gyumolcsok",
+        "nyari_idojaras"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Nyílik a rózsa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "anyak_napja_csalad",
+        "erzsebet_katalin",
+        "mehek_napja",
+        "punkosd",
+        "szinek_formak",
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Névnapi köszöntő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erzsebet_katalin"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Névnapköszöntő népdalok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erzsebet_katalin"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Pom Pom meséi — részlet",
+      "korcsoport": "vegyes",
+      "temak": [
+        "evzaro",
+        "gyermeknap",
+        "kozlekedes",
+        "olvasni_jo"
+      ],
+      "szerzo": "Csukás István"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Pásztorok, pásztorok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Pünkösdi rózsa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "punkosd"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Pünkösdölő népdalok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "punkosd"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Rege a csodaszarvasról (részlet)",
+      "korcsoport": "nagy",
+      "temak": [
+        "magyar_kultura"
+      ],
+      "szerzo": "Arany János"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Rákóczi-induló",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Répa, retek, mogyoró",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "nyari_gyumolcsok"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Szent Erzsébet és a rózsacsoda",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erzsebet_katalin"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Szent Miklós legendája — az aranyalmák",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Szent Márton legendája — a megosztott köpeny",
+      "korcsoport": "vegyes",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Szeptember",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_kezdete"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Szél, szél, fúj a szél",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_szinek"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Szüreti népdalcsokor",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_termenyek",
+        "tok_fesztival"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Süsü, a sárkány — részlet",
+      "korcsoport": "vegyes",
+      "temak": [
+        "haziallatok_kicsinyei"
+      ],
+      "szerzo": "Csukás István"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Süti, süti pogácsát",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mezeskalacs"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Télapó itt van",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tíz ujjam",
+      "korcsoport": "vegyes",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Vitaminok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "nyari_gyumolcsok"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Weöres-versek megzenésítve",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kolteszet_napja"
+      ],
+      "szerzo": "Kaláka"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Zsipp-zsupp, kenderzsupp",
+      "korcsoport": "vegyes",
+      "temak": [
+        "farsang",
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Zöld erdőben jártam",
+      "korcsoport": "vegyes",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Érik a szőlő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "egeszseges_eletmod",
+        "nyari_gyumolcsok",
+        "osz_szinek",
+        "osz_termenyek",
+        "tok_fesztival"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ó, szép fenyő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent",
+        "fenyofa_diszek"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Ősz",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_kezdete"
+      ],
+      "szerzo": "Gryllus Vilmos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ősz elején",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_termenyek",
+        "tok_fesztival"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszi mese",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "(pingponglabda) fújása",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A Föld meséje",
+      "korcsoport": "nagy",
+      "temak": [
+        "fold_napja"
+      ],
+      "szerzo": "Berta Kati"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A büszke tölgyfa",
+      "korcsoport": "kozepso",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A cinege",
+      "korcsoport": "kozepso",
+      "temak": [
+        "napszakok_napirend"
+      ],
+      "szerzo": "Gárdonyi Géza"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A csillagos sün",
+      "korcsoport": "kicsi",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Lengyel Balázs"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A csillagszemű juhász",
+      "korcsoport": "nagy",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A csodatrombita",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A dicsekvő versenyautó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Malter György"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A fiú meg az északi szélvész",
+      "korcsoport": "nagy",
+      "temak": [
+        "kodos_oszi_ido"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A fázó rókafiak",
+      "korcsoport": "kicsi",
+      "temak": [
+        "karacsony"
+      ],
+      "szerzo": "Kormos István"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A gesztenyehéj kabátka",
+      "korcsoport": "nagy",
+      "temak": [
+        "oszi_kerti_munkak"
+      ],
+      "szerzo": "Kiss Melinda"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A gomba alatt",
+      "korcsoport": "kozepso",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Szutyejev"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A gyermek mosolya",
+      "korcsoport": "nagy",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "Vörös Judit"
+    },
+    {
+      "tipus": "dal",
+      "cim": "A győri Györgynek",
+      "korcsoport": "kozepso",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "A hajnali harangszónak",
+      "korcsoport": "nagy",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A hiú hóember",
+      "korcsoport": "kozepso",
+      "temak": [
+        "karacsony"
+      ],
+      "szerzo": "Bartók Julianna"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A három csibe",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A három dió",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_szinek"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A három kismalac és a farkas",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_szinek"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A három kívánság",
+      "korcsoport": "kicsi",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A három pillangó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavasz",
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Jékely Zoltán"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A hóember orra",
+      "korcsoport": "kicsi",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "A jelzőlámpa",
+      "korcsoport": "nagy",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Szalai Borbála"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A jószívű Sajó",
+      "korcsoport": "nagy",
+      "temak": [
+        "ujevi_nepszokasok"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A kamrában",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_zoldsegek"
+      ],
+      "szerzo": "Apostagi Bolvári Judit"
+    },
+    {
+      "tipus": "dal",
+      "cim": "A karácsony",
+      "korcsoport": "kozepso",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A kicsi dió",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "A kis kertész",
+      "korcsoport": "nagy",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kisfiú, aki ibolyát látott",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kisgömböc",
+      "korcsoport": "nagy",
+      "temak": [
+        "oszi_kerti_munkak"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kishajó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Szutyejev"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A kismadár kertje",
+      "korcsoport": "kozepso",
+      "temak": [
+        "fold_napja"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A kolbász, a béka és az egér",
+      "korcsoport": "kozepso",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A kovács lánya",
+      "korcsoport": "nagy",
+      "temak": [
+        "fenyofa_diszek"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "A kálói szőlőbe",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A két kicsi bocs meg a róka",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Kolozsvári Grandpierre Emil"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A legdrágább anyukának",
+      "korcsoport": "nagy",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A legérdekesebb játékok",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A levendula",
+      "korcsoport": "kozepso",
+      "temak": [
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A libák és a róka",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A madarak karácsonya",
+      "korcsoport": "kozepso",
+      "temak": [
+        "madarvonulas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "A makk",
+      "korcsoport": "nagy",
+      "temak": [
+        "egeszseges_eletmod"
+      ],
+      "szerzo": "Szalai Borbála"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A medve a róka meg a bödön vaj",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "A medve töprengése",
+      "korcsoport": "nagy",
+      "temak": [
+        "feny_arnyek_mackok"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A mi gólyánk",
+      "korcsoport": "nagy",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "Gárdonyi Géza"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A méhecske",
+      "korcsoport": "nagy",
+      "temak": [
+        "mehek_napja"
+      ],
+      "szerzo": "Garay János"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A naplopó medve",
+      "korcsoport": "kicsi",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A negyedik gyertyaláng",
+      "korcsoport": "nagy",
+      "temak": [
+        "advent"
+      ],
+      "szerzo": "Tóthárpád Ferenc"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A nyughatatlan méhecske",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mehek_napja"
+      ],
+      "szerzo": "Móra Ferenc"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A nyúl meg a káposzta",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A nyúl meg a sün",
+      "korcsoport": "kozepso",
+      "temak": [
+        "erdo_allatai"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A pipacs és a búzavirág",
+      "korcsoport": "nagy",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "A piros kabát kalandja",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A rénszarvas barlangja",
+      "korcsoport": "kicsi",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Szabó Zsolt"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A róka meg a daru",
+      "korcsoport": "nagy",
+      "temak": [
+        "erdo_allatai"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A róka meg a farkas aratni megy",
+      "korcsoport": "nagy",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A suszter manói",
+      "korcsoport": "kozepso",
+      "temak": [
+        "advent"
+      ],
+      "szerzo": "Grimm testvérek"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A szánkó",
+      "korcsoport": "nagy",
+      "temak": [
+        "karacsony"
+      ],
+      "szerzo": "Móra Ferenc"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A tavasz",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Majtényi Erik"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A titokzatos hóember",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Tóth Anna"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "A télapó kesztyűje",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "A török és a tehenek",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Móricz Zsigmond"
+    },
+    {
+      "tipus": "mese",
+      "cim": "A vitéz szabólegény",
+      "korcsoport": "nagy",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "vers",
+      "cim": "A víz",
+      "korcsoport": "nagy",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Orbán Ottó"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Adjon Isten füvet, fát",
+      "korcsoport": "vegyes",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Adjon isten",
+      "korcsoport": "vegyes",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Advent (Magyar népköltés)",
+      "korcsoport": "nagy",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Alma",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Alma, alma",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Aludj, fácska",
+      "korcsoport": "kozepso",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Fazekas Lajos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Anyáknapi mondóka",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Apacuka, fundaluka",
+      "korcsoport": "nagy",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Aranyos tarajos kiskakas",
+      "korcsoport": "kicsi",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Az alma meg a kerti manó",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Sebők Éva"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Az aranyos tarajos kiskakas",
+      "korcsoport": "nagy",
+      "temak": [
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Az autó és a traktor",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Várfalvy Emőke"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Az egérke piros szegélyes kabátja",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_szinek"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Az erdőzöldítő és mezővirágoztató kisasszony",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Az állatok nyelvén tudó juhász",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Az öt kismacska",
+      "korcsoport": "kicsi",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Azt mondják a cinegék",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Balambér",
+      "korcsoport": "nagy",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Barátság",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Bogyó és Babóca"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Benn a bárány",
+      "korcsoport": "vegyes",
+      "temak": [
+        "erdo_allatai",
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Bohó álom",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Drégely László"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Bolondos mondóka",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_szinek"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Bors néni beszélget az aszfaltozókkal",
+      "korcsoport": "nagy",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Bort, búzát, békességet",
+      "korcsoport": "nagy",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Brum-brum, Brúnó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Bundavásár",
+      "korcsoport": "kozepso",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Bál a konyhában",
+      "korcsoport": "nagy",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Verseghy Erzsébet"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Bársonyibolyácska",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavasz"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Báránykának",
+      "korcsoport": "kicsi",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Búcsúzik a gólya",
+      "korcsoport": "kozepso",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Bújj, bújj",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Bújj, bújj, medve",
+      "korcsoport": "kicsi",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Cicukám, kelj fel",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Cicuska, macuska",
+      "korcsoport": "nagy",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Cini, cini",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ciróka, maróka",
+      "korcsoport": "vegyes",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Csak egy van",
+      "korcsoport": "kozepso",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Lukács Angéla"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Csalafinta történet",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csepp, csepp",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Csepp, csepp, esőcsepp",
+      "korcsoport": "kicsi",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csicseri borsó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csicseriborsó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csicseriborsó, bablencse",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Csigabiga",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Csilingel a gyöngyvirág",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Csillagtallérok",
+      "korcsoport": "nagy",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csipp, csepp",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csiteri, csütöri",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csivirítem",
+      "korcsoport": "kicsi",
+      "temak": [
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Csupaháj",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Csókai Csóka",
+      "korcsoport": "kicsi",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Móra Ferenc"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Dalocska",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tanevkezdes"
+      ],
+      "szerzo": "Csukás István"
+    },
+    {
+      "tipus": "dal",
+      "cim": "De jó a dió",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "De jó a dió!",
+      "korcsoport": "kicsi",
+      "temak": [
+        "madarvonulas",
+        "osz_zoldsegek"
+      ],
+      "szerzo": "Csukás István"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Didergők",
+      "korcsoport": "kozepso",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Dirmeg, dörmög",
+      "korcsoport": "kicsi",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Dirmeg, dörmög a medve",
+      "korcsoport": "kicsi",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Dióbél bácsi",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_szinek"
+      ],
+      "szerzo": "Csoóri Sándor"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Dolgozni szaporán",
+      "korcsoport": "nagy",
+      "temak": [
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Dombon törik a diót",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Egy, begy, tyúkbegy",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Egyszer egy erdőben",
+      "korcsoport": "nagy",
+      "temak": [
+        "madarvonulas"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Egyél libám",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Elesett a lúd",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Elment Péter",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Elmúlt a nyár, itt az ősz",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Erdei mulatság",
+      "korcsoport": "kozepso",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Eresz alól",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Erre csörög",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Erzsébet asszony",
+      "korcsoport": "vegyes",
+      "temak": [
+        "balazs_nap_iskola",
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Esik eső csöpörög",
+      "korcsoport": "kicsi",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Esik eső ja-ja-jaj",
+      "korcsoport": "kicsi",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Esik, eső uj-jú-jú",
+      "korcsoport": "kicsi",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Eszterlánc, eszterlánc",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Ez a malac piacra megy",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ezüstfenyő",
+      "korcsoport": "nagy",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Fakadó rügy, szellő hozta",
+      "korcsoport": "nagy",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Farsang",
+      "korcsoport": "nagy",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Sarkady Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Farsangi bál",
+      "korcsoport": "kozepso",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Drégely László"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Farsangnapi kutyabál",
+      "korcsoport": "kozepso",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Csoóri Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Február",
+      "korcsoport": "kicsi",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Szűcs Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Fecskehívogató",
+      "korcsoport": "nagy",
+      "temak": [
+        "mehek_napja"
+      ],
+      "szerzo": "Móra Ferenc"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Fecskét látok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "madarvonulas",
+        "tavasz"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Fehér karácsony",
+      "korcsoport": "kozepso",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Fehérvári kapitány",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Fel!",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Sarkady Sándor"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Foglalkozások",
+      "korcsoport": "kicsi",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Fehér Klára"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Furulyás Palkó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Fussunk, szaladjunk",
+      "korcsoport": "kicsi",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Futózápor",
+      "korcsoport": "nagy",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Fáj a kutyámnak a lába",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja",
+        "egeszseges_eletmod",
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Félnótás nóta",
+      "korcsoport": "nagy",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Tarbay Ede"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Föld napja",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ],
+      "szerzo": "Szekér Zsuzsa"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Fújja szél a",
+      "korcsoport": "kicsi",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Fű, fű, fű",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Guszti, a giliszta komposztál",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ],
+      "szerzo": "Orgoványi Anikó"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Gyere tavasz, várva várlak",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavasz"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Gyermekek, gyermekek",
+      "korcsoport": "kicsi",
+      "temak": [
+        "gyermeknap",
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Gyí te fakó, gyí te szürke",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Gyí, paci, paripa",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Gyöngyvirág",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Gyümölcskosár",
+      "korcsoport": "kozepso",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Gólya viszi",
+      "korcsoport": "kicsi",
+      "temak": [
+        "madarvonulas"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Gólya viszi a fiát",
+      "korcsoport": "vegyes",
+      "temak": [
+        "tavasz",
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Gólya, gólya",
+      "korcsoport": "nagy",
+      "temak": [
+        "madarvonulas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ha nagy leszek",
+      "korcsoport": "nagy",
+      "temak": [
+        "fold_napja"
+      ],
+      "szerzo": "Birtha Erzsébet"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Ha valaki vígan él",
+      "korcsoport": "kozepso",
+      "temak": [
+        "foglalkozasok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Halország",
+      "korcsoport": "nagy",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hatan vannak",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Hattyú vitéz",
+      "korcsoport": "nagy",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hegedül a kisegér",
+      "korcsoport": "kicsi",
+      "temak": [
+        "foglalkozasok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hej, a sályi piacon",
+      "korcsoport": "nagy",
+      "temak": [
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hej, meszelő",
+      "korcsoport": "kozepso",
+      "temak": [
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hervad már a lombnak",
+      "korcsoport": "nagy",
+      "temak": [
+        "oszi_kerti_munkak"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hipp, hopp",
+      "korcsoport": "vegyes",
+      "temak": [
+        "karacsony",
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hipp, hopp, haja hopp",
+      "korcsoport": "nagy",
+      "temak": [
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Hogyan lett a huszárnak lova?",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hold, hold",
+      "korcsoport": "kozepso",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Holle anyó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hopp mókuska",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kodos_oszi_ido"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hopp, hopp, katona",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hová mégy te kis",
+      "korcsoport": "vegyes",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hová tegyem a sapkát?",
+      "korcsoport": "kicsi",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hull a hó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Várnai Zseni"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Hull a hó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Szabó Zsolt"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hull a pelyhes",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Három cimbora",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Héja, héja",
+      "korcsoport": "kozepso",
+      "temak": [
+        "madarvonulas"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Hét nap",
+      "korcsoport": "nagy",
+      "temak": [
+        "napszakok_napirend"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hétfő, kedd, szerda, csütörtök",
+      "korcsoport": "kicsi",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hétfőn egy szem makkot leltem",
+      "korcsoport": "kozepso",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hétfőn hentereg, kedden kecmereg",
+      "korcsoport": "kozepso",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hétfőn kezdem a hetet",
+      "korcsoport": "nagy",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hóember",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Sarkadi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hóember",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hóember",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Szalai Borbála"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hóember, hóember",
+      "korcsoport": "kicsi",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hóesésben",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hógolyózás",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Drégely László"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hónap-mondóka (magyar népköltés)",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Hónapok",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ],
+      "szerzo": "Tóth Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Húsvét",
+      "korcsoport": "nagy",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ],
+      "szerzo": "Palotai Gyöngyvér"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Húsvét másodnapján régi szokás szerint",
+      "korcsoport": "kozepso",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Húsvéti tojás",
+      "korcsoport": "nagy",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ],
+      "szerzo": "Bús Ilona"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Iciripiciri",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Móricz Zsigmond"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ilyen cica mellett",
+      "korcsoport": "kicsi",
+      "temak": [
+        "balazs_nap_iskola",
+        "mehek_napja"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Irigy felhő",
+      "korcsoport": "kicsi",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Itt a farsang",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Itt a farsang, áll a bál",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Itt a húsvét, eljött végre",
+      "korcsoport": "kicsi",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Itt a köcsög",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Itt a szemem, itt a szám",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Itt a tél",
+      "korcsoport": "kozepso",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Lendvai Ilona"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Itt kopog, ott kopog",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Január elöl jár",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Januári vacogós",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Orgoványi Anikó"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Jelmezbál",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "dal",
+      "cim": "János úr készül",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kozlekedes",
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Jégen járó január",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Jégvirág",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Kiss Jenő"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Jézus születése",
+      "korcsoport": "nagy",
+      "temak": [
+        "fenyofa_diszek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Jó reggelt, jó reggelt, kedves liliomszál",
+      "korcsoport": "nagy",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Jóbarátaink",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Jöjj ki",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Jöjj ki, napocska",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavasz"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Jön a Mikulás!",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Czeglédi Gabriella"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Jön a kocsi",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kozlekedes"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Jön a tavasz, virágot hoz",
+      "korcsoport": "kicsi",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Jön az ősz",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kodos_oszi_ido",
+        "osz_szinek"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Jött őszanyó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_szinek",
+        "tanevkezdes"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kajcsai rózsa",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Karácsony",
+      "korcsoport": "kicsi",
+      "temak": [
+        "advent"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Karácsony",
+      "korcsoport": "kozepso",
+      "temak": [
+        "advent"
+      ],
+      "szerzo": "Pálfalvi Nándor"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Karácsony",
+      "korcsoport": "kozepso",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Karácsonyi csengő",
+      "korcsoport": "kicsi",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Karácsonyi jókívánság",
+      "korcsoport": "nagy",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Karácsonyra",
+      "korcsoport": "kozepso",
+      "temak": [
+        "karacsony"
+      ],
+      "szerzo": "K. László Krisztina"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kaszálj, Pista",
+      "korcsoport": "kozepso",
+      "temak": [
+        "oszi_kerti_munkak"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kaszálnak",
+      "korcsoport": "nagy",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Szép Ernő"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Kecskére bízta a káposztát",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kerekecske",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kerekecske, gombocska, volt egy kicsi dombocska",
+      "korcsoport": "kozepso",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kerekecske-gombocska",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kert alatt",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Ki segít a nyuszinak?",
+      "korcsoport": "kicsi",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ],
+      "szerzo": "Devecser László"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kicsi csupor",
+      "korcsoport": "kicsi",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kicsi kocsi",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kozlekedes"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kicsi kocsi, három csacsi",
+      "korcsoport": "nagy",
+      "temak": [
+        "balazs_nap_iskola"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kicsi vagyok",
+      "korcsoport": "kicsi",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kicsi vagyok, székre állok",
+      "korcsoport": "kicsi",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kicsi üst",
+      "korcsoport": "kozepso",
+      "temak": [
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kikiáltó: Medvecukor, marcipán",
+      "korcsoport": "nagy",
+      "temak": [
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kinyílt a rózsa",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kiolvasó",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Pákolitz István"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kis patak",
+      "korcsoport": "kozepso",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kis, kis kígyó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kismanó óvodába indul",
+      "korcsoport": "nagy",
+      "temak": [
+        "balazs_nap_iskola"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kisnyuszi suliba megy",
+      "korcsoport": "nagy",
+      "temak": [
+        "balazs_nap_iskola"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kiszáradt a diófa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "osz_szinek",
+        "osz_zoldsegek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kocsi és vonat",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kocsit, kocsit, komámasszony",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kozlekedes"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Konyhakertben, s a kert körül",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tavaszi_viragok"
+      ],
+      "szerzo": "Páskándi Géza"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kopogó",
+      "korcsoport": "nagy",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Kerner Tibor"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Korholi titka",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Ákossy Eszter"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Korán reggel útra keltem",
+      "korcsoport": "kozepso",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Koszorú, koszorú",
+      "korcsoport": "vegyes",
+      "temak": [
+        "oszi_kerti_munkak",
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Kutyatár",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja",
+        "mihaly_nap"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kását főz a kisegér",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Két kis fog Tündérországban",
+      "korcsoport": "kicsi",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Két kis madár ül a fán",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Körtéfa, körtéfa",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kőketánc",
+      "korcsoport": "nagy",
+      "temak": [
+        "gyermeknap",
+        "oszi_kerti_munkak"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kőketánc, kőketánc",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Lepkehívogató",
+      "korcsoport": "kicsi",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "Fecske Csaba"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Levél a szélben",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_szinek"
+      ],
+      "szerzo": "Kovács Barbara"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Libanátha",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Vershegy Erzsébet"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Libasorban",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Lopják az úr szőlőjét",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Lóg a lába",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mehek_napja",
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "MESÉLÉS",
+      "korcsoport": "kicsi",
+      "temak": [
+        "madarvonulas",
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Mackó brummog",
+      "korcsoport": "kicsi",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mackó úr meg Ordas koma",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mehek_napja"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Mackó, mackó",
+      "korcsoport": "vegyes",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mackómese",
+      "korcsoport": "kozepso",
+      "temak": [
+        "feny_arnyek_mackok"
+      ],
+      "szerzo": "Csukás István"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Makk Marci sorozat: Fognyűvő manócska",
+      "korcsoport": "kozepso",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Makk-emberke",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_szinek"
+      ],
+      "szerzo": "Szalai Borbála"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Medvecukor és a tavaszi szél",
+      "korcsoport": "nagy",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Megfogtam egy magocskát",
+      "korcsoport": "kicsi",
+      "temak": [
+        "oszi_kerti_munkak"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Meghajtom magam most",
+      "korcsoport": "kozepso",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Kiss Jenő"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Megy a kocsi",
+      "korcsoport": "vegyes",
+      "temak": [
+        "foglalkozasok",
+        "kozlekedes"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Megy az öreg",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Megy az úton",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mese a Napról",
+      "korcsoport": "nagy",
+      "temak": [
+        "napszakok_napirend"
+      ],
+      "szerzo": "Darázs Endre"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mese a hét mesterségről",
+      "korcsoport": "kozepso",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Petrolay Margit"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mese az éhes kisegérről",
+      "korcsoport": "nagy",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mesevilág",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Szalay Borbála"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Meséltél és meséltél",
+      "korcsoport": "kozepso",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Mi szél hozott kis futár",
+      "korcsoport": "kozepso",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Miklós püspök legendája",
+      "korcsoport": "nagy",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mikulás-köszöntő",
+      "korcsoport": "nagy",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Minek a medvének bunda",
+      "korcsoport": "kozepso",
+      "temak": [
+        "feny_arnyek_mackok"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Mit csinál a kis kezem?",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Mit mos, mit mos",
+      "korcsoport": "kozepso",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Miért alszik a medve télen?",
+      "korcsoport": "kozepso",
+      "temak": [
+        "feny_arnyek_mackok"
+      ],
+      "szerzo": "Ivan Krilov"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Miért szállnak el a fecskék?",
+      "korcsoport": "kicsi",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "T. Volgina"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mióta van csillag a karácsonyfák csúcsán?",
+      "korcsoport": "nagy",
+      "temak": [
+        "advent"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mogyorót szedtem",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Szalai Borbála"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mondjam még?",
+      "korcsoport": "nagy",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Tamkó Sirató Károly"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Mondóka március 15-re",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Most jöttem Bécsből",
+      "korcsoport": "nagy",
+      "temak": [
+        "kozlekedes"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Most viszik",
+      "korcsoport": "kozepso",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mozdony",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Illyés Gyula"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Májusdicsérő",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Málészáj",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Március 15",
+      "korcsoport": "nagy",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Március 15",
+      "korcsoport": "nagy",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Orgoványi Anikó"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Márton lúdja",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ],
+      "szerzo": "Pákolitz István"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Márton-nap (népköltés)",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mátyás király meg az igazmondó juhász",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Illyés Gyula"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Mély kútba tekintek",
+      "korcsoport": "nagy",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Mézeskalácsszív",
+      "korcsoport": "nagy",
+      "temak": [
+        "mehek_napja"
+      ],
+      "szerzo": "Stefán Luca"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mókavásár",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "T. Nagy Sándor"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Mókus Péter kiskertje",
+      "korcsoport": "kozepso",
+      "temak": [
+        "oszi_kerti_munkak"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Mókuscsalogató",
+      "korcsoport": "kicsi",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Nagy a hó igazán",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Nagy vásár volt",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Fecske Csaba"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Nagytakarítás a Napnál",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kodos_oszi_ido"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Nincs szebb",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Nincs szebb madár, mint a lúd",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Nyakigláb",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Nyuszigyermekek és az első hó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Nyárutó",
+      "korcsoport": "nagy",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "Kiss Béla"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Négy testvér",
+      "korcsoport": "vegyes",
+      "temak": [
+        "evszakok_korforgas",
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Négy vándor",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Négy vándor jár",
+      "korcsoport": "vegyes",
+      "temak": [
+        "evszakok_korforgas",
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Október",
+      "korcsoport": "nagy",
+      "temak": [
+        "oszi_kerti_munkak"
+      ],
+      "szerzo": "Radnóti Miklós"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Országúton nagy a hó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "P. Ábrahám Ernő: A libák, a farkas meg a kiskakas",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Paripám csodaszép pejkó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Pattanj pajtás",
+      "korcsoport": "nagy",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Pereg a dob",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Drégely László"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Pici versben pici pék",
+      "korcsoport": "kicsi",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Fecske Csaba"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Pletykázó asszonyok",
+      "korcsoport": "kozepso",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Pásztorok",
+      "korcsoport": "nagy",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Pásztorok a hegyen",
+      "korcsoport": "kozepso",
+      "temak": [
+        "fenyofa_diszek"
+      ],
+      "szerzo": "Linda Jenning"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Pí, pí, pí",
+      "korcsoport": "kozepso",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Pörcös pogácsa",
+      "korcsoport": "kicsi",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Pöttömke hóember lesz",
+      "korcsoport": "nagy",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Rajta, rajta",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Recse, recse, pogácsa",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mehek_napja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Reggeli harmat",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavasz"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Rigó rúgta dió",
+      "korcsoport": "kicsi",
+      "temak": [
+        "oszi_kerti_munkak"
+      ],
+      "szerzo": "Takáts Gyula"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Rozmaringos ablakomba",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Réce ruca",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Réce, ruca, vadliba, jöjjenek a lagziba",
+      "korcsoport": "kicsi",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Répa, retek, mogyoró",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_zoldsegek"
+      ],
+      "szerzo": "Erdélyi József"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Róka-mondóka",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Rózsa szirma",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Somvirág",
+      "korcsoport": "kozepso",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Szabad-e bejönni",
+      "korcsoport": "kozepso",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Szegény ember szőlője",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Benedek Elek"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Szembeszél",
+      "korcsoport": "kozepso",
+      "temak": [
+        "egeszseges_eletmod"
+      ],
+      "szerzo": "Tamkó Sirató Károly"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Szita, szita, sűrű",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Szálljatok le",
+      "korcsoport": "nagy",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Szálljatok le, szálljatok le",
+      "korcsoport": "kozepso",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Száz liba",
+      "korcsoport": "nagy",
+      "temak": [
+        "marton_nap"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Szóló szőlő, mosolygó alma, csengő barack",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Szőjünk fonjunk kendőt",
+      "korcsoport": "kozepso",
+      "temak": [
+        "foglalkozasok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Szőlő",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Sándor napján",
+      "korcsoport": "nagy",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Sánta róka",
+      "korcsoport": "nagy",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Sárga rózsa, vadvirág",
+      "korcsoport": "vegyes",
+      "temak": [
+        "balazs_nap_iskola"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Sári néni utazik",
+      "korcsoport": "vegyes",
+      "temak": [
+        "kozlekedes",
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Sétálunk",
+      "korcsoport": "kozepso",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Sírjunk, ríjunk",
+      "korcsoport": "kozepso",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Sün Balázs",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Csukás István"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Sündisznók",
+      "korcsoport": "kicsi",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Szalai Borbála"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Sürgős levél",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Petrolay Margit"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Süssünk",
+      "korcsoport": "nagy",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Tapsi és a villanyrendőr",
+      "korcsoport": "nagy",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tarka cica, fehér cica",
+      "korcsoport": "kicsi",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tavasz hívása",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Drégely László"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tavasz éke",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mehek_napja"
+      ],
+      "szerzo": "Donkó László"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tavasz-ébresztő",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tavaszi bodzavers",
+      "korcsoport": "kozepso",
+      "temak": [
+        "tavasz"
+      ],
+      "szerzo": "Csoóri Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tavasztól tavaszig",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Raggamby András"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Tekereg a szél",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kodos_oszi_ido"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Testrészek",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Bódi Irén"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ti csak esztek",
+      "korcsoport": "nagy",
+      "temak": [
+        "gyermeknap"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Tojásfestés – bökkenőkkel",
+      "korcsoport": "kozepso",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ],
+      "szerzo": "Enyedi György"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Toppantó királykisasszony",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tréfás rajz",
+      "korcsoport": "kozepso",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Veres Miklós"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Táncnóta",
+      "korcsoport": "nagy",
+      "temak": [
+        "mihaly_nap"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Tél apó",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Télapó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Télapó az erdőben",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Télapó bundája",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Télapó itt van",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Télapó levele, Megjött a télapó",
+      "korcsoport": "nagy",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Móra Ferenc"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Télapóka",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Kovács Barbara"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Téli fák",
+      "korcsoport": "kozepso",
+      "temak": [
+        "advent"
+      ],
+      "szerzo": "Zelk Zoltán"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Téli kertben",
+      "korcsoport": "nagy",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Székely Dezső"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Téli tó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Gyurcsó István"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Téli álom",
+      "korcsoport": "nagy",
+      "temak": [
+        "feny_arnyek_mackok"
+      ],
+      "szerzo": "Orosvai Mária"
+    },
+    {
+      "tipus": "mese",
+      "cim": "Télkergető hóvirág",
+      "korcsoport": "nagy",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Tíz kicsi barát",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tó vize",
+      "korcsoport": "kozepso",
+      "temak": [
+        "viz_vilagnapja"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tükör",
+      "korcsoport": "nagy",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Bartos Erika"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Tündér",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_zoldsegek"
+      ],
+      "szerzo": "Weöres Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ujjszámoló",
+      "korcsoport": "kicsi",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Takács Judit"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Utazás",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_zoldsegek"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "VERSELÉS",
+      "korcsoport": "kicsi",
+      "temak": [
+        "madarvonulas",
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vadetető",
+      "korcsoport": "nagy",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Fazekas Lajos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vadnyulak",
+      "korcsoport": "kozepso",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Varrt cipőt a suszter?",
+      "korcsoport": "kozepso",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Janina Porazinska"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vendégvárás",
+      "korcsoport": "nagy",
+      "temak": [
+        "napszakok_napirend"
+      ],
+      "szerzo": "Gazdag Erzsi"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vers: Gesztenye Gusztika",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vers: Gyárfás Endre: Írogató",
+      "korcsoport": "nagy",
+      "temak": [
+        "balazs_nap_iskola"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Verses mese",
+      "korcsoport": "kozepso",
+      "temak": [
+        "mikulas"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Verses mesék",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Veréb",
+      "korcsoport": "kicsi",
+      "temak": [
+        "erdo_allatai"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Villás farkú fecskék",
+      "korcsoport": "kicsi",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "Pósa Lajos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Virágosat álmodtam",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ],
+      "szerzo": "Ágh István"
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Visszajött a répa",
+      "korcsoport": "kicsi",
+      "temak": [
+        "advent"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "Vityilló",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kodos_oszi_ido"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vonatosdi",
+      "korcsoport": "kicsi",
+      "temak": [
+        "kozlekedes"
+      ],
+      "szerzo": "Tóth Elemér"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Vékony vászon",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Vígan dalol a madár",
+      "korcsoport": "kozepso",
+      "temak": [
+        "marcius_15"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Vízimolnár",
+      "korcsoport": "kicsi",
+      "temak": [
+        "foglalkozasok"
+      ],
+      "szerzo": "Nemes Nagy Ágnes"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Zeneszó leng",
+      "korcsoport": "nagy",
+      "temak": [
+        "marcius_15"
+      ],
+      "szerzo": "Sarkady Sándor"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Zsipp-zsupp",
+      "korcsoport": "kicsi",
+      "temak": [
+        "evszakok_korforgas"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Zörög az erdő",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_szinek"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "anyának!",
+      "korcsoport": "kozepso",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "fújása",
+      "korcsoport": "kozepso",
+      "temak": [
+        "teli_oltozkodes",
+        "teli_sportok"
+      ]
+    },
+    {
+      "tipus": "nepmese",
+      "cim": "lllyés Gyula: A háromágú tölgyfa tündére",
+      "korcsoport": "nagy",
+      "temak": [
+        "tavaszi_viragok"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "nyárköszöntő",
+      "korcsoport": "kicsi",
+      "temak": [
+        "gyermeknap"
+      ],
+      "szerzo": "K. László Szilvia"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ábécé-sorakozó",
+      "korcsoport": "nagy",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Kányádi Sándor"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Áll a bál",
+      "korcsoport": "kicsi",
+      "temak": [
+        "farsang"
+      ],
+      "szerzo": "Czeglédi Gabriella"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Áll a fenyő az erdőben",
+      "korcsoport": "kicsi",
+      "temak": [
+        "mikulas"
+      ],
+      "szerzo": "Donászy Magda"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Álmodik a fenyőfácska",
+      "korcsoport": "nagy",
+      "temak": [
+        "karacsony"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Árkot ugrott",
+      "korcsoport": "kicsi",
+      "temak": [
+        "fold_napja"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Áspis kerekes",
+      "korcsoport": "kozepso",
+      "temak": [
+        "testunk"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Édes ősz",
+      "korcsoport": "kozepso",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Sarkadi Sándor"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Édesanyám szeret engem",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Édesanyám, neked adunk minden évben egy napot",
+      "korcsoport": "nagy",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Éliás, Tóbiás",
+      "korcsoport": "nagy",
+      "temak": [
+        "egeszseges_eletmod"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Én elmentem",
+      "korcsoport": "nagy",
+      "temak": [
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Én is pisze",
+      "korcsoport": "vegyes",
+      "temak": [
+        "karacsony"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Én is pisze, te is pisze",
+      "korcsoport": "kicsi",
+      "temak": [
+        "tanevkezdes"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Én kicsike vagyok",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "dal",
+      "cim": "Én kis kertet kerteltem",
+      "korcsoport": "vegyes",
+      "temak": [
+        "testunk",
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Évszakok",
+      "korcsoport": "nagy",
+      "temak": [
+        "evszakok_korforgas"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ó, ha cinke volnék",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Öreg néne őzikéje",
+      "korcsoport": "kozepso",
+      "temak": [
+        "allatok_vilagnapja"
+      ],
+      "szerzo": "Fazekas Anna"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Örömünnep ez a nap",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "mese",
+      "cim": "Öten",
+      "korcsoport": "kozepso",
+      "temak": [
+        "testunk"
+      ],
+      "szerzo": "Sikó-Barabás Eszter"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Úgy viruljanak a lányok",
+      "korcsoport": "vegyes",
+      "temak": [
+        "husvet",
+        "husveti_het"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Újévi köszöntő",
+      "korcsoport": "kozepso",
+      "temak": [
+        "ujevi_nepszokasok"
+      ],
+      "szerzo": "Fecske Csaba"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Újévi köszöntő",
+      "korcsoport": "nagy",
+      "temak": [
+        "ujevi_nepszokasok"
+      ],
+      "szerzo": "Mentovics Éva"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Úszik a kácsa",
+      "korcsoport": "kozepso",
+      "temak": [
+        "viz_vilagnapja"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Útra kelt a nyár",
+      "korcsoport": "nagy",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Osvát Erzsébet"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ültem ringó",
+      "korcsoport": "kicsi",
+      "temak": [
+        "anyak_napja_csalad"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ültess fát!",
+      "korcsoport": "kozepso",
+      "temak": [
+        "fold_napja"
+      ],
+      "szerzo": "Jókai Mór"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ősszel",
+      "korcsoport": "kozepso",
+      "temak": [
+        "madarvonulas"
+      ],
+      "szerzo": "László Gyula"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Ősz az erdőn",
+      "korcsoport": "nagy",
+      "temak": [
+        "oszi_kerti_munkak"
+      ],
+      "szerzo": "Galambos Bernadett"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ősz szele zümmög",
+      "korcsoport": "nagy",
+      "temak": [
+        "kodos_oszi_ido",
+        "osz_kezdete",
+        "osz_termenyek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszanyó",
+      "korcsoport": "nagy",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Tarbay Ede"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Őszi főzőcske",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_szinek"
+      ]
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszi kirándulás",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Fésűs Éva"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszi levél",
+      "korcsoport": "kozepso",
+      "temak": [
+        "oszi_kerti_munkak"
+      ],
+      "szerzo": "Csanádi Imre"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszi mondóka",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Tordon Ákos"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszi susogó",
+      "korcsoport": "nagy",
+      "temak": [
+        "osz_kezdete",
+        "osz_termenyek"
+      ],
+      "szerzo": "Veres Csilla"
+    },
+    {
+      "tipus": "vers",
+      "cim": "Őszi szél",
+      "korcsoport": "kozepso",
+      "temak": [
+        "kodos_oszi_ido"
+      ],
+      "szerzo": "Petrik József"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "A négy évszak — négy rövid részlet",
+      "korcsoport": "vegyes",
+      "temak": [
+        "evszakok_korforgas"
+      ],
+      "szerzo": "Antonio Vivaldi"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Gyermek- és nőikarok — részletek",
+      "korcsoport": "nagy",
+      "temak": [
+        "balazs_nap_iskola"
+      ],
+      "szerzo": "Kodály Zoltán"
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Mély és magas hangszerek — medve és kismedve",
+      "korcsoport": "vegyes",
+      "temak": [
+        "feny_arnyek_mackok"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Reggeli és esti hangulatú zenék",
+      "korcsoport": "vegyes",
+      "temak": [
+        "napszakok_napirend"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Vásári és pásztornóták",
+      "korcsoport": "vegyes",
+      "temak": [
+        "mihaly_nap"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Újévi köszöntők, kántálók",
+      "korcsoport": "vegyes",
+      "temak": [
+        "ujevi_nepszokasok"
+      ]
+    },
+    {
+      "tipus": "zenehallgatas",
+      "cim": "Gyermek- és női karok — részletek",
+      "korcsoport": "nagy",
+      "temak": [
+        "mindenszentek"
+      ],
+      "szerzo": "Kodály Zoltán"
     }
   ]
 }

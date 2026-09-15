@@ -1,8 +1,188 @@
 {
   "_megjegyzes": "Magyar ünnepi naptár óvodapedagógusi szempontból. Minden ünnephez tartozik egy óvodai súlyozás (1-5), kategória és javaslatok az irodalmi adatbázisból.",
-  "_verzio": "1.0",
-  "_utolso_frissites": "2026-05-11",
+  "_verzio": "1.1",
+  "_utolso_frissites": "2026-09-05",
   "unnepek": [
+    {
+      "nev": "Vízkereszt",
+      "honap": 1,
+      "nap": 6,
+      "tipus": "fix",
+      "kategoria": "egyhazi",
+      "ovodaiSulyozas": 2,
+      "leiras": "Háromkirályok napja. Karácsonyi időszak lezárása."
+    },
+    {
+      "nev": "Magyar Kultúra Napja",
+      "honap": 1,
+      "nap": 22,
+      "tipus": "fix",
+      "kategoria": "nemzeti",
+      "ovodaiSulyozas": 2,
+      "leiras": "Kölcsey Himnusza elkészítésének évfordulója."
+    },
+    {
+      "nev": "Gyertyaszentelő",
+      "honap": 2,
+      "nap": 2,
+      "tipus": "fix",
+      "kategoria": "egyhazi",
+      "ovodaiSulyozas": 2,
+      "leiras": "Időjárás-jóslás (medve árnyéka). Téli félidő népszokása."
+    },
+    {
+      "nev": "Farsang",
+      "honap": 2,
+      "nap": 15,
+      "tipus": "mozgo",
+      "kategoria": "nephagyomany",
+      "ovodaiSulyozas": 5,
+      "leiras": "KIEMELT ÓVODAI ÜNNEP. Jelmezbál, télűzés. Időpont vízkereszttől hamvazószerdáig."
+    },
+    {
+      "nev": "Mátyás-nap",
+      "honap": 2,
+      "nap": 24,
+      "tipus": "fix",
+      "kategoria": "nephagyomany",
+      "ovodaiSulyozas": 2,
+      "leiras": "Időjárás-jóslás: 'Mátyás ront, ha talál, ront, ha nem talál'."
+    },
+    {
+      "nev": "1848. március 15.",
+      "honap": 3,
+      "nap": 15,
+      "tipus": "fix",
+      "kategoria": "nemzeti",
+      "ovodaiSulyozas": 5,
+      "leiras": "Nemzeti ünnep. Kokárda, huszárok, óvodai megemlékezés."
+    },
+    {
+      "nev": "Tavasz kezdete",
+      "honap": 3,
+      "nap": 20,
+      "tipus": "fix",
+      "kategoria": "vilagunnep",
+      "ovodaiSulyozas": 4,
+      "leiras": "Tavaszi napéjegyenlőség. Természet ébredése."
+    },
+    {
+      "nev": "Erdők Nemzetközi Napja",
+      "honap": 3,
+      "nap": 21,
+      "tipus": "fix",
+      "kategoria": "vilagunnep",
+      "ovodaiSulyozas": 4,
+      "leiras": "Erdei séta, fák megfigyelése, faültetés. (Két sablon hivatkozott rá, de a naptárban nem szerepelt.)"
+    },
+    {
+      "nev": "Víz Világnapja",
+      "honap": 3,
+      "nap": 22,
+      "tipus": "fix",
+      "kategoria": "vilagunnep",
+      "ovodaiSulyozas": 5,
+      "leiras": "Vízzel kapcsolatos tevékenységek, kísérletek, óvjuk a vizet téma."
+    },
+    {
+      "nev": "Húsvét",
+      "honap": 4,
+      "nap": 5,
+      "tipus": "mozgo",
+      "kategoria": "egyhazi",
+      "ovodaiSulyozas": 5,
+      "leiras": "KIEMELT ÓVODAI ÜNNEP. Mozgó dátum. Tojásfestés, locsolkodás, népszokások."
+    },
+    {
+      "nev": "Költészet Napja",
+      "honap": 4,
+      "nap": 11,
+      "tipus": "fix",
+      "kategoria": "nemzeti",
+      "ovodaiSulyozas": 4,
+      "leiras": "József Attila születésnapja. Versek, versmondás."
+    },
+    {
+      "nev": "Föld Napja",
+      "honap": 4,
+      "nap": 22,
+      "tipus": "fix",
+      "kategoria": "vilagunnep",
+      "ovodaiSulyozas": 5,
+      "leiras": "KIEMELT ÓVODAI ÜNNEP. Környezettudatos szemlélet, újrahasznosítás, természetvédelem."
+    },
+    {
+      "nev": "Anyák napja",
+      "honap": 5,
+      "nap": 4,
+      "tipus": "mozgo",
+      "kategoria": "ovodai",
+      "ovodaiSulyozas": 5,
+      "leiras": "KIEMELT ÓVODAI ÜNNEP. Május első vasárnapja. Ünnepség előtte, ajándékkészítés."
+    },
+    {
+      "nev": "Madarak és Fák Napja",
+      "honap": 5,
+      "nap": 10,
+      "tipus": "fix",
+      "kategoria": "vilagunnep",
+      "ovodaiSulyozas": 4,
+      "leiras": "Természetvédelem, madarak, fák szerepe."
+    },
+    {
+      "nev": "Méhek Világnapja",
+      "honap": 5,
+      "nap": 20,
+      "tipus": "fix",
+      "kategoria": "vilagunnep",
+      "ovodaiSulyozas": 4,
+      "leiras": "Méhek, mézkóstolás, virágok beporzása. (Két sablon hivatkozott rá, de a naptárban nem szerepelt.)"
+    },
+    {
+      "nev": "Pünkösd",
+      "honap": 5,
+      "nap": 25,
+      "tipus": "mozgo",
+      "kategoria": "egyhazi",
+      "ovodaiSulyozas": 3,
+      "leiras": "Pünkösdi királyság, pünkösdi rózsa. Mozgó dátum (Húsvét után 50 nap)."
+    },
+    {
+      "nev": "Gyermeknap",
+      "honap": 5,
+      "nap": 31,
+      "tipus": "mozgo",
+      "kategoria": "ovodai",
+      "ovodaiSulyozas": 5,
+      "leiras": "KIEMELT ÓVODAI ÜNNEP. Május utolsó vasárnapja. Rendezvény, játékok."
+    },
+    {
+      "nev": "Nemzeti Összetartozás Napja",
+      "honap": 6,
+      "nap": 4,
+      "tipus": "fix",
+      "kategoria": "nemzeti",
+      "ovodaiSulyozas": 2,
+      "leiras": "Trianoni évforduló. Óvodában csak nagyon érintőlegesen."
+    },
+    {
+      "nev": "Évzáró",
+      "honap": 6,
+      "nap": 15,
+      "tipus": "idoszak",
+      "kategoria": "ovodai",
+      "ovodaiSulyozas": 5,
+      "leiras": "KIEMELT ÓVODAI ÜNNEP. Évzáró ünnepség, ballagás a nagycsoportosoknak."
+    },
+    {
+      "nev": "Apák napja",
+      "honap": 6,
+      "nap": 21,
+      "tipus": "mozgo",
+      "kategoria": "ovodai",
+      "ovodaiSulyozas": 4,
+      "leiras": "Június harmadik vasárnapja. Apuka-ajándék, ünnepség."
+    },
     {
       "nev": "Tanévnyitó",
       "honap": 9,
@@ -173,168 +353,6 @@
       "kategoria": "egyhazi",
       "ovodaiSulyozas": 5,
       "leiras": "KIEMELT ÓVODAI ÜNNEP. Karácsonyi készülődés, közös ünnepség az óvodában (általában dec 20-22)."
-    },
-    {
-      "nev": "Vízkereszt",
-      "honap": 1,
-      "nap": 6,
-      "tipus": "fix",
-      "kategoria": "egyhazi",
-      "ovodaiSulyozas": 2,
-      "leiras": "Háromkirályok napja. Karácsonyi időszak lezárása."
-    },
-    {
-      "nev": "Magyar Kultúra Napja",
-      "honap": 1,
-      "nap": 22,
-      "tipus": "fix",
-      "kategoria": "nemzeti",
-      "ovodaiSulyozas": 2,
-      "leiras": "Kölcsey Himnusza elkészítésének évfordulója."
-    },
-    {
-      "nev": "Gyertyaszentelő",
-      "honap": 2,
-      "nap": 2,
-      "tipus": "fix",
-      "kategoria": "egyhazi",
-      "ovodaiSulyozas": 2,
-      "leiras": "Időjárás-jóslás (medve árnyéka). Téli félidő népszokása."
-    },
-    {
-      "nev": "Farsang",
-      "honap": 2,
-      "nap": 15,
-      "tipus": "mozgo",
-      "kategoria": "nephagyomany",
-      "ovodaiSulyozas": 5,
-      "leiras": "KIEMELT ÓVODAI ÜNNEP. Jelmezbál, télűzés. Időpont vízkereszttől hamvazószerdáig."
-    },
-    {
-      "nev": "Mátyás-nap",
-      "honap": 2,
-      "nap": 24,
-      "tipus": "fix",
-      "kategoria": "nephagyomany",
-      "ovodaiSulyozas": 2,
-      "leiras": "Időjárás-jóslás: 'Mátyás ront, ha talál, ront, ha nem talál'."
-    },
-    {
-      "nev": "1848. március 15.",
-      "honap": 3,
-      "nap": 15,
-      "tipus": "fix",
-      "kategoria": "nemzeti",
-      "ovodaiSulyozas": 5,
-      "leiras": "Nemzeti ünnep. Kokárda, huszárok, óvodai megemlékezés."
-    },
-    {
-      "nev": "Tavasz kezdete",
-      "honap": 3,
-      "nap": 20,
-      "tipus": "fix",
-      "kategoria": "vilagunnep",
-      "ovodaiSulyozas": 4,
-      "leiras": "Tavaszi napéjegyenlőség. Természet ébredése."
-    },
-    {
-      "nev": "Víz Világnapja",
-      "honap": 3,
-      "nap": 22,
-      "tipus": "fix",
-      "kategoria": "vilagunnep",
-      "ovodaiSulyozas": 5,
-      "leiras": "Vízzel kapcsolatos tevékenységek, kísérletek, óvjuk a vizet téma."
-    },
-    {
-      "nev": "Húsvét",
-      "honap": 4,
-      "nap": 5,
-      "tipus": "mozgo",
-      "kategoria": "egyhazi",
-      "ovodaiSulyozas": 5,
-      "leiras": "KIEMELT ÓVODAI ÜNNEP. Mozgó dátum. Tojásfestés, locsolkodás, népszokások."
-    },
-    {
-      "nev": "Költészet Napja",
-      "honap": 4,
-      "nap": 11,
-      "tipus": "fix",
-      "kategoria": "nemzeti",
-      "ovodaiSulyozas": 4,
-      "leiras": "József Attila születésnapja. Versek, versmondás."
-    },
-    {
-      "nev": "Föld Napja",
-      "honap": 4,
-      "nap": 22,
-      "tipus": "fix",
-      "kategoria": "vilagunnep",
-      "ovodaiSulyozas": 5,
-      "leiras": "KIEMELT ÓVODAI ÜNNEP. Környezettudatos szemlélet, újrahasznosítás, természetvédelem."
-    },
-    {
-      "nev": "Anyák napja",
-      "honap": 5,
-      "nap": 4,
-      "tipus": "mozgo",
-      "kategoria": "ovodai",
-      "ovodaiSulyozas": 5,
-      "leiras": "KIEMELT ÓVODAI ÜNNEP. Május első vasárnapja. Ünnepség előtte, ajándékkészítés."
-    },
-    {
-      "nev": "Madarak és Fák Napja",
-      "honap": 5,
-      "nap": 10,
-      "tipus": "fix",
-      "kategoria": "vilagunnep",
-      "ovodaiSulyozas": 4,
-      "leiras": "Természetvédelem, madarak, fák szerepe."
-    },
-    {
-      "nev": "Pünkösd",
-      "honap": 5,
-      "nap": 25,
-      "tipus": "mozgo",
-      "kategoria": "egyhazi",
-      "ovodaiSulyozas": 3,
-      "leiras": "Pünkösdi királyság, pünkösdi rózsa. Mozgó dátum (Húsvét után 50 nap)."
-    },
-    {
-      "nev": "Gyermeknap",
-      "honap": 5,
-      "nap": 31,
-      "tipus": "mozgo",
-      "kategoria": "ovodai",
-      "ovodaiSulyozas": 5,
-      "leiras": "KIEMELT ÓVODAI ÜNNEP. Május utolsó vasárnapja. Rendezvény, játékok."
-    },
-    {
-      "nev": "Apák napja",
-      "honap": 6,
-      "nap": 21,
-      "tipus": "mozgo",
-      "kategoria": "ovodai",
-      "ovodaiSulyozas": 4,
-      "leiras": "Június harmadik vasárnapja. Apuka-ajándék, ünnepség."
-    },
-    {
-      "nev": "Nemzeti Összetartozás Napja",
-      "honap": 6,
-      "nap": 4,
-      "tipus": "fix",
-      "kategoria": "nemzeti",
-      "ovodaiSulyozas": 2,
-      "leiras": "Trianoni évforduló. Óvodában csak nagyon érintőlegesen."
-    },
-    {
-      "nev": "Évzáró",
-      "honap": 6,
-      "nap": 15,
-      "tipus": "idoszak",
-      "kategoria": "ovodai",
-      "ovodaiSulyozas": 5,
-      "leiras": "KIEMELT ÓVODAI ÜNNEP. Évzáró ünnepség, ballagás a nagycsoportosoknak."
     }
   ]
 }

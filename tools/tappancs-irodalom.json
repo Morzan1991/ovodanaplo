@@ -1,0 +1,2197 @@
+[
+ {
+  "lap": 3,
+  "honap": "SZEPTEMBER",
+  "het": 1,
+  "cim": "KISCSOPORTOSOK BEFOGADÁSA, BESZOKTATÁSA",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Vers: Gesztenye Gusztika",
+     "Mesék: Arany László: A kóró és a kismadár, Létra mese"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Manócska játék",
+    "dalok": [
+     "Én is pisze, te is pisze…",
+     "Koszorú, koszorú…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Versek: Csanádi Imre: Őszköszöntő",
+     "Csukás István: Dalocska",
+     "Mesék: A farkastanya",
+     "A piros kabát kalandja"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Manócska játék",
+    "dalok": [
+     "Szita, szita, sűrű…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Versek: Móricz Zsigmond: Jó a ropogó…",
+     "Osvát Erzsébet: Jött őszanyó",
+     "Mesék: Ugri meg Bugri",
+     "Az aranyos tarajos kiskakas"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Manócska játék",
+    "dalok": [
+     "Hipp, hopp, haja hopp…",
+     "Sári néni utazik…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése változatosan."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 4,
+  "honap": "SZEPTEMBER",
+  "het": 2,
+  "cim": "SZÜRETI MULATSÁG – ŐSZI GYÜMÖLCSÖK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Csanádi Imre: Alma",
+     "Csanádi Imre: Mókuscsalogató",
+     "Kányádi Sándor: Alma, alma"
+    ],
+    "mesek": [
+     "Szutyejev: Az alma"
+    ],
+    "anyanyelvi_jatek": "Szőlőszemek fújása",
+    "dalok": [
+     "Hüvelykujjam almafa…",
+     "Lipem, lopom a szőlőt…"
+    ],
+    "hallas_ritmus": [
+     "Egymás hangjának felismerése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Sarkadi Sándor: Édes ősz",
+     "Csanádi Imre: Alma",
+     "Elmúlt a nyár, itt az ősz…"
+    ],
+    "mesek": [
+     "Benedek Elek: Szegény ember szőlője"
+    ],
+    "anyanyelvi_jatek": "Postásjáték",
+    "dalok": [
+     "A kálói szőlőbe…",
+     "Körtéfa, körtéfa…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés kifejezése mozgással."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Veres Csilla: Őszi susogó",
+     "Mentovics Éva: Szőlő",
+     "Raggamby András: Tavasztól tavaszig",
+     "Fésűs Éva: Őszi kirándulás"
+    ],
+    "mesek": [
+     "Szóló szőlő, mosolygó alma, csengő barack",
+     "Sebők Éva: Az alma meg a kerti manó"
+    ],
+    "anyanyelvi_jatek": "Postásjáték",
+    "dalok": [
+     "Lopják az úr szőlőjét…",
+     "Ősz szele zümmög…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés és ritmus különbségének érzékeltetése."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 5,
+  "honap": "SZEPTEMBER",
+  "het": 3,
+  "cim": "ZÖLD PARADICSOM – ŐSZI ZÖLDSÉGEK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Csukás István: De jó a dió!"
+    ],
+    "mesek": [
+     "A répa",
+     "A nyúl meg a káposzta"
+    ],
+    "anyanyelvi_jatek": "Hol csörög?",
+    "dalok": [
+     "Itt a köcsög…",
+     "Kiszáradt a diófa…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos megfigyeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Osvát Erzsébet: Utazás",
+     "Weöres Sándor: Tündér",
+     "Erdélyi József: Répa, retek, mogyoró"
+    ],
+    "mesek": [
+     "A kicsi dió"
+    ],
+    "anyanyelvi_jatek": "Hol csörög?",
+    "dalok": [
+     "De jó a dió…",
+     "Csicseriborsó, bablencse…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos megfigyeltetése énekről."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Apostagi Bolvári Judit: A kamrában"
+    ],
+    "mesek": [
+     "Az égig érő paszuly"
+    ],
+    "anyanyelvi_jatek": "Hol csörög?",
+    "dalok": [
+     "Dombon törik a diót…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése, változatosan."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 6,
+  "honap": "SZEPTEMBER",
+  "het": 4,
+  "cim": "FELVIRRADTUNK MIHÁLY-NAPRA – MIHÁLY NAPI VÁSÁR",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Drégely László: Bohó álom"
+    ],
+    "mesek": [
+     "Móricz Zsigmond: A török és a tehenek",
+     "A három csibe"
+    ],
+    "anyanyelvi_jatek": "Mit látsz a képen?",
+    "dalok": [
+     "Gyermekek, gyermekek…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés mozdulattal."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Kányádi Sándor: Elment Péter",
+     "Fecske Csaba: Nagy vásár volt",
+     "T. Nagy Sándor: Mókavásár",
+     "Weöres Sándor: Kutyatár"
+    ],
+    "mesek": [
+     "Az állatok nyelvén tudó juhász",
+     "Mese a falánk tyúkocskáról",
+     "Illyés Gyula: Mátyás király meg az igazmondó juhász"
+    ],
+    "anyanyelvi_jatek": "Mit látsz a képen?",
+    "dalok": [
+     "Hipp, hopp…"
+    ],
+    "hallas_ritmus": [
+     "Mondókák ritmusának kiemelése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Kikiáltó: Medvecukor, marcipán…",
+     "Weöres Sándor: Táncnóta",
+     "Osvát Erzsébet: Balambér"
+    ],
+    "mesek": [
+     "Benedek Elek: A csillagszemű juhász",
+     "Az aranyszőrű bárány, A só"
+    ],
+    "anyanyelvi_jatek": "Mit látsz a képen?",
+    "dalok": [
+     "Hej, a sályi piacon…",
+     "Én elmentem…"
+    ],
+    "hallas_ritmus": [
+     "Dalritmusok kiemelése."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 7,
+  "honap": "OKTÓBER",
+  "het": 1,
+  "cim": "ÁLLATOK VILÁGNAPJA",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Gazdag Erzsi: Tarka cica, fehér cica",
+     "Bartos Erika: Csigabiga"
+    ],
+    "mesek": [
+     "Móricz Zsigmond: Iciripiciri",
+     "Kolozsvári Grandpierre Emil: A két kicsi bocs meg a róka"
+    ],
+    "anyanyelvi_jatek": "Állathangok utánzása",
+    "dalok": [
+     "Fáj a kutyámnak a lába…",
+     "Cicukám, kelj fel…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése dalon"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Kányádi Sándor: Róka-mondóka",
+     "Weöres Sándor: Kutyatár",
+     "Verses mesék:",
+     "Fazekas Anna: Öreg néne őzikéje",
+     "Csukás István: Sün Balázs"
+    ],
+    "mesek": [
+     "Furulyás Palkó"
+    ],
+    "anyanyelvi_jatek": "Állathangok utánzása",
+    "dalok": [
+     "Egy, begy, tyúkbegy…",
+     "Kis, kis kígyó…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése járással"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Szabó Lőrinc: Falusi hangverseny"
+    ],
+    "mesek": [
+     "Zelk Zoltán: Mese az éhes kisegérről",
+     "A róka meg a farkas aratni megy"
+    ],
+    "anyanyelvi_jatek": "Állathangok utánzása",
+    "dalok": [
+     "Cicuska, macuska…",
+     "Sánta róka…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés, ritmus különbsége,"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 8,
+  "honap": "OKTÓBER",
+  "het": 2,
+  "cim": "ŐSZI IDŐJÁRÁS, HATÁSA AZ EMBEREKRE, ÖLTÖZKÖDÉS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Lukács Angéla: Ősz",
+     "Szalai Borbála: Mogyorót szedtem"
+    ],
+    "mesek": [
+     "Vityilló"
+    ],
+    "anyanyelvi_jatek": "Papagájjáték",
+    "dalok": [
+     "Tekereg a szél…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése mondókán"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Kányádi Sándor: Jön az ősz",
+     "Petrik József: Őszi szél",
+     "Tordon Ákos: Őszi mondóka"
+    ],
+    "mesek": [
+     "Nagytakarítás a Napnál"
+    ],
+    "anyanyelvi_jatek": "Papagájjáték",
+    "dalok": [
+     "Hopp mókuska…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos különbségének felismerése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Tarbay Ede: Őszanyó",
+     "Osvát Erzsébet: Útra kelt a nyár",
+     "Csanádi Imre: Négy testvér"
+    ],
+    "mesek": [
+     "A fiú meg az északi szélvész"
+    ],
+    "anyanyelvi_jatek": "Papagájjáték",
+    "dalok": [
+     "Ősz szele zümmög…",
+     "Esik az eső…"
+    ],
+    "hallas_ritmus": [
+     "Énekeljenek halkan, hangosan."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 9,
+  "honap": "OKTÓBER",
+  "het": 3,
+  "cim": "RICA, RICA KUKORICA… – ŐSZI KERTI MUNKÁLATOK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Takáts Gyula: Rigó rúgta dió",
+     "Megfogtam egy magocskát"
+    ],
+    "mesek": [
+     "Mese a melegszívű kukoricaszemről"
+    ],
+    "anyanyelvi_jatek": "Kukoricaszemek fújása",
+    "dalok": [
+     "Koszorú, koszorú…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése mondókán keresztül."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Csanádi Imre: Őszi levél"
+    ],
+    "mesek": [
+     "Mókus Péter kiskertje"
+    ],
+    "anyanyelvi_jatek": "Szólánc",
+    "dalok": [
+     "Kaszálj, Pista…",
+     "Koszorú, koszorú…"
+    ],
+    "hallas_ritmus": [
+     "Dalok, mondókák ritmusának kiemelése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Radnóti Miklós: Október",
+     "Galambos Bernadett: Ősz az erdőn"
+    ],
+    "mesek": [
+     "Benedek Elek: A kisgömböc",
+     "Kiss Melinda: A gesztenyehéj kabátka"
+    ],
+    "anyanyelvi_jatek": "Szólánc",
+    "dalok": [
+     "Hervad már a lombnak…",
+     "Kőketánc…"
+    ],
+    "hallas_ritmus": [
+     "Dallamfelismerés ritmusról."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 10,
+  "honap": "OKTÓBER",
+  "het": 4,
+  "cim": "ŐSZ SZELE ZÜMMÖG – TERMÉSZET VÁLTOZÁSA, ŐSZI FÁK TERMÉSEI",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Kovács Barbara: Levél a szélben",
+     "Csoóri Sándor: Dióbél bácsi"
+    ],
+    "mesek": [
+     "A kiskakas gyémánt félkrajcárja"
+    ],
+    "anyanyelvi_jatek": "Fúvógyakorlatok terméssel",
+    "dalok": [
+     "Kiszáradt a diófa…"
+    ],
+    "hallas_ritmus": [
+     "Egyszerű ritmushangszerek használata."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Osvát Erzsébet: Jött őszanyó",
+     "Lukács Angéla: Ősz",
+     "Galambosi László: Dió"
+    ],
+    "mesek": [
+     "A három kismalac és a farkas",
+     "Az egérke piros szegélyes kabátja"
+    ],
+    "anyanyelvi_jatek": "Fúvógyakorlatok terméssel",
+    "dalok": [
+     "Kiszáradt a diófa…",
+     "Zörög az erdő…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása saját készítésű"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Tordon Ákos: Bolondos mondóka",
+     "Szalai Borbála: Makk-emberke",
+     "Kányádi Sándor: Jön az ősz",
+     "Őszi főzőcske"
+    ],
+    "mesek": [
+     "A három dió"
+    ],
+    "anyanyelvi_jatek": "Fúvógyakorlatok terméssel",
+    "dalok": [],
+    "hallas_ritmus": [
+     "A térformák, kartartások tökéletesítése, hallás- és ritmusfejlesztés. A zenei"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 11,
+  "honap": "NOVEMBER",
+  "het": 1,
+  "cim": "ILYEN VAGYOK ÉN – TESTÜNK, TESTRÉSZEINK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Itt a szemem, itt a szám",
+     "Hüvelykujjam almafa",
+     "Takács Judit: Ujjszámoló",
+     "Mit csinál a kis kezem?",
+     "Két kis madár ül a fán"
+    ],
+    "mesek": [
+     "Tíz kicsi barát"
+    ],
+    "anyanyelvi_jatek": "Utánozz a tükör előtt!",
+    "dalok": [
+     "Erre csörög…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése játékos"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Veres Miklós: Tréfás rajz"
+    ],
+    "mesek": [
+     "Sikó-Barabás Eszter: Öten",
+     "Petőfi Sándor: Arany Lacinak"
+    ],
+    "anyanyelvi_jatek": "Utánozz a tükör előtt!",
+    "dalok": [
+     "Lóg a lába…",
+     "Sétálunk…"
+    ],
+    "hallas_ritmus": [
+     "Dalok, mondókák ritmusának kiemelése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Bartos Erika: Tükör"
+    ],
+    "mesek": [
+     "Nyakigláb, Csupaháj, Málészáj",
+     "Fésűs Éva: Toppantó királykisasszony"
+    ],
+    "anyanyelvi_jatek": "Utánozz a tükör előtt!",
+    "dalok": [
+     "Rózsa szirma…",
+     "Erzsébet asszony…"
+    ],
+    "hallas_ritmus": [
+     "Dalritmusok különbsége, kapcsolata,"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 12,
+  "honap": "NOVEMBER",
+  "het": 2,
+  "cim": "MÁRTON-NAPI VIGASSÁGOK, NOVEMBER 1 1.",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Nincs szebb madár, mint a lúd",
+     "Réce, ruca, vadliba, jöjjenek a lagziba"
+    ],
+    "mesek": [
+     "A libák és a róka"
+    ],
+    "anyanyelvi_jatek": "Fúvógyakorlat tollpihével",
+    "dalok": [
+     "Nincs szebb…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Vershegy Erzsébet: Libanátha",
+     "Gazdag Erzsi: Jóbarátaink"
+    ],
+    "mesek": [
+     "P . Ábrahám Ernő: A libák, a farkas meg a kiskakas"
+    ],
+    "anyanyelvi_jatek": "Fúvógyakorlat tollpihével",
+    "dalok": [
+     "Réce ruca…",
+     "Egyél libám…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése mondókán"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Márton-nap (népköltés)",
+     "Tordon Ákos: Libasorban",
+     "Pákolitz István: Kiolvasó"
+    ],
+    "mesek": [
+     "Pákolitz István: Márton lúdja"
+    ],
+    "anyanyelvi_jatek": "Fúvógyakorlat tollpihével",
+    "dalok": [
+     "Elesett a lúd…",
+     "Száz liba…",
+     "Hatan vannak…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése dalokon"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 13,
+  "honap": "NOVEMBER",
+  "het": 3,
+  "cim": "EGÉSZSÉGES, MINT A MAKK – EGÉSZSÉGVÉDELEM, BETEGSÉG-MEGELŐZÉS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Fáj a kutyámnak a lába"
+    ],
+    "mesek": [
+     "Két kis fog Tündérországban"
+    ],
+    "anyanyelvi_jatek": "Hangutánzós",
+    "dalok": [
+     "Pörcös pogácsa…",
+     "Kicsi vagyok…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély megfigyeltetése, érzékeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Tamkó Sirató Károly: Szembeszél"
+    ],
+    "mesek": [
+     "Makk Marci sorozat: Fognyűvő manócska"
+    ],
+    "anyanyelvi_jatek": "Hangutánzós",
+    "dalok": [
+     "Sírjunk, ríjunk…",
+     "Most viszik…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése mondókákon"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Szalai Borbála: A makk"
+    ],
+    "mesek": [
+     "Mese a vízilóról, aki félt az oltástól"
+    ],
+    "anyanyelvi_jatek": "Hangutánzós",
+    "dalok": [
+     "Éliás, Tóbiás…",
+     "Süssünk…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély megfigyeltetése ismert"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 14,
+  "honap": "NOVEMBER",
+  "het": 4,
+  "cim": "GÓLYA, GÓLYA GILICE – MADÁRVONULÁS MADARAK KÉSZÜLŐDÉSE A TÉLRE",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "VERSELÉS,",
+     "MESÉLÉS",
+     "Pósa Lajos: Villás farkú fecskék",
+     "Csukás István: De jó a dió!"
+    ],
+    "mesek": [
+     "T. Volgina: Miért szállnak el a fecskék?"
+    ],
+    "anyanyelvi_jatek": "Zizievés tányérból",
+    "dalok": [
+     "Gólya viszi…"
+    ],
+    "hallas_ritmus": [
+     "Egyszerű dallamfordulat visszaénekeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Tordon Ákos: Búcsúzik a gólya",
+     "László Gyula: Ősszel"
+    ],
+    "mesek": [
+     "A madarak karácsonya",
+     "Fésűs Éva: A büszke tölgyfa"
+    ],
+    "anyanyelvi_jatek": "Zizievés tányérból",
+    "dalok": [
+     "Héja, héja…",
+     "Fecskét látok…"
+    ],
+    "hallas_ritmus": [
+     "Dallammotívum visszaénekeltetése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Móra Ferenc: A cinege cipője",
+     "Kiss Béla: Nyárutó"
+    ],
+    "mesek": [
+     "Gárdonyi Géza: A mi gólyánk"
+    ],
+    "anyanyelvi_jatek": "Zizievés tányérból",
+    "dalok": [
+     "Egyszer egy erdőben…",
+     "Gólya, gólya…"
+    ],
+    "hallas_ritmus": [
+     "Dallammotívum-visszaéneklés kitalált"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 15,
+  "honap": "DECEMBER",
+  "het": 1,
+  "cim": "ADVENTI KÉSZÜLŐDÉS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Donászy Magda: Karácsony"
+    ],
+    "mesek": [
+     "A kesztyű, Visszajött a répa"
+    ],
+    "anyanyelvi_jatek": "Felakasztott hópihék (vattapamacs) fújása",
+    "dalok": [
+     "Ciróka, maróka…",
+     "Ég a gyertya ég…"
+    ],
+    "hallas_ritmus": [
+     "Hallásfejlesztés: akusztikus észlelés fejlesztése (csengő, hangkereső)"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Zelk Zoltán: Téli fák",
+     "Pálfalvi Nándor: Karácsony"
+    ],
+    "mesek": [
+     "Grimm testvérek: A suszter manói",
+     "Móra Ferenc: A didergő király"
+    ],
+    "anyanyelvi_jatek": "Felakasztott hópihék (vattapamacs) fújása",
+    "dalok": [
+     "Ciróka, maróka…",
+     "Fehér karácsony…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetésre helyben topogás"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Advent (Magyar népköltés)"
+    ],
+    "mesek": [
+     "Mentovics Éva: Mióta van csillag a karácsonyfák csúcsán?",
+     "Tóthárpád Ferenc: A negyedik gyertyaláng",
+     "Advent 1. hetére: Miklós püspök legendája"
+    ],
+    "anyanyelvi_jatek": "Felakasztott hópihék (vattapamacs) fújása",
+    "dalok": [
+     "Szálljatok le…",
+     "Tüzet viszek…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés gyakorlása, változatos módon."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 16,
+  "honap": "DECEMBER",
+  "het": 2,
+  "cim": "MIKULÁS-VÁRÁS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Donászy Magda: Télapó",
+     "Donászy Magda: Áll a fenyő az erdőben",
+     "Kovács Barbara: Télapóka"
+    ],
+    "mesek": [
+     "A télapó kesztyűje"
+    ],
+    "anyanyelvi_jatek": "Hol csörög a száncsengő?",
+    "dalok": [
+     "Itt kopog, ott kopog…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése beszéden"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Czeglédi Gabriella: Jön a Mikulás!",
+     "Tordon Ákos: Télapó bundája"
+    ],
+    "mesek": [
+     "Petrolay Margit: Sürgős levél",
+     "Verses mese:",
+     "Donászy Magda: Télapó az erdőben"
+    ],
+    "anyanyelvi_jatek": "Találós kérdések a télről, Mikulásról",
+    "dalok": [
+     "Hull a pelyhes…",
+     "Télapó itt van…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése mondókán"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Móra Ferenc: Télapó levele, Megjött a télapó",
+     "Mentovics Éva: Mikulás-köszöntő",
+     "Mese: Advent 2. hetére: Megtölteni a termet"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Találós kérdések a télről, Mikulásról",
+    "dalok": [
+     "Apacuka, fundaluka…",
+     "Pattanj pajtás…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése furulyán,"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 17,
+  "honap": "DECEMBER",
+  "het": 3,
+  "cim": "KARÁCSONYI KÉSZÜLŐDÉS – AZ ÉN CSALÁDOM",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Karácsonyi csengő",
+     "Ég a gyertya, ég"
+    ],
+    "mesek": [
+     "Kormos István: A fázó rókafiak"
+    ],
+    "anyanyelvi_jatek": "Gyertyaláng táncoltatása",
+    "dalok": [
+     "Én is pisze…",
+     "Báránykának …"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetésre helyben topogás,"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "K. László Krisztina: Karácsonyra",
+     "Karácsony",
+     "Szálljatok le, szálljatok le"
+    ],
+    "mesek": [
+     "Bartók Julianna: A hiú hóember"
+    ],
+    "anyanyelvi_jatek": "A fele sem igaz! című játék",
+    "dalok": [
+     "Én is pisze…",
+     "A karácsony…"
+    ],
+    "hallas_ritmus": [
+     "Ritmusmotívumok visszatapsoltatása."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Fésűs Éva: Álmodik a fenyőfácska",
+     "Pásztorok"
+    ],
+    "mesek": [
+     "Advent 3. hetére: Csillagtallérok",
+     "Móra Ferenc: A szánkó"
+    ],
+    "anyanyelvi_jatek": "A fele sem igaz!",
+    "dalok": [
+     "Hipp, hopp…",
+     "Ezüstfenyő…"
+    ],
+    "hallas_ritmus": [
+     "Ritmusvisszhang szöveges motívumokkal"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 18,
+  "honap": "DECEMBER",
+  "het": 4,
+  "cim": "ÉG A GYERTYA ÉG – GYERTYAGYÚJTÁS A SZÜLŐKKEL",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Sarkadi Sándor: Hóember",
+     "Gazdag Erzsi: Hóember"
+    ],
+    "mesek": [
+     "Ákossy Eszter: Korholi titka"
+    ],
+    "anyanyelvi_jatek": "Milyen hangot hallasz?",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés kifejezése ritmushangszerrel. Akusztikus észlelés. Helyes"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Szép Ernő: Hó",
+     "Lendvai Ilona: Itt a tél",
+     "Osvát Erzsébet: Didergők"
+    ],
+    "mesek": [
+     "Linda Jenning: Pásztorok a hegyen"
+    ],
+    "anyanyelvi_jatek": "Varázslójáték",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés kifejezése mozgással, ritmushangszerrel (triangulum,"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Mentovics Éva: Karácsonyi jókívánság"
+    ],
+    "mesek": [
+     "Advent 4. hetére: A kovács lánya",
+     "Jézus születése"
+    ],
+    "anyanyelvi_jatek": "Varázslójáték",
+    "dalok": [],
+    "hallas_ritmus": [
+     "szán csengő, csengő). Ritmus kifejezése."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 19,
+  "honap": "JANUÁR",
+  "het": 1,
+  "cim": "ÚJ ÉV, ÚJ ÉV, ÚJ ESZTENDŐ – ÚJÉVI NÉPSZOKÁSOK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Adjon Isten füvet, fát",
+     "Kicsi vagyok, székre állok"
+    ],
+    "mesek": [
+     "A kismalac és a farkasok"
+    ],
+    "anyanyelvi_jatek": "Lufiember játék",
+    "dalok": [
+     "Fújja szél a…",
+     "Csicseriborsó…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély különbségének érzékeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Fecske Csaba: Újévi köszöntő",
+     "Adjon Isten füvet, fát"
+    ],
+    "mesek": [
+     "A kolbász, a béka és az egér"
+    ],
+    "anyanyelvi_jatek": "Hangstaféta",
+    "dalok": [
+     "Hold, hold…",
+     "Csicseri borsó…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély különbségének érzékeltetése."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Bort, búzát, békességet",
+     "Mentovics Éva: Újévi köszöntő"
+    ],
+    "mesek": [
+     "Zelk Zoltán: A jószívű Sajó"
+    ],
+    "anyanyelvi_jatek": "Hangstaféta",
+    "dalok": [
+     "A hajnali harangszónak…",
+     "Négy vándor jár…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély különbségének érzékeltetése."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 20,
+  "honap": "JANUÁR",
+  "het": 2,
+  "cim": "ÉV, ÉVSZAKOK, HÓNAPOK, AZ IDŐ KÖRFORGÁSA",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Jön a tavasz, virágot hoz"
+    ],
+    "mesek": [
+     "Nyuszigyermekek és az első hó",
+     "A hóember orra"
+    ],
+    "anyanyelvi_jatek": "Liccs-loccs, megjött a kishajó",
+    "dalok": [
+     "Kicsi csupor…",
+     "Zsipp-zsupp…",
+     "Adjon isten…",
+     "Tüzet viszek…"
+    ],
+    "hallas_ritmus": [
+     "Ritmusvisszhang játék ismert dallal"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Csanádi Imre: Négy testvér"
+    ],
+    "mesek": [
+     "Holle anyó"
+    ],
+    "anyanyelvi_jatek": "Liccs-loccs, megjött a kishajó",
+    "dalok": [
+     "Adjon isten…",
+     "Négy vándor jár…"
+    ],
+    "hallas_ritmus": [
+     "Ritmusvisszhang játék, kitalált szöveggel."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Hónap-mondóka (magyar népköltés)",
+     "Tóth Éva: Hónapok",
+     "Fésűs Éva: Évszakok",
+     "Jégen járó január",
+     "Január elöl jár"
+    ],
+    "mesek": [
+     "Zelk Zoltán: Négy vándor",
+     "A medve a róka meg a bödön vaj"
+    ],
+    "anyanyelvi_jatek": "Liccs-loccs, megjött a kishajó",
+    "dalok": [],
+    "hallas_ritmus": [
+     "A dalok, mondókák ritmusának érzékeltetése mozgással. Zenei hallásfejlesztés."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 21,
+  "honap": "JANUÁR",
+  "het": 3,
+  "cim": "NAPOK, NAPSZAKOK, NAPIREND, AZ IDŐ MÚLÁSA",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Hová tegyem a sapkát?",
+     "Hétfő, kedd, szerda, csütörtök"
+    ],
+    "mesek": [
+     "Az öt kismacska"
+    ],
+    "anyanyelvi_jatek": "Hogy jön sorba?",
+    "dalok": [
+     "Fussunk, szaladjunk…"
+    ],
+    "hallas_ritmus": [
+     "Egyszerű ritmushangszerek használata."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Hétfőn hentereg, kedden kecmereg",
+     "Hétfőn egy szem makkot leltem"
+    ],
+    "mesek": [
+     "Gárdonyi Géza: A cinege"
+    ],
+    "anyanyelvi_jatek": "Hogy jön sorba?",
+    "dalok": [
+     "Pí, pí, pí…",
+     "A győri Györgynek…",
+     "Jákobnak volt hat fia…",
+     "A győri Györgynek…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés kifejezése mozgással, ritmushangszerrel. Érzékelés-észlelés, hallás, térpercepció. Beszédfigyelem,"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Gazdag Erzsi: Vendégvárás",
+     "Hétfőn kezdem a hetet",
+     "Darázs Endre: Mese a Napról"
+    ],
+    "mesek": [
+     "Zelk Zoltán: Hét nap"
+    ],
+    "anyanyelvi_jatek": "Hogy jön sorba?",
+    "dalok": [],
+    "hallas_ritmus": [
+     "képességek, gondolkodás, figyelem, ritmusérzék."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 22,
+  "honap": "JANUÁR",
+  "het": 4,
+  "cim": "HULL A HÓ – TÉL ÖRÖMEI, TÉLI IDŐJÁRÁS, ÖLTÖZKÖDÉS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Versek: Bartalos Mária: Hógolyó",
+     "Sugár Béla: Tél"
+    ],
+    "mesek": [
+     "Lengyel Balázs: A csillagos sün"
+    ],
+    "anyanyelvi_jatek": "Szívószállal hópehely (vattapamacs)",
+    "dalok": [
+     "Hóember, hóember…"
+    ],
+    "hallas_ritmus": [
+     "Egyszerű dallamfordulatok visszaéneklése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "fújása",
+     "Versek: Csányi Gyöngyi: Hó a csillogó",
+     "Nemes Nagy Ágnes: Hóesésben",
+     "Várnai Zseni: Hull a hó",
+     "Drégely László: Hógolyózás"
+    ],
+    "mesek": [
+     "Tél apó"
+    ],
+    "anyanyelvi_jatek": "Szívószállal hópehely",
+    "dalok": [
+     "Nagy a hó igazán…",
+     "Jákobnak volt hat fia…",
+     "Országúton nagy a hó…"
+    ],
+    "hallas_ritmus": [
+     "dallamfordulatok érzékeltetése játékos"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "(pingponglabda) fújása",
+     "Orgoványi Anikó: Januári vacogós",
+     "Szalai Borbála: Hóember",
+     "Kiss Jenő: Jégvirág",
+     "Szalay Borbála: Mesevilág"
+    ],
+    "mesek": [
+     "Tóth Anna: A titokzatos hóember",
+     "Fésűs Éva: Télkergető hóvirág"
+    ],
+    "anyanyelvi_jatek": "Szívószállal hópehely (pingponglabda)",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Zenei hallás fejlesztése, dallam visszhang"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 23,
+  "honap": "FEBRUÁR",
+  "het": 1,
+  "cim": "FÉNY ÉS ÁRNYÉK, MACKÓK VILÁGA",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Dirmeg, dörmög a medve",
+     "Bújj, bújj, medve"
+    ],
+    "mesek": [
+     "A naplopó medve"
+    ],
+    "anyanyelvi_jatek": "Igaz-hamis játék",
+    "dalok": [
+     "Dirmeg, dörmög…",
+     "Mackó, mackó…",
+     "Mackó brummog…",
+     "Mackó, mackó…"
+    ],
+    "hallas_ritmus": [
+     "Gyors-lassú különbsége."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Osvát Erzsébet: Minek a medvének bunda",
+     "Csukás István: Mackómese"
+    ],
+    "mesek": [
+     "Ivan Krilov: Miért alszik a medve télen?"
+    ],
+    "anyanyelvi_jatek": "Ki vagyok én?",
+    "dalok": [
+     "Brum-brum, Brúnó…",
+     "Mackó, mackó…"
+    ],
+    "hallas_ritmus": [
+     "Gyors-lassú különbsége, önálló énekléssel érzékeltetve."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Weöres Sándor: A medve töprengése"
+    ],
+    "mesek": [
+     "Orosvai Mária: Téli álom"
+    ],
+    "anyanyelvi_jatek": "Ki vagyok én?",
+    "dalok": [],
+    "hallas_ritmus": []
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 24,
+  "honap": "FEBRUÁR",
+  "het": 2,
+  "cim": "GYERE VELEM ISKOLÁBA – BALÁZSOLUNK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Szűcs Imre: Február",
+     "Gyurcsó István: Téli tó",
+     "Weöres Sándor: Olvadás"
+    ],
+    "mesek": [
+     "Szabó Zsolt: A rénszarvas barlangja",
+     "Szabó Zsolt: Hull a hó"
+    ],
+    "anyanyelvi_jatek": "Szívó-fúvó gyakorlat: Pingponglabda fújása",
+    "dalok": [
+     "Sárga rózsa, vadvirág…",
+     "Ilyen cica mellett…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Fazekas Lajos: Aludj, fácska"
+    ],
+    "mesek": [
+     "Fésűs Éva: Bundavásár"
+    ],
+    "anyanyelvi_jatek": "Robotnyelv játék",
+    "dalok": [
+     "Sárga rózsa, vadvirág…",
+     "Erzsébet asszony…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Vers: Gyárfás Endre: Írogató",
+     "Mesék: Cinca Katica:",
+     "Kismanó óvodába indul",
+     "Kisnyuszi suliba megy",
+     "Kányádi Sándor: Ábécé-sorakozó"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Robotnyelv játék",
+    "dalok": [
+     "Kicsi kocsi, három csacsi…",
+     "Erzsébet asszony…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 25,
+  "honap": "FEBRUÁR",
+  "het": 3,
+  "cim": "FARSANG VAN, FARSANG – TÉLŰZÉS, KISZEBÁBÉGETÉS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Gazdag Erzsi: Itt a farsang",
+     "Czeglédi Gabriella: Áll a bál"
+    ],
+    "mesek": [
+     "Bartos Erika: Jelmezbál"
+    ],
+    "anyanyelvi_jatek": "Lufifújó verseny",
+    "dalok": [
+     "Cini, cini…",
+     "Kőketánc, kőketánc…",
+     "Csiteri, csütöri…",
+     "Vékony vászon…",
+     "Csiteri, csütöri…",
+     "Itt a farsang, áll a bál…"
+    ],
+    "hallas_ritmus": [
+     "képesek a gyermekek. Az egyenletes lüktetést már esztétikus, egységes mozgással emelik ki. Járás változatos térformákkal és különböző tánclépések gyakorlása"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Versek: Pálfalvi Nándor: Farsang",
+     "Csoóri Sándor: Farsangnapi kutyabál",
+     "Drégely László: Farsangi bál",
+     "Weöres Sándor: Pletykázó asszonyok"
+    ],
+    "mesek": [
+     "Zelk Zoltán: Erdei mulatság"
+    ],
+    "anyanyelvi_jatek": "Lufifújó verseny",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés megéreztetése, fejlesztése. Együttműködés, zenei érdeklődés felkeltése. Esztétikai érzék."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Verseghy Erzsébet: Bál a konyhában",
+     "Sarkady Sándor: Farsang",
+     "Tamkó Sirató Károly: Mondjam még?",
+     "Tarbay Ede: Félnótás nóta"
+    ],
+    "mesek": [
+     "Fésűs Éva: Pöttömke hóember lesz"
+    ],
+    "anyanyelvi_jatek": "Lufifújó verseny",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Ritmuskészség, érzékelési, differen ciáló"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 26,
+  "honap": "FEBRUÁR",
+  "het": 4,
+  "cim": "ÁLLATOK ÉLETE TÉLEN, VADON ÉLŐ ÁLLATAINK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Kányádi Sándor: Veréb",
+     "Szalai Borbála: Sündisznók"
+    ],
+    "mesek": [
+     "Móra Ferenc: Csókai Csóka"
+    ],
+    "anyanyelvi_jatek": "Melyik állat hangját hallod?",
+    "dalok": [
+     "Egy kis malac…",
+     "Hopp, mókuska…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése egyszerű"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Gazdag Erzsi: Vadnyulak"
+    ],
+    "mesek": [
+     "A nyúl meg a sün"
+    ],
+    "anyanyelvi_jatek": "Találós kérdések az állatokról",
+    "dalok": [
+     "Benn a bárány…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése, mondókán"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Fazekas Lajos: Vadetető",
+     "Székely Dezső: Téli kertben",
+     "Kerner Tibor: Kopogó"
+    ],
+    "mesek": [
+     "A róka meg a daru"
+    ],
+    "anyanyelvi_jatek": "Találós kérdések az állatokról",
+    "dalok": [
+     "Benn a bárány…"
+    ],
+    "hallas_ritmus": [
+     "Halk-hangos érzékeltetése, dalon"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 27,
+  "honap": "MÁRCIUS",
+  "het": 1,
+  "cim": "TESTRÉSZEK FUNKCIÓJA, ÉRZÉKSZERVEK SZEREPE",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Itt a szemem, itt a szám",
+     "Kását főz a kisegér",
+     "Ez a malac piacra megy…",
+     "Bódi Irén: Testrészek"
+    ],
+    "mesek": [
+     "Bogyó és Babóca: Barátság"
+    ],
+    "anyanyelvi_jatek": "Hova száll a pillangó?",
+    "dalok": [
+     "Csipp, csepp…",
+     "Én kis kertet kerteltem…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése beszéden"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Kerekecske, gombocska, volt egy kicsi dombocska",
+     "Mese: Szemfüles érzékszervek"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Találós kérdések az érzékszervekről",
+    "dalok": [
+     "Áspis kerekes…",
+     "Esik az eső…",
+     "Én kis kertet kerteltem…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése mondókán"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Mentovics Éva: Csalafinta történet",
+     "Tordon Ákos: Kerekecske-gombocska"
+    ],
+    "mesek": [
+     "Mese a kicsi kézről",
+     "A legérdekesebb játékok"
+    ],
+    "anyanyelvi_jatek": "Találós kérdések az",
+    "dalok": [
+     "Gólya viszi a fiát…"
+    ],
+    "hallas_ritmus": [
+     "Magas-mély érzékeltetése, furulyán,"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 28,
+  "honap": "MÁRCIUS",
+  "het": 2,
+  "cim": "TALPRA MAGYAR – 1848. MÁRCIUS 15. MEGÜNNEPLÉSE",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Gyí te fakó, gyí te szürke",
+     "Sarkady Sándor: Fel!",
+     "Mondóka március 15-re"
+    ],
+    "mesek": [
+     "Hogyan lett a huszárnak lova?"
+    ],
+    "anyanyelvi_jatek": "Lovacska hangjának utánzása",
+    "dalok": [
+     "Gyí, paci, paripa…",
+     "Aki nem lép egyszerre…",
+     "János úr készül…"
+    ],
+    "hallas_ritmus": [
+     "Egyszerű ritmushangszerek használata."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Drégely László: Pereg a dob",
+     "Weöres Sándor: Megy az úton,",
+     "Paripám csodaszép pejkó"
+    ],
+    "mesek": [
+     "Tordon Ákos: A csodatrombita"
+    ],
+    "anyanyelvi_jatek": "Hányat dobbantok?",
+    "dalok": [
+     "Rajta, rajta…",
+     "Hopp, hopp, katona…",
+     "János úr készül…",
+     "Vígan dalol a madár…",
+     "Fehérvári kapitány…",
+     "János úr készül…"
+    ],
+    "hallas_ritmus": [
+     "Ritmus zenekar alakítása saját készítésű"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Sarkady Sándor: Zeneszó leng",
+     "Donászy Magda: Március 15",
+     "Orgoványi Anikó: Március 15"
+    ],
+    "mesek": [
+     "Március 15"
+    ],
+    "anyanyelvi_jatek": "Hányat dobbantok?",
+    "dalok": [],
+    "hallas_ritmus": [
+     "hallás-, ritmusfejlesztés. A zenei anyagon"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 29,
+  "honap": "MÁRCIUS",
+  "het": 3,
+  "cim": "A VÍZ VILÁGNAPJA, MÁRCIUS 22.",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Osvát Erzsébet: Irigy felhő",
+     "Csepp, csepp, esőcsepp",
+     "Esik, eső uj-jú-jú",
+     "Esik eső ja-ja-jaj",
+     "Esik eső csöpörög"
+    ],
+    "mesek": [
+     "Szutyejev: A kishajó"
+    ],
+    "anyanyelvi_jatek": "Kishajó fújása vízen",
+    "dalok": [
+     "Csipp, csepp, egy csepp…",
+     "Zsipp, zsupp, kenderzsupp…",
+     "Én kis kertet kerteltem…"
+    ],
+    "hallas_ritmus": [
+     "Hallásfejlesztés: akusztikus észlelés fejlesztése (csengő, hangkereső)."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Zelk Zoltán: Kis patak",
+     "Weöres Sándor: Tó vize"
+    ],
+    "mesek": [
+     "Szutyejev: A gomba alatt",
+     "Zelk Zoltán: Párácska"
+    ],
+    "anyanyelvi_jatek": "Kishajó fújása vízen",
+    "dalok": [
+     "Mit mos, mit mos…",
+     "Én kis kertet kerteltem…",
+     "Úszik a kácsa…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetésre helyben topogás"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Zelk Zoltán: Halország",
+     "Orbán Ottó: A víz",
+     "Weöres Sándor: Futózápor"
+    ],
+    "mesek": [
+     "Benedek Elek: Hattyú vitéz"
+    ],
+    "anyanyelvi_jatek": "Kishajó fújása vízen",
+    "dalok": [
+     "Sándor napján…",
+     "Mély kútba tekintek…"
+    ],
+    "hallas_ritmus": [
+     "zenei élményhez juttatás. A hallásfejlesztés: akusztikus észlelés fejlesztése, csengőhangkereső játékokkal. Halk-hangos érzékeltetése változatos módon."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 30,
+  "honap": "MÁRCIUS",
+  "het": 4,
+  "cim": "MESTERSÉGEM CÍMERE",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Fecske Csaba: Pici versben pici pék",
+     "Nemes Nagy Ágnes: Vízimolnár"
+    ],
+    "mesek": [
+     "Fehér Klára: Foglalkozások"
+    ],
+    "anyanyelvi_jatek": "Mimetikus játék mesterségekről",
+    "dalok": [
+     "Egy kis malac…",
+     "Hegedül a kisegér…",
+     "Szőjünk, fonjunk kendőt…"
+    ],
+    "hallas_ritmus": [
+     "Ritmusvisszhang játék."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Janina Porazinska: Varrt cipőt a suszter?",
+     "Ha valaki vígan él"
+    ],
+    "mesek": [
+     "Petrolay Margit: Mese a hét mesterségről"
+    ],
+    "anyanyelvi_jatek": "Történet kitalálása képekről",
+    "dalok": [
+     "Jákobnak volt hat fia…",
+     "Megy a kocsi…",
+     "Szőjünk fonjunk kendőt…"
+    ],
+    "hallas_ritmus": [
+     "Ritmusvisszhang játék."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Nemes Nagy Ágnes: Bors néni beszélget az aszfaltozókkal",
+     "Szép Ernő: Kaszálnak",
+     "Zelk Zoltán: A kis kertész"
+    ],
+    "mesek": [
+     "Benedek Elek: A vitéz szabólegény"
+    ],
+    "anyanyelvi_jatek": "Történet kitalálása képekről",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Ritmusvisszhang játék."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 31,
+  "honap": "ÁPRILIS",
+  "het": 1,
+  "cim": "HÚSVÉTI KÉSZÜLŐDÉS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Zöld erdőben jártam",
+     "Itt a húsvét, eljött végre"
+    ],
+    "mesek": [
+     "Benedek Elek: A nyulacska harangocskája",
+     "Zelk Zoltán: A három nyúl",
+     "Aranyos tarajos kiskakas",
+     "Devecser László: Ki segít a nyuszinak?"
+    ],
+    "anyanyelvi_jatek": "Csibejáték",
+    "dalok": [
+     "Nyuszi ül a fűben…",
+     "Úgy viruljanak a lányok…",
+     "Mi szél hozott, kis futár…"
+    ],
+    "hallas_ritmus": [
+     "Gyors-lassú érzékeltetése metronóm"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Szabad-e bejönni",
+     "Húsvét másodnapján régi szokás szerint",
+     "Korán reggel útra keltem"
+    ],
+    "mesek": [
+     "Enyedi György: Tojásfestés – bökkenőkkel"
+    ],
+    "anyanyelvi_jatek": "Lopakodó című játék",
+    "dalok": [
+     "Mi szél hozott kis futár…",
+     "Benn a bárány…"
+    ],
+    "hallas_ritmus": [
+     "Gyors-lassú érzékeltetése metronóm"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Palotai Gyöngyvér: Húsvét",
+     "Fakadó rügy, szellő hozta",
+     "Jó reggelt, jó reggelt, kedves liliomszál"
+    ],
+    "mesek": [
+     "Bús Ilona: Húsvéti tojás",
+     "Medvecukor és a tavaszi szél"
+    ],
+    "anyanyelvi_jatek": "Lopakodó című játék",
+    "dalok": [
+     "Úgy viruljanak a lányok…",
+     "Mi szél hozott, kis futár…",
+     "Benn a bárány…"
+    ],
+    "hallas_ritmus": [
+     "Gyors-lassú érzékeltetése metronóm"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 32,
+  "honap": "ÁPRILIS",
+  "het": 2,
+  "cim": "TAVASZI IDŐJÁRÁS",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Gyere tavasz, várva várlak",
+     "Csanádi Imre: Tavasz-ébresztő"
+    ],
+    "mesek": [
+     "Jékely Zoltán: A három pillangó",
+     "Mese az eltévedt kisverébről"
+    ],
+    "anyanyelvi_jatek": "Kakukktojásjáték",
+    "dalok": [
+     "Süss fel, nap…",
+     "Gólya viszi a fiát…",
+     "Fecskét látok…",
+     "Ess eső, ess…",
+     "Fehér liliomszál…",
+     "Jöjj ki, napocska…",
+     "Reggeli harmat…",
+     "Bársonyibolyácska…"
+    ],
+    "hallas_ritmus": [
+     "dalokat hallás után tanítsuk. Biztosítsuk a gyermekeknek a sokszori ismétlést"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Drégely László: Tavasz hívása",
+     "Csoóri Sándor: Tavaszi bodzavers"
+    ],
+    "mesek": [
+     "Kányádi Sándor: A kisfiú, aki ibolyát látott"
+    ],
+    "anyanyelvi_jatek": "Ha hallod a hangot, tapsolj!",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Hallás, hallási figyelem fejlesztése egyszerű dalokon keresztül. Zenei hangok"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Majtényi Erik: A tavasz",
+     "Osvát Erzsébet: Három cimbora",
+     "Csanádi Imre: Májusdicsérő",
+     "Gazdag Erzsi: Itt a tavasz"
+    ],
+    "mesek": [
+     "Benedek Elek: Az erdőzöldítő és mezővirágoztató kisasszony"
+    ],
+    "anyanyelvi_jatek": "Ha hallod a hangot, tapsolj!",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Hallás, hallási figyelem fejlesztése egyszerű dalokon keresztül. Zenei hangok"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 33,
+  "honap": "ÁPRILIS",
+  "het": 3,
+  "cim": "FÖLD NAPJA",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Fű, fű, fű",
+     "Szekér Zsuzsa: Föld napja"
+    ],
+    "mesek": [
+     "Orgoványi Anikó: Guszti, a giliszta komposztál"
+    ],
+    "anyanyelvi_jatek": "Levegő-föld-víz",
+    "dalok": [
+     "Jöjj ki…",
+     "Csepp, csepp…",
+     "Bújj, bújj…",
+     "Csepp, csepp…",
+     "Bújj, bújj…",
+     "Árkot ugrott…",
+     "Megy az öreg…",
+     "Eszterlánc, eszterlánc…"
+    ],
+    "hallas_ritmus": [
+     "Akusztikus hallás: a magasabb-mélyebb"
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Jókai Mór: Ültess fát!"
+    ],
+    "mesek": [
+     "Tordon Ákos: A kismadár kertje"
+    ],
+    "anyanyelvi_jatek": "Levegő-föld-víz",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Akusztikus hallás: a magasabb-mélyebb"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Birtha Erzsébet: Ha nagy leszek"
+    ],
+    "mesek": [
+     "Berta Kati: A Föld meséje"
+    ],
+    "anyanyelvi_jatek": "Levegő-föld-víz",
+    "dalok": [],
+    "hallas_ritmus": [
+     "Akusztikus hallás: a magasabb-mélyebb"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 34,
+  "honap": "ÁPRILIS",
+  "het": 4,
+  "cim": "MÉHEK NAPJA –",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Szalai Borbála: Beszélgetés a méhecskével"
+    ],
+    "mesek": [
+     "Móra Ferenc: A nyughatatlan méhecske"
+    ],
+    "anyanyelvi_jatek": "Valami megváltozott!",
+    "dalok": [
+     "Ilyen cica mellett…",
+     "Tüzet viszek…"
+    ],
+    "hallas_ritmus": [
+     "Dallamvisszhang játék."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Donkó László: Tavasz éke"
+    ],
+    "mesek": [
+     "Benedek Elek: Mackó úr meg Ordas koma"
+    ],
+    "anyanyelvi_jatek": "Valami megváltozott!",
+    "dalok": [
+     "Lóg a lába…",
+     "Recse, recse, pogácsa…"
+    ],
+    "hallas_ritmus": [
+     "Dallamvisszhang játék."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Donkó László: Tavasz éke",
+     "Móra Ferenc: Fecskehívogató",
+     "Garay János: A méhecske"
+    ],
+    "mesek": [
+     "Stefán Luca: Mézeskalácsszív"
+    ],
+    "anyanyelvi_jatek": "Szólánc",
+    "dalok": [
+     "Elvesztettem zsebkendőmet…"
+    ],
+    "hallas_ritmus": [
+     "Dallamvisszhang játék kitalált"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 35,
+  "honap": "MÁJUS",
+  "het": 1,
+  "cim": "ÉDESANYÁK KÖSZÖNTÉSE",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Tordon Ákos: Anyáknapi mondóka",
+     "Ágh István: Virágosat álmodtam"
+    ],
+    "mesek": [
+     "A farkas és a hét kecskegida"
+    ],
+    "anyanyelvi_jatek": "Dobjunk puszit / Fújjunk szívecskét",
+    "dalok": [
+     "Én kicsike vagyok…",
+     "Eresz alól…",
+     "Ültem ringó…",
+     "Ispiláng, ispiláng…",
+     "Orgona ága…",
+     "Örömünnep ez a nap…",
+     "Ó, ha cinke volnék…",
+     "Édesanyám szeret engem…",
+     "Rozmaringos ablakomba…"
+    ],
+    "hallas_ritmus": [
+     "A közösségi érzés erősítése, társas kapcsolatok alakítása. Összetartozás erősítése. Szabálytartás. Türelem és önfegyelem. Egyenletes lüktetés érzékeltetése."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "anyának!",
+     "Lukács Angéla: Csak egy van",
+     "Osvát Erzsébet: Meséltél és meséltél",
+     "Kiss Jenő: Meghajtom magam most",
+     "Mese: Bartócz Ilona: Anyák napja"
+    ],
+    "mesek": [],
+    "anyanyelvi_jatek": "Karmester",
+    "dalok": [],
+    "hallas_ritmus": [
+     "hallás, figyelemkoncentráció."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Mentovics Éva: A legdrágább anyukának",
+     "Édesanyám, neked adunk minden évben egy napot"
+    ],
+    "mesek": [
+     "Fésűs Éva: Májusi mese",
+     "Petrolay Margit: A legszebb vasárnap"
+    ],
+    "anyanyelvi_jatek": "Karmester",
+    "dalok": [],
+    "hallas_ritmus": []
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 36,
+  "honap": "MÁJUS",
+  "het": 2,
+  "cim": "KÖZLEKEDÜNK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Illyés Gyula: Mozdony",
+     "Tóth Elemér: Vonatosdi"
+    ],
+    "mesek": [
+     "Malter György: A dicsekvő versenyautó"
+    ],
+    "anyanyelvi_jatek": "Melyik jármű hangját hallod?",
+    "dalok": [
+     "Kicsi kocsi…",
+     "Sári néni utazik…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése ritmusbottal."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Weöres Sándor: Kocsi és vonat",
+     "Weöres Sándor: Haragosi"
+    ],
+    "mesek": [
+     "Várfalvy Emőke: Az autó és a traktor"
+    ],
+    "anyanyelvi_jatek": "Melyik jármű hangját hallod?",
+    "dalok": [
+     "Kocsit, kocsit, komámasszony…",
+     "Sári néni utazik…",
+     "Jön a kocsi…"
+    ],
+    "hallas_ritmus": [
+     "Dallambújtatás motívumváltással."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Gazdag Erzsi: Megy a vonat",
+     "Szalai Borbála: A jelzőlámpa"
+    ],
+    "mesek": [
+     "Donászy Magda: Tapsi és a villanyrendőr"
+    ],
+    "anyanyelvi_jatek": "Összegyúrt történet c. játék",
+    "dalok": [
+     "Megy a kocsi…",
+     "Most jöttem Bécsből…",
+     "János úr készül…"
+    ],
+    "hallas_ritmus": [
+     "Dallambújtatás rövidebb és hosszabb"
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 37,
+  "honap": "MÁJUS",
+  "het": 3,
+  "cim": "TAVASZI VIRÁGOK, ZÖLDSÉGEK, GYÜMÖLCSÖK",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "VERSELÉS,",
+     "MESÉLÉS",
+     "Azt mondják a cinegék"
+    ],
+    "mesek": [
+     "Jékely Zoltán: A három pillangó"
+    ],
+    "anyanyelvi_jatek": "Mi van a zsákban?",
+    "dalok": [
+     "Kerekecske…",
+     "Kert alatt…",
+     "Hová mégy te kis…"
+    ],
+    "hallas_ritmus": [
+     "Egyenletes lüktetés érzékeltetése mondókán keresztül."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Páskándi Géza: Konyhakertben, s a kert körül"
+    ],
+    "mesek": [
+     "Zelk Zoltán: Kecskére bízta a káposztát"
+    ],
+    "anyanyelvi_jatek": "Mi van a zsákban?",
+    "dalok": [
+     "Fehér liliomszál…",
+     "Kajcsai rózsa…"
+    ],
+    "hallas_ritmus": [
+     "Dallamfelismerés ritmusról."
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Osvát Erzsébet: Gyöngyvirág",
+     "Zelk Zoltán: Csilingel a gyöngyvirág"
+    ],
+    "mesek": [
+     "lllyés Gyula: A háromágú tölgyfa tündére"
+    ],
+    "anyanyelvi_jatek": "Mi van a zsákban?",
+    "dalok": [
+     "Kinyílt a rózsa…",
+     "Hová mégy te kis…"
+    ],
+    "hallas_ritmus": [
+     "Dalok, mondókák ritmusának kiemelése."
+    ]
+   }
+  },
+  "hiany": []
+ },
+ {
+  "lap": 38,
+  "honap": "MÁJUS",
+  "het": 4,
+  "cim": "GYERMEKNAP AZ OVIBAN",
+  "korok": {
+   "kicsi": {
+    "versek": [
+     "Fecske Csaba: Lepkehívogató",
+     "K. László Szilvia: nyárköszöntő"
+    ],
+    "mesek": [
+     "Benedek Elek: A három kívánság"
+    ],
+    "anyanyelvi_jatek": "Mondatalkotós",
+    "dalok": [
+     "Gyermekek, gyermekek…",
+     "Fáj a kutyámnak a lába…",
+     "Csivirítem…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása."
+    ]
+   },
+   "kozepso": {
+    "versek": [
+     "Bartos Erika: Gyümölcskosár",
+     "Kányádi Sándor: Somvirág"
+    ],
+    "mesek": [
+     "A levendula"
+    ],
+    "anyanyelvi_jatek": "Folytasd a sort!",
+    "dalok": [
+     "Kicsi üst…",
+     "Hej, meszelő…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása"
+    ]
+   },
+   "nagy": {
+    "versek": [
+     "Versek: Kovács Gabriella: Gyermeknapi kívánság",
+     "Vörös Judit: A gyermek mosolya"
+    ],
+    "mesek": [
+     "Zelk Zoltán: A pipacs és a búzavirág"
+    ],
+    "anyanyelvi_jatek": "Mondd egy szóval!",
+    "dalok": [
+     "Dolgozni szaporán…",
+     "Ti csak esztek…",
+     "Kőketánc…"
+    ],
+    "hallas_ritmus": [
+     "Ritmuszenekar alakítása."
+    ]
+   }
+  },
+  "hiany": []
+ }
+]
