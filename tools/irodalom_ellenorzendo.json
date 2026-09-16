@@ -1,5 +1,5 @@
 {
-  "_megjegyzes": "Ellenőrizetlen irodalmi szövegek. Amíg egy tétel nincs forrásból igazolva, NEM kerülhet vissza a seedbe. Igazolás után vedd fel az IGAZOLT vagy a VALTOZATLAN_IGAZOLT listába a tools/irodalom_hitelesites.py-ban.",
+  "_megjegyzes": "Ellenőrizetlen irodalmi szövegek — kizárólag archívum, NEM teendőlista. 2026-09-16: az óvónőnek sincs meg egyik szöveg sem, ezért a művek a könyvtárban CSAK CÍMMEL maradnak; az itteni szövegek kitaláltak vagy igazolhatatlanok, visszaírni tilos. Ha valaki később nyomtatott vagy digitális forrásból IGAZOLJA valamelyiket, az igazolt szöveg a tools/irodalom_hitelesites.py IGAZOLT táblájába kerül (forrással együtt), nem innen. A programban a szöveg nélküli népi tételnél megjelenik a beíró mező, tehát az óvónő maga is beírhatja, amit ismer.",
   "tetelek": [
     {
       "tipus": "dal",

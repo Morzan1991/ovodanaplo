@@ -164,10 +164,15 @@ holott egyiket sem népi gyűjtésből vették — a programhoz írták őket, �
 (Balassa–Ortutay: Magyar néprajz, Tölgyessy Zsuzsanna tanulmánya, népi
 találós-gyűjtemények), a forrás tételenként fel van tüntetve.
 
-Amit nem sikerült igazolni, az a `tools/irodalom_ellenorzendo.json` fájlban vár:
-13 olyan mondóka és dal, amelynek ezt a szövegváltozatát egyetlen forrás sem
-hozza. Nem vesztek el, de amíg nincsenek igazolva, a program nem mutatja őket. A
-többi 908 tételnél eleve csak a cím és a szerző van tárolva.
+Maradt 13 olyan mondóka és dal, amelynek ezt a szövegváltozatát egyetlen forrás
+sem hozza, és az óvodapedagógusnak sincs meg egyikhez sem hiteles szövege. Ezek a
+művek **címmel bent maradnak** a könyvtárban, szöveg nélkül — ez a végleges
+állapot, nem függőben lévő feladat. A kivezetett szövegeket a
+`tools/irodalom_ellenorzendo.json` csak archívumként őrzi; visszaírni tilos.
+Szöveg oda kizárólag forrásból, a hitelesítő táblán keresztül kerülhet — vagy
+magától az óvónőtől: a szöveg nélküli népi tételnél a program felkínál egy beíró
+mezőt, és amit egyszer beír, az ott is marad. A többi 908 tételnél eleve csak a
+cím és a szerző van tárolva.
 
 ---
 
