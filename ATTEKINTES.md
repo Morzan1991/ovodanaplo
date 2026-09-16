@@ -114,7 +114,7 @@ fehérlistán mennek át, a navigáció le van tiltva.
 ## 5. A tartalom GENERÁLT — ez a legfontosabb tudnivaló
 
 A `seed/` mappa 34 800 sornyi JSON-t tartalmaz: heti terv sablonokat, egy
-1 018 tételes irodalomtárat és négy korcsoportos ötletbankot 15 213 javaslattal.
+1 005 tételes irodalomtárat és négy korcsoportos ötletbankot 15 213 javaslattal.
 
 **Ezt a mappát nem szabad kézzel szerkeszteni.** A `tools/` alatti Python-szkriptek
 állítják elő, és az újragenerálás felülírná a kézi módosítást.
@@ -146,9 +146,17 @@ szöveggel, és elbuknak, ha 45 karakternél hosszabb egyezés kerül vissza. A
 küszöb azért 45, mert az ennél rövidebb egyezések szakkifejezések
 („számfogalom alakítása"), azok nem állnak védelem alatt.
 
-Az irodalomtárban teljes szöveggel csak közkincs szerepel: 114 tétel (népköltés,
-valamint Petőfi, Arany, Móra és József Attila művei). A többi 904 tételnél csak a
-cím és a szerző van tárolva.
+Az irodalomtárban teljes szöveggel **18 tétel** szerepel: tíz klasszikus
+(Petőfi, Arany, Móra, József Attila) és nyolc népi gyűjtés. Mindegyik közkincs,
+és mindegyiket két-két független forrásból ellenőriztük — a forrás ott van a
+`tools/irodalom_hitelesites.py` táblájában, tételenként.
+
+Ez korábban 114 volt. Az átvizsgálás kiderítette, hogy a szövegek jó része nem
+forrásból származott, hanem költött volt: a mű első sora (a cím) stimmelt, a
+folytatás viszont kitalált. A 92 ellenőrizetlen szöveg átkerült a
+`tools/irodalom_ellenorzendo.json` fájlba — nem veszett el, de amíg nincs
+forrásból igazolva, a program nem mutatja. A többi 987 tételnél eleve csak a cím
+és a szerző van tárolva.
 
 ---
 

@@ -234,8 +234,8 @@
         "Kányádi Sándor: Róka-mondóka (vers)",
         "Csukás István: Sün Balázs (vers)",
         "Fazekas Anna: Öreg néne őzikéje (vers)",
-        "Zelk Zoltán: A három nyúl (mese)",
-        "Furulyás Palkó (népmese)"
+        "Jakob és Wilhelm Grimm: A brémai muzsikusok (mese) — állatok összefogása",
+        "Zelk Zoltán: A három nyúl (mese)"
       ],
       "rajzolas_festes": [
         "Állatmaszk készítése papírtányérból (kutya, macska, nyúl)",
@@ -644,7 +644,7 @@
         "Donászy Magda: Karácsonyi köszöntő (vers)",
         "Weöres Sándor: Suttog a fenyves (vers) — adventi csend",
         "Zelk Zoltán: Téli fák (vers)",
-        "Grimm testvérek: A suszter manói (mese)",
+        "Jakob és Wilhelm Grimm: A suszter manói (mese)",
         "Marék Veronika: Kippkopp karácsonya (mese)",
         "Csendjáték (anyanyelvi játék) — Leülünk vagy lefekszünk a szőnyegre, és egy ideig csak a környező hangokra figyelünk. Az ünnep csendjére hangol."
       ],
@@ -761,7 +761,6 @@
         "Hull a pelyhes (dal)",
         "Hull a pelyhes fehér hó (dal) — a Mikulás-váró dal",
         "Kis karácsony, nagy karácsony (dal)",
-        "Télapó itt van (dal)",
         "Donászy Magda: Télapó itt van (dal) — megzenésített vers",
         "Ég a gyertya, ég (dal)",
         "Gryllus Vilmos: Mikulás-dalok (zenehallgatás)"
@@ -1605,8 +1604,8 @@
         "Gólya, gólya, gilice (mondóka) — a megérkező vándormadarakhoz",
         "Jer, jer, kikelet (mondóka) — tavaszhívogató",
         "Süss fel, nap (mondóka)",
+        "Gazdag Erzsi: Itt a tavasz (vers)",
         "Nemes Nagy Ágnes: Lila fecske (vers)",
-        "Petőfi Sándor: Tavasz (vers)",
         "Drégely László: Tavasz hívása (vers)",
         "Csoóri Sándor: Tavaszi bodzavers (vers)",
         "Kányádi Sándor: A kisfiú, aki ibolyát látott (mese)",
@@ -2277,7 +2276,6 @@
         "Tamkó Sirató Károly: Csivitelő (vers)",
         "Kányádi Sándor: Fenyőfa-mondóka (vers)",
         "Nemes Nagy Ágnes: Lila fecske (vers)",
-        "Móra Ferenc: Mit ír a fecske? (vers) — a nap klasszikus verse",
         "Fésűs Éva: A csodálatos nyárfa (mese)",
         "A kóró és a kismadár (népmese)",
         "A vadgalamb és a szarka (népmese) — fészeképítés, gondos munka"
@@ -3919,9 +3917,9 @@
         "Petőfi Sándor: Arany Lacinak (részlet) (vers)",
         "Nemes Nagy Ágnes: Bors néni (vers)",
         "Weöres Sándor: Csiribiri (vers)",
+        "Jakob és Wilhelm Grimm: A brémai muzsikusok (mese) — összefogás",
         "Bartos Erika: Bogyó és Babóca — Az új barát (mese)",
         "Marék Veronika: Kippkopp és Tipptopp (mese)",
-        "A brémai muzsikusok (népmese) — összefogás",
         "A kesztyű (népmese) — befogadás, összetartozás"
       ],
       "rajzolas_festes": [
@@ -4466,7 +4464,7 @@
       ],
       "verseles_meseles": [
         "Csanádi Imre: Négy testvér (vers)",
-        "Holle anyó (népmese)",
+        "Jakob és Wilhelm Grimm: Holle anyó (mese)",
         "Liccs-loccs, megjött a kishajó (anyanyelvi játék)"
       ],
       "enek_zene": [

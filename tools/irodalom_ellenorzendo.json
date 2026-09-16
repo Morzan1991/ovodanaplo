@@ -1,0 +1,557 @@
+{
+  "_megjegyzes": "Ellenőrizetlen irodalmi szövegek. Amíg egy tétel nincs forrásból igazolva, NEM kerülhet vissza a seedbe. Igazolás után vedd fel az IGAZOLT vagy a VALTOZATLAN_IGAZOLT listába a tools/irodalom_hitelesites.py-ban.",
+  "tetelek": [
+    {
+      "tipus": "dal",
+      "cim": "Tavaszi szél vizet áraszt",
+      "szerzo": null,
+      "szoveg": "Tavaszi szél vizet áraszt,\nVirágom, virágom.\nMinden madár társat választ,\nVirágom, virágom."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Egy boszorka van",
+      "szerzo": null,
+      "szoveg": "Egy boszorka van,\nHárom fia van.\nHopp ide tisztán,\nHopp oda tisztán,\nHopp a kemencére."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Esik az eső",
+      "szerzo": null,
+      "szoveg": "Esik az eső, esik,\nA medve is ázik.\nKeresi a barlangját,\nDe nem találja."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Süss fel nap",
+      "szerzo": null,
+      "szoveg": "Süss fel nap,\nFényes nap!\nKertek alatt\nA ludaim megfagynak."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Süt a pék",
+      "szerzo": null,
+      "szoveg": "Süt a pék, süt a pék,\nFehér cipót, barna kenyeret.\nKakaós kalácsot,\nMézes kenyeret."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Kis kacsa fürdik",
+      "szerzo": null,
+      "szoveg": "Kis kacsa fürdik fekete tóban,\nAnyjához készül Lengyelországba.\nSíró-síró, ríró-ríró,\nKedves édesanyám."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Csiga-biga, gyere ki",
+      "szerzo": null,
+      "szoveg": "Csiga-biga, gyere ki,\nÉg a házad ideki!\nKap a békafiacskád,\nVízbe dobja kis fiát."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Egy, kettő, három, négy",
+      "szerzo": null,
+      "szoveg": "Egy, kettő, három, négy,\nKis pajtásom, hová mégy?\nÖt, hat, hét, nyolc,\nDióhéjban kis táncot."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Ess, eső, ess",
+      "szerzo": null,
+      "szoveg": "Ess, eső, ess,\nHolnap délig ess,\nZab szemig érjen,\nKút bő vízzel teljen."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Erdő szélén házikó",
+      "szerzo": null,
+      "szoveg": "Erdő szélén házikó,\nKiscsibének jaj de jó!\nKopp-kopp, beleszáll,\nKis csibécske rárepül."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Sétálunk, sétálunk",
+      "szerzo": null,
+      "szoveg": "Sétálunk, sétálunk,\nEgy kis dombra lecsücsülünk,\nCsüccs!"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Gólya, gólya, gilice",
+      "szerzo": null,
+      "szoveg": "Gólya, gólya, gilice,\nMitől véres a lábad?\nTörök gyerek megvágta,\nMagyar gyerek gyógyítja,\nSíppal, dobbal, nádi hegedűvel."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Katalinka, szállj el",
+      "szerzo": null,
+      "szoveg": "Katalinka, szállj el,\nJönnek a törökök,\nSós kútba tesznek,\nOnnan is kivesznek,\nKerék alá tesznek,\nOnnan is kivesznek."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hüvelykujjam almafa",
+      "szerzo": null,
+      "szoveg": "Hüvelykujjam almafa,\nMutatóujjam megrázta,\nHosszú középső felszedte,\nGyűrűs ujjam hazavitte,\nKicsi pedig mind megette."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Erre csörög a dió",
+      "szerzo": null,
+      "szoveg": "Erre csörög a dió,\nArra meg a mogyoró.\nKi-be, kerítésen át,\nKi-be, dombra fel és le."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Tente, baba, tente",
+      "szerzo": null,
+      "szoveg": "Tente, baba, tente,\nItt a tente, ette.\nAludj, baba, aludjál,\nMajd ha felébredsz, megmondom,\nMit hozott a mama vásárból."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kelj fel Jankó",
+      "szerzo": null,
+      "szoveg": "Kelj fel Jankó,\nNézz az égre,\nKi mászik fel\nA fa tetejére?\nEgy kis madár csivit-csivit,\nReggel van már, ébredj te is!"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Süt a nap, süt a nap",
+      "szerzo": null,
+      "szoveg": "Süt a nap, süt a nap,\nÉbredj kis virág!\nNézz a napra, nézz az égre,\nGyere, táncolj velünk!"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Erdő mellett nem jó lakni",
+      "szerzo": null,
+      "szoveg": "Erdő mellett nem jó lakni,\nMert sok fát kell hasogatni.\nTizenhárom ölet meg felet,\nIgy ölelem én a kedvesemet."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Ég a gyertya, ég",
+      "szerzo": null,
+      "szoveg": "Ég a gyertya, ég,\nEl ne aludjék!\nAki lángot látni akar,\nMind leguggoljék!"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Pók, pók, hány óra",
+      "szerzo": null,
+      "szoveg": "Pók, pók, hány óra?\nEgy az óra, két az óra,\nHárom óra van!"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Áll a baba, áll",
+      "szerzo": null,
+      "szoveg": "Áll a baba, áll,\nMint a gyertyaszál.\nFelnő, mint a hegy,\nNagyra nőjjön, nagy legyen!"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Ki kopog ott?",
+      "szerzo": null,
+      "szoveg": "Ki kopog ott a fán?\nNem ácsmester, mégis kopog.\nFekete-fehér tollas zekében\nÉlősködőket szed a kéregből.\n\n(Megfejtés: harkály)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Nincs lába",
+      "szerzo": null,
+      "szoveg": "Nincs lába, mégis siklik,\nNincs füle, mégis hall.\nNincs szeme, mégis lát,\nNincs szárnya, mégis repül néha.\n\n(Megfejtés: kígyó / hal — találgatós)"
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Lánc, lánc, eszterlánc",
+      "szerzo": null,
+      "szoveg": "Lánc, lánc, eszterlánc,\nEszterlánci cérna.\nCérna volna, selyem volna,\nMégis kifordulna."
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Komámasszony, hol az olló?",
+      "szerzo": null,
+      "szoveg": "Komámasszony, hol az olló?\nA Dunába leszórta.\nHúzd ki, húzd ki, ne sajnáld,\nFényesítsd ki, ne sajnáld!"
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Gyertek, lányok, ligetre",
+      "szerzo": null,
+      "szoveg": "Gyertek, lányok, ligetre,\nLigetre,\nSzedjünk rozmaringot, kis-keszkenőre,\nKis-keszkenőre."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Csillag Boris",
+      "szerzo": null,
+      "szoveg": "Csillag Boris, táncot jár,\nA közepén egy szép leány.\nSzép leánynak gyűrű van az ujján,\nKiri-kiri-mákvirág."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Boci, boci tarka",
+      "szerzo": null,
+      "szoveg": "Boci, boci tarka,\nse füle, se farka,\noda megyünk lakni,\nahol tejet kapni."
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Bújj, bújj, zöld ág",
+      "szerzo": null,
+      "szoveg": "Bújj, bújj, zöld ág,\nzöld levelecske.\nNyitva van az aranykapu,\ncsak bújjatok rajta.\nRajta, rajta, leszakadt a pajta,\nbenn maradt a macska."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hinta, palinta",
+      "szerzo": null,
+      "szoveg": "Hinta, palinta,\nrégi dunna, kiskatona,\nugorj a Dunába!"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Egyedem-begyedem",
+      "szerzo": null,
+      "szoveg": "Egyedem-begyedem, tengertánc,\nhajdú sógor, mit kívánsz?\nNem kívánok egyebet,\ncsak egy falat kenyeret."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Ecc, pecc, kimehetsz",
+      "szerzo": null,
+      "szoveg": "Ecc, pecc, kimehetsz,\nholnapután bejöhetsz,\ncérnára, cinegére,\nugorj cica az egérre.\nHess!"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Egy, megérett a meggy",
+      "szerzo": null,
+      "szoveg": "Egy, megérett a meggy,\nkettő, csipkebokor vessző,\nhárom, te leszel a párom,\nnégy, biz' oda nem mégy,\nöt, leesett a köd,\nhat, hasad a pad,\nhét, süt a pék,\nnyolc, üres a polc,\nkilenc, kis Ferenc,\ntíz, tiszta víz."
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Tüzet viszek",
+      "szerzo": null,
+      "szoveg": "Tüzet viszek, lángot viszek,\naki látja, meg ne mondja!"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Egy kis malac",
+      "szerzo": null,
+      "szoveg": "Egy kis malac röf-röf-röf,\nbeleesett a tóba."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Csip-csip csóka",
+      "szerzo": null,
+      "szoveg": "Csip-csip csóka,\nvak varjúcska,\njó volt-e a kisfiúcska?\nHa jó volt a kisfiúcska,\nne csípd meg őt, csóka."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Töröm, töröm a mákot",
+      "szerzo": null,
+      "szoveg": "Töröm, töröm a mákot,\nsütök neked kalácsot."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Gyí, te, lovam",
+      "szerzo": null,
+      "szoveg": "Gyí, te, lovam, Pejkó,\nNagyváradig meg se állj!"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Höc, höc, katona",
+      "szerzo": null,
+      "szoveg": "Höc, höc, katona,\nketten ülünk egy lóra,\nhárman meg a csikóra,\núgy megyünk a tanyára!"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Hull a pelyhes fehér hó",
+      "szerzo": null,
+      "szoveg": "Hull a pelyhes fehér hó,\njöjj el, kedves Télapó.\nMinden gyermek várva vár,\nvidám ének hangja száll."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Húsvét — Zöld erdőben jártam",
+      "szerzo": null,
+      "szoveg": "Zöld erdőben jártam,\nkék ibolyát láttam,\nel akart hervadni,\nszabad-e locsolni?"
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Hímes tojás",
+      "szerzo": null,
+      "szoveg": "Hímes tojás, piros tojás,\nkapok-e egyet?\nAdok bizony szépet,\ncsak köszönj egy verset!"
+    },
+    {
+      "tipus": "altato",
+      "cim": "Csija, csija, bubája",
+      "szerzo": null,
+      "szoveg": "Csija, csija, bubája,\ncicuskának bubája,\naludjál el szépen,\nédes kicsi szentem."
+    },
+    {
+      "tipus": "altato",
+      "cim": "Aludj, baba, aludjál",
+      "szerzo": null,
+      "szoveg": "Aludj, baba, aludjál,\naranybölcsőben ringassál."
+    },
+    {
+      "tipus": "altato",
+      "cim": "Beli, baba, beli",
+      "szerzo": null,
+      "szoveg": "Beli, baba, beli,\nédes anyám szülje,\nédesapám tartsa."
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Komámasszony, hová mégy",
+      "szerzo": null,
+      "szoveg": "Komámasszony, hová mégy?\nVásárba.\nMit visz kend?\nLibácskát.\nAdjon nékem egyet.\nNem adok."
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Fehér liliomszál",
+      "szerzo": null,
+      "szoveg": "Fehér liliomszál,\nugorj a Dunába,\ntámaszd meg a kezed,\nfésüld meg a hajad,\nmosd meg az orcádat,\nigazítsd a ruhádat,\nmutasd meg, kit szeretsz."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Cica, cica, cifra cica",
+      "szerzo": null,
+      "szoveg": "Cica, cica, cifra cica,\nhonnan jössz, hová mégy?"
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Adj király katonát",
+      "szerzo": null,
+      "szoveg": "Adj király katonát!\nNem adok!\nHa nem adsz, szakítok!\nSzakíts, ha tudsz!"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Én elmentem a vásárba",
+      "szerzo": null,
+      "szoveg": "Én elmentem a vásárba fél pénzzel,\ntyúkot vettem a vásárban fél pénzzel.\nTyúkom mondja: kit-rá-kotty."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Mikulás, Mikulás, kedves Mikulás",
+      "szerzo": null,
+      "szoveg": "Mikulás, Mikulás, kedves Mikulás,\nhozz nekünk diót, mogyorót, sok finom mást."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Pók, pók, hány az óra",
+      "szerzo": null,
+      "szoveg": "Pók, pók, hány az óra?\nKettő múlt egy fertályra."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Kerekecske, dombocska",
+      "szerzo": null,
+      "szoveg": "Kerekecske, dombocska,\nitt szalad a nyulacska,\nitt megáll, ide bebújik,\nide be, ide be, ide be!"
+    },
+    {
+      "tipus": "dal",
+      "cim": "Erdő mellett estvéledtem",
+      "szerzo": null,
+      "szoveg": "Erdő mellett estvéledtem,\nsubám fejem alá tettem.\nÖsszetettem két kezemet,\núgy kértem jó Istenemet."
+    },
+    {
+      "tipus": "dal",
+      "cim": "Elvesztettem zsebkendőmet",
+      "szerzo": null,
+      "szoveg": "Elvesztettem zsebkendőmet,\nmegver anyám érte.\nAki nekem visszaadja,\ncsókot adok érte."
+    },
+    {
+      "tipus": "mondoka",
+      "cim": "Egér, egér, kisegér",
+      "szerzo": null,
+      "szoveg": "Egér, egér, kisegér,\nbújjál hamar a lyukba,\njön a macska, kapj el!"
+    },
+    {
+      "tipus": "koreplay",
+      "cim": "Erre kakas, erre tyúk",
+      "szerzo": null,
+      "szoveg": "Erre kakas, erre tyúk,\nerre van a gyalogút,\ntipi-topi tipegnek,\nszemecskéket szedegetnek."
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Hold",
+      "szerzo": null,
+      "szoveg": "Kerek, mint az alma,\nfehér, mint a hó,\nédes, mint a méz,\nmégsem ehető. (Mi az? — Hold)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Könyv",
+      "szerzo": null,
+      "szoveg": "Fehér mező, fekete vetés,\naki tudja, az olvassa. (Mi az? — Könyv)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Négy évszak",
+      "szerzo": null,
+      "szoveg": "Négy testvér egy úton jár,\negyik sem éri utol a másikat. (Mi az? — A négy évszak)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Ablak",
+      "szerzo": null,
+      "szoveg": "Kint is van, bent is van, mégis bent maradt a háznál. (Mi az? — Ablak)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Falevél",
+      "szerzo": null,
+      "szoveg": "Két szeme van, mégse lát,\nfán ül, mégis röpköd. (Mi az? — Falevél a fán)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Szél",
+      "szerzo": null,
+      "szoveg": "Szárny nélkül repül, láb nélkül jár, soha meg nem áll. (Mi az? — A szél)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Hét napjai",
+      "szerzo": null,
+      "szoveg": "Kerek udvarban hét fehér ló legel. (Mi az? — A hét napjai)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Óra",
+      "szerzo": null,
+      "szoveg": "Egész nap megy, mégse jut el sehová. (Mi az? — Óra)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Tojás",
+      "szerzo": null,
+      "szoveg": "Kerek, mint az alma,\nFehér, mint a hó,\nBenne sárga, mint az arany.\n(Megfejtés: tojás)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Hagyma",
+      "szerzo": null,
+      "szoveg": "Hét bőre van, mégse fázik,\nAki bántja, sírva házik.\n(Megfejtés: hagyma)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Dió",
+      "szerzo": null,
+      "szoveg": "Kívül fán terem,\nBelül hús lakik,\nKöztük csontruha.\n(Megfejtés: dió)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Hó",
+      "szerzo": null,
+      "szoveg": "Fehér, mint a liszt, de nem liszt,\nHideg, mint a jég, de nem jég,\nHullik, mint az eső, de nem eső.\n(Megfejtés: hó)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Nap",
+      "szerzo": null,
+      "szoveg": "Reggel jön, este megy,\nMindenkinek világít,\nSenkit meg nem éget.\n(Megfejtés: nap)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Csillag",
+      "szerzo": null,
+      "szoveg": "Sok van fent az égen,\nFényesek, de mégsem égők.\n(Megfejtés: csillagok)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Eső",
+      "szerzo": null,
+      "szoveg": "Égből jön,\nFöldre száll,\nFüvet, fát itat.\n(Megfejtés: eső)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Macska",
+      "szerzo": null,
+      "szoveg": "Négy lábon jár,\nBajusza van, mégse legény,\nFia van, mégse asszony.\n(Megfejtés: macska)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Méh",
+      "szerzo": null,
+      "szoveg": "Kicsi, sárga-fekete,\nVirágról virágra száll,\nÉdesség van otthonában.\n(Megfejtés: méh)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Pók",
+      "szerzo": null,
+      "szoveg": "Nyolc lába van,\nHálót sző, mégse halász.\n(Megfejtés: pók)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Ló",
+      "szerzo": null,
+      "szoveg": "Patkó van a lábán,\nNyihog a torkán,\nFut a réten árván.\n(Megfejtés: ló)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Tehén",
+      "szerzo": null,
+      "szoveg": "Négy lábon jár,\nKét szarva van,\nFüvet legel, tejet ad.\n(Megfejtés: tehén)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Fa",
+      "szerzo": null,
+      "szoveg": "Áll egész életében,\nNem fut, mégse fárad,\nLeveles ruhája nyáron zöld, ősszel sárga.\n(Megfejtés: fa)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Alma",
+      "szerzo": null,
+      "szoveg": "Piros kívül, fehér belül,\nFán terem, kosárba kerül.\n(Megfejtés: alma)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Kukorica",
+      "szerzo": null,
+      "szoveg": "Csutkán terem,\nSárga, mint a nap,\nFőzve, sütve gyermek kedvence vagyok.\n(Megfejtés: kukorica)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Cseresznye",
+      "szerzo": null,
+      "szoveg": "Két piros gomb,\nEgy zöld zsinóron lóg.\n(Megfejtés: cseresznye)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Csiga",
+      "szerzo": null,
+      "szoveg": "Hátán hordja a házát,\nLassan jár, mégis odaér.\n(Megfejtés: csiga)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Béka",
+      "szerzo": null,
+      "szoveg": "Vízben él, mégis ugrik,\nZöld kabátja sose koszos.\n(Megfejtés: béka)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Gomba",
+      "szerzo": null,
+      "szoveg": "Egy lábon áll,\nKalapja van,\nErdőben terem.\n(Megfejtés: gomba)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Kulcs",
+      "szerzo": null,
+      "szoveg": "Foga van, de nem eszik,\nNyitja, ami zárva van.\n(Megfejtés: kulcs)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Cipő",
+      "szerzo": null,
+      "szoveg": "Kettő van belőle,\nLábadon hordod,\nÚton-úton koptatod.\n(Megfejtés: cipő)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Esernyő",
+      "szerzo": null,
+      "szoveg": "Esőben kinyílik,\nNapsütésben becsukódik.\n(Megfejtés: esernyő)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Gyertya",
+      "szerzo": null,
+      "szoveg": "Magasabb lesz, ha fogyatkozik,\nVilágít, mégis kisebbedik.\n(Megfejtés: gyertya)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Tű",
+      "szerzo": null,
+      "szoveg": "Egy szeme van,\nMégis lát,\nFarka után jár az út.\n(Megfejtés: tű)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Harkály",
+      "szerzo": null,
+      "szoveg": "Ki kopog ott a fán?\nNem ácsmester, mégis kopog.\nFekete-fehér tollas zekében\nÉlősködőket szed a kéregből.\n(Megfejtés: harkály)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Kecske",
+      "szerzo": null,
+      "szoveg": "Szakálla van, mégse pap,\nnégy lába van, mégse ló.\n(Megfejtés: kecske)"
+    }
+  ]
+}

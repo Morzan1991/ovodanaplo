@@ -1,5 +1,51 @@
 # Verziótörténet
 
+## v2.11.15 — 2026-09-16 — hiteles szövegek: a kitalált részletek kivezetése
+
+**Ez a kiadás egy kellemetlen hibát orvosol.** Az irodalomtár 114 műnél teljes
+szöveget is tárolt. A tételes átvizsgálás kiderítette, hogy ezek jelentős része
+nem forrásból származott, hanem **költött** volt. A minta mindig ugyanaz: a mű
+első sora (ami egyben a cím) stimmelt, a folytatás viszont kitalált. Néhány
+példa a javítottak közül:
+
+| mű | ami a programban állt | a valódi szöveg |
+|---|---|---|
+| Móra: A cinege cipője | „De cipője nincsen, / Hogyha úgy felfázik…" | „ő is útra kelni. / De cipőt az árva / sehol se tud venni." |
+| Móra: Zengő ABC | „A betűk az ábécében / rendben állnak…" | „Aranyalma ághegyen. / Bari bég a zöld gyepen." |
+| Arany: Mátyás anyja | „Szilágyi Erzsébet… Ázott sűrü sorja" | „Szilágyi Örzsébet… Azt is telesirta" |
+| Petőfi: Anyám tyúkja | „kotkodákol" | „kotkodácsol" |
+| Beültettem kiskertemet | „Majd kikel a kis virágom napsugárral" | „rózsa, szegfű, liliom és rezedával" |
+| Aki nem lép egyszerre | „Pedig a rétes jó volna, / Túrós-mákos…" | „mert a rétes igen jó, / katonának az való" |
+| Hej, Vargáné | „kontya alatt egy egér nőtt" | „kontya alá ütött a gőz" |
+
+Egy óvodai naplóban ez nem megengedhető: a pedagógus a programból tanítja a
+verset a gyerekeknek.
+
+**Amit tettünk.**
+
+- **18 szöveg maradt**, mindegyik két-két független forrásból ellenőrizve
+  (mek.oszk.hu, arcanum Verstár, magyar-irodalom.elte.hu, csemadok.sk,
+  folkradio.hu és társaik). A forrás tételenként ott van a
+  `tools/irodalom_hitelesites.py` táblájában.
+- **92 ellenőrizetlen szöveg kikerült a programból** a
+  `tools/irodalom_ellenorzendo.json` fájlba. Nem vesztek el: egyenként
+  ellenőrizhetők és visszatehetők, de amíg nincsenek igazolva, a program nem
+  mutatja őket.
+- **Két nem létező mű törölve:** „Petőfi Sándor: Tavasz" (Petőfinek nincs ilyen
+  verse) és „Móra Ferenc: Mit ír a fecske?" (Mórának sincs; van
+  „Fecskehívogató" és „A fecskék").
+- **Két tartalmi összefoglaló** szövegként jelent meg — kivezetve.
+
+**Duplikátumok.** Tizenegy mű kétszer szerepelt: egyszer szerzővel, egyszer
+névtelen népmeseként („A brémai muzsikusok" Grimm-meseként és népmeseként is).
+A felhasználó döntése szerint a szerzős alak maradt. A korpuszban is javítva,
+hogy a következő generálás ne hozza vissza őket.
+
+Irodalomtár: 1018 → 1005 tétel, teljes szöveggel 114 → 18.
+
+Új eszközök: `tools/irodalom_hitelesites.py` és
+`tools/korpusz_duplikatum_javitas.py`.
+
 ## v2.11.14 — 2026-09-16 — a néphagyomány nem jogvédett
 
 **Javítva: a program 316 közkincs műre azt írta, hogy szerzői jogvédelem alatt

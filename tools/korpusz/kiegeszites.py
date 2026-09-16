@@ -282,7 +282,7 @@ _t("tavaszi_viragok", [
 
 _t("husvet", [
     ("vers", "Devecseri Gábor", "Bárány Boldizsár (részlet)", "3", ""),
-    ("nepmese", None, "A nyulacska harangocskája", "3", ""),
+    ("mese", "Benedek Elek", "A nyulacska harangocskája", "3", ""),
     ("dal", None, "A pünkösdi rózsa", "3", ""),
     ("korjatek", None, "Fehér liliomszál", "3", ""),
 ])

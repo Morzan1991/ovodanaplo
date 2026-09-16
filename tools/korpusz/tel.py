@@ -86,7 +86,7 @@ _t("mezeskalacs", [
     ("vers", "Gazdag Erzsi", "Kenyérsütés", "12", ""),
     ("vers", "Donászy Magda", "Karácsonyi köszöntő", "12", ""),
     ("mese", None, "A mézeskalács kisfiú", "12", "ismétlődő szerkezet, könnyen bekapcsolódnak"),
-    ("nepmese", None, "Jancsi és Juliska", "3", "mézeskalács-házikó, bátrabb csoportnak"),
+    ("mese", "Jakob és Wilhelm Grimm", "Jancsi és Juliska", "3", "mézeskalács-házikó, bátrabb csoportnak"),
     ("dal", None, "Süt a pék", "12", ""),
     ("dal", None, "Süssünk, süssünk valamit", "12", ""),
     ("dal", None, "Kis karácsony, nagy karácsony", "123", ""),
