@@ -1241,29 +1241,6 @@
       ]
     },
     {
-      "tipus": "talalos_kerdes",
-      "cim": "Ki kopog ott?",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "vegyes",
-      "temak": [
-        "allatok",
-        "talaloskeres",
-        "harkaly"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Nincs lába",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "vegyes",
-      "temak": [
-        "talaloskeres",
-        "kígyó"
-      ]
-    },
-    {
       "tipus": "koreplay",
       "cim": "Lánc, lánc, eszterlánc",
       "szerzo": null,
@@ -1879,387 +1856,81 @@
     },
     {
       "tipus": "talalos_kerdes",
-      "cim": "Találós — Hold",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Könyv",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas",
-        "iras"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Négy évszak",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas",
-        "evszakok"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Ablak",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas",
-        "haz"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Falevél",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Szél",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Hét napjai",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
-      "temak": [
-        "talalos",
-        "gondolkodas",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
       "cim": "Találós — Óra",
       "szerzo": null,
-      "forras": "nephagyomany",
+      "forras": "Tölgyessy Zs. (Parlando, 2017)",
       "korcsoport": "nagy",
       "temak": [
         "talalos",
         "gondolkodas",
-        "ido"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Tojás",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "allatok",
-        "haztartas"
-      ]
+        "targyak"
+      ],
+      "szoveg": "Ha járok is, ha nem is,\nmégis egy helyben maradok.\n\n(Megfejtés: óra)"
     },
     {
       "tipus": "talalos_kerdes",
       "cim": "Találós — Hagyma",
       "szerzo": null,
-      "forras": "nephagyomany",
+      "forras": "Balassa–Ortutay: Magyar néprajz (mek.oszk.hu)",
       "korcsoport": "kicsi",
       "temak": [
-        "zoldseg",
-        "konyha"
-      ]
+        "talalos",
+        "gondolkodas",
+        "zoldsegek"
+      ],
+      "szoveg": "Kerek, mint az alma,\nráncos, mint a szoknya.\n\n(Megfejtés: hagyma)"
     },
     {
       "tipus": "talalos_kerdes",
       "cim": "Találós — Dió",
       "szerzo": null,
-      "forras": "nephagyomany",
+      "forras": "kvizkerdesek.hu + „Találós kérdések az óvodában” (real.mtak.hu)",
       "korcsoport": "kozepso",
       "temak": [
-        "gyumolcs",
-        "termeszet"
-      ]
+        "talalos",
+        "gondolkodas",
+        "osz"
+      ],
+      "szoveg": "Se ajtaja, se ablaka,\nmégis négyen laknak benne.\n\n(Megfejtés: dió)"
     },
     {
       "tipus": "talalos_kerdes",
       "cim": "Találós — Hó",
       "szerzo": null,
-      "forras": "nephagyomany",
+      "forras": "boldogsag.net + kvizkerdesek.hu",
       "korcsoport": "kicsi",
       "temak": [
-        "tel",
-        "termeszet",
-        "idojaras"
-      ]
+        "talalos",
+        "gondolkodas",
+        "tel"
+      ],
+      "szoveg": "Fehér pokróc egész földön,\nnem is szövik, az égből jön.\n\n(Megfejtés: hó)"
     },
     {
       "tipus": "talalos_kerdes",
       "cim": "Találós — Nap",
       "szerzo": null,
-      "forras": "nephagyomany",
+      "forras": "Balassa–Ortutay: Magyar néprajz (mek.oszk.hu)",
       "korcsoport": "kicsi",
       "temak": [
-        "eg",
+        "talalos",
+        "gondolkodas",
         "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Csillag",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "eg",
-        "ej",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Eső",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "idojaras",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Macska",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "allatok",
-        "haz"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Méh",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kozepso",
-      "temak": [
-        "allatok",
-        "rovar"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Pók",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kozepso",
-      "temak": [
-        "allatok",
-        "rovar"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Ló",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "allatok",
-        "haziallatok"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Tehén",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "allatok",
-        "haziallatok"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Fa",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "termeszet",
-        "novenyek"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Alma",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "gyumolcs",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Kukorica",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kozepso",
-      "temak": [
-        "novenyek",
-        "etel"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Cseresznye",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "gyumolcs",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Csiga",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "allatok",
-        "termeszet"
-      ]
+      ],
+      "szoveg": "Hegyen által aranygombot hajigálnak.\n\n(Megfejtés: a nap)"
     },
     {
       "tipus": "talalos_kerdes",
       "cim": "Találós — Béka",
       "szerzo": null,
-      "forras": "nephagyomany",
+      "forras": "boldogsag.net (Magyar népi találós kérdések)",
       "korcsoport": "kicsi",
-      "temak": [
-        "allatok",
-        "termeszet"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Gomba",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "termeszet",
-        "erdo"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Kulcs",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "targy",
-        "haz"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Cipő",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kicsi",
-      "temak": [
-        "targy",
-        "ruhazat"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Esernyő",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kozepso",
-      "temak": [
-        "targy",
-        "idojaras"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Gyertya",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kozepso",
-      "temak": [
-        "targy",
-        "fenyforras"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Tű",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "kozepso",
-      "temak": [
-        "targy",
-        "munka"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Harkály",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "vegyes",
-      "temak": [
-        "allatok",
-        "talaloskeres",
-        "harkaly"
-      ]
-    },
-    {
-      "tipus": "talalos_kerdes",
-      "cim": "Találós — Kecske",
-      "szerzo": null,
-      "forras": "nephagyomany",
-      "korcsoport": "nagy",
       "temak": [
         "talalos",
         "gondolkodas",
         "allatok"
-      ]
+      ],
+      "szoveg": "Vízben élek, brekegek,\nismertek-e, gyerekek?\nSzúnyoglábon élek,\na gólyától félek.\n\n(Megfejtés: béka)"
     },
     {
       "tipus": "nepmese",
@@ -10140,6 +9811,126 @@
         "balazs_nap_iskola"
       ],
       "szerzo": "Gyárfás Endre"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Írás",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "iras"
+      ],
+      "forras": "mimicsoda.hu + népi találós gyűjtések",
+      "szoveg": "Fehér mezőn fekete vetés,\nhárman dolgoznak rajta,\nkettő pedig henyél.\n\n(Megfejtés: írás)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Patak",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "viz"
+      ],
+      "forras": "Balassa–Ortutay: Magyar néprajz + Tölgyessy Zs. (Parlando, 2017)",
+      "szoveg": "Ágadzik-bogadzik,\nmégsem leveledzik.\n\n(Megfejtés: patak)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Fésű",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "testapolas"
+      ],
+      "forras": "boldogsag.net (Magyar népi találós kérdések) + okosjatek.hu",
+      "szoveg": "Foga van, mégsem eszik.\n\n(Megfejtés: fésű)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Pipacs",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "viragok"
+      ],
+      "forras": "boldogsag.net (Magyar népi találós kérdések)",
+      "szoveg": "Nyári réten virulok én a búzatáblában,\nszellő ringat, hajladozom piros szoknyácskámban.\n\n(Megfejtés: pipacs)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Répa",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "zoldsegek"
+      ],
+      "forras": "boldogsag.net (Magyar népi találós kérdések)",
+      "szoveg": "Kis koromban nyersen esznek,\nízét adom a levesnek.\nBarátom a petrezselyem,\negy csomóba kötik velem.\n\n(Megfejtés: répa)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Felhő",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "idojaras"
+      ],
+      "forras": "boldogsag.net + kvizkerdesek.hu",
+      "szoveg": "Se oldala, se feneke,\nmégis megáll a víz benne.\n\n(Megfejtés: felhő)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Kanál",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "targyak"
+      ],
+      "forras": "boldogsag.net (Magyar népi találós kérdések)",
+      "szoveg": "Szádba teszed, mégsem eszed.\n\n(Megfejtés: kanál)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Szög",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "targyak"
+      ],
+      "forras": "boldogsag.net (Magyar népi találós kérdések)",
+      "szoveg": "Akárhová vitték, mindig fejbe verték.\n\n(Megfejtés: szög)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Gödör",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas"
+      ],
+      "forras": "Tölgyessy Zs. (Parlando, 2017) + kvizlabirintus.hu",
+      "szoveg": "Ha tesznek hozzá, kisebb,\nha elvesznek belőle, nagyobb.\n\n(Megfejtés: gödör)"
+    },
+    {
+      "tipus": "talalos_kerdes",
+      "cim": "Találós — Csibe",
+      "korcsoport": "vegyes",
+      "temak": [
+        "talalos",
+        "gondolkodas",
+        "allatok",
+        "husvet"
+      ],
+      "forras": "csaladinet.hu + kisdelfinek gyűjtés",
+      "szoveg": "Kicsi fehér házikó,\nbenne sárga kiscsikó.\nSzéttörött a házikó,\nkiugrott a kiscsikó.\n\n(Megfejtés: csibe)"
     }
   ]
 }

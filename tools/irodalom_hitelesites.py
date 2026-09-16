@@ -506,6 +506,143 @@ VALTOZATLAN_IGAZOLT = [
 # Ezeknél a tárolt „szöveg" valójában tartalmi összefoglaló, nem a mű szövege.
 OSSZEFOGLALO = ["A kis kakas gyémánt félkrajcárja"]
 
+# Hiteles népi találós kérdések, forrásmegjelöléssel.
+#
+# MIÉRT CSERE: az irodalomtárban 36 találós kérdés állt „néphagyomány" jelöléssel,
+# de egyik sem népi gyűjtésből való — a programhoz írták őket, és több értelmetlen
+# is volt közöttük („Aki bántja, sírva házik", „Két szeme van, mégse lát" egy
+# falevélre). Helyettük dokumentált, gyűjteményekben szereplő népi találósok
+# jönnek. A `forras` mezőben ott van, hol ellenőriztük őket.
+UJ_TALALOS: list[dict] = [
+    {
+        "cim": "Találós — Hagyma",
+        "szoveg": "Kerek, mint az alma,\nráncos, mint a szoknya.\n\n(Megfejtés: hagyma)",
+        "forras": "Balassa–Ortutay: Magyar néprajz (mek.oszk.hu)",
+        "temak": ["talalos", "gondolkodas", "zoldsegek"],
+    },
+    {
+        "cim": "Találós — Dió",
+        "szoveg": "Se ajtaja, se ablaka,\nmégis négyen laknak benne.\n\n(Megfejtés: dió)",
+        "forras": "kvizkerdesek.hu + „Találós kérdések az óvodában” (real.mtak.hu)",
+        "temak": ["talalos", "gondolkodas", "osz"],
+    },
+    {
+        "cim": "Találós — Írás",
+        "szoveg": (
+            "Fehér mezőn fekete vetés,\n"
+            "hárman dolgoznak rajta,\n"
+            "kettő pedig henyél.\n\n"
+            "(Megfejtés: írás)"
+        ),
+        "forras": "mimicsoda.hu + népi találós gyűjtések",
+        "temak": ["talalos", "gondolkodas", "iras"],
+    },
+    {
+        "cim": "Találós — Patak",
+        "szoveg": "Ágadzik-bogadzik,\nmégsem leveledzik.\n\n(Megfejtés: patak)",
+        "forras": "Balassa–Ortutay: Magyar néprajz + Tölgyessy Zs. (Parlando, 2017)",
+        "temak": ["talalos", "gondolkodas", "viz"],
+    },
+    {
+        "cim": "Találós — Nap",
+        "szoveg": "Hegyen által aranygombot hajigálnak.\n\n(Megfejtés: a nap)",
+        "forras": "Balassa–Ortutay: Magyar néprajz (mek.oszk.hu)",
+        "temak": ["talalos", "gondolkodas", "termeszet"],
+    },
+    {
+        "cim": "Találós — Fésű",
+        "szoveg": "Foga van, mégsem eszik.\n\n(Megfejtés: fésű)",
+        "forras": "boldogsag.net (Magyar népi találós kérdések) + okosjatek.hu",
+        "temak": ["talalos", "gondolkodas", "testapolas"],
+    },
+    {
+        "cim": "Találós — Béka",
+        "szoveg": (
+            "Vízben élek, brekegek,\n"
+            "ismertek-e, gyerekek?\n"
+            "Szúnyoglábon élek,\n"
+            "a gólyától félek.\n\n"
+            "(Megfejtés: béka)"
+        ),
+        "forras": "boldogsag.net (Magyar népi találós kérdések)",
+        "temak": ["talalos", "gondolkodas", "allatok"],
+    },
+    {
+        "cim": "Találós — Pipacs",
+        "szoveg": (
+            "Nyári réten virulok én a búzatáblában,\n"
+            "szellő ringat, hajladozom piros szoknyácskámban.\n\n"
+            "(Megfejtés: pipacs)"
+        ),
+        "forras": "boldogsag.net (Magyar népi találós kérdések)",
+        "temak": ["talalos", "gondolkodas", "viragok"],
+    },
+    {
+        "cim": "Találós — Répa",
+        "szoveg": (
+            "Kis koromban nyersen esznek,\n"
+            "ízét adom a levesnek.\n"
+            "Barátom a petrezselyem,\n"
+            "egy csomóba kötik velem.\n\n"
+            "(Megfejtés: répa)"
+        ),
+        "forras": "boldogsag.net (Magyar népi találós kérdések)",
+        "temak": ["talalos", "gondolkodas", "zoldsegek"],
+    },
+    {
+        "cim": "Találós — Hó",
+        "szoveg": "Fehér pokróc egész földön,\nnem is szövik, az égből jön.\n\n(Megfejtés: hó)",
+        "forras": "boldogsag.net + kvizkerdesek.hu",
+        "temak": ["talalos", "gondolkodas", "tel"],
+    },
+    {
+        "cim": "Találós — Felhő",
+        "szoveg": "Se oldala, se feneke,\nmégis megáll a víz benne.\n\n(Megfejtés: felhő)",
+        "forras": "boldogsag.net + kvizkerdesek.hu",
+        "temak": ["talalos", "gondolkodas", "idojaras"],
+    },
+    {
+        "cim": "Találós — Kanál",
+        "szoveg": "Szádba teszed, mégsem eszed.\n\n(Megfejtés: kanál)",
+        "forras": "boldogsag.net (Magyar népi találós kérdések)",
+        "temak": ["talalos", "gondolkodas", "targyak"],
+    },
+    {
+        "cim": "Találós — Szög",
+        "szoveg": "Akárhová vitték, mindig fejbe verték.\n\n(Megfejtés: szög)",
+        "forras": "boldogsag.net (Magyar népi találós kérdések)",
+        "temak": ["talalos", "gondolkodas", "targyak"],
+    },
+    {
+        "cim": "Találós — Gödör",
+        "szoveg": (
+            "Ha tesznek hozzá, kisebb,\n"
+            "ha elvesznek belőle, nagyobb.\n\n"
+            "(Megfejtés: gödör)"
+        ),
+        "forras": "Tölgyessy Zs. (Parlando, 2017) + kvizlabirintus.hu",
+        "temak": ["talalos", "gondolkodas"],
+    },
+    {
+        "cim": "Találós — Csibe",
+        "szoveg": (
+            "Kicsi fehér házikó,\n"
+            "benne sárga kiscsikó.\n"
+            "Széttörött a házikó,\n"
+            "kiugrott a kiscsikó.\n\n"
+            "(Megfejtés: csibe)"
+        ),
+        "forras": "csaladinet.hu + kisdelfinek gyűjtés",
+        "temak": ["talalos", "gondolkodas", "allatok", "husvet"],
+    },
+    {
+        "cim": "Találós — Óra",
+        "szoveg": "Ha járok is, ha nem is,\nmégis egy helyben maradok.\n\n(Megfejtés: óra)",
+        "forras": "Tölgyessy Zs. (Parlando, 2017)",
+        "temak": ["talalos", "gondolkodas", "targyak"],
+    },
+]
+
 # Ahová az ELLENŐRIZETLEN szövegek kerülnek. Nem dobjuk el őket: egyenként
 # ellenőrizhetők és visszatehetők, de amíg nincsenek igazolva, a program nem
 # mutathatja őket. A mintavétel szerint nagyjából minden második költött volt.
@@ -575,8 +712,49 @@ def main() -> int:
         megmarad.append(t)
     print(f"  törölve: {torolt}\n")
 
+    print("=== 3/b. Találós kérdések: hiteles népi anyagra cserélve ===")
+    uj_cimek = {t["cim"] for t in UJ_TALALOS}
+    kidobando = {
+        (t.get("tipus"), t.get("cim"))
+        for t in megmarad
+        if t.get("tipus") == "talalos_kerdes" and t.get("cim") not in uj_cimek
+    }
+    if kidobando:
+        megmarad = [t for t in megmarad if (t.get("tipus"), t.get("cim")) not in kidobando]
+        print(f"  {len(kidobando)} korábbi, nem népi találós kikerült")
+    # Néhány új találós címe megegyezik egy régiével (pl. „Találós — Hagyma”).
+    # Azt nem újra felvesszük, hanem a meglévő tételt töltjük fel hiteles
+    # szöveggel és forrással — így nem keletkezik duplikátum.
+    cim_szerint = {t.get("cim"): t for t in megmarad}
+    uj_db = frissitett = 0
+    for uj in UJ_TALALOS:
+        meglevo = cim_szerint.get(uj["cim"])
+        if meglevo is not None:
+            meglevo["tipus"] = "talalos_kerdes"
+            meglevo["szoveg"] = uj["szoveg"]
+            meglevo["forras"] = uj["forras"]
+            meglevo["temak"] = uj["temak"]
+            frissitett += 1
+            continue
+        megmarad.append(
+            {
+                "tipus": "talalos_kerdes",
+                "cim": uj["cim"],
+                "korcsoport": "vegyes",
+                "temak": uj["temak"],
+                "forras": uj["forras"],
+                "szoveg": uj["szoveg"],
+            }
+        )
+        uj_db += 1
+    if uj_db or frissitett:
+        print(f"  {uj_db} új tétel · {frissitett} meglévő feltöltve hiteles szöveggel")
+    if not kidobando and not uj_db:
+        print("  már a hiteles anyag van bent")
+    print()
+
     print("=== 4. Ellenőrizetlen szövegek félretétele ===")
-    igazolt_cimek = set(IGAZOLT) | set(VALTOZATLAN_IGAZOLT)
+    igazolt_cimek = set(IGAZOLT) | set(VALTOZATLAN_IGAZOLT) | uj_cimek
     felretett: list[dict] = []
     for t in megmarad:
         if not (t.get("szoveg") or "").strip():
@@ -620,7 +798,13 @@ def main() -> int:
     # az IGAZOLT/VALTOZATLAN_IGAZOLT közé), az kikerül a listáról.
     if not felretett and ELLENORZENDO_UT.exists():
         regi = json.loads(ELLENORZENDO_UT.read_text(encoding="utf-8"))
-        maradek = [t for t in regi["tetelek"] if t.get("cim") not in igazolt_cimek]
+        # A korábbi találós kérdések szövegére nincs szükség: nem népi gyűjtésből
+        # valók, és hiteles anyag lépett a helyükre.
+        maradek = [
+            t
+            for t in regi["tetelek"]
+            if t.get("cim") not in igazolt_cimek and t.get("tipus") != "talalos_kerdes"
+        ]
         if len(maradek) != len(regi["tetelek"]):
             print(f"  a listáról lekerült {len(regi['tetelek']) - len(maradek)} időközben igazolt tétel")
             print(f"  ellenőrzendő maradt: {len(maradek)}")
@@ -631,7 +815,7 @@ def main() -> int:
                 )
     print()
 
-    if javitva == 0 and kivett == 0 and torolt == 0 and not felretett:
+    if javitva == 0 and kivett == 0 and torolt == 0 and not felretett and not kidobando and not uj_db:
         print("  Nincs tennivaló — az irodalomtár már a hitelesített állapotban van.")
         return 0
 

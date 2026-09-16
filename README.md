@@ -3,7 +3,7 @@
 > Lokális desktop alkalmazás óvodapedagógusoknak — heti tervek, projektek, reflexiók.
 > Magyar UI, ONAP-megfelelőség, KRÉTA-kompatibilis DOCX-export, **zéro cloud**.
 
-[![Verzió](https://img.shields.io/badge/verzi%C3%B3-2.11.16-FDD0DC)](./CHANGELOG.md)
+[![Verzió](https://img.shields.io/badge/verzi%C3%B3-2.11.17-FDD0DC)](./CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](#telep%C3%ADt%C3%A9s)
 [![Lokál](https://img.shields.io/badge/cloud-NINCS-success)](#adatv%C3%A9delem)
 
@@ -11,7 +11,7 @@
 
 - **114 heti sablon** (65 téma, V1+V2 változatok) — 39 magyar jeles nap + szezonális témák
 - **15 213 tevékenység-ötlet** korcsoport szerint szűrve (kicsi / középső / nagy / vegyes)
-- **1 005 valós irodalmi mű** — kiegészítés gépelés közben a területek tartalmában
+- **985 valós irodalmi mű** — kiegészítés gépelés közben a területek tartalmában
 - **Heti terv-szerkesztő** 7 ONAP-területtel + iskola-előkészítő szekciókkal
 - **Foglalkozás-tervezet** 19 mezővel — KRÉTA-DOCX export
 - **Projektterv** 5 szekciós űrlap — KRÉTA-DOCX export
@@ -68,7 +68,7 @@ ovodanaplo/
 
 ## Verzió
 
-**2.11.16** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
+**2.11.17** — lásd [CHANGELOG.md](./CHANGELOG.md) a részletekért.
 
 ## Adatvédelem
 
@@ -87,7 +87,7 @@ UNLICENSED — privát használat. A repo Morzan1991 GitHub-fiókján privát.
 
 - Az óvodapedagógus-tanácsadó (a felesége, Mazsola csoport) — minden szakmai követelmény
 - ONAP (Óvodai Nevelés Országos Alapprogramja) — pedagógiai struktúra
-- Magyar irodalom (Móra, Weöres, Csukás, József Attila, Marék Veronika, Bartos Erika, Lázár Ervin, Berg Judit) — 1 005 mű
+- Magyar irodalom (Móra, Weöres, Csukás, József Attila, Marék Veronika, Bartos Erika, Lázár Ervin, Berg Judit) — 985 mű
 - Anthropic Claude Opus 4.7 — fejlesztési párprogramozás
 
 ---

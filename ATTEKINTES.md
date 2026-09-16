@@ -114,7 +114,7 @@ fehérlistán mennek át, a navigáció le van tiltva.
 ## 5. A tartalom GENERÁLT — ez a legfontosabb tudnivaló
 
 A `seed/` mappa 34 800 sornyi JSON-t tartalmaz: heti terv sablonokat, egy
-1 005 tételes irodalomtárat és négy korcsoportos ötletbankot 15 213 javaslattal.
+985 tételes irodalomtárat és négy korcsoportos ötletbankot 15 213 javaslattal.
 
 **Ezt a mappát nem szabad kézzel szerkeszteni.** A `tools/` alatti Python-szkriptek
 állítják elő, és az újragenerálás felülírná a kézi módosítást.
@@ -146,10 +146,10 @@ szöveggel, és elbuknak, ha 45 karakternél hosszabb egyezés kerül vissza. A
 küszöb azért 45, mert az ennél rövidebb egyezések szakkifejezések
 („számfogalom alakítása"), azok nem állnak védelem alatt.
 
-Az irodalomtárban teljes szöveggel **61 tétel** szerepel: tíz klasszikus
-(Petőfi, Arany, Móra, József Attila) és 51 népi gyűjtés. Mindegyik közkincs, és
-mindegyiket forrásból ellenőriztük, a legtöbbet kettőből — a forrás ott van a
-`tools/irodalom_hitelesites.py` táblájában, tételenként.
+Az irodalomtárban teljes szöveggel **77 tétel** szerepel: tíz klasszikus
+(Petőfi, Arany, Móra, József Attila), 51 népi gyűjtés és 16 népi találós kérdés.
+Mindegyik közkincs, és mindegyiket forrásból ellenőriztük, a legtöbbet kettőből —
+a forrás ott van a `tools/irodalom_hitelesites.py` táblájában, tételenként.
 
 Ez korábban 114 volt, és **a felük hibás**. Az átvizsgálás kiderítette, hogy a
 szövegek jó része nem forrásból származott, hanem költött volt: a mű első sora (a
@@ -158,11 +158,16 @@ kikel a kis virágom napsugárral"). Aki ehhez a tartalomhoz nyúl, ezt tartsa s
 előtt: **a seed szövegei csak akkor hitelesek, ha a hitelesítő tábla is ismeri
 őket.**
 
+A **találós kérdések** korábban 36 tétellel szerepeltek „néphagyomány" jelöléssel,
+holott egyiket sem népi gyűjtésből vették — a programhoz írták őket, és több
+értelmetlen is volt közöttük. Helyükre 16 dokumentált népi találós került
+(Balassa–Ortutay: Magyar néprajz, Tölgyessy Zsuzsanna tanulmánya, népi
+találós-gyűjtemények), a forrás tételenként fel van tüntetve.
+
 Amit nem sikerült igazolni, az a `tools/irodalom_ellenorzendo.json` fájlban vár:
-49 tétel, ebből 36 találós kérdés (ezek nem népi gyűjtésből valók, hanem a
-programhoz írták őket) és 13 olyan mondóka/dal, amelynek a szövegváltozatát
-egyetlen forrás sem hozza. Nem vesztek el, de amíg nincsenek igazolva, a program
-nem mutatja őket. A többi 944 tételnél eleve csak a cím és a szerző van tárolva.
+13 olyan mondóka és dal, amelynek ezt a szövegváltozatát egyetlen forrás sem
+hozza. Nem vesztek el, de amíg nincsenek igazolva, a program nem mutatja őket. A
+többi 908 tételnél eleve csak a cím és a szerző van tárolva.
 
 ---
 

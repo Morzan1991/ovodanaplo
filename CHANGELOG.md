@@ -1,5 +1,38 @@
 # Verziótörténet
 
+## v2.11.17 — 2026-09-16 — hiteles népi találós kérdések
+
+Az irodalomtárban 36 találós kérdés szerepelt **„néphagyomány" jelöléssel**,
+holott egyiket sem népi gyűjtésből vették: a programhoz írták őket. Több
+értelmetlen is volt közöttük — „Hét bőre van, mégse fázik, / aki bántja, sírva
+**házik**" (nincs ilyen magyar szó), vagy „Két szeme van, mégse lát" **egy
+falevélre**.
+
+Helyükre **16 dokumentált népi találós** került, mindegyikhez forrásmegjelöléssel:
+
+| megfejtés | forrás |
+|---|---|
+| hagyma, nap, patak | Balassa–Ortutay: Magyar néprajz (mek.oszk.hu) |
+| gödör, óra | Tölgyessy Zsuzsanna: A találós kérdés (Parlando, 2017) |
+| béka, pipacs, répa, hó, felhő, fésű, kanál, szög | boldogsag.net — Magyar népi találós kérdések |
+| dió, írás, csibe | kvizkerdesek.hu, mimicsoda.hu, csaladinet.hu |
+
+Néhány közülük:
+
+- „Ágadzik-bogadzik, mégsem leveledzik." — *patak*
+- „Se ajtaja, se ablaka, mégis négyen laknak benne." — *dió*
+- „Se oldala, se feneke, mégis megáll a víz benne." — *felhő*
+- „Fehér pokróc egész földön, nem is szövik, az égből jön." — *hó*
+- „Kicsi fehér házikó, benne sárga kiscsikó. Széttörött a házikó, kiugrott a
+  kiscsikó." — *csibe*
+
+A forrás a tétel `forras` mezőjében is ott van, tehát a programban, az Irodalom
+menüben is látszik, honnan való.
+
+Irodalomtár: 1005 → 985 tétel, teljes szöveggel 61 → **77**. Az ellenőrzendő
+lista 49-ről 13-ra fogyott: csak olyan mondókák és dalok maradtak rajta,
+amelyeknek ezt a szövegváltozatát egyetlen forrás sem hozza.
+
 ## v2.11.16 — 2026-09-16 — 43 további szöveg hitelesítve
 
 Az előző kiadásban 92 ellenőrizetlen szöveg került ki a programból. Ezeket
