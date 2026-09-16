@@ -146,17 +146,23 @@ szöveggel, és elbuknak, ha 45 karakternél hosszabb egyezés kerül vissza. A
 küszöb azért 45, mert az ennél rövidebb egyezések szakkifejezések
 („számfogalom alakítása"), azok nem állnak védelem alatt.
 
-Az irodalomtárban teljes szöveggel **18 tétel** szerepel: tíz klasszikus
-(Petőfi, Arany, Móra, József Attila) és nyolc népi gyűjtés. Mindegyik közkincs,
-és mindegyiket két-két független forrásból ellenőriztük — a forrás ott van a
+Az irodalomtárban teljes szöveggel **61 tétel** szerepel: tíz klasszikus
+(Petőfi, Arany, Móra, József Attila) és 51 népi gyűjtés. Mindegyik közkincs, és
+mindegyiket forrásból ellenőriztük, a legtöbbet kettőből — a forrás ott van a
 `tools/irodalom_hitelesites.py` táblájában, tételenként.
 
-Ez korábban 114 volt. Az átvizsgálás kiderítette, hogy a szövegek jó része nem
-forrásból származott, hanem költött volt: a mű első sora (a cím) stimmelt, a
-folytatás viszont kitalált. A 92 ellenőrizetlen szöveg átkerült a
-`tools/irodalom_ellenorzendo.json` fájlba — nem veszett el, de amíg nincs
-forrásból igazolva, a program nem mutatja. A többi 987 tételnél eleve csak a cím
-és a szerző van tárolva.
+Ez korábban 114 volt, és **a felük hibás**. Az átvizsgálás kiderítette, hogy a
+szövegek jó része nem forrásból származott, hanem költött volt: a mű első sora (a
+cím) stimmelt, a folytatás viszont kitalált („Beültettem kis kertemet" → „Majd
+kikel a kis virágom napsugárral"). Aki ehhez a tartalomhoz nyúl, ezt tartsa szem
+előtt: **a seed szövegei csak akkor hitelesek, ha a hitelesítő tábla is ismeri
+őket.**
+
+Amit nem sikerült igazolni, az a `tools/irodalom_ellenorzendo.json` fájlban vár:
+49 tétel, ebből 36 találós kérdés (ezek nem népi gyűjtésből valók, hanem a
+programhoz írták őket) és 13 olyan mondóka/dal, amelynek a szövegváltozatát
+egyetlen forrás sem hozza. Nem vesztek el, de amíg nincsenek igazolva, a program
+nem mutatja őket. A többi 944 tételnél eleve csak a cím és a szerző van tárolva.
 
 ---
 

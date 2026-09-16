@@ -402,7 +402,8 @@
       "temak": [
         "tavasz",
         "viz"
-      ]
+      ],
+      "szoveg": "Tavaszi szél vizet áraszt,\nvirágom, virágom.\nMinden madár társat választ,\nvirágom, virágom."
     },
     {
       "tipus": "dal",
@@ -458,7 +459,8 @@
       "temak": [
         "koreplay",
         "boszorka"
-      ]
+      ],
+      "szoveg": "Egy boszorka van,\nhárom fia van.\nIskolába jár az egy,\nmásik bocskort varrni megy,\na harmadik kinn a padon\na dudáját fújja nagyon,\nde szép hangja van."
     },
     {
       "tipus": "dal",
@@ -627,7 +629,8 @@
         "idojaras",
         "nap",
         "tavasz"
-      ]
+      ],
+      "szoveg": "Süss fel nap,\nfényes nap!\nKertek alatt a ludaim megfagynak."
     },
     {
       "tipus": "vers",
@@ -846,7 +849,8 @@
         "allatok",
         "viz",
         "koreplay"
-      ]
+      ],
+      "szoveg": "Kis kacsa fürdik fekete tóba',\nanyjához készül Lengyelországba.\nSíkos a talpa, magos a sarka,\nfordulj ki, fordulj ki, aranyos Mariska."
     },
     {
       "tipus": "vers",
@@ -902,7 +906,8 @@
         "allatok",
         "csiga",
         "eso"
-      ]
+      ],
+      "szoveg": "Csigabiga, gyere ki,\nég a házad ideki.\nKapsz tejet, vajat,\nholnapra is marad."
     },
     {
       "tipus": "mondoka",
@@ -913,7 +918,8 @@
       "temak": [
         "szamlalas",
         "matematika"
-      ]
+      ],
+      "szoveg": "Egy, kettő, három, négy,\nte kis cipő, hová mégy?\nKip-kop kopogok,\nóvodába indulok."
     },
     {
       "tipus": "mondoka",
@@ -924,7 +930,8 @@
       "temak": [
         "idojaras",
         "eso"
-      ]
+      ],
+      "szoveg": "Ess, eső, ess,\nholnap délig ess,\nzab szaporodjék,\nbúza bokrosodjék,\naz én hajam olyan legyen, mint a csikó farka,\nmég annál is hosszabb, mint a Duna hossza."
     },
     {
       "tipus": "mondoka",
@@ -936,7 +943,8 @@
         "erdo",
         "haz",
         "allatok"
-      ]
+      ],
+      "szoveg": "Erdő szélén házikó,\nablakában nagyanyó.\nLám egy nyuszi ott robog,\naz ablakán bekopog.\nKérlek segíts énrajtam,\na vadász a nyomomban.\nGyere nyuszi sose félj,\nmegleszünk mi kettecskén."
     },
     {
       "tipus": "mondoka",
@@ -947,7 +955,8 @@
       "temak": [
         "jatek",
         "koreplay"
-      ]
+      ],
+      "szoveg": "Sétálunk, sétálunk,\negy kis dombra lecsücsülünk,\ncsüccs!"
     },
     {
       "tipus": "mondoka",
@@ -960,7 +969,8 @@
         "gólya",
         "madarak",
         "tavasz"
-      ]
+      ],
+      "szoveg": "Gólya, gólya, gilice,\nmitől véres a lábad?\nTörök gyerek megvágta,\nmagyar gyerek gyógyítja,\nsíppal, dobbal, nádi hegedűvel."
     },
     {
       "tipus": "mondoka",
@@ -972,7 +982,8 @@
         "allatok",
         "katica",
         "rovarok"
-      ]
+      ],
+      "szoveg": "Katalinka, szállj el!\nJönnek a törökök,\nsós kútba tesznek,\nonnan is kivesznek,\nkerék alá tesznek,\nonnan is kivesznek."
     },
     {
       "tipus": "mondoka",
@@ -983,7 +994,8 @@
       "temak": [
         "ujjak",
         "finommotorika"
-      ]
+      ],
+      "szoveg": "Hüvelykujjam almafa,\nmutatóujjam megrázta,\nközépső ujjam felszedte,\ngyűrűsujjam hazavitte,\na kisujjam mind megette,\nmegfájdult a hasa tőle!"
     },
     {
       "tipus": "mondoka",
@@ -994,7 +1006,8 @@
       "temak": [
         "jatek",
         "buvocska"
-      ]
+      ],
+      "szoveg": "Erre csörög a dió,\narra meg a mogyoró!\nErre csörög, erre,\nerre gyere, erre!"
     },
     {
       "tipus": "vers",
@@ -1057,7 +1070,8 @@
       "temak": [
         "altato",
         "baba"
-      ]
+      ],
+      "szoveg": "Tente, baba, tente,\nitt van már az este.\nKöszöngetnek szépen\ncsillagok az égen."
     },
     {
       "tipus": "mondoka",
@@ -1104,7 +1118,8 @@
       "temak": [
         "erdo",
         "termeszet"
-      ]
+      ],
+      "szoveg": "Erdő mellett nem jó lakni,\nmert sok fát kell hasogatni.\nTizenhárom ölet meg egy felet,\nforgasson meg engem, aki szeret."
     },
     {
       "tipus": "dal",
@@ -1116,7 +1131,8 @@
         "jatek",
         "koreplay",
         "gyertya"
-      ]
+      ],
+      "szoveg": "Ég a gyertya, ég,\nel ne aludjék!\nAki lángot akar látni,\nmind leguggoljék!"
     },
     {
       "tipus": "mese",
@@ -1209,7 +1225,8 @@
       "temak": [
         "baba",
         "jatek"
-      ]
+      ],
+      "szoveg": "Áll a baba, áll,\nmint a gyertyaszál,\nesztendőre vagy kettőre\nnagylány leszel már."
     },
     {
       "tipus": "nepmonda",
@@ -1255,7 +1272,8 @@
       "temak": [
         "koreplay",
         "tanc"
-      ]
+      ],
+      "szoveg": "Lánc, lánc, eszterlánc,\neszterlánci cérna.\nCérna volna, selyem volna,\nmégis kifordulna."
     },
     {
       "tipus": "koreplay",
@@ -1278,7 +1296,8 @@
         "koreplay",
         "punkosd",
         "tavasz"
-      ]
+      ],
+      "szoveg": "Gyertek, lányok, ligetre, ligetre,\nitt a világ közepe, közepe.\nItt árulják a rózsát, a rózsát,\nabból kötnek bokrétát, bokrétát."
     },
     {
       "tipus": "dal",
@@ -1388,7 +1407,8 @@
         "allatok",
         "haziallatok",
         "tehen"
-      ]
+      ],
+      "szoveg": "Boci, boci tarka,\nse füle, se farka,\noda megyünk lakni,\nahol tejet kapni."
     },
     {
       "tipus": "koreplay",
@@ -1400,7 +1420,8 @@
         "tavasz",
         "koreplay",
         "kapus_jatek"
-      ]
+      ],
+      "szoveg": "Bújj, bújj, zöld ág,\nzöld levelecske.\nNyitva van az aranykapu,\ncsak bújjatok rajta.\nRajta, rajta, leszakadt a pajta,\nbent maradt a macska."
     },
     {
       "tipus": "mondoka",
@@ -1412,7 +1433,8 @@
         "hintazas",
         "jatek",
         "mozgas"
-      ]
+      ],
+      "szoveg": "Hinta, palinta,\nrégi dunna, kiskatona,\nugorj a Dunába!"
     },
     {
       "tipus": "dal",
@@ -1449,7 +1471,8 @@
       "temak": [
         "kiszamolo",
         "jatek"
-      ]
+      ],
+      "szoveg": "Egyedem-begyedem, tengertánc,\nhajdú sógor, mit kívánsz?\nNem kívánok egyebet,\ncsak egy darab kenyeret!"
     },
     {
       "tipus": "mondoka",
@@ -1460,7 +1483,8 @@
       "temak": [
         "kiszamolo",
         "jatek"
-      ]
+      ],
+      "szoveg": "Ecc, pecc, kimehetsz,\nholnapután bejöhetsz,\ncérnára, cinegére,\nugorj cica az egérre, fuss!"
     },
     {
       "tipus": "mondoka",
@@ -1472,7 +1496,8 @@
         "szamolo",
         "gyumolcs",
         "szam"
-      ]
+      ],
+      "szoveg": "Egy, megérett a meggy,\nkettő, csipkebokor vessző,\nhárom, majd hazavárom,\nnégy, biz' oda nem mégy,\nöt, leesett a köd,\nhat, hasad a pad,\nhét, dörög az ég,\nnyolc, üres a polc,\nkilenc, kis Ferenc,\ntíz, tiszta víz,\nha nem tiszta, vidd vissza,\nott a szamár, megissza!"
     },
     {
       "tipus": "koreplay",
@@ -1484,7 +1509,8 @@
         "koreplay",
         "fogo",
         "mozgas"
-      ]
+      ],
+      "szoveg": "Tüzet viszek, lángot viszek,\nne lássátok, ha látjátok,\nne mondjátok, ég a rokolyátok!"
     },
     {
       "tipus": "dal",
@@ -1496,7 +1522,8 @@
         "allatok",
         "haziallatok",
         "malac"
-      ]
+      ],
+      "szoveg": "Egy kis malac, röf-röf-röf,\ntrombitálgat, töf-töf-töf,\ntrombitája víg ormánya,\nföldet túrja, döf-döf-döf."
     },
     {
       "tipus": "mondoka",
@@ -1508,7 +1535,8 @@
         "allatok",
         "madarak",
         "ujj_jatek"
-      ]
+      ],
+      "szoveg": "Csip-csip csóka,\nvak varjúcska.\nKomámasszony kéreti a szekerét,\nnem adhatom oda,\ntyúkok ülnek rajta.\nHess, hess, hess!"
     },
     {
       "tipus": "mondoka",
@@ -1520,7 +1548,8 @@
         "sutes",
         "konyha",
         "ujj_jatek"
-      ]
+      ],
+      "szoveg": "Töröm, töröm a mákot,\nsütök neked kalácsot.\nMegzsírozom, megvajazom,\nmégis-mégis neked adom."
     },
     {
       "tipus": "mondoka",
@@ -1533,7 +1562,8 @@
         "allatok",
         "lo",
         "ringato"
-      ]
+      ],
+      "szoveg": "Gyí te lovam, Besztercére,\nodaérünk vecsernyére,\ngyí, gyí, vágtában!"
     },
     {
       "tipus": "mondoka",
@@ -1545,7 +1575,8 @@
         "lovagolas",
         "katona",
         "ringato"
-      ]
+      ],
+      "szoveg": "Höc, höc, katona,\nketten ülünk egy lóra,\nhárman meg a csikóra,\nazon megyünk Gyulára,\na gyulai vásárba."
     },
     {
       "tipus": "dal",
@@ -1557,7 +1588,8 @@
         "tel",
         "ho",
         "karacsony"
-      ]
+      ],
+      "szoveg": "Hull a pelyhes fehér hó,\njöjj el kedves Télapó!\nMinden gyermek várva vár,\nvidám ének hangja száll."
     },
     {
       "tipus": "mondoka",
@@ -1570,7 +1602,8 @@
         "tavasz",
         "unnep",
         "locsolas"
-      ]
+      ],
+      "szoveg": "Zöld erdőben jártam,\nkék ibolyát láttam,\nel akart hervadni,\nszabad-e locsolni?"
     },
     {
       "tipus": "mondoka",
@@ -1606,7 +1639,8 @@
         "altato",
         "alvas",
         "csalad"
-      ]
+      ],
+      "szoveg": "Aludj, baba, aludjál!\nFeljött már a csillag,\naranyos kis bárány\nhazafelé ballag."
     },
     {
       "tipus": "altato",
@@ -1641,7 +1675,8 @@
         "koreplay",
         "viragok",
         "kortanc"
-      ]
+      ],
+      "szoveg": "Fehér liliomszál, ugorj a Dunába,\ntámaszd meg oldalad két arany pálcával,\nmeg is mosakodjál, meg is fésülködjél,\nvalakinek kötényébe meg is törülközzél."
     },
     {
       "tipus": "dal",
@@ -1665,7 +1700,8 @@
         "koreplay",
         "csoportos_jatek",
         "katona"
-      ]
+      ],
+      "szoveg": "Adj, király, katonát!\nNem adok!\nAkkor szakítok!\nSzakíts, ha bírsz!"
     },
     {
       "tipus": "dal",
@@ -1677,7 +1713,8 @@
         "allatok",
         "haziallatok",
         "vasar"
-      ]
+      ],
+      "szoveg": "Én elmentem a vásárba félpénzzel,\ntyúkot vettem a vásárban félpénzzel.\nTyúkom mondja: kit-rá-kotty,\nkárikittyom, édes tyúkom,\nmégis van egy félpénzem."
     },
     {
       "tipus": "mondoka",
@@ -1689,7 +1726,8 @@
         "mikulas",
         "tel",
         "unnep"
-      ]
+      ],
+      "szoveg": "Mikulás, Mikulás, kedves Mikulás,\ngyere már, gyere már, minden gyerek vár.\nKrumplicukor, csokoládé, jaj de jó,\nde a virgács jó gyereknek nem való."
     },
     {
       "tipus": "mondoka",
@@ -1727,7 +1765,8 @@
         "ujj_jatek",
         "csiklandozos",
         "testresz"
-      ]
+      ],
+      "szoveg": "Kerekecske, dombocska,\nitt szalad a nyulacska,\nerre megyen, itt megáll,\nitt egy körutat csinál,\nide búvik, ide be."
     },
     {
       "tipus": "dal",
@@ -1751,7 +1790,8 @@
         "erdo",
         "este",
         "termeszet"
-      ]
+      ],
+      "szoveg": "Erdő mellett estvéledtem,\nsubám fejem alá tettem.\nÖsszetettem két kezemet,\núgy kértem jó istenemet."
     },
     {
       "tipus": "dal",
@@ -1762,7 +1802,8 @@
       "temak": [
         "koreplay",
         "zsebkendos_jatek"
-      ]
+      ],
+      "szoveg": "Elvesztettem zsebkendőmet,\nszidott anyám érte.\nAnnak, aki megtalálja,\ncsókot adok érte."
     },
     {
       "tipus": "mondoka",
@@ -1809,7 +1850,8 @@
       "temak": [
         "allatok",
         "eger"
-      ]
+      ],
+      "szoveg": "Egér, egér, kisegér,\nvan-e fogad hófehér?\nAdjál nekem vasfogat,\nadok neked csontfogat!"
     },
     {
       "tipus": "koreplay",
@@ -1832,7 +1874,8 @@
         "koreplay",
         "allatok",
         "haziallatok"
-      ]
+      ],
+      "szoveg": "Erre kakas, erre tyúk,\nerre van a gyalogút,\ntaréja, haréja,\nugorj a fazékba, zsupsz!"
     },
     {
       "tipus": "talalos_kerdes",

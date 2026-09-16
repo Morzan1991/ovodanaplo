@@ -1,5 +1,47 @@
 # Verziótörténet
 
+## v2.11.16 — 2026-09-16 — 43 további szöveg hitelesítve
+
+Az előző kiadásban 92 ellenőrizetlen szöveg került ki a programból. Ezeket
+egyenként végignéztük forrásból:
+
+| | |
+|---|---|
+| visszakerült a programba | **43** |
+| ebből hibátlan volt | 18 |
+| ebből javítani kellett | **25** |
+| nem igazolható, kint marad | 13 |
+| találós kérdés, külön kérdés | 36 |
+
+**A javítottak közül néhány.** A minta ugyanaz, mint korábban: az első sor jó, a
+folytatás költött.
+
+| mű | ami a programban állt | a valódi |
+|---|---|---|
+| Csiga-biga, gyere ki | „Kap a békafiacskád, / Vízbe dobja kis fiát" | „Kapsz tejet, vajat, / holnapra is marad" |
+| Erre kakas, erre tyúk | „tipi-topi tipegnek, / szemecskéket szedegetnek" | „taréja, haréja, / ugorj a fazékba, zsupsz!" |
+| Egy kis malac | „beleesett a tóba" | „trombitálgat, töf-töf-töf" |
+| Erdő szélén házikó | „Kiscsibének jaj de jó!" | „ablakában nagyanyó" |
+| Ess, eső, ess | „Zab szemig érjen, / Kút bő vízzel teljen" | „zab szaporodjék, / búza bokrosodjék" |
+| Egy boszorka van | „Hopp ide tisztán, hopp oda tisztán" (másik mondóka) | „Iskolába jár az egy, / másik bocskort varrni megy" |
+| Kis kacsa fürdik | „Síró-síró, ríró-ríró" | „Síkos a talpa, magos a sarka" |
+| Mikulás, Mikulás | „hozz nekünk diót, mogyorót" | „gyere már, gyere már, minden gyerek vár" |
+| Áll a baba, áll | „Felnő, mint a hegy" | „esztendőre vagy kettőre / nagylány leszel már" |
+| Tente, baba, tente | „Itt a tente, ette" (értelmetlen) | „itt van már az este" |
+
+**Hibátlannak bizonyult** (nem nyúltunk hozzá): Boci-boci tarka, Bújj-bújj zöld
+ág, Hull a pelyhes fehér hó, Tavaszi szél vizet áraszt, Ég a gyertya, Erdő
+mellett estvéledtem, Lánc-lánc eszterlánc, Gólya-gólya gilice, Katalinka szállj
+el, Sétálunk-sétálunk, Hinta-palinta, Zöld erdőben jártam, Töröm-töröm a mákot.
+
+**Nem igazolható (13).** Ezeknek a szövegváltozatát egyetlen forrás sem hozza:
+Esik az eső, Süt a nap, Süt a pék, Csillag Boris, Cica-cica cifra cica, Kelj fel
+Jankó, Pók-pók hány óra (két tétel), Hímes tojás, Csija-csija bubája, Beli baba
+beli, Komámasszony hol az olló, Komámasszony hová mégy. A tételek megmaradnak,
+csak szöveg nélkül — a pedagógus beírhatja a sajátját.
+
+Irodalomtár: teljes szöveggel 18 → **61** tétel.
+
 ## v2.11.15 — 2026-09-16 — hiteles szövegek: a kitalált részletek kivezetése
 
 **Ez a kiadás egy kellemetlen hibát orvosol.** Az irodalomtár 114 műnél teljes
