@@ -16,7 +16,7 @@ A felhasználó felesége óvodapedagógus, sok dokumentációs munkát végez o
 
 ## Felhasználó (induláskor csak ő)
 - **Lisztmaier-Csánitz Adrienn**, óvodapedagógus
-- **Ajka Városi Óvoda — Patakparti Óvoda, Mazsola csoport** (vegyes, 3-7 év)
+- **Vegyes csoport** (3-7 év) — az intézmény és a csoport nevét szándékosan nem tároljuk
 - **ONAP** pedagógiai program
 - Egyetlen felhasználó az MVP-ben. Megosztás MAJD csak, ha jól működik (3. fázis, opcionális)
 

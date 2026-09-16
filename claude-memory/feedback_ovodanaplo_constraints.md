@@ -53,7 +53,7 @@ originSessionId: 1ea729df-ffec-48c4-97f6-b14a2137a56a
 - Lezáró rész: Cél, Feladat, Differenciálás, Módszerek, Képességfejlesztés, Eszközök
 
 ## 7. Az óvoda + csoport név JOGOSAN szerepelhet
-**Why**: User kérdezte 2026-05-11 — válasz: NEM személyes adat, intézmény (jogi személy) + csoport-megnevezés („Mazsola csoport") nem azonosító önmagában.
+**Why**: User kérdezte 2026-05-11 — válasz: NEM személyes adat, intézmény (jogi személy) + csoport-megnevezés nem azonosító önmagában. FRISSÍTÉS 2026-09-16: a felhasználó kérése, hogy az intézmény és a csoport neve SEHOL ne szerepeljen a projektben — a beállításokban továbbra is megadható, de a kódban, a dokumentációban és a jegyzetekben nem.
 **How to apply**:
 - A Beállítások-ban beállítható, és minden DOCX fejlécbe automatikusan megjelenik
 - A reflexió-szövegekkel KOMBINÁLVA viszont közvetett azonosítást teremthet → ez a 4. szabály témája

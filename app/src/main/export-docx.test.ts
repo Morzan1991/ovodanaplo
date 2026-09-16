@@ -37,7 +37,7 @@ function beallitas(csoportTipus: string): Beallitas {
     pedagogusNeve: 'Teszt Óvó Néni',
     ovodaNeve: 'Teszt Óvoda',
     ovodaCime: null,
-    csoportNeve: 'Süni',
+    csoportNeve: 'Katica',
     csoportTipus,
     utolsoBackup: null,
     themeAccent: 'osz',

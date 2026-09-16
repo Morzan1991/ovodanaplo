@@ -85,7 +85,7 @@ UNLICENSED — privát használat. A repo Morzan1991 GitHub-fiókján privát.
 
 ## Köszönet
 
-- Az óvodapedagógus-tanácsadó (a felesége, Mazsola csoport) — minden szakmai követelmény
+- Az óvodapedagógus-tanácsadó (a felesége) — minden szakmai követelmény
 - ONAP (Óvodai Nevelés Országos Alapprogramja) — pedagógiai struktúra
 - Magyar irodalom (Móra, Weöres, Csukás, József Attila, Marék Veronika, Bartos Erika, Lázár Ervin, Berg Judit) — 985 mű
 - Anthropic Claude Opus 4.7 — fejlesztési párprogramozás

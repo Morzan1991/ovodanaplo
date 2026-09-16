@@ -159,4 +159,4 @@ Megtakarítás:  ~25-37 perc/hét
                 15-22 óra/tanév
 ```
 
-A felhasználó (Lisztmaier-Csánitz Adrienn, Mazsola csoport) számára ez **~20 munkanap megtakarítás** évente.
+A felhasználó (az óvodapedagógus) számára ez **~20 munkanap megtakarítás** évente.

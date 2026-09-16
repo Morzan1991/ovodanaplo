@@ -270,7 +270,7 @@ cp ../../../../seed/*.json seed/
 1. **CSAK valós, óvodás-szintű irodalom** — SOSEM generálj AI-val új művet az irodalmi DB-be
 2. **NE használj felnőtt verseket** — Toldi, Nemzeti dal, Ady-Karácsony, A Tisza, walesi bárdok, Szózat, Vörösmarty/Madách/Kosztolányi/Babits/Tóth Árpád/Berzsenyi felnőtt versei
 3. **Engedett szerzők**: Petőfi (csak Anyám tyúkja, Itt van az ősz), Móra, József Attila (Altató, Mama, Tedd a kezed, Betlehemi királyok), Weöres, Csukás, Lázár Ervin, Marék Veronika, Donászy, Fésűs Éva, Gazdag Erzsi, Mentovics Éva, Nemes Nagy Ágnes (gyermekversek!), Bartos Erika, Berg Judit, Zelk Zoltán, népi mondókák/dalok/mesék
-4. **Vegyes csoport (3-7 éves)** — a felhasználó konkrét helyzete (Mazsola csoport)
+4. **Vegyes csoport (3-7 éves)** — a felhasználó konkrét helyzete
 5. **Magyar UI + magyar dokumentumok** — minden gomb, minden üzenet magyar
 6. **KRÉTA-kompatibilis DOCX** — Times New Roman 12pt, bullet pontok, fejléc nélkül
 7. **Lokális adattárolás** — semmi cloud, semmi tracking

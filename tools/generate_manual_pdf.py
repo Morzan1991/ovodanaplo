@@ -450,7 +450,7 @@ beall_tabla = szakasz_tabla([
     ["Pedagógus neve", "Az Ön teljes neve, ahogy a dokumentumokban szerepelnie kell"],
     ["Óvoda neve", "Az intézmény hivatalos neve"],
     ["Óvoda címe", "Teljes postai cím (utca, házszám, település, irányítószám)"],
-    ["Csoport neve", "A csoportja egyéni neve (pl. „Mazsola”, „Süni”, „Pillangó”)"],
+    ["Csoport neve", "A csoportja egyéni neve (pl. „Katica”, „Pillangó”, „Napsugár”)"],
     ["Csoport típusa", "Vegyes (3–7), Kicsi (3–4), Középső (4–5) vagy Nagy (5–7)"],
 ])
 story.append(beall_tabla)
