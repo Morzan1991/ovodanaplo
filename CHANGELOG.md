@@ -1,5 +1,32 @@
 # Verziótörténet
 
+## v2.11.14 — 2026-09-16 — a néphagyomány nem jogvédett
+
+**Javítva: a program 316 közkincs műre azt írta, hogy szerzői jogvédelem alatt
+áll.** Az Irodalom menüben egy szöveg nélküli mű megnyitásakor a program eddig a
+`forrás` mező alapján döntötte el, hogy közkincs-e: csak akkor engedte beírni a
+szöveget, ha abban szerepelt a „nép" szó. A tételek nagy része viszont a gondozott
+korpuszból generálódik, annak pedig nincs `forrás` mezője — 485 szerző nélküli
+műből 308-nál üresen maradt. Így népmesékre, mondókákra, népdalokra és találós
+kérdésekre is azt írta a program, hogy jogvédettek. Ez nem igaz: a népi gyűjtés
+közkincs.
+
+Mostantól a szerző dönt — ahol nincs szerző, ott nincs kit védeni:
+
+- népi műfaj szerző nélkül (népmese, népmonda, mondóka, dal, körjáték, altató,
+  találós kérdés, valamint a néphagyományból való mese) → közkincs, a szöveg
+  beírható és onnantól a programban marad;
+- szerző nélküli vers vagy zenehallgatás → a program nem állít semmit, a
+  pedagógus dönti el, beírja-e;
+- ahol van szerző, ott marad a korábbi tájékoztatás.
+
+Új modul és teszt: `lib/irodalom-jogallas.ts` és `irodalom-jogallas.test.ts`
+(6 eset). 236 → 242 teszt.
+
+**Dokumentáció.** A README verzió-jelvénye 2.11.12-n állt, miközben a szövege
+2.11.13-at írt; az ÁTTEKINTÉS két helyen két különböző tesztszámot közölt (203 és
+236). Mind a valós értékre javítva.
+
 ## v2.11.13 — 2026-09-15 — visszaállítás a visszaállítási kulccsal
 
 **Javítva: a visszaállítási kulcsot a program sehol nem kérte be.** A kulcs arra

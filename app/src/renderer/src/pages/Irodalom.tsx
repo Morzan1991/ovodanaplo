@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Irodalom as IrodalomType, IrodalomTipus } from '@shared/schema';
 import { irodalomTipus } from '@shared/schema';
+import { jogallas } from '../lib/irodalom-jogallas';
 
 const TIPUS_CIMKE: Record<IrodalomTipus, string> = {
   vers: 'Vers',
@@ -17,15 +18,6 @@ const TIPUS_CIMKE: Record<IrodalomTipus, string> = {
   nepmonda: 'Népmonda',
 };
 
-/**
- * Közkincs-e a mű? A népi gyűjtések (mondóka, népdal, népi játék, népmese)
- * nem állnak szerzői jogvédelem alatt — ezek szövege szabadon beírható.
- */
-function kozkincs(m: { forras?: string | null; szerzo?: string | null }): boolean {
-  const f = (m.forras ?? '').toLowerCase();
-  const nepi = f.includes('nep') || f.includes('nép');
-  return nepi && !(m.szerzo ?? '').trim();
-}
 
 export default function Irodalom() {
   const [tetelek, setTetelek] = useState<IrodalomType[]>([]);
@@ -213,17 +205,27 @@ export default function Irodalom() {
                     {kivalasztott.szoveg}
                   </pre>
                 </div>
-              ) : kozkincs(kivalasztott) ? (
+              ) : jogallas(kivalasztott) !== 'jogvedett' ? (
                 /*
-                 * Népi mondóka, népdal, népmese — ezek KÖZKINCSEK, nem jogvédettek.
-                 * Korábban ezekre is azt írta a program, hogy szerzői jogvédelem
-                 * alatt állnak, ami félrevezető volt. Itt most be lehet írni a
-                 * szöveget egyszer, és onnantól a programban marad.
+                 * Nincs szerző → nincs kit védeni. A népmese, mondóka, népdal és a
+                 * néphagyományból való mese KÖZKINCS. A döntés korábban a `forras`
+                 * mező szövegén múlt, ami a korpuszból generált tételeknél üres —
+                 * ezért 316 szerző nélküli műre is azt írta a program, hogy
+                 * jogvédett. Itt be lehet írni a szöveget, és onnantól bent marad.
                  */
                 <div className="bg-sage-50 border border-sage-200 rounded p-4 mb-4">
                   <p className="text-sm text-ink/80 mb-2">
-                    🌿 Ez <strong>népi gyűjtés</strong> — nem áll szerzői jogvédelem alatt, csak
-                    a szövege nincs még beírva. Ha beírod egyszer, később már itt lesz.
+                    {jogallas(kivalasztott) === 'kozkincs' ? (
+                      <>
+                        🌿 Ez <strong>népi gyűjtés</strong> — nem áll szerzői jogvédelem alatt, csak
+                        a szövege nincs még beírva. Ha beírod egyszer, később már itt lesz.
+                      </>
+                    ) : (
+                      <>
+                        ✍️ Ehhez a tételhez <strong>nincs megadva szerző</strong>, a szövege pedig
+                        nincs beírva. Ha ismered és szabadon használható, beírhatod — utána itt marad.
+                      </>
+                    )}
                   </p>
                   <textarea
                     value={ujSzoveg}
