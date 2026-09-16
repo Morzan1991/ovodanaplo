@@ -31,7 +31,7 @@
 
 ```bash
 git config --global user.name "Morzan1991"
-git config --global user.email "lisztmaiergabor@gmail.com"
+git config --global user.email "sajat@email.cim"
 ```
 
 (Vagy a saját identitásoddal — a commit-tárgy az legyen, ami releváns.)

@@ -51,8 +51,17 @@ KIZART_KITERJESZTES = {
     ".tsbuildinfo", ".pyc",
 }
 
+# Egyedi fájlok, amelyek sosem kerülnek a csomagba.
+KIZART_FAJL = {
+    # Nyers szövegkinyerés az óvodapedagógus saját DOCX-eiből. A tartalma
+    # nevesít: teljes név, intézmény, csoport, dátumozott esemény szülők és
+    # gyermekek részvételével. A seed előállításához MÁR NEM KELL (egyetlen
+    # szkript sem olvassa), tehát nincs miért kódellenőrzésre kiadni.
+    "extracted_rest.txt",
+}
+
 # Amit a végső ellenőrzés gyanúsnak tekint (adatszivárgás elleni háló).
-TILTOTT_MINTA = (".db", "biztonsagi-mentes", "visszaallitasi-kulcs")
+TILTOTT_MINTA = (".db", "biztonsagi-mentes", "visszaallitasi-kulcs", "extracted_rest")
 
 
 def osszegyujt() -> list[Path]:
@@ -62,6 +71,8 @@ def osszegyujt() -> list[Path]:
         for nev in nevek:
             ut = Path(gyoker) / nev
             if ut.suffix.lower() in KIZART_KITERJESZTES:
+                continue
+            if nev in KIZART_FAJL:
                 continue
             ki.append(ut)
     return sorted(ki)

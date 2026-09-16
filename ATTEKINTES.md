@@ -241,6 +241,15 @@ Javasolt sorrend, ha az a kérdés, hogy megbízható-e a program:
 A `tools/` mappa átnézése csak akkor szükséges, ha a tartalom előállítása a
 kérdés. A felhasználó szempontjából az a `seed/`-ben már kész.
 
+**Figyelem a régi szkriptekre.** Az 50 szkriptből 11 egyszer lefutott, történeti
+migráció (`merge_*.py`, `bovites_*.py`, `fix_legacy_ie_es_korjatek.py`,
+`javit_irodalom_es_ie.py`, `normalizal_legacy.py`, `kiszedo_felnotti_versek.py`,
+`build_otletek_bank.py`, `zold_napok_uj.py`). Ezek egy korábbi gép abszolút
+útvonalát tartalmazzák (`C:\Users\Lenovo\Desktop\CODE\_ovodanaplo`), ezért ma hibával állnak meg.
+**Ezt szándékosan nem javítottuk:** működőképessé téve lefutnának, és egy már
+elvégzett átalakítást ismételnének meg a kész seeden. A mai láncot a fenti ábra
+szkriptjei alkotják, és azok idempotensek.
+
 ---
 
 ## 9. Ami NINCS a csomagban
@@ -251,6 +260,9 @@ kérdés. A felhasználó szempontjából az a `seed/`-ben már kész.
   teljes előzményhez a GitHub-repóba kell meghívás. (Azért marad ki, mert a
   fejlesztői jegyzetek kihagyása enélkül nem érne semmit: a `.git` visszaadná
   őket.)
+- `tools/extracted_rest.txt` — nyers szövegkinyerés az óvodapedagógus saját
+  dokumentumaiból. Nevesítő adatot tartalmaz (teljes név, intézmény, csoport),
+  a seed előállításához pedig már nem kell: egyetlen szkript sem olvassa.
 
 A teljes projektmappa a gépen 1,4 GB; ebből a forráskód és a tartalom 8,9 MB. A
 különbség mind újraelőállítható.
